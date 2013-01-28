@@ -109,11 +109,45 @@ The documentation of this project will be an ongoing process during all the phas
 
 <h3>Security</h3>
 <ul>
-	<li>An anonymous user will not have any access to the system, with the exception of the greeting page and/or the login form.</li>
-	<li>A student will not have any access to features that require lecturer/administrator access</li>
-	<li>A lecturer will not have any access to features that require administrator access</li>
-	<li>No user will be able to execute arbitrary database queries (SQL injection)</li>
+	<li>An anonymous user shall not have any access to the system, with the exception of the greeting page and/or the login form</li>
+	<li>A student shall not have any access to features that require lecturer/administrator access</li>
+	<li>A lecturer shall not have any access to features that require administrator access</li>
+	<li>No user shall be able to execute arbitrary database queries (SQL injection)</li>
+	<li>The system shall limit requests the number of requests to the login functionality to a maximum of 3 requests per minute in order to prevent brute force attacks</li>
 </ul>
+
+<h3>Compatibility</h3>
+<h4>Web app</h4>
+<p>
+The web app shall be compatibile with the following web browsers:
+</p>
+<ul>
+	<li>Firefox 3+</li>
+	<li>Chrome 4+</li>
+	<li>Safari 4+</li>
+	<li>Opera 10+</li>
+	<li>Internet Explorer 8+</li>
+</ul>
+
+<h4>Mobile app</h4>
+<p>
+The mobile app shall be compatibile with devices running Android 2.2+ (API level 8+).
+</p>
+
+<h3>Reliability</h3>
+<ul>
+	<li>The system shall issue a response to any request within 30 seconds</li>
+	<li>The system shall have a minimum uptime of 98% per year</li>
+	<li>In the event of a catastrophic failure, it should be possible to restore the system to a previous state that is no more than 7 days old</li>
+</ul>
+
+<h3>Maintainability</h3>
+<p>
+The source code of the system shall be clearly and effectively organised in order to allow new contributors to familiarise themselves with it after 7 days of training.
+</p>
+<p>
+The source code shall contain no less than 12% of inline comments.
+</p>
 
 <h1>Design</h1>
 <p>blah blah blah</p>

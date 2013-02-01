@@ -3,25 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-<Button
-    android:id="@+id/menuBtn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/menu" />
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp" >
 
-<Button
-    android:id="@+id/logOutBtn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_toRightOf="@+id/menuBtn"
-    android:text="@string/logOut" />
+        <Button
+            android:id="@+id/menuBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/menu" />
 
- <WebView
-     android:id="@+id/webView"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:layout_alignParentRight="true"
-     android:layout_below="@+id/menuBtn" />
+        <Button
+            android:id="@+id/logOutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/logOut" />
+
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1" />
 
 </RelativeLayout>

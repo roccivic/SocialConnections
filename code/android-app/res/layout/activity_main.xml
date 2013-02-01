@@ -1,22 +1,62 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity" >
+    
+    <TextView
+        android:id="@+id/userTV"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="104dp"
+        android:text="@string/username"
+        android:top="50dip" />
+    
+    <EditText
+        android:id="@+id/userET"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/userTV"
+        android:ems="10"
+        android:inputType="text" >
+		<requestFocus />
+    </EditText>
 
-    <WebView
-        android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/back" />
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/userET"
+        android:text="@string/password" />
+
+    <EditText
+        android:id="@+id/passET"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/userTV"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="27dp"
+        android:text="@string/loginInfo"
+        android:textSize="18dip" />
 
     <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
+        android:id="@+id/LogInBtn"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/back" />
-
+        android:layout_below="@+id/passET"
+        android:text="@string/LogIn" />
 </RelativeLayout>

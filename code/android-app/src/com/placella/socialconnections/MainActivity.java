@@ -3,7 +3,7 @@ package com.placella.socialconnections;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
-import android.webkit.WebView;
+
 
 public class MainActivity extends Activity {
 
@@ -12,8 +12,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		WebView window = (WebView) findViewById(R.id.webView);
-		window.loadUrl("http://socialconnections.placella.com/");
+	
 	}
 
 	@Override

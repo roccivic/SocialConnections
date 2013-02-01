@@ -5,5 +5,26 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="back">Back to main menu</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="LogIn">Log In</string>
+    <string name="loginInfo">Please, enter your Log In details below:</string>
+    <string name="title_activity_student_menu">StudentMenu</string>
+    <string name="studentMenu">Student Menu:</string>
+    <string name="checkAttendance">Check Attendance</string>
+    <string name="viewResults">View your results</string>
+    <string name="makeExcuse">Excuse yourself for missing class</string>
+    <string name="logOut">Log Out</string>
+    <string name="title_activity_lecturer_menu">LecturerMenu</string>
+    <string name="lecturerMenu">Lecturer Menu:</string>
+    <string name="takeAttendance">Take attendance</string>
+    <string name="postNotes">Post notes on Dropbox</string>
+    <string name="viewStudentAttendance">View attendance of students</string>
+    <string name="viewTwitter">View Twitter wall</string>
+    <string name="postTwitter">Post on Twitter wall</string>
+    <string name="postResults">Post CA assesments results</string>
+    <string name="title_activity_web">Web</string>
+    <string name="menu">Menu</string>
+    <string name="webUrl">http://socialconnections.placella.com/</string>
 
 </resources>

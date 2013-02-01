@@ -66,6 +66,6 @@
         android:layout_above="@+id/takeAttendanceBtn"
         android:layout_alignParentLeft="true"
         android:text="@string/lecturerMenu"
-        android:textSize="20http://socialconnections.placella.com/dip" />
+        android:textSize="20dip" />
 
 </RelativeLayout>

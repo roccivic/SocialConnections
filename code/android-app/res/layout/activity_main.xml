@@ -50,7 +50,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="27dp"
         android:text="@string/loginInfo"
-        android:textSize="18dip" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/LogInBtn"

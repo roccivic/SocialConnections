@@ -42,7 +42,7 @@
         android:layout_above="@+id/checkAttendanceBtn"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="16dp"
-        android:text="@string/studentMenu" 
-        android:textSize="15dip"/>
+        android:text="@string/studentMenu"
+        android:textSize="15sp"/>
 
 </RelativeLayout>

@@ -26,5 +26,6 @@
     <string name="title_activity_web">Web</string>
     <string name="menu">Menu</string>
     <string name="webUrl">http://socialconnections.placella.com/</string>
+    <string name="title_activity_attendance">Attendance</string>
 
 </resources>

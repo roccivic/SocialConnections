@@ -53,10 +53,8 @@ public class LecturerMenu extends Activity {
     {  
       
     	if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
-        	//open the attendance activity & specify the path of the file
-        	 Intent intent = new Intent(getBaseContext(), Attendance.class);
-        	intent.putExtra("path", path);
-        	 startActivity(intent);
+        	//run query
+        	Query q = new Query(path);
     	}
       }  
         

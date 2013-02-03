@@ -12,20 +12,19 @@
     <string name="title_activity_student_menu">StudentMenu</string>
     <string name="studentMenu">Student Menu:</string>
     <string name="checkAttendance">Check Attendance</string>
-    <string name="viewResults">View your results</string>
-    <string name="makeExcuse">Excuse yourself for missing class</string>
+    <string name="viewResults">View Your Results</string>
+    <string name="makeExcuse">Excuse Yourself for Missing Class</string>
     <string name="logOut">Log Out</string>
     <string name="title_activity_lecturer_menu">LecturerMenu</string>
     <string name="lecturerMenu">Lecturer Menu:</string>
-    <string name="takeAttendance">Take attendance</string>
-    <string name="postNotes">Post notes on Dropbox</string>
-    <string name="viewStudentAttendance">View attendance of students</string>
-    <string name="viewTwitter">View Twitter wall</string>
-    <string name="postTwitter">Post on Twitter wall</string>
-    <string name="postResults">Post CA assesments results</string>
+    <string name="takeAttendance">Take Attendance</string>
+    <string name="postNotes">Post Notes on Dropbox</string>
+    <string name="viewStudentAttendance">View Student Attendance</string>
+    <string name="viewTwitter">View Twitter Wall</string>
+    <string name="postTwitter">Post on Twitter Wall</string>
+    <string name="postResults">Post CA Results</string>
     <string name="title_activity_web">Web</string>
     <string name="menu">Menu</string>
     <string name="webUrl">http://socialconnections.placella.com/</string>
     <string name="title_activity_attendance">Attendance</string>
-
 </resources>

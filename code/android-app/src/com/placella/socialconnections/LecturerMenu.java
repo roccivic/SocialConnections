@@ -8,15 +8,16 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
-import android.view.View;
+import android.view.*;
+import android.webkit.*;
 import android.widget.Button;
 
 public class LecturerMenu extends Activity {
-	
+	Activity self = this;
 	private static final int CAMERA_REQUEST = 0;
+	private static final int WEB_REQUEST = 1;
 	public String path="";
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +25,7 @@ public class LecturerMenu extends Activity {
         
         //declare button for taking attendance
         Button takeAttendance = (Button) this.findViewById(R.id.takeAttendanceBtn);
-        
-       //set onclick listener for take attendance button
+        //set onclick listener for take attendance button
         takeAttendance.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -47,19 +47,69 @@ public class LecturerMenu extends Activity {
           
 			}	
 		});
+        
+        Intent incoming = getIntent();
+        final String token = incoming.getStringExtra("token");
+        
+        Button button;
+
+        button = (Button) findViewById(R.id.postResultsBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Web.launch(self, "postResults", token);
+			}
+        });
+        button = (Button) findViewById(R.id.postTwitterBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Web.launch(self, "postTwitter", token);
+			}
+        });
+        button = (Button) findViewById(R.id.viewTwitterBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Web.launch(self, "viewTwitter", token);
+			}
+        });
+        button = (Button) findViewById(R.id.viewStudentAttendanceBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Web.launch(self, "viewStudentAttendance", token);
+			}
+        });
+        button = (Button) findViewById(R.id.postNotesBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Web.launch(self, "postNotes", token);
+			}
+        });
+        button = (Button) findViewById(R.id.logOutBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+			    CookieSyncManager.createInstance(self);
+			    CookieManager.getInstance().removeAllCookie();
+			    finish();
+			}
+        });
       }
     
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) 
-    {  
-      
-    	if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
         	//open the attendance activity & specify the path of the file
         	 Intent intent = new Intent(getBaseContext(), Attendance.class);
-        	intent.putExtra("path", path);
+        	 intent.putExtra("path", path);
         	 startActivity(intent);
+    	} else if (requestCode == WEB_REQUEST && resultCode == 0) {
+    		finish();
     	}
-      }  
-        
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_lecturer_menu, menu);

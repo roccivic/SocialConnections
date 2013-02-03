@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR socialconnections translators
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: socialconnections@placella.com\n"
+"POT-Creation-Date: 2013-02-02 23:51+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: classes/Lang.class.php:25
+msgid "English"
+msgstr ""
+
+#: classes/Lang.class.php:26
+msgid "Italiano"
+msgstr ""
+
+#: classes/Menu.class.php:20
+msgid "Student Menu"
+msgstr ""
+
+#: classes/Menu.class.php:22
+msgid "Check Attendance"
+msgstr ""
+
+#: classes/Menu.class.php:23
+msgid "View Your Results"
+msgstr ""
+
+#: classes/Menu.class.php:24
+msgid "Excuse Yourself for Missing a Class"
+msgstr ""
+
+#: classes/Menu.class.php:36
+msgid "Lecturer Menu"
+msgstr ""
+
+#: classes/Menu.class.php:38
+msgid "Post Notes on Dropbox"
+msgstr ""
+
+#: classes/Menu.class.php:39
+msgid "View Student Attendance"
+msgstr ""
+
+#: classes/Menu.class.php:40
+msgid "View Twitter Wall"
+msgstr ""
+
+#: classes/Menu.class.php:41
+msgid "Post to Twitter Wall"
+msgstr ""
+
+#: classes/Menu.class.php:42
+msgid "Post CA Results"
+msgstr ""
+
+#: classes/Menu.class.php:54
+msgid "Admin Menu"
+msgstr ""
+
+#: classes/Menu.class.php:56
+msgid "Do Something"
+msgstr ""
+
+#: classes/Menu.class.php:57
+msgid "Do Something Else"
+msgstr ""
+
+#: classes/Menu.class.php:69
+msgid "Superuser Menu"
+msgstr ""
+
+#: classes/Menu.class.php:71
+msgid "Super Functionality 1"
+msgstr ""
+
+#: classes/Menu.class.php:72
+msgid "Super Functionality 2"
+msgstr ""
+
+#: classes/Page.class.php:77
+msgid "Unable to connect to database"
+msgstr ""
+
+#: classes/Page.class.php:175
+msgid "Back"
+msgstr ""
+
+#: classes/Page.class.php:237
+msgid "Social Connections Web App"
+msgstr ""
+
+#: classes/Page.class.php:267
+msgid "Log out"
+msgstr ""
+
+#: classes/PageFactory.class.php:41
+#, possible-php-format
+msgid "Warning: Missing required parameter \"%s\""
+msgstr ""
+
+#: classes/PageFactory.class.php:54
+msgid "The requested page does not exist"
+msgstr ""
+
+#: classes/pages/Page_authError.class.php:18
+msgid "You don't have the permissions to view this page."
+msgstr ""
+
+#: classes/pages/Page_login.class.php:21
+msgid ""
+"Error: You have exceeded your maximum number of login attempts. Please try "
+"again later."
+msgstr ""
+
+#: classes/pages/Page_login.class.php:31
+msgid "Error: Invalid username or password"
+msgstr ""
+
+#: classes/pages/Page_login.class.php:44
+msgid "Your session has expired, please log in again"
+msgstr ""
+
+#: classes/pages/Page_login.class.php:59
+msgid "Login Form"
+msgstr ""
+
+#: classes/pages/Page_login.class.php:62
+msgid "Username"
+msgstr ""
+
+#: classes/pages/Page_login.class.php:72
+msgid "Password"
+msgstr ""
+
+#: classes/pages/Page_login.class.php:76
+msgid "Language"
+msgstr ""
+
+#: classes/pages/Page_login.class.php:81
+msgid "Go"
+msgstr ""
+
+#: classes/pages/Page_main.class.php:38
+#, possible-php-format
+msgid "Welcome, %1$s %2$s."
+msgstr ""
+
+#: classes/pages/Page_main.class.php:44
+msgid "To start, please select an action from the menu."
+msgstr ""
+
+#: classes/pages/Page_main.class.php:46
+msgid "Photo of main campus"
+msgstr ""

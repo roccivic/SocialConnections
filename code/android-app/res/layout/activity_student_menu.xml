@@ -12,7 +12,7 @@
         android:text="@string/makeExcuse" />
 
     <Button
-        android:id="@+id/logOut"
+        android:id="@+id/logOutBtn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

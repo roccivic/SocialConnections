@@ -9,11 +9,11 @@
         android:targetSdkVersion="16" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
-	<uses-permission android:name="android.permission.CAMERA" />
- 	<uses-feature android:name="android.hardware.camera" />
- 	<uses-feature android:name="android.hardware.camera.autofocus" />
-    
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StudentMenu"
+            android:name="com.placella.socialconnections.StudentMenu"
             android:label="@string/title_activity_student_menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LecturerMenu"
+            android:name="com.placella.socialconnections.LecturerMenu"
             android:label="@string/title_activity_lecturer_menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Web"
+            android:name="com.placella.socialconnections.Web"
             android:label="@string/title_activity_web" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +55,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+        <activity
+            android:name="com.placella.socialconnections.PicUpload"
+            android:label="@string/title_activity_pic_upload" >
+        </activity>
     </application>
 
 </manifest>

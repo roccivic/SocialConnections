@@ -15,8 +15,10 @@ import android.widget.Button;
 public class LecturerMenu extends Activity {
 	Activity self = this;
 	private static final int CAMERA_REQUEST = 0;
+	private static final int CAMERA_UPLOAD_REQUEST = 2;
 	private static final int WEB_REQUEST = 1;
 	public String path="";
+	
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class LecturerMenu extends Activity {
         
         //declare button for taking attendance
         Button takeAttendance = (Button) this.findViewById(R.id.takeAttendanceBtn);
+        Button uploadpic = (Button) this.findViewById(R.id.uploadPicBtn);
         //set onclick listener for take attendance button
         takeAttendance.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -47,6 +50,36 @@ public class LecturerMenu extends Activity {
           
 			}	
 		});
+        
+        /*
+         * A button that will take a picture and bring user to new activity
+         * to upload it
+         */
+     uploadpic.setOnClickListener(new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			path=Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/";
+			File file = new File(path,"uploadtest.jpg");
+			path += "uploadtest.jpg";
+			try {
+				file.createNewFile();
+				} 
+			catch (IOException e) {
+				e.printStackTrace();
+				}
+			Uri uri = Uri.fromFile(file);
+			Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+			startActivityForResult(intent, CAMERA_UPLOAD_REQUEST);
+			
+		}
+	});
+   
+        
+        
+        
+        //-------------------------------------------------------------------
         
         Intent incoming = getIntent();
         final String token = incoming.getStringExtra("token");
@@ -109,7 +142,11 @@ public class LecturerMenu extends Activity {
 
     	} else if (requestCode == WEB_REQUEST && resultCode == 0) {
     		finish();
-
+    	}
+    	else if(requestCode==CAMERA_UPLOAD_REQUEST && resultCode== RESULT_OK) {
+    		Intent i = new Intent(getBaseContext(), PicUpload.class);
+    		i.putExtra("path", path);
+    		startActivity(i);
     	}
     }
 

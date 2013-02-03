@@ -4,15 +4,6 @@
     android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/logOutBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="78dp"
-        android:text="@string/logOut" />
-
-    <Button
         android:id="@+id/postResultsBtn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -21,51 +12,70 @@
         android:text="@string/postResults" />
 
     <Button
-        android:id="@+id/postTwitterBtn"
+        android:id="@+id/logOutBtn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/postResultsBtn"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/postTwitter" />
+        android:layout_marginBottom="33dp"
+        android:text="@string/logOut" />
 
-    <Button
-        android:id="@+id/viewTwitterBtn"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/postTwitterBtn"
         android:layout_alignParentLeft="true"
-        android:text="@string/viewTwitter" />
-
-    <Button
-        android:id="@+id/viewStudentAttendanceBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/viewTwitterBtn"
-        android:layout_alignParentLeft="true"
-        android:text="@string/viewStudentAttendance" />
-
-    <Button
-        android:id="@+id/postNotesBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/viewStudentAttendanceBtn"
-        android:layout_alignParentLeft="true"
-        android:text="@string/postNotes" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="22dp"
+        android:text="@string/lecturerMenu"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/takeAttendanceBtn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/postNotesBtn"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
         android:text="@string/takeAttendance" />
 
-    <TextView
+    <Button
+        android:id="@+id/postNotesBtn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/takeAttendanceBtn"
         android:layout_alignParentLeft="true"
-        android:text="@string/lecturerMenu"
-        android:textSize="20sp" />
+        android:layout_below="@+id/takeAttendanceBtn"
+        android:text="@string/postNotes" />
+
+    <Button
+        android:id="@+id/viewStudentAttendanceBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/postNotesBtn"
+        android:text="@string/viewStudentAttendance" />
+
+    <Button
+        android:id="@+id/viewTwitterBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/viewStudentAttendanceBtn"
+        android:text="@string/viewTwitter" />
+
+    <Button
+        android:id="@+id/postTwitterBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/viewTwitterBtn"
+        android:text="@string/postTwitter" />
+
+    <Button
+        android:id="@+id/uploadPicBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/postTwitterBtn"
+        android:text="@string/upload" />
 
 </RelativeLayout>

@@ -71,38 +71,31 @@ The documentation of this project will be an ongoing process during all the phas
 
 <h2>Functional Requirements</h2>
 
-<h3>Using both the android app and the web interface, the student will be able to:</h3>
+<h3>Using either the android app or the web interface, the student will be able to:</h3>
 <ul>
 	<li>Login into his account, using either his student id or email in combination with a valid password</li>
-	<li>Check his overall attendance for each module that he is enrolled in</li>
-	<li>Check his attendance for labs in each module that he is enrolled in</li>
-	<li>Check his attendance for lectures in each module that he is enrolled in</li>
-	<li>View his results for CA assesments that have been published by the lecturer</li>
+	<li>Check their overall attendance for each module that he is enrolled in</li>
+	<li>Check their attendance for labs in each module that he is enrolled in</li>
+	<li>Check their attendance for lectures in each module that he is enrolled in</li>
+	<li>View their results for CA assesments that have been published by the lecturer</li>
 	<li>Leave a note for the lecturer of a module for which he has missed a class</li>
+	<li>Recieve notifications from the lecturers about notes uploaded or assignments that are due</li>
 </ul>
 
-<h3>Using the android app, the lecturer will be able to:</h3>
-<ul>
-	<li>Post notes on Dropbox</li>
-	<li>Take pictures of students and upload them</li>
-</ul>
-
-<h3>Using the web app, the lecturer will be able to:</h3>
-<ul>
-	<li>Create classes by adding student details one by one</li>
-	<li>Upload a class list of students whose attendance will be recorded</li>
-	<li>Add/Update/Delete members within a class</li>
-	 
-</ul>
 
 <h3>Using both the android app and the web interface, the lecturer will be able to:</h3>
 <ul>
   	<li>Login into his account, using either his student id or email in combination with a valid password</li>
-	<li>Take attendence of students for lectures and labs that he teaches</li>
+  	<li>Post notes on Dropbox</li>
+	<li>Take pictures of students and upload them to take attendance</li>
+	<li>Manually take attendance of students from classes s/he teaches (in case of failed facial recognition</li>
 	<li>View attendence of students from classes that he teaches (needs to be expanded from specification document)</li>
- 	<li>View twitter wall</li>
-	<li>Post on twitter wall</li>
+ 	<li>View attendance of students in modules besides their own</li>
+ 	<li>View/post on twitter wall</li>
 	<li>Post CA assesments results for modules that he teaches</li>
+	<li>Create classes by adding student details one by one</li>
+	<li>Upload a class list of students whose attendance will be recorded</li>
+	<li>Add/Update/Delete members within a class</li>
 </ul>
 
 <h3>Using the web app, the administrator will be able to:</h3>
@@ -113,6 +106,7 @@ The documentation of this project will be an ongoing process during all the phas
 	<li>Set threshold that defines poor attendance for labs in a module</li>
 	<li>Add/Edit/Delete a lecturer</li>
 	<li>???Students who are grant aided should be tracked to see how much they are owed???</li>
+	<li>Contact students about attendance</li>
 </ul>
 
 <h3>The system will be able to:</h3>
@@ -135,10 +129,17 @@ The documentation of this project will be an ongoing process during all the phas
 	<li>The system shall limit requests the number of requests to the login functionality to a maximum of 3 requests per minute in order to prevent brute force attacks</li>
 </ul>
 
+<h3>Look and Feel</h3>
+<ul>
+	<li>The interface will be minimalistic to ensure ease of use</li>
+	<li>The layout of the web app and the android application will be based on each other</li>
+	<li>The same experience will be available to all users of the application</li>
+</ul>
+
 <h3>Compatibility</h3>
 <h4>Web app</h4>
 <p>
-The web app shall be compatibile with the following web browsers:
+The web app shall be compatibile with any browser that supports html 5 and javascript. These include following web browsers:
 </p>
 <ul>
 	<li>Firefox 3+</li>
@@ -168,6 +169,9 @@ The source code of the system shall be clearly and effectively organised in orde
 <p>
 The source code shall contain no less than 12% of inline comments.
 </p>
+<p>
+All developers will need a working knowledge so issues can be dealt with immediately
+</p>
 
 <h3>Extensibility</h3>
 <ul>
@@ -179,6 +183,7 @@ The source code shall contain no less than 12% of inline comments.
 <ul>
 	<li>A different college should be able to personalize the system with very little changes</li>
 	<li>A college from a different country should easily be able to translate the system</li>
+	<li>The mobile application should be easily ported to other mobile operating systems</li>
 </ul>
 
 <h3>Resource Utilization</h3>

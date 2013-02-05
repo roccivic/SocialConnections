@@ -24,8 +24,8 @@ import org.apache.http.impl.cookie.DateUtils;
  */
 public class Query extends Thread{
 	
-	private static String secretKey="WT1tbKB0pNPKCwerm3UC39kqBA0HhUGTijYEUlyn";
-	private static String urlpath="https://query-api.kooaba.com/v4/query";
+	private static String secretKey=VARS.secretKeyQuery;
+	private static String urlpath=VARS.urlpathQuery;
 	@SuppressLint("SimpleDateFormat")
 	private SimpleDateFormat formatter= new SimpleDateFormat("yyyy/MMM/dd HH:mm:ss");
 	private static String path="";

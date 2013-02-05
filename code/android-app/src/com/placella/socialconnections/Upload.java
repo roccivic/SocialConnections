@@ -20,9 +20,8 @@ import android.annotation.SuppressLint;
 
 
 public class Upload {
-	private static String bucket = "4f3facab-f804-4b4a-a73b-6e5ae33b07ea";
-	private static String secretKey ="aT4pL3nsDlU92DhCDJGXPYlsg1ENnYpao75jY2hb";
-private static String urlpath = "https://upload-api.kooaba.com/api/v4/buckets/"+bucket+"/items";
+private static String secretKey =VARS.secretKeyUpload;
+private static String urlpath = VARS.urlpathUpload;
 
 
 @SuppressLint("SimpleDateFormat")

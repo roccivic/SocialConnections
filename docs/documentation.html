@@ -135,7 +135,7 @@ We will find out who the stakeholders are, and their interactions with the syste
 
 <h3>Use cases</h3>
 
-<table border="1" width="100%">
+<table border="1" width="100%" cellpadding="4">
 	<tr>
 		<td width="20%">Use case ID:</td>
 		<td width="80%"></td>
@@ -169,12 +169,275 @@ We will find out who the stakeholders are, and their interactions with the syste
 		<td></td>
 	</tr>
 	<tr>
-		<td>Normal flow:</td>
+		<td>Normal Flow:</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
 		<td></td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>E-mail students attendance percentages at the end of every week</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>At the end of every week the students will recieve an automatically generated e-mail with their attendance information</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>A web server with Linux kernal 2.6+ that is running Apache 2.2+</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>On a certain day of every week all students inforamtion is gathered</li>
+				<li>All students overall attendance percentage is calculated per module</li>
+				<li>An automatically generated e-mail is sent to every student</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>low</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Notify user of new posts on Twitter</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>If a lecturer or student posts on twitter regarding a common module, all users linked to that module will be notified</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+		A web server with Linux kernal 2.6+ that is running Apache 2.2+<br />
+		The android application is installed on	a device running Android 2.2+
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>A lecturer or student posts to Twitter regarding a module</li>
+				<li>System gathers information about users that are linked to that module</li>
+				<li>System sends a notificaiton to these users regarding Twitter post</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td></td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Notify student of new CA marks are availible</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>When a lecturer uploads results to CA, students that have results will be notified</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+		A web server with Linux kernal 2.6+ that is running Apache 2.2+<br />
+		The android application is installed on	a device running Android 2.2+
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>A lecturer uploads CA marks through mobile application</li>
+				<li>System gathers information about students that have CA results</li>
+				<li>System sends a notification to students regarding CA results</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>Medium</td>
+	</tr>
+</table>
+
+<br />
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Notify student of new notes availible on Dropbox</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>When a lecturer adds notes to Dropbox, students enrolled in that module will be notified</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+		A web server with Linux kernal 2.6+ that is running Apache 2.2+<br />
+		The android application is installed on	a device running Android 2.2+
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>A lecturer uploads notes to Dropbox</li>
+				<li>System gathers group information of students enrolled in that module</li>
+				<li>System sends a notification to students</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>Medium</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>E-mail the head of dapartment if a module is poorly attended</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>05/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>If any module has a poor attendance the head of that deapatment will recieve an e-mail notification</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>A web server with Linux kernal 2.6+ that is running Apache 2.2+</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>System is triggered when a groups attendance to module is low</li>
+				<li>Information about the head of that groups department </li>
+				<li>System e-mails head of department with an automatic e-mail regarding attendance of the module</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>Medium</td>
 	</tr>
 </table>
 

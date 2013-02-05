@@ -133,6 +133,183 @@ Deadline: 8 February 2013
 We will find out who the stakeholders are, and their interactions with the system. Gathering requirements and documenting them is the next step. We will develop Use Case diagrams or different for better understanding of the problem. They will also be used as test cases when the system is developed.
 </p>
 
+
+
+
+<h3>Design phase</h3>
+<p>
+Deadline: 1 March 2013
+</p>
+<p>
+Our objective is to make a simple, efficient, flexible, maintainable, secure, reliable and object-oriented design. We will use diagrams, such as UML, to illustrate the design and interactions between classes.
+</p>
+
+<h3>Implementation phase</h3>
+<p>
+Deadline: 22 March 2013
+</p>
+<p>
+We are going to be using git as our source code management system. Our git repository is hosted at <a href="https://github.com/roccivic/SocialConnections/">https://github.com/roccivic/SocialConnections/</a>.
+</p>
+
+<h3>Testing and Further Developments</h3>
+<p>
+Deadline: 27 March 2013
+</p>
+<p>
+We are going to take up a distructive approach, meaning that our goal, while testing, will be to prove that the system fails. After we have found the failings we will attempt to fix them.
+</p>
+
+<h3>Documentation</h3>
+<p>
+Deadline: 29 March 2013
+</p>
+<p>
+The documentation of this project will be an ongoing process during all the phases.
+</p>
+
+<h1>Requirements</h1>
+
+<h2>Functional Requirements</h2>
+
+<h3>Using the web interface, the user will be able to:</h3>
+<ul>
+	<li>On the log in screen, choose one of the languages available on the system</li>
+</ul>
+
+<h3>Using both the android app or the web interface, the student will be able to:</h3>
+<ul>
+	<li>Login into his account, using either his student id or email in combination with a valid password</li>
+	<li>Check his overall attendance for each module that he is enrolled in</li>
+	<li>Check his attendance for labs in each module that he is enrolled in</li>
+	<li>Check his attendance for lectures in each module that he is enrolled in</li>
+	<li>View his results for CA assesments that have been published by the lecturer</li>
+	<li>Leave a note for the lecturer of a module for which he has missed a class</li>
+	<li>Get a link to notes posted on Dropbox by a lecturer</li>
+	<li>View the Twitter wall</li>
+	<li>Post to the Twitter wall</li>
+</ul>
+
+<h3>Using both the android app and the web app, the lecturer will be able to:</h3>
+<ul>
+  	<li>Login into his account, using either his student id or email in combination with a valid password</li>
+  	<li>View attendence of students from classes that he teaches</li>
+ 	<li>View attendance of students in modules besides their own</li>
+ 	<li>Post CA assesments results for modules that he teaches</li>
+ 	<li>Create classes by adding student details one by one</li>
+	<li>Add/Update/Delete members within a class</li>
+	<li>View the Twitter wall</li>
+	<li>Post to the Twitter wall</li>
+</ul>
+
+<h3>Using the android app, the lecturer will be able to:</h3>
+<ul>
+	<li>Take pictures of students and add them to their profile</li>
+	<li>Take attendance of students using facial recognition</li>
+	<li>Manually take attendance of students</li>
+	<li>Post notes on Dropbox</li>
+</ul>
+
+<h3>Using the web app, the administrator will be able to:</h3>
+<ul>
+	<li>Add a new department to the system</li>
+	<li>Compare attendance levels between different departments</li>
+	<li>Set threshold that defines poor attendance for a module</li>
+	<li>Set threshold that defines poor attendance for labs in a module</li>
+	<li>Add/Edit/Delete a lecturer</li>
+	<li>See how much students who are grant aided to are owed</li>
+</ul>
+
+<h3>The system will be able to:</h3>
+<ul>
+	<li>E-mail attendance reminder to students weekly</li>
+	<li>Notify the lecturer about new posts on twitter</li>
+	<li>Notify the student about new posts on twitter</li>
+	<li>Notify the student about new CA results</li>
+	<li>Notify the student about new notes uploded to Dropbox</li>
+	<li>E-mail the head of department if a module is poorly attended</li>
+</ul>
+
+<h2>Non Functional Requirements</h2>
+
+<h3>Security</h3>
+<ul>
+	<li>An anonymous user shall not have any access to the system, with the exception of the greeting page and/or the login form</li>
+	<li>A student shall not have any access to features that require lecturer/administrator access</li>
+	<li>A lecturer shall not have any access to features that require administrator access</li>
+	<li>No user shall be able to execute arbitrary database queries (SQL injection)</li>
+	<li>The system shall limit requests the number of requests to the login functionality to a maximum of 3 requests per minute in order to prevent brute force attacks</li>
+</ul>
+
+<h3>Look and Feel</h3>
+<ul>
+	<li>The interface will be minimalistic to ensure ease of use</li>
+	<li>The layout of the web app and the android application will be based on each other</li>
+	<li>The same experience will be available to all users of the application</li>
+</ul>
+
+<h3>Compatibility</h3>
+<h4>Web app</h4>
+<p>
+The web app shall be compatibile with any browser that supports html 5 and javascript. These include following web browsers:
+</p>
+<ul>
+	<li>Firefox 3+</li>
+	<li>Chrome 4+</li>
+	<li>Safari 4+</li>
+	<li>Opera 10+</li>
+	<li>Internet Explorer 8+</li>
+</ul>
+<p>The web app shall be able to run on a web server with Linux kernal 2.6+ that is running Apache 2.2+.</p>
+
+<h4>Mobile app</h4>
+<p>
+The mobile app shall be compatibile with devices running Android 2.2+ (API level 8+).
+</p>
+
+<h3>Reliability</h3>
+<ul>
+	<li>The system shall issue a response to any request within 30 seconds</li>
+	<li>The system shall have a minimum uptime of 98% per year</li>
+	<li>In the event of a catastrophic failure, it should be possible to restore the system to a previous state that is no more than 7 days old</li>
+</ul>
+
+<h3>Maintainability</h3>
+<p>
+The source code of the system shall be clearly and effectively organised in order to allow new contributors to familiarise themselves with it after 7 days of training.
+</p>
+<p>
+The source code shall contain no less than 12% of inline comments.
+</p>
+<p>
+All developers will need a working knowledge so issues can be dealt with immediately
+</p>
+
+<h3>Extensibility</h3>
+<ul>
+	<li>The system should be designed using Object-Oriented practices which will allow the maintainer to add new features easily</li>
+	<li>The documentation should be comprehensive in order to help the maintainer extend the functionality</li>
+</ul>
+
+<h3>Reusability</h3>
+<ul>
+	<li>A different college should be able to personalize the system with very little changes</li>
+	<li>A college from a different country should easily be able to translate the system</li>
+	<li>The mobile application should be easily ported to other mobile operating systems</li>
+</ul>
+
+<h3>Resource Utilization</h3>
+<ul>
+	<li>The android app should be no bigger than 10MB</li>
+	<li>The web server shall not utilise more than 1GB of memory while operating</li>
+</ul>
+
+<h2>Domain Model</h2>
+<img src="DomainModel.png" alt="Domain Model" />
+
+<h2>Use case diagram</h2>
+<img src="use-case-diagram.jpg" alt="Use Case Diagram" />
+
 <h3>Use cases</h3>
 
 <table border="1" width="100%" cellpadding="4">
@@ -440,181 +617,6 @@ We will find out who the stakeholders are, and their interactions with the syste
 		<td>Medium</td>
 	</tr>
 </table>
-
-
-<h3>Design phase</h3>
-<p>
-Deadline: 1 March 2013
-</p>
-<p>
-Our objective is to make a simple, efficient, flexible, maintainable, secure, reliable and object-oriented design. We will use diagrams, such as UML, to illustrate the design and interactions between classes.
-</p>
-
-<h3>Implementation phase</h3>
-<p>
-Deadline: 22 March 2013
-</p>
-<p>
-We are going to be using git as our source code management system. Our git repository is hosted at <a href="https://github.com/roccivic/SocialConnections/">https://github.com/roccivic/SocialConnections/</a>.
-</p>
-
-<h3>Testing and Further Developments</h3>
-<p>
-Deadline: 27 March 2013
-</p>
-<p>
-We are going to take up a distructive approach, meaning that our goal, while testing, will be to prove that the system fails. After we have found the failings we will attempt to fix them.
-</p>
-
-<h3>Documentation</h3>
-<p>
-Deadline: 29 March 2013
-</p>
-<p>
-The documentation of this project will be an ongoing process during all the phases.
-</p>
-
-<h1>Requirements</h1>
-
-<h2>Functional Requirements</h2>
-
-<h3>Using the web interface, the user will be able to:</h3>
-<ul>
-	<li>On the log in screen, choose one of the languages available on the system</li>
-</ul>
-
-<h3>Using both the android app or the web interface, the student will be able to:</h3>
-<ul>
-	<li>Login into his account, using either his student id or email in combination with a valid password</li>
-	<li>Check his overall attendance for each module that he is enrolled in</li>
-	<li>Check his attendance for labs in each module that he is enrolled in</li>
-	<li>Check his attendance for lectures in each module that he is enrolled in</li>
-	<li>View his results for CA assesments that have been published by the lecturer</li>
-	<li>Leave a note for the lecturer of a module for which he has missed a class</li>
-	<li>Get a link to notes posted on Dropbox by a lecturer</li>
-	<li>View the Twitter wall</li>
-	<li>Post to the Twitter wall</li>
-</ul>
-
-<h3>Using both the android app and the web app, the lecturer will be able to:</h3>
-<ul>
-  	<li>Login into his account, using either his student id or email in combination with a valid password</li>
-  	<li>View attendence of students from classes that he teaches</li>
- 	<li>View attendance of students in modules besides their own</li>
- 	<li>Post CA assesments results for modules that he teaches</li>
- 	<li>Create classes by adding student details one by one</li>
-	<li>Add/Update/Delete members within a class</li>
-	<li>View the Twitter wall</li>
-	<li>Post to the Twitter wall</li>
-</ul>
-
-<h3>Using the android app, the lecturer will be able to:</h3>
-<ul>
-	<li>Take pictures of students and add them to their profile</li>
-	<li>Take attendance of students using facial recognition</li>
-	<li>Manually take attendance of students</li>
-	<li>Post notes on Dropbox</li>
-</ul>
-
-<h3>Using the web app, the administrator will be able to:</h3>
-<ul>
-	<li>Add a new department to the system</li>
-	<li>Compare attendance levels between different departments</li>
-	<li>Set threshold that defines poor attendance for a module</li>
-	<li>Set threshold that defines poor attendance for labs in a module</li>
-	<li>Add/Edit/Delete a lecturer</li>
-	<li>See how much students who are grant aided to are owed</li>
-</ul>
-
-<h3>The system will be able to:</h3>
-<ul>
-	<li>E-mail attendance reminder to students weekly</li>
-	<li>Notify the lecturer about new posts on twitter</li>
-	<li>Notify the student about new posts on twitter</li>
-	<li>Notify the student about new CA results</li>
-	<li>Notify the student about new notes uploded to Dropbox</li>
-	<li>E-mail the head of department if a module is poorly attended</li>
-</ul>
-
-<h2>Non Functional Requirements</h2>
-
-<h3>Security</h3>
-<ul>
-	<li>An anonymous user shall not have any access to the system, with the exception of the greeting page and/or the login form</li>
-	<li>A student shall not have any access to features that require lecturer/administrator access</li>
-	<li>A lecturer shall not have any access to features that require administrator access</li>
-	<li>No user shall be able to execute arbitrary database queries (SQL injection)</li>
-	<li>The system shall limit requests the number of requests to the login functionality to a maximum of 3 requests per minute in order to prevent brute force attacks</li>
-</ul>
-
-<h3>Look and Feel</h3>
-<ul>
-	<li>The interface will be minimalistic to ensure ease of use</li>
-	<li>The layout of the web app and the android application will be based on each other</li>
-	<li>The same experience will be available to all users of the application</li>
-</ul>
-
-<h3>Compatibility</h3>
-<h4>Web app</h4>
-<p>
-The web app shall be compatibile with any browser that supports html 5 and javascript. These include following web browsers:
-</p>
-<ul>
-	<li>Firefox 3+</li>
-	<li>Chrome 4+</li>
-	<li>Safari 4+</li>
-	<li>Opera 10+</li>
-	<li>Internet Explorer 8+</li>
-</ul>
-<p>The web app shall be able to run on a web server with Linux kernal 2.6+ that is running Apache 2.2+.</p>
-
-<h4>Mobile app</h4>
-<p>
-The mobile app shall be compatibile with devices running Android 2.2+ (API level 8+).
-</p>
-
-<h3>Reliability</h3>
-<ul>
-	<li>The system shall issue a response to any request within 30 seconds</li>
-	<li>The system shall have a minimum uptime of 98% per year</li>
-	<li>In the event of a catastrophic failure, it should be possible to restore the system to a previous state that is no more than 7 days old</li>
-</ul>
-
-<h3>Maintainability</h3>
-<p>
-The source code of the system shall be clearly and effectively organised in order to allow new contributors to familiarise themselves with it after 7 days of training.
-</p>
-<p>
-The source code shall contain no less than 12% of inline comments.
-</p>
-<p>
-All developers will need a working knowledge so issues can be dealt with immediately
-</p>
-
-<h3>Extensibility</h3>
-<ul>
-	<li>The system should be designed using Object-Oriented practices which will allow the maintainer to add new features easily</li>
-	<li>The documentation should be comprehensive in order to help the maintainer extend the functionality</li>
-</ul>
-
-<h3>Reusability</h3>
-<ul>
-	<li>A different college should be able to personalize the system with very little changes</li>
-	<li>A college from a different country should easily be able to translate the system</li>
-	<li>The mobile application should be easily ported to other mobile operating systems</li>
-</ul>
-
-<h3>Resource Utilization</h3>
-<ul>
-	<li>The android app should be no bigger than 10MB</li>
-	<li>The web server shall not utilise more than 1GB of memory while operating</li>
-</ul>
-
-<h2>Domain Model</h2>
-<img src="DomainModel.png" alt="Domain Model" />
-
-<h2>Use case diagram</h2>
-<img src="use-case-diagram.jpg" alt="Use Case Diagram" />
 
 <h1>Design</h1>
 <p>blah blah blah</p>

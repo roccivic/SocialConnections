@@ -2,6 +2,7 @@ package com.placella.socialconnections;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class PicUpload extends Activity {
+	private Context self = this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +46,11 @@ public class PicUpload extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-			if(name.getText().toString().length() < 1 || reference_id.getText().toString().length() < 1)
-			{
-				errorTV.setText("Please, enter information");
-			}
-			else {
-				errorTV.setText("");
-				Upload uploader = new Upload(path,name.getText().toString(),reference_id.getText().toString());
-			}
-				
+				if(name.getText().toString().length() < 1 || reference_id.getText().toString().length() < 1) {
+					new Dialog(self, R.string.formError).show();
+				} else {
+					new Upload(path,name.getText().toString(),reference_id.getText().toString());
+				}
 			}
 		});
 	}

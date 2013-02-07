@@ -299,7 +299,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 <h2>Use case diagram</h2>
 <img src="use-case-diagram.jpg" alt="Use Case Diagram" />
 
-<h3>Use cases</h3>
+<h2>Use cases</h2>
 
 <table border="1" width="100%" cellpadding="4">
 	<tr>
@@ -344,8 +344,590 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 </table>
 
+<h3>User use cases</h3>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Choose one of the languages available on the system</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>User, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a user can choose one of the languages available on the system</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The user is not logged into the system<br />
+			The user is connected to the internet<br />
+			The user is accessing the system using the web app
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The user has selected a language for the web app</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The user opens the login screen</li>
+				<li>The system shows the user a list of available languages</li>
+				<li>The user selects the desired language</li>
+				<li>The user submits the form</li>
+				<li>The system processes the form and records the user's language preference for the current session (i.e: until the user is logged out)</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<h3>Student use cases</h3>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Log into the system</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Student, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a student can log into the system</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The student is not logged into the system<br />
+			The student is connected to the internet
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The student is logged into the system</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The student opens the login screen</li>
+				<li>The student provides either his email address or his student id number</li>
+				<li>The student provides his password</li>
+				<li>The student submits the login form for processing</li>
+				<li>The system verifies that the student's authentication credentials are valid</li>
+				<li>The student is redirected to the welcome screen of the system</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>Critical</td>
+	</tr>
+</table>
+
 <br />
 
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Check overall attendance for a module</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Student, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a student can check his attendance for a module that he is enrolled in</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The student is logged into the system<br />
+			The student is connected to the internet<br />
+			The student is enrolled in the module for which he is checking attendance
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The student has viewed his attendance records</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The student selects the "Check attendance" option from main menu</li>
+				<li>The student is shown a list of modules that he is enrolled in by the system</li>
+				<li>The student selects the modules that he is interested in</li>
+				<li>The student is shown the percentage of his attendance for the selected module</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Check attendance for lectures in a module</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Student, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a student can check his attendance for lectures of a module that he is enrolled in</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The student is logged into the system<br />
+			The student is connected to the internet<br />
+			The student is enrolled in the module for which he is checking attendance
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The student has viewed his attendance records</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The student selects the "Check attendance" option from main menu</li>
+				<li>The student is shown a list of modules that he is enrolled in by the system</li>
+				<li>The student selects the modules that he is interested in</li>
+				<li>The student is shown the percentage of his attendance for the lectures in the selected module</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Check attendance for labs in a module</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Student, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a student can check his attendance for labs in a module that he is enrolled in</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The student is logged into the system<br />
+			The student is connected to the internet<br />
+			The student is enrolled in the module for which he is checking attendance<br />
+			The module for which the student is checking attendance has labs
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The student has viewed his attendance records</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The student selects the "Check attendance" option from main menu</li>
+				<li>The student is shown a list of modules that he is enrolled in by the system</li>
+				<li>The student selects the modules that he is interested in</li>
+				<li>The student is shown the percentage of his attendance for the labs in the selected module</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>View CA results for a module</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Student, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a student can view his results for CA assesments that have been published by the lecturer</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The student is logged into the system<br />
+			The student is connected to the internet<br />
+			The student is enrolled in the module for which he is viewing results<br />
+			The module for which the student is viewing results has CA<br />
+			The lecturer of the selected module has posted some CA results
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The student has viewed his grades for a module</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The student selects the "View your results" option from main menu</li>
+				<li>The student is shown a list of modules that he is enrolled in by the system</li>
+				<li>The student selects the modules that he is interested in</li>
+				<li>The student is shown all available grades for the selected module</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Excuse self for missing a class</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Student, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a student can leave a note for the lecturer of a module for which he has missed a class</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The student is logged into the system<br />
+			The student is connected to the internet<br />
+			The student is enrolled in the relevant module
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The student has left a note for the relevant lecturer</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The student selects the "Excuse Yourself for Missing a Class" option from main menu</li>
+				<li>The student is shown a list of modules that he is enrolled in by the system</li>
+				<li>The student selects the modules that he is interested in</li>
+				<li>The student is shown an excuse form by the system</li>
+				<li>The student enters the date and time of the class that he missed and writes a note for the lecturer detailing the reason why he has missed the class in question</li>
+				<li>The student submits the form</li>
+				<li>The system processes the form and records the submitted note</li>
+				<li>The student is shown a confirmation message, informing him that the note was successfully saved</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Get a link to notes posted on Dropbox by a lecturer</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Student, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a student can obtain a link to notes posted on Dropbox by a lecturer for a module that the student is enrolled in</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The student is logged into the system<br />
+			The student is connected to the internet<br />
+			The student is enrolled in the module for which he wishes to obtain notes
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The student has obtained a list of links to the relevant notes</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The student selects the "View notes" option from main menu</li>
+				<li>The student is shown a list of modules that he is enrolled in by the system</li>
+				<li>The student selects the modules that he is interested in</li>
+				<li>The student is shown a list of links to the available notes</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>View the Twitter wall for a module</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Student, System, Twitter</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a student can view the messages that have been published on Twitter for a module</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The student is logged into the system<br />
+			The student is connected to the internet
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The student is shown a list of Twitter messages</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The student selects the "View Twitter wall" option from main menu</li>
+				<li>The student is shown a list of modules that he is enrolled in by the system</li>
+				<li>The student selects the modules that he is interested in</li>
+				<li>The system retieves the relevant messages from Twitter</li>
+				<li>The student is shown a list of Twitter messages relevant to the selected module</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Post to the Twitter wall for a module</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Student, System, Twitter</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a student can post a message on Twitter for a module</td>
+	</tr>
+	<tr>
+		<td>Precondtion:</td>
+		<td>
+			The student is logged into the system<br />
+			The student is connected to the internet
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The student has posted a Twitter message on the Twitter wall of a module</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The student selects the "View Twitter wall" option from main menu</li>
+				<li>The student is shown a list of modules that he is enrolled in by the system</li>
+				<li>The student selects the modules that he is interested in</li>
+				<li>The student is shown a list of Twitter messages relevant to the selected module</li>
+				<li>The student selects the "New Message" option</li>
+				<li>The student is shown a "New Message" form by the system</li>
+				<li>The student writes the new message</li>
+				<li>The student submits the form</li>
+				<li>The system processes the form and forwards the request to Twitter</li>
+				<li>The system recieves a reply from Twitter, stating that the message was successfully saved</li>
+				<li>The student is shown a confirmation message, informing him that the new message was successfully saved</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<h3>Lecturer use cases</h3>
+
+
+
+<h3>Admin use cases</h3>
+
+
+
+<h3>System use cases</h3>
 <table border="1" width="100%" cellpadding="4">
 	<tr>
 		<td width="20%">Use case ID:</td>

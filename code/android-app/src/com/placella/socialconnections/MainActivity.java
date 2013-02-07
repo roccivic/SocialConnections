@@ -21,38 +21,44 @@ public class MainActivity extends Activity {
 		logInBtn.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-			    EditText username = (EditText) findViewById(R.id.userET);
-			    EditText password = (EditText) findViewById(R.id.passET);
-			    boolean success = RemoteAuth.login(
-			    	self,
-			    	getString(R.string.webUrl) + "remote.php",
-			    	username.getText().toString(),
-			    	password.getText().toString()
-			    );
-			    if (! success) {
-			    	new Dialog(self, RemoteAuth.getResponse()).show();
-			    } else {
-			    	String token = RemoteAuth.getToken();
-			        Bundle b = new Bundle();
-			        b.putString("token", token);
-			        Intent intent;
-			    	int accessLevel = RemoteAuth.getAccessLevel();
-			    	if (accessLevel == ACCESSLEVEL.STUDENT) {
-				        intent = new Intent(self, StudentMenu.class);
-				        intent.putExtras(b);
-			    		startActivity(intent);
-			    	} else if (accessLevel == ACCESSLEVEL.LECTURER) {
-				        intent = new Intent(self, LecturerMenu.class);
-				        intent.putExtras(b);
-			    		startActivity(intent);
-			    	} else if (accessLevel == ACCESSLEVEL.ADMIN) {
-				    	new Dialog(self, R.string.noAdminAccess).show();
-			    	} else if (accessLevel == ACCESSLEVEL.SUPER) {
-				    	new Dialog(self, R.string.noSuperAccess).show();
-			    	} else {
-				    	new Dialog(self, R.string.unknowAuthError).show();
-			    	}
-			    }
+				new Thread(
+					new Runnable() {
+						public void run() {
+						    EditText username = (EditText) findViewById(R.id.userET);
+						    EditText password = (EditText) findViewById(R.id.passET);
+						    boolean success = RemoteAuth.login(
+						    	self,
+						    	getString(R.string.webUrl) + "remote.php",
+						    	username.getText().toString(),
+						    	password.getText().toString()
+						    );
+						    if (! success) {
+						    	new Dialog(self, RemoteAuth.getResponse()).show();
+						    } else {
+						    	String token = RemoteAuth.getToken();
+						        Bundle b = new Bundle();
+						        b.putString("token", token);
+						        Intent intent;
+						    	int accessLevel = RemoteAuth.getAccessLevel();
+						    	if (accessLevel == ACCESSLEVEL.STUDENT) {
+							        intent = new Intent(self, StudentMenu.class);
+							        intent.putExtras(b);
+						    		startActivity(intent);
+						    	} else if (accessLevel == ACCESSLEVEL.LECTURER) {
+							        intent = new Intent(self, LecturerMenu.class);
+							        intent.putExtras(b);
+						    		startActivity(intent);
+						    	} else if (accessLevel == ACCESSLEVEL.ADMIN) {
+							    	new Dialog(self, R.string.noAdminAccess).show();
+						    	} else if (accessLevel == ACCESSLEVEL.SUPER) {
+							    	new Dialog(self, R.string.noSuperAccess).show();
+						    	} else {
+							    	new Dialog(self, R.string.unknowAuthError).show();
+						    	}
+						    }
+						}
+					}
+				).start();
 			}
 		});
 	}

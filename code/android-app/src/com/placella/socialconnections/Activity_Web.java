@@ -13,7 +13,7 @@ import android.widget.Button;
  * Displays a menu and a WebView that points to
  * a selected page from the web-app server.
  */
-public class Web extends Activity {
+public class Activity_Web extends Activity {
 	private Activity self = this;
 	
 	/**
@@ -29,7 +29,7 @@ public class Web extends Activity {
         Bundle b = new Bundle();
         b.putString("token", token);
         b.putString("page", page);
-        Intent intent = new Intent(activity, Web.class);
+        Intent intent = new Intent(activity, Activity_Web.class);
         intent.putExtras(b);
         activity.startActivityForResult(intent, 0);
 	}

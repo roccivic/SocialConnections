@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class MainActivity extends Activity {
+public class Activity_Main extends Activity {
 	Context self = this;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,11 @@ public class MainActivity extends Activity {
 						        Intent intent;
 						    	int accessLevel = RemoteAuth.getAccessLevel();
 						    	if (accessLevel == ACCESSLEVEL.STUDENT) {
-							        intent = new Intent(self, StudentMenu.class);
+							        intent = new Intent(self, Activity_StudentMenu.class);
 							        intent.putExtras(b);
 						    		startActivity(intent);
 						    	} else if (accessLevel == ACCESSLEVEL.LECTURER) {
-							        intent = new Intent(self, LecturerMenu.class);
+							        intent = new Intent(self, Activity_LecturerMenu.class);
 							        intent.putExtras(b);
 						    		startActivity(intent);
 						    	} else if (accessLevel == ACCESSLEVEL.ADMIN) {

@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class PicUpload extends Activity {
+public class Activity_PicUpload extends Activity {
 	private Context self = this;
 
 	@Override

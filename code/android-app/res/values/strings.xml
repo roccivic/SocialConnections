@@ -26,7 +26,9 @@
     <string name="title_activity_web">Web</string>
     <string name="menu">Menu</string>
     <string name="ok">OK</string>
-
+    <string name="backLectMenu">Back</string>
+    <string name="formError">Form fields may not be empty</string>
+    
     <!-- For remote authentication -->
     <string name="noAdminAccess">Admin access is not allowed via the android app</string>
     <string name="noSuperAccess">Super User access is not allowed via the android app</string>
@@ -35,11 +37,12 @@
     <string name="httpResponseError">Can\'t decode response</string>
     <string name="error401">Error: Invalid username or password.</string>
     <string name="error429">You have exceeded your maximum number of login attempts. Please try again later.</string>
+    
+    <!-- For facial recognition -->
     <string name="title_activity_pic_upload">PicUpload</string>
     <string name="details">Enter details below:</string>
     <string name="name">Name:</string>
     <string name="reference">Reference ID:</string>
     <string name="upload">Upload Picture</string>
-    <string name="backLectMenu">Back</string>
-
+    
 </resources>

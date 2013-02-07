@@ -30,11 +30,9 @@ public class PicUpload extends Activity {
 		 */
 		
 		backBtn.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getBaseContext(), LecturerMenu.class);
-	    		startActivity(i);
+				finish();
 			}
 		});
 		

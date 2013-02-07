@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 						    EditText password = (EditText) findViewById(R.id.passET);
 						    boolean success = RemoteAuth.login(
 						    	self,
-						    	getString(R.string.webUrl) + "remote.php",
+						    	VARS.webUrl + "remote.php",
 						    	username.getText().toString(),
 						    	password.getText().toString()
 						    );

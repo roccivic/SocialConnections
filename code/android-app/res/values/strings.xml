@@ -25,7 +25,6 @@
     <string name="postResults">Post CA Results</string>
     <string name="title_activity_web">Web</string>
     <string name="menu">Menu</string>
-    <string name="webUrl">http://socialconnections.placella.com/</string>
     <string name="ok">OK</string>
 
     <!-- For remote authentication -->

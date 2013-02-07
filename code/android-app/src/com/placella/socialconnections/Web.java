@@ -56,7 +56,7 @@ public class Web extends Activity {
 			}
 		});
 		window.loadUrl(
-			getString(R.string.webUrl)
+			VARS.webUrl
 			+ "?action=" + page
 			+ "&token=" + token
 			+ "&mobile=true"

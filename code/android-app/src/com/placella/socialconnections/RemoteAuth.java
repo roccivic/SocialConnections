@@ -54,7 +54,6 @@ public class RemoteAuth {
 						String[] parts = response.split("\n");
 						token = parts[0];
 						accessLevel = Integer.parseInt(parts[1]);
-						System.out.println(token + ":" + accessLevel);
 					} catch (Exception e) {
 						success = false;
 						response = e.toString();

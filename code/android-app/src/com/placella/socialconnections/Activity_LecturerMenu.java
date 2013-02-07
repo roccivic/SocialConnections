@@ -12,7 +12,7 @@ import android.view.*;
 import android.webkit.*;
 import android.widget.Button;
 
-public class LecturerMenu extends Activity {
+public class Activity_LecturerMenu extends Activity {
 	Activity self = this;
 	private static final int CAMERA_REQUEST = 0;
 	private static final int CAMERA_UPLOAD_REQUEST = 2;
@@ -90,35 +90,35 @@ public class LecturerMenu extends Activity {
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Web.launch(self, "postResults", token);
+				Activity_Web.launch(self, "postResults", token);
 			}
         });
         button = (Button) findViewById(R.id.postTwitterBtn);
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Web.launch(self, "postTwitter", token);
+				Activity_Web.launch(self, "postTwitter", token);
 			}
         });
         button = (Button) findViewById(R.id.viewTwitterBtn);
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Web.launch(self, "viewTwitter", token);
+				Activity_Web.launch(self, "viewTwitter", token);
 			}
         });
         button = (Button) findViewById(R.id.viewStudentAttendanceBtn);
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Web.launch(self, "viewStudentAttendance", token);
+				Activity_Web.launch(self, "viewStudentAttendance", token);
 			}
         });
         button = (Button) findViewById(R.id.postNotesBtn);
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Web.launch(self, "postNotes", token);
+				Activity_Web.launch(self, "postNotes", token);
 			}
         });
         button = (Button) findViewById(R.id.logOutBtn);
@@ -144,7 +144,7 @@ public class LecturerMenu extends Activity {
     		finish();
     	}
     	else if(requestCode==CAMERA_UPLOAD_REQUEST && resultCode== RESULT_OK) {
-    		Intent i = new Intent(getBaseContext(), PicUpload.class);
+    		Intent i = new Intent(getBaseContext(), Activity_PicUpload.class);
     		i.putExtra("path", path);
     		startActivity(i);
     	}

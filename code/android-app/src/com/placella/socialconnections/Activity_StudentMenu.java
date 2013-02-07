@@ -7,7 +7,7 @@ import android.view.*;
 import android.webkit.*;
 import android.widget.Button;
 
-public class StudentMenu extends Activity {
+public class Activity_StudentMenu extends Activity {
 	Activity self = this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,21 +22,21 @@ public class StudentMenu extends Activity {
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Web.launch(self, "makeExcuse", token);
+				Activity_Web.launch(self, "makeExcuse", token);
 			}
         });
         button = (Button) findViewById(R.id.viewResultsBtn);
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Web.launch(self, "viewResults", token);
+				Activity_Web.launch(self, "viewResults", token);
 			}
         });
         button = (Button) findViewById(R.id.checkAttendanceBtn);
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Web.launch(self, "checkAttendance", token);
+				Activity_Web.launch(self, "checkAttendance", token);
 			}
         });
         

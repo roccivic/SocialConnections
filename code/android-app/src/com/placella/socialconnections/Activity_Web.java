@@ -31,7 +31,7 @@ public class Activity_Web extends Activity {
         b.putString("page", page);
         Intent intent = new Intent(activity, Activity_Web.class);
         intent.putExtras(b);
-        activity.startActivityForResult(intent, 0);
+        activity.startActivityForResult(intent, Activity_LecturerMenu.WEB_REQUEST);
 	}
 	
 	@Override

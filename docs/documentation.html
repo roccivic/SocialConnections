@@ -1952,6 +1952,235 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 </table>
 
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Add pictures to students profile</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>10/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>10/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, system</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>The lecturer will take a picture a picture of a student and add it to their profile for the purpose of face recognition</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>The lecturer is logged into the system
+			The lecturer is connected to the internet
+			The lecturer has the android application installed on their smart phone
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>The lecturer has added a picture of a student to the system</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+				<li>The lecturer clicks "View students"</li>
+				<li>The lecturer selects the student that they want to add a picture of</li>
+				<li>The information about this student is shown </li>
+				<li>The lecturer clicks "Update student"</li>
+				<li>The lecturer clicks "Add picture"</li>
+				<li>The lecturer takes a picture of the student and confirms the picture is of good quality</li>
+				<li>The picture is added to the system</li>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Take attendance using facial recognition</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>10/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>10/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, system</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>The lecturer uses the camera on their phone to take a picture of the class. This is then used to take attendance </td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet<br />
+			There are students on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>Every students attendance is accounted for on the system</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>After trying facial recognition for attendace, if there are unrecognised faces a list of students not accounted for are show to the lecturer</li>
+				<li>The lecturer ticks the names of students that are present</li>
+				<li>These corrections are sent to the system</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Manually take attendance</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>10/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>10/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, system</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>The lecturer uses their phone to take attendance of students not recognised by the system </td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet<br />
+			The lecturer has already tried facial recognition to take attendance
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>Attendance of the group was taken </td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer selects "Take attendance" from the main menu</li>
+				<li>The lecturer takes a picture using their phones camera</li>
+				<li>The picture is analysed to detect how many faces are in the picture.</li>
+				<li>The detected faces are sent to the 3rd party face recognition software</li>
+				<li>An array of names and student ID numbers are returned</li>
+				<li>If all faces were recognised, then the attendance has been taken</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Post notes to Dropbox</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>10/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>10/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System, Dropbox</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a lecturer can post notes to Dropbox for a module</td>
+	</tr>
+	<tr>
+		<td>Precondition:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td>The lecturer has posted files to Dropbox for a module</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer selects the "Post notes to Dropbox" option from main menu</li>
+				<li>The lecturer is shown a list of modules that he is enrolled in by the system</li>
+				<li>The lecturer selects the modules that he is interested in</li>
+				<li>The lecture chooses the files that they want to upload</li>
+				<li>The lecturer submits the files</li>
+				<li>The lecturer is shown a confirmation message</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<br />
+
+
 <h1>&nbsp;</h1>
 
 <h3>Admin use cases</h3>

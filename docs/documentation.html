@@ -2315,7 +2315,8 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 </table>
 
-<br>
+<br />
+
 <h3>System use cases</h3>
 <table border="1" width="100%" cellpadding="4">
 	<tr>
@@ -2332,7 +2333,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>05/02/2013</td>
+		<td>10/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2344,25 +2345,31 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
-		<td>A web server with Linux kernal 2.6+ that is running Apache 2.2+</td>
+		<td>
+			The system is online<br />
+			It is 9pm on a Sunday<br />
+			It is a week that is part of the academic semester
+		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>None</td>
+		<td>The email notifications have been sent</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>On a certain day of every week all students inforamtion is gathered</li>
-				<li>All students overall attendance percentage is calculated per module</li>
-				<li>An automatically generated e-mail is sent to every student</li>
+				<li>The system retrieves a list of all students</li>
+				<li>The system retrieves the threshold that defines poor attendance</li>
+				<li>The system calculates the attendance for every student</li>
+				<li>The system compares the attendance against the threshold</li>
+				<li>An e-mail is sent to every student whose attendance is found to be below the threshold</li>
 			</ol>
 		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
-		<td>low</td>
+		<td>Medium</td>
 	</tr>
 </table>
 
@@ -2383,11 +2390,11 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>05/02/2013</td>
+		<td>10/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
-		<td>System</td>
+		<td>System, User</td>
 	</tr>
 	<tr>
 		<td>Description:</td>
@@ -2396,27 +2403,28 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Preconditions:</td>
 		<td>
-		A web server with Linux kernal 2.6+ that is running Apache 2.2+<br />
-		The android application is installed on	a device running Android 2.2+
+			There is at least one new Twitter post that is relevant to the user
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>None</td>
+		<td>
+			The user is notified about the new Twitter post
+		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>A lecturer or student posts to Twitter regarding a module</li>
-				<li>System gathers information about users that are linked to that module</li>
-				<li>System sends a notificaiton to these users regarding Twitter post</li>
+				<li>The user logs into the system</li>
+				<li>The system checks for any relevant Twitter posts</li>
+				<li>The system displays a notification</li>
 			</ol>
 		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
-		<td>Low</td>
+		<td>Medium</td>
 	</tr>
 </table>
 
@@ -2437,11 +2445,11 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>05/02/2013</td>
+		<td>10/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
-		<td>System</td>
+		<td>Student, System</td>
 	</tr>
 	<tr>
 		<td>Description:</td>
@@ -2450,21 +2458,23 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Preconditions:</td>
 		<td>
-		A web server with Linux kernal 2.6+ that is running Apache 2.2+<br />
-		The android application is installed on	a device running Android 2.2+
+			A lecturer has posted new CA results for a module
+			that the student is taking
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>None</td>
+		<td>
+			The student is notified about the new CA results
+		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>A lecturer uploads CA marks through mobile application</li>
-				<li>System gathers information about students that have CA results</li>
-				<li>System sends a notification to students regarding CA results</li>
+				<li>The student logs into the system</li>
+				<li>The system checks for any new CA results</li>
+				<li>The system displays a notification</li>
 			</ol>
 		</td>
 	</tr>
@@ -2490,11 +2500,11 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>05/02/2013</td>
+		<td>10/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
-		<td>System</td>
+		<td>Student, System</td>
 	</tr>
 	<tr>
 		<td>Description:</td>
@@ -2503,21 +2513,23 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Preconditions:</td>
 		<td>
-		A web server with Linux kernal 2.6+ that is running Apache 2.2+<br />
-		The android application is installed on	a device running Android 2.2+
+			A lecturer has uploaded new notes to Dropbox for a module
+			that the student is taking
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>None</td>
+		<td>
+			The student is notified about the new notes
+		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>A lecturer uploads notes to Dropbox</li>
-				<li>System gathers group information of students enrolled in that module</li>
-				<li>System sends a notification to students</li>
+				<li>The student logs into the system</li>
+				<li>The system checks for any new notes</li>
+				<li>The system displays a notification</li>
 			</ol>
 		</td>
 	</tr>
@@ -2544,7 +2556,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>05/02/2013</td>
+		<td>10/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2552,23 +2564,31 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>If any module has a poor attendance the head of that deapatment will recieve an e-mail notification</td>
+		<td>If any module has a poor attendance the head of that department will recieve an e-mail notification</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
-		<td>A web server with Linux kernal 2.6+ that is running Apache 2.2+</td>
+		<td>
+			The system is online<br />
+			It is 9pm on a Sunday<br />
+			It is a week that is part of the academic semester
+		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>None</td>
+		<td>
+			Notification emails are sent to the heads of departments
+		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>System is triggered when a groups attendance to module is low</li>
-				<li>Information about the head of that groups department </li>
-				<li>System e-mails head of department with an automatic e-mail regarding attendance of the module</li>
+				<li>The system retrieves a list of all module offerings</li>
+				<li>The system retrieves the threshold that defines poor attendance</li>
+				<li>The system calculates the attendance for every module</li>
+				<li>The system compares the attendance against the threshold</li>
+				<li>An e-mail is sent to every head of department with a list of module offerings whose attendance is found to be below the threshold</li>
 			</ol>
 		</td>
 	</tr>

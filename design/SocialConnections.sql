@@ -218,8 +218,7 @@ CREATE TABLE IF NOT EXISTS `moduleOffering` (
   `mid` mediumint(9) NOT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY `composite` (`id`,`mid`),
-  KEY `mid` (`mid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -231,7 +230,6 @@ CREATE TABLE IF NOT EXISTS `moduleoffering_lecturer` (
   `moid` mediumint(9) NOT NULL,
   `lid` mediumint(9) NOT NULL,
   UNIQUE KEY `composite` (`moid`,`lid`),
-  KEY `lid` (`lid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

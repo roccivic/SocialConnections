@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 21, 2013 at 11:34 PM
+-- Generation Time: Feb 11, 2013 at 09:56 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -19,6 +19,24 @@ SET time_zone = "+00:00";
 --
 -- Database: `SocialConnections`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(32) NOT NULL,
+  `lname` varchar(32) NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `salt` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`,`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -126,34 +144,10 @@ CREATE TABLE IF NOT EXISTS `department_lecturer` (
 CREATE TABLE IF NOT EXISTS `group` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`id`)
+  `moid` mediumint(9) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `moid` (`moid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `group_lecturer`
---
-
-CREATE TABLE IF NOT EXISTS `group_lecturer` (
-  `gid` mediumint(9) NOT NULL,
-  `lid` mediumint(9) NOT NULL,
-  UNIQUE KEY `composite` (`gid`,`lid`),
-  KEY `lid` (`lid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `group_module`
---
-
-CREATE TABLE IF NOT EXISTS `group_module` (
-  `gid` mediumint(9) NOT NULL,
-  `mid` mediumint(9) NOT NULL,
-  UNIQUE KEY `composite` (`gid`,`mid`),
-  KEY `mid` (`mid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -191,10 +185,12 @@ CREATE TABLE IF NOT EXISTS `lecturer` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `fname` varchar(32) NOT NULL,
   `lname` varchar(32) NOT NULL,
+  `username` varchar(64) NOT NULL,
   `email` varchar(64) NOT NULL,
-  `password` char(32) NOT NULL,
-  `isAdmin` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `password` varchar(32) NOT NULL,
+  `salt` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`,`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -206,8 +202,37 @@ CREATE TABLE IF NOT EXISTS `lecturer` (
 CREATE TABLE IF NOT EXISTS `module` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
+  `credits` int(11) NOT NULL,
+  `CRN` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `moduleOffering`
+--
+
+CREATE TABLE IF NOT EXISTS `moduleOffering` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `mid` mediumint(9) NOT NULL,
+  `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY `composite` (`id`,`mid`),
+  KEY `mid` (`mid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `moduleoffering_lecturer`
+--
+
+CREATE TABLE IF NOT EXISTS `moduleoffering_lecturer` (
+  `moid` mediumint(9) NOT NULL,
+  `lid` mediumint(9) NOT NULL,
+  UNIQUE KEY `composite` (`moid`,`lid`),
+  KEY `lid` (`lid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -231,9 +256,22 @@ CREATE TABLE IF NOT EXISTS `results` (
   `aid` mediumint(9) NOT NULL,
   `sid` mediumint(9) NOT NULL,
   `grade` tinyint(4) NOT NULL,
+  `isDraft` tinyint(1) NOT NULL,
   UNIQUE KEY `composite` (`aid`,`sid`),
   KEY `sid` (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `speedlimit`
+--
+
+CREATE TABLE IF NOT EXISTS `speedlimit` (
+  `ip` varchar(64) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY `ip` (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Rate Limiting for Authentication';
 
 -- --------------------------------------------------------
 
@@ -245,11 +283,27 @@ CREATE TABLE IF NOT EXISTS `student` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `fname` varchar(32) NOT NULL,
   `lname` varchar(32) NOT NULL,
+  `username` varchar(64) NOT NULL,
   `email` varchar(64) NOT NULL,
-  `password` char(32) NOT NULL,
-  `photo` blob NOT NULL,
-  PRIMARY KEY (`id`)
+  `password` varchar(32) NOT NULL,
+  `salt` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`,`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `token`
+--
+
+CREATE TABLE IF NOT EXISTS `token` (
+  `uid` mediumint(9) NOT NULL,
+  `token` char(64) NOT NULL,
+  `expires` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ip` varchar(64) NOT NULL,
+  KEY `expires` (`expires`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Remote Authentication Tokens';
 
 --
 -- Constraints for dumped tables
@@ -265,64 +319,69 @@ ALTER TABLE `assesment`
 -- Constraints for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `attendance_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `class_student`
 --
 ALTER TABLE `class_student`
   ADD CONSTRAINT `class_student_ibfk_2` FOREIGN KEY (`cid`) REFERENCES `class` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `class_student_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `class_student_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `department_class`
 --
 ALTER TABLE `department_class`
-  ADD CONSTRAINT `department_class_ibfk_2` FOREIGN KEY (`did`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `department_class_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `class` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `department_class_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `class` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `department_class_ibfk_2` FOREIGN KEY (`did`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `department_lecturer`
 --
 ALTER TABLE `department_lecturer`
   ADD CONSTRAINT `department_lecturer_ibfk_2` FOREIGN KEY (`did`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `department_lecturer_ibfk_1` FOREIGN KEY (`lid`) REFERENCES `lecturer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `department_lecturer_ibfk_3` FOREIGN KEY (`lid`) REFERENCES `lecturer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `group_lecturer`
+-- Constraints for table `group`
 --
-ALTER TABLE `group_lecturer`
-  ADD CONSTRAINT `group_lecturer_ibfk_2` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `group_lecturer_ibfk_1` FOREIGN KEY (`lid`) REFERENCES `lecturer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `group_module`
---
-ALTER TABLE `group_module`
-  ADD CONSTRAINT `group_module_ibfk_2` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `group_module_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `group`
+  ADD CONSTRAINT `group_ibfk_1` FOREIGN KEY (`moid`) REFERENCES `moduleOffering` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `group_notes`
 --
 ALTER TABLE `group_notes`
-  ADD CONSTRAINT `group_notes_ibfk_2` FOREIGN KEY (`nid`) REFERENCES `notes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `group_notes_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `group_notes_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_notes_ibfk_2` FOREIGN KEY (`nid`) REFERENCES `notes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `group_student`
 --
 ALTER TABLE `group_student`
   ADD CONSTRAINT `group_student_ibfk_2` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `group_student_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `group_student_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `moduleOffering`
+--
+ALTER TABLE `moduleOffering`
+  ADD CONSTRAINT `moduleOffering_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `moduleoffering_lecturer`
+--
+ALTER TABLE `moduleoffering_lecturer`
+  ADD CONSTRAINT `moduleoffering_lecturer_ibfk_1` FOREIGN KEY (`moid`) REFERENCES `moduleOffering` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `moduleoffering_lecturer_ibfk_2` FOREIGN KEY (`lid`) REFERENCES `lecturer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `results`
 --
 ALTER TABLE `results`
   ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`aid`) REFERENCES `assesment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

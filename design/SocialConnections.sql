@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `module` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `moduleOffering`
+-- Table structure for table `moduleoffering`
 --
 
 CREATE TABLE IF NOT EXISTS `moduleoffering` (
@@ -345,7 +345,7 @@ ALTER TABLE `department_lecturer`
 -- Constraints for table `group`
 --
 ALTER TABLE `group`
-  ADD CONSTRAINT `group_ibfk_1` FOREIGN KEY (`moid`) REFERENCES `moduleOffering` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `group_ibfk_1` FOREIGN KEY (`moid`) REFERENCES `moduleoffering` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `group_notes`
@@ -362,16 +362,16 @@ ALTER TABLE `group_student`
   ADD CONSTRAINT `group_student_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `moduleOffering`
+-- Constraints for table `moduleoffering`
 --
-ALTER TABLE `moduleOffering`
-  ADD CONSTRAINT `moduleOffering_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `moduleoffering`
+  ADD CONSTRAINT `moduleoffering_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `moduleoffering_lecturer`
 --
 ALTER TABLE `moduleoffering_lecturer`
-  ADD CONSTRAINT `moduleoffering_lecturer_ibfk_1` FOREIGN KEY (`moid`) REFERENCES `moduleOffering` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `moduleoffering_lecturer_ibfk_1` FOREIGN KEY (`moid`) REFERENCES `moduleoffering` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `moduleoffering_lecturer_ibfk_2` FOREIGN KEY (`lid`) REFERENCES `lecturer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

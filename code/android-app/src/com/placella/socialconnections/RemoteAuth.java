@@ -52,8 +52,13 @@ public class RemoteAuth {
 						// decode response
 						response = EntityUtils.toString(responseEntity);
 						String[] parts = response.split("\n");
-						token = parts[0];
-						accessLevel = Integer.parseInt(parts[1]);
+						if (parts.length == 2) {
+							token = parts[0];
+							accessLevel = Integer.parseInt(parts[1]);
+						} else {
+							success = false;
+							response = context.getString(R.string.malformed_response);
+						}
 					} catch (Exception e) {
 						success = false;
 						response = e.toString();

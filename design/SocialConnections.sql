@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `moduleOffering` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `mid` mediumint(9) NOT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY `composite` (`id`,`mid`),
+  UNIQUE KEY `composite` (`id`,`mid`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

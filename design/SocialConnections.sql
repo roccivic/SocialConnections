@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `module` (
 -- Table structure for table `moduleOffering`
 --
 
-CREATE TABLE IF NOT EXISTS `moduleOffering` (
+CREATE TABLE IF NOT EXISTS `moduleoffering` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `mid` mediumint(9) NOT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -229,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `moduleOffering` (
 CREATE TABLE IF NOT EXISTS `moduleoffering_lecturer` (
   `moid` mediumint(9) NOT NULL,
   `lid` mediumint(9) NOT NULL,
-  UNIQUE KEY `composite` (`moid`,`lid`),
+  UNIQUE KEY `composite` (`moid`,`lid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

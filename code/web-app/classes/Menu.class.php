@@ -68,21 +68,6 @@ class Menu {
 		);
 	}
 	/**
-	 * Returns the menu for a super user
-	 *
-	 * @return string HTML
-	 */
-	public function getSuperMenu()
-	{
-		return $this->getMenuHtml(
-			__('Superuser Menu'),
-			array(
-				__('Super Functionality 1') => 'dosuper1',
-				__('Super Functionality 2') => 'dosuper2'
-			)
-		);
-	}
-	/**
 	 * Generates an HTML menu given an array
 	 * of elements that the menu should contain
 	 *

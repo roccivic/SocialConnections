@@ -8,7 +8,6 @@ if (! defined('SOCIALCONNECTIONS')) {
  * User access level management
  */
 abstract class User {
-	const SUPER = 4;
 	const ADMIN = 3;
 	const LECTURER = 2;
 	const STUDENT = 1;
@@ -46,15 +45,6 @@ abstract class User {
 	public static function getAccessLevel()
 	{
 		return self::$currentUser;
-	}
-	/**
-	 * Returns true if the current user is a super user
-	 *
-	 * @return bool
-	 */
-	public static function isSuper()
-	{
-		return self::$currentUser === self::SUPER;
 	}
 	/**
 	 * Returns true if the current user is an admin

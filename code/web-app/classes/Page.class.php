@@ -220,8 +220,6 @@ abstract class Page {
 			$html .= $menu->getLecturerMenu();
 		} else if (User::isAdmin()) {
 			$html .= $menu->getAdminMenu();
-		} else if (User::isSuper()) {
-			$html .= $menu->getSuperMenu();
 		} else {
 			$this->type = 'nomenu';
 		}

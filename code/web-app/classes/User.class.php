@@ -26,14 +26,7 @@ abstract class User {
 	public static function init()
 	{
 		if (! empty($_SESSION['uid'])) { // Check if user is logged in
-			$db = Db::getLink();
-			$stmt = $db->prepare("SELECT type FROM user WHERE uid = ?;");
-			$stmt->bind_param('s', $_SESSION['uid']);
-			$stmt->execute();
-			$stmt->bind_result($type);
-			$stmt->fetch();
-			$stmt->close();
-			self::$currentUser = $type;
+			self::$currentUser = $_SESSION['accesslevel'];
 		}
 	}
 	/**

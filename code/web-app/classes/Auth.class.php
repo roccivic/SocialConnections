@@ -77,15 +77,43 @@ abstract class Auth {
 	 */
 	public static function login($username, $password)
 	{
+		$success = false;
 		$username = strtolower($username);
+
+		$uid = self::checkLogin($username, $password, 'admin');
+		if ($uid !== false) {
+			$_SESSION['uid'] = $uid;
+			$_SESSION['accesslevel'] = User::ADMIN;
+			$success = true;
+		} else {
+			$uid = self::checkLogin($username, $password, 'lecturer');
+			if ($uid !== false) {
+				$_SESSION['uid'] = $uid;
+				$_SESSION['accesslevel'] = User::LECTURER;
+				$success = true;
+			} else {
+				$uid = self::checkLogin($username, $password, 'student');
+				if ($uid !== false) {
+					$_SESSION['uid'] = $uid;
+					$_SESSION['accesslevel'] = User::STUDENT;
+					$success = true;
+				}
+			}
+		}
+		return $success;
+	}
+
+
+	private static function checkLogin($username, $password, $table)
+	{
 		$db = Db::getLink();
 		if (strpos($username, '@') !== false) {
 			$stmt = $db->prepare(
-				"SELECT uid, salt, password FROM user WHERE LOWER(email) = ?;"
+				"SELECT id, salt, password FROM $table WHERE email = ?;"
 			);
 		} else {
 			$stmt = $db->prepare(
-				"SELECT uid, salt, password FROM user WHERE LOWER(username) = ?;"
+				"SELECT id, salt, password FROM $table WHERE username = ?;"
 			);
 		}
 		$stmt->bind_param('s', $username);
@@ -94,11 +122,11 @@ abstract class Auth {
 		$stmt->fetch();
 		$stmt->close();
 		if ($hash === md5($password . $salt)) {
-			$_SESSION['uid'] = $uid;
-			return true;
+			return $uid;
 		}
 		return false;
 	}
+
 	/**
 	 * Destroys user's session
 	 *
@@ -133,9 +161,15 @@ abstract class Auth {
 		$db = Db::getLink();
 		// The token is valid for 5 minutes
 		$stmt = $db->prepare(
-			"INSERT INTO token(uid, token, expires, ip) VALUES (?,?,CURRENT_TIMESTAMP+300,?)"
+			"INSERT INTO token(uid, accesslevel, token, expires, ip) VALUES (?,?,?,CURRENT_TIMESTAMP + INTERVAL 5 MINUTE,?)"
 		);
-		$stmt->bind_param('iss', $_SESSION['uid'], $token, $_SERVER['REMOTE_ADDR']);		
+		$stmt->bind_param(
+			'iiss',
+			$_SESSION['uid'],
+			$_SESSION['accesslevel'],
+			$token,
+			$_SERVER['REMOTE_ADDR']
+		);
 		$stmt->execute();
 		$stmt->close();
 		return $token;
@@ -155,11 +189,11 @@ abstract class Auth {
 			// check for valid auth tokens
 			$db = Db::getLink();
 			$stmt = $db->prepare(
-				"SELECT uid FROM token WHERE ip = ? AND token = ?;"
+				"SELECT accesslevel, uid FROM token WHERE ip = ? AND token = ?;"
 			);
 			$stmt->bind_param('ss', $_SERVER['REMOTE_ADDR'], $_REQUEST['token']);
 			$stmt->execute();
-			$stmt->bind_result($uid);
+			$stmt->bind_result($accesslevel, $uid);
 			$stmt->fetch();
 			$stmt->close();
 			if ($uid > 0) {
@@ -171,6 +205,7 @@ abstract class Auth {
 				$stmt->execute();
 				$stmt->close();
 				$_SESSION['uid'] = $uid;
+				$_SESSION['accesslevel'] = $accesslevel;
 			}
 		}
 	}

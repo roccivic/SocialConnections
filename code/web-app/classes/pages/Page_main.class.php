@@ -23,8 +23,15 @@ class Page_Main extends Page {
 		// Get the full name of the user
 		// We display it later in the greeting
 		$db = Db::getLink();
+		if (User::isAdmin()) {
+			$table = 'admin';
+		} else if (User::isLecturer()) {
+			$table = 'lecturer';
+		} else {
+			$table = 'student';
+		}
 		$stmt = $db->prepare(
-			"SELECT fname, lname FROM user WHERE uid = ?;"
+			"SELECT fname, lname FROM $table WHERE id = ?;"
 		);
 		$stmt->bind_param('s', $_SESSION['uid']);
 		$stmt->execute();
@@ -46,7 +53,8 @@ class Page_Main extends Page {
 		$html .= '<img src="images/cit.jpg" alt="' . __('Photo of main campus') . '" />';
 
 		// Add the HTML code to the page
-		$this->addHtml($html);
+		$this->addHtml($html . Auth::getToken());
+
 	}
 }
 

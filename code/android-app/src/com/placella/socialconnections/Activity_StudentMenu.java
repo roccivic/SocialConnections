@@ -49,6 +49,22 @@ public class Activity_StudentMenu extends Activity {
 			    finish();
 			}
         });
+        
+        button = (Button) findViewById(R.id.notesBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Activity_Web.launch(self, "notes", token);
+			}
+        });
+        button = (Button) findViewById(R.id.twitterBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Activity_Web.launch(self, "twitter", token);
+			}
+        });
+        
     }
 
     @Override

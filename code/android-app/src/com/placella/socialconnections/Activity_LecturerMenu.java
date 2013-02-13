@@ -35,25 +35,18 @@ public class Activity_LecturerMenu extends Activity {
 	    		startActivity(i);
 			}
 		});
-        button = (Button) findViewById(R.id.postResultsBtn);
+        button = (Button) findViewById(R.id.manageAssessmentsBtn);
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Activity_Web.launch(self, "postResults", token);
+				Activity_Web.launch(self, "manageAssessment", token);
 			}
         });
-        button = (Button) findViewById(R.id.postTwitterBtn);
+        button = (Button) findViewById(R.id.twitterBtn);
         button.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				Activity_Web.launch(self, "postTwitter", token);
-			}
-        });
-        button = (Button) findViewById(R.id.viewTwitterBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "viewTwitter", token);
+				Activity_Web.launch(self, "twitter", token);
 			}
         });
         button = (Button) findViewById(R.id.viewStudentAttendanceBtn);
@@ -77,6 +70,20 @@ public class Activity_LecturerMenu extends Activity {
 			    CookieSyncManager.createInstance(self);
 			    CookieManager.getInstance().removeAllCookie();
 			    finish();
+			}
+        });
+        button = (Button) findViewById(R.id.manageStudentsBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Activity_Web.launch(self, "manageStudents", token);
+			}
+        });
+        button = (Button) findViewById(R.id.manageGroupsBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Activity_Web.launch(self, "manageGroups", token);
 			}
         });
     }

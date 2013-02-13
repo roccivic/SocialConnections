@@ -1,48 +1,65 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <Button
-        android:id="@+id/makeExcuseBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="@string/makeExcuse" />
-
-    <Button
-        android:id="@+id/logOutBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/makeExcuseBtn"
-        android:text="@string/logOut" />
-
-    <Button
-        android:id="@+id/viewResultsBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/makeExcuseBtn"
-        android:layout_alignParentLeft="true"
-        android:text="@string/viewResults" />
-
-    <Button
-        android:id="@+id/checkAttendanceBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/viewResultsBtn"
-        android:layout_alignParentLeft="true"
-        android:text="@string/checkAttendance" />
+    android:layout_height="wrap_content" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/checkAttendanceBtn"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="16dp"
         android:text="@string/studentMenu"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/checkAttendanceBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/checkAttendance" />
+
+            <Button
+                android:id="@+id/viewResultsBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/viewResults" />
+
+            <Button
+                android:id="@+id/makeExcuseBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/makeExcuse" />
+
+            <Button
+                android:id="@+id/notesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/notes" />
+
+            <Button
+                android:id="@+id/twitterBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/twitter" />
+
+            <Button
+                android:id="@+id/logOutBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logOut" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

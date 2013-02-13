@@ -45,22 +45,28 @@
                 android:text="@string/viewStudentAttendance" />
 
             <Button
-                android:id="@+id/viewTwitterBtn"
+                android:id="@+id/twitterBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/viewTwitter" />
+                android:text="@string/twitter" />
 
             <Button
-                android:id="@+id/postTwitterBtn"
+                android:id="@+id/manageAssessmentsBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/postTwitter" />
+                android:text="@string/manageAssessments" />
 
             <Button
-                android:id="@+id/postResultsBtn"
-                android:layout_width="fill_parent"
+                android:id="@+id/manageStudentsBtn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/postResults" />
+                android:text="@string/manageStudents" />
+
+            <Button
+                android:id="@+id/manageGroupsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/manageGroups" />
 
             <Button
                 android:id="@+id/uploadPicBtn"

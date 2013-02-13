@@ -21,7 +21,9 @@ class Menu {
 			array(
 				__('Check Attendance') => 'checkAttendance',
 				__('View Your Results') => 'viewResults',
-				__('Excuse Yourself for Missing a Class') => 'makeExcuse'
+				__('Excuse Yourself for Missing a Class') => 'makeExcuse',
+				__('Notes') => 'notes',
+				__('Twitter') => 'twitter'
 			)
 		);
 	}
@@ -37,9 +39,10 @@ class Menu {
 			array(
 				__('Post Notes on Dropbox') => 'postNotes',
 				__('View Student Attendance') => 'viewStudentAttendance',
-				__('View Twitter Wall') => 'viewTwitter',
-				__('Post to Twitter Wall') => 'postTwitter',
-				__('Post CA Results') => 'postResults'
+				__('Twitter') => 'twitter',
+				__('Manage Assessments') => 'manageAssessments',
+				__('Manage Students') => 'manageStudents',
+				__('Manage Groups') => 'manageGroups'
 			)
 		);
 	}
@@ -53,8 +56,14 @@ class Menu {
 		return $this->getMenuHtml(
 			__('Admin Menu'),
 			array(
-				__('Do Something') => 'dostuff1',
-				__('Do Something Else') => 'dostuff2'
+				__('Manage Departments') => 'manageDepartments',
+				__('Manage Lecturers') => 'manageLecturers',
+				__('Manage Classes') => 'manageClasses',
+				__('Manage Modules') => 'manageModules',
+				__('Check Attendance') => 'checkAttendance',
+				__('Attendance Threshold') => 'attendanceThreshold',
+				__('Grant Students') => 'grantStudents'
+				
 			)
 		);
 	}

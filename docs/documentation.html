@@ -222,6 +222,7 @@ The documentation of this project will be an ongoing process during all the phas
   	<li>Login into his account, using either his student id or email in combination with a valid password</li>
   	<li>View attendance of students from classes that he teaches</li>
  	<li>View attendance of students in modules besides their own</li>
+	<li>Manage CA assessments(Create, View, Update, Delete)</li>
  	<li>Manage CA assessments results (Create Draft, View, Update, Delete, Publish)</li>
 	<li>View the Twitter wall for a module</li>
 	<li>Post to the Twitter wall for a module</li>
@@ -1020,6 +1021,256 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Priority:</td>
 		<td>Critical</td>
+	</tr>
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Create Assessment</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>13/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>13/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a lecturer can create an assessment</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet <br/>
+			The current assessments weights are not adding up to 100% 		
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>A new assessment is created</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer selects the "Manage Assessments" option from main menu</li>
+				<li>The system shows the lecturer a list of groups that he teaches</li>
+				<li>The lecturer selects a group from the list</li>
+				<li>The lecturer selects the "Create an Assessment" option</li>
+				<li>The lecturer is shown a form, by the system, for creating a new assessment</li>
+				<li>The lecturer provides name, date, weight of the assessment</li>
+				<li>The lecturer submits the form</li>
+				<li>The system processes the form to make sure the weight of all assessments of the selected module offering does not add up to more than 100%</li>
+				<li>The system creates the assessment</li>
+				<li>The lecturer is notified that the assessment was created successfully</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>View Assessments</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>13/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>13/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a lecturer can view the assessments of a group</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet <br/>
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>The lecturer is displayed a list of assessments</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer selects the "Manage Assessments" option from main menu</li>
+				<li>The system shows the lecturer a list of groups that he teaches</li>
+				<li>The lecturer selects a group from the list</li>
+				<li>The system shows the lecturer a list of assessments of that group</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Edit an Assessment</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>13/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>13/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a lecturer can edit an assessment of a group</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet <br/>
+			The assessment to be edited exists on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>
+			The lecturer has edited an assessments<br />
+			The system has recorded the changes
+		</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer selects the "Manage Assessments" option from main menu</li>
+				<li>The system shows the lecturer a list of groups that he teaches</li>
+				<li>The lecturer selects a group from the list</li>
+				<li>The system shows the lecturer a list of assessments of that group</li>
+				<li>The lecturer selects an assessment</li>
+				<li>The lecturer is shown, by the system, the details of the assessment and an option to edit it</li>
+				<li>The lecturer selects the edit option</li>
+				<li>The lecturer is shown a form, by the system, for editing the assessment</li>
+				<li>The lecturer changes the name, date or weight of the assessment</li>
+				<li>The lecturer submits the form</li>
+				<li>The system processes the form to make sure the weight of all assessments of the selected module offering does not add up to more than 100%</li>
+				<li>The system updates the assessment</li>
+				<li>The lecturer is notified that the assessment was edited successfully</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Delete an Assessment</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>13/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>13/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a lecturer can delete an assessment of a group</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet <br/>
+			The assessment to be edited exists on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>
+			The lecturer has deleted an assessments<br />
+			The system has recorded the changes
+		</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer selects the "Manage Assessments" option from main menu</li>
+				<li>The system shows the lecturer a list of groups that he teaches</li>
+				<li>The lecturer selects a group from the list</li>
+				<li>The system shows the lecturer a list of assessments of that group</li>
+				<li>The lecturer selects an assessment</li>
+				<li>The lecturer is shown, by the system, the details of the assessment and an option to delete it</li>
+				<li>The lecturer selects the delete option</li>
+				<li>The lecturer is shown, by the system, a confirmation dialog</li>
+				<li>The lecturer selects the "OK" option</li>
+				<li>The system deletes the assessment</li>
+				<li>The lecturer is notified that the assessment was deleted successfully</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
 	</tr>
 </table>
 

@@ -50,8 +50,6 @@ public class Activity_Main extends Activity {
 								    		startActivity(intent);
 								    	} else if (accessLevel == ACCESSLEVEL.ADMIN) {
 									    	new Dialog(self, R.string.noAdminAccess).show();
-								    	} else if (accessLevel == ACCESSLEVEL.SUPER) {
-									    	new Dialog(self, R.string.noSuperAccess).show();
 								    	} else {
 									    	new Dialog(self, R.string.unknowAuthError).show();
 								    	}

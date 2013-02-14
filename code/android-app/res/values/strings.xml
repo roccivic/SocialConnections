@@ -28,7 +28,6 @@
         
     <!-- For remote authentication -->
     <string name="noAdminAccess">Admin access is not allowed via the android app</string>
-    <string name="noSuperAccess">Super User access is not allowed via the android app</string>
     <string name="unknowAuthError">An unknown authentication error has occurred</string>
     <string name="httpError">HTTP error %s</string>
     <string name="httpResponseError">Can\'t decode response</string>

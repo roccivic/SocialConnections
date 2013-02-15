@@ -53,8 +53,7 @@ class Page_Main extends Page {
 		$html .= '<img src="images/cit.jpg" alt="' . __('Photo of main campus') . '" />';
 
 		// Add the HTML code to the page
-		$this->addHtml($html . Auth::getToken());
-
+		$this->addHtml($html);
 	}
 }
 

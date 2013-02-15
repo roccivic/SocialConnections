@@ -35,6 +35,10 @@ abstract class Page {
 	 * when it displayed. See also: addNotification()
 	 */
 	private $notifications;
+	/**
+	 * Whether the construct was called
+	 */
+	private $ready;
 
 	/**
 	 * Override this method to specify what level of access
@@ -44,6 +48,7 @@ abstract class Page {
 	 */
 	public function getAccessLevel()
 	{
+		$this->checkIfReady();
 		return User::ANONYMOUS;
 	}
 	/**
@@ -56,6 +61,7 @@ abstract class Page {
 	 */
 	public function getRequiredParams()
 	{
+		$this->checkIfReady();
 		return array();
 	}
 	/**
@@ -85,6 +91,7 @@ abstract class Page {
 			$this->isMobile = true;
 			$this->type = 'nomenu';
 		}
+		$this->ready = true;
 	}
 	/**
 	 * Used to check whether the page request is coming
@@ -94,6 +101,7 @@ abstract class Page {
 	 */
 	public function isMobile()
 	{
+		$this->checkIfReady();
 		return $this->isMobile;
 	}
 	/**
@@ -114,6 +122,7 @@ abstract class Page {
 	 */
 	public function addNotification($type, $html)
 	{
+		$this->checkIfReady();
 		$this->notifications[] = array(
 			'type' => $type,
 			'html' => $html
@@ -145,6 +154,7 @@ abstract class Page {
 	 */
 	public function sendHttpHeaders()
 	{
+		$this->checkIfReady();
 		if (! headers_sent()) {
 			// XSS protection, see: http://www.w3.org/TR/CSP/
 			header("Content-Security-Policy: default-src 'self'");
@@ -157,6 +167,7 @@ abstract class Page {
 	 */
 	public function displayPage()
 	{
+		$this->checkIfReady();
 		$page  = $this->getHeader();
 		$page .= '<div class="content-primary">';
     	foreach ($this->notifications as $notification) {
@@ -296,6 +307,22 @@ abstract class Page {
 		$html .= '</body>';
 		$html .= '</html>';
 		return $html;
+	}
+	/**
+	 * Fail miserably if a sublass has not called it's
+	 * parent's constructor
+	 */
+	private function checkIfReady()
+	{
+		if (! $this->ready) {
+			die(
+				"FATAL ERROR: Parent constructor was not called.<br><br>"
+				. "Add the following code to this page:<pre>"
+				. "\npublic function __construct()\n{\n"
+				. "    parent::__construct();\n}\n"
+				. "</pre>"
+			);
+		}
 	}
 }
 

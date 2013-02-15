@@ -111,6 +111,7 @@ abstract class Page {
 	 */
 	protected function setType($type)
 	{
+		$this->checkIfReady();
 		if ($type === 'normal' || $type === 'nomenu') {
 			$this->type = $type;
 		}
@@ -135,6 +136,7 @@ abstract class Page {
 	 */
 	protected function addHtml($string)
 	{
+		$this->checkIfReady();
 		$this->html .= $string;
 	}
 	/**
@@ -145,6 +147,7 @@ abstract class Page {
 	 */
 	protected function addText($string)
 	{
+		$this->checkIfReady();
 		$this->html .= htmlspecialchars($string);
 	}
 	/**
@@ -205,6 +208,7 @@ abstract class Page {
 	 */
 	protected function redirect($page = '')
 	{
+		$this->checkIfReady();
 		$msg = '';
 		if (! empty($page)) {
 			$page = '?action=' . $page;

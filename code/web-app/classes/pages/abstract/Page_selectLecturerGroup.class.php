@@ -24,13 +24,9 @@ abstract class Page_selectLecturerGroup extends Page_selectGroup {
 	 */
 	protected function getQuery()
 	{
-        return "SELECT `group`.`id`, `module`.`name`
+        return "SELECT `group`.`id`, `group`.`name`
 				FROM `group` INNER JOIN `moduleoffering_lecturer`
 				ON `group`.`moid` = `moduleoffering_lecturer`.`moid`
-				INNER JOIN `moduleoffering`
-				ON `moduleoffering_lecturer`.`moid` = `moduleoffering`.`id`
-				INNER JOIN `module`
-				ON `moduleoffering`.`mid` = `module`.`id`
 				WHERE `lid` = ?";
 	}
 }

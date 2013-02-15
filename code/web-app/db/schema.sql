@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 13, 2013 at 07:13 PM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Generation Time: Feb 15, 2013 at 05:37 PM
+-- Server version: 5.5.29-0ubuntu0.12.04.1
+-- PHP Version: 5.3.10-1ubuntu3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `department` (
   `name` varchar(64) NOT NULL,
   `headId` mediumint(9) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `department`
@@ -188,7 +188,10 @@ CREATE TABLE IF NOT EXISTS `module` (
   `name` varchar(64) NOT NULL,
   `credits` int(11) NOT NULL,
   `CRN` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
+  `did` mediumint(9) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Composite` (`id`,`did`),
+  KEY `did` (`did`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -275,6 +278,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `password` varchar(32) NOT NULL,
   `salt` varchar(32) NOT NULL,
   `cid` mediumint(9) NOT NULL,
+  `hasGrant` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`),
   UNIQUE KEY `composite` (`id`,`cid`),
@@ -285,10 +289,30 @@ CREATE TABLE IF NOT EXISTS `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`id`, `fname`, `lname`, `username`, `email`, `password`, `salt`, `cid`) VALUES
-(1, 'Gary', 'Brady', 'r00012345', 'gary.brady@mycit.ie', '1ceafbd665b7bccfef45ae8e573335da', 'IrUN710qV0GG6HmPOj984eIrwFcC4OCK', 1),
-(2, 'Preslav', 'Petkov', 'r00073209', 'preslav.petkov@mycit.ie', '8471cd440dfd9cf75402d82c8b820ed9', '1DYrhbckFt5uVB5n9N6lqLN7ppxKkwMo', 1),
-(3, 'Rouslan', 'Placella', 'r00077389', 'rouslan.placella@mycit.ie', '25318b182c631b6995b7268c3251aab8', 'NqK3zDnUQAeh6pR3DHFV4NCjKLdT6CRp', 1);
+INSERT INTO `student` (`id`, `fname`, `lname`, `username`, `email`, `password`, `salt`, `cid`, `hasGrant`) VALUES
+(1, 'Gary', 'Brady', 'r00012345', 'gary.brady@mycit.ie', '1ceafbd665b7bccfef45ae8e573335da', 'IrUN710qV0GG6HmPOj984eIrwFcC4OCK', 1, 0),
+(2, 'Preslav', 'Petkov', 'r00073209', 'preslav.petkov@mycit.ie', '8471cd440dfd9cf75402d82c8b820ed9', '1DYrhbckFt5uVB5n9N6lqLN7ppxKkwMo', 1, 0),
+(3, 'Rouslan', 'Placella', 'r00077389', 'rouslan.placella@mycit.ie', '25318b182c631b6995b7268c3251aab8', 'NqK3zDnUQAeh6pR3DHFV4NCjKLdT6CRp', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `threshold`
+--
+
+CREATE TABLE IF NOT EXISTS `threshold` (
+  `id` mediumint(9) NOT NULL,
+  `overall` tinyint(4) NOT NULL,
+  `labs` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `threshold`
+--
+
+INSERT INTO `threshold` (`id`, `overall`, `labs`) VALUES
+(0, 50, 60);
 
 -- --------------------------------------------------------
 
@@ -337,14 +361,20 @@ ALTER TABLE `group`
 -- Constraints for table `group_student`
 --
 ALTER TABLE `group_student`
-  ADD CONSTRAINT `group_student_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `group_student_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `group_student_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_student_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `lecturer`
 --
 ALTER TABLE `lecturer`
   ADD CONSTRAINT `lecturer_ibfk_1` FOREIGN KEY (`did`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `module`
+--
+ALTER TABLE `module`
+  ADD CONSTRAINT `module_ibfk_1` FOREIGN KEY (`did`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `moduleoffering`

@@ -263,13 +263,6 @@ CREATE TABLE IF NOT EXISTS `speedlimit` (
   KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Rate Limiting for Authentication';
 
---
--- Dumping data for table `speedlimit`
---
-
-INSERT INTO `speedlimit` (`ip`, `timestamp`) VALUES
-('127.0.0.1', '2013-02-13 18:38:11');
-
 -- --------------------------------------------------------
 
 --
@@ -300,6 +293,26 @@ INSERT INTO `student` (`id`, `fname`, `lname`, `username`, `email`, `password`, 
 (1, 'Gary', 'Brady', 'r00012345', 'gary.brady@mycit.ie', '1ceafbd665b7bccfef45ae8e573335da', 'IrUN710qV0GG6HmPOj984eIrwFcC4OCK', 1, 0),
 (2, 'Preslav', 'Petkov', 'r00073209', 'preslav.petkov@mycit.ie', '8471cd440dfd9cf75402d82c8b820ed9', '1DYrhbckFt5uVB5n9N6lqLN7ppxKkwMo', 1, 0),
 (3, 'Rouslan', 'Placella', 'r00077389', 'rouslan.placella@mycit.ie', '25318b182c631b6995b7268c3251aab8', 'NqK3zDnUQAeh6pR3DHFV4NCjKLdT6CRp', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `threshold`
+--
+
+CREATE TABLE IF NOT EXISTS `threshold` (
+  `id` mediumint(9) NOT NULL,
+  `overall` tinyint(4) NOT NULL,
+  `labs` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `threshold`
+--
+
+INSERT INTO `threshold` (`id`, `overall`, `labs`) VALUES
+(0, 50, 60);
 
 -- --------------------------------------------------------
 

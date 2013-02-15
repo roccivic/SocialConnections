@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: socialconnections@placella.com\n"
-"POT-Creation-Date: 2013-02-02 23:51+0000\n"
+"POT-Creation-Date: 2013-02-15 21:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Student Menu"
 msgstr ""
 
-#: classes/Menu.class.php:22
+#: classes/Menu.class.php:22 classes/Menu.class.php:63
 msgid "Check Attendance"
 msgstr ""
 
@@ -41,126 +41,175 @@ msgstr ""
 msgid "Excuse Yourself for Missing a Class"
 msgstr ""
 
-#: classes/Menu.class.php:36
-msgid "Lecturer Menu"
+#: classes/Menu.class.php:25
+msgid "Notes"
+msgstr ""
+
+#: classes/Menu.class.php:26 classes/Menu.class.php:42
+msgid "Twitter"
 msgstr ""
 
 #: classes/Menu.class.php:38
-msgid "Post Notes on Dropbox"
-msgstr ""
-
-#: classes/Menu.class.php:39
-msgid "View Student Attendance"
+msgid "Lecturer Menu"
 msgstr ""
 
 #: classes/Menu.class.php:40
-msgid "View Twitter Wall"
+msgid "Post Notes on Dropbox"
 msgstr ""
 
 #: classes/Menu.class.php:41
-msgid "Post to Twitter Wall"
+msgid "View Student Attendance"
 msgstr ""
 
-#: classes/Menu.class.php:42
-msgid "Post CA Results"
+#: classes/Menu.class.php:43
+msgid "Manage Assessments"
 msgstr ""
 
-#: classes/Menu.class.php:54
-msgid "Admin Menu"
+#: classes/Menu.class.php:44
+msgid "Manage Students"
 msgstr ""
 
-#: classes/Menu.class.php:56
-msgid "Do Something"
+#: classes/Menu.class.php:45
+msgid "Manage Groups"
 msgstr ""
 
 #: classes/Menu.class.php:57
-msgid "Do Something Else"
+msgid "Admin Menu"
 msgstr ""
 
-#: classes/Menu.class.php:69
-msgid "Superuser Menu"
+#: classes/Menu.class.php:59
+msgid "Manage Departments"
 msgstr ""
 
-#: classes/Menu.class.php:71
-msgid "Super Functionality 1"
+#: classes/Menu.class.php:60
+msgid "Manage Lecturers"
 msgstr ""
 
-#: classes/Menu.class.php:72
-msgid "Super Functionality 2"
+#: classes/Menu.class.php:61
+msgid "Manage Classes"
 msgstr ""
 
-#: classes/Page.class.php:77
+#: classes/Menu.class.php:62
+msgid "Manage Modules"
+msgstr ""
+
+#: classes/Menu.class.php:64
+msgid "Attendance Threshold"
+msgstr ""
+
+#: classes/Menu.class.php:65
+msgid "Grant Students"
+msgstr ""
+
+#: classes/Page.class.php:83
 msgid "Unable to connect to database"
 msgstr ""
 
-#: classes/Page.class.php:175
+#: classes/Page.class.php:189
 msgid "Back"
 msgstr ""
 
-#: classes/Page.class.php:237
+#: classes/Page.class.php:250
 msgid "Social Connections Web App"
 msgstr ""
 
-#: classes/Page.class.php:267
+#: classes/Page.class.php:280
 msgid "Log out"
 msgstr ""
 
-#: classes/PageFactory.class.php:41
+#: classes/PageFactory.class.php:42
 #, possible-php-format
 msgid "Warning: Missing required parameter \"%s\""
 msgstr ""
 
-#: classes/PageFactory.class.php:54
+#: classes/PageFactory.class.php:55
 msgid "The requested page does not exist"
+msgstr ""
+
+#: classes/pages/Page_attendanceThreshold.class.php:33
+msgid "The threshold values were successfully updated."
+msgstr ""
+
+#: classes/pages/Page_attendanceThreshold.class.php:38
+msgid "An error occured while processing your request."
+msgstr ""
+
+#: classes/pages/Page_attendanceThreshold.class.php:44
+msgid "The values in the form were invalid. Please try again."
+msgstr ""
+
+#: classes/pages/Page_attendanceThreshold.class.php:59
+msgid "Poor Attendance Threshold"
+msgstr ""
+
+#: classes/pages/Page_attendanceThreshold.class.php:63
+msgid "Overall (%)"
+msgstr ""
+
+#: classes/pages/Page_attendanceThreshold.class.php:68
+msgid "Labs (%)"
+msgstr ""
+
+#: classes/pages/Page_attendanceThreshold.class.php:72
+msgid "Save"
 msgstr ""
 
 #: classes/pages/Page_authError.class.php:18
 msgid "You don't have the permissions to view this page."
 msgstr ""
 
-#: classes/pages/Page_login.class.php:21
+#: classes/pages/Page_login.class.php:24
+#, possible-php-format
 msgid ""
 "Error: You have exceeded your maximum number of login attempts. Please try "
-"again later."
+"again in %s seconds."
 msgstr ""
 
-#: classes/pages/Page_login.class.php:31
+#: classes/pages/Page_login.class.php:38
 msgid "Error: Invalid username or password"
 msgstr ""
 
-#: classes/pages/Page_login.class.php:44
+#: classes/pages/Page_login.class.php:51
 msgid "Your session has expired, please log in again"
 msgstr ""
 
-#: classes/pages/Page_login.class.php:59
+#: classes/pages/Page_login.class.php:66
 msgid "Login Form"
 msgstr ""
 
-#: classes/pages/Page_login.class.php:62
+#: classes/pages/Page_login.class.php:69
 msgid "Username"
 msgstr ""
 
-#: classes/pages/Page_login.class.php:72
+#: classes/pages/Page_login.class.php:79
 msgid "Password"
 msgstr ""
 
-#: classes/pages/Page_login.class.php:76
+#: classes/pages/Page_login.class.php:83
 msgid "Language"
 msgstr ""
 
-#: classes/pages/Page_login.class.php:81
+#: classes/pages/Page_login.class.php:88
 msgid "Go"
 msgstr ""
 
-#: classes/pages/Page_main.class.php:38
+#: classes/pages/Page_main.class.php:45
 #, possible-php-format
 msgid "Welcome, %1$s %2$s."
 msgstr ""
 
-#: classes/pages/Page_main.class.php:44
+#: classes/pages/Page_main.class.php:51
 msgid "To start, please select an action from the menu."
 msgstr ""
 
-#: classes/pages/Page_main.class.php:46
+#: classes/pages/Page_main.class.php:53
 msgid "Photo of main campus"
+msgstr ""
+
+#: classes/pages/abstract/Page_selectGroup.class.php:74
+msgid "You are not assigned to any groups"
+msgstr ""
+
+#: classes/pages/abstract/Page_selectGroup.class.php:89
+msgid "Select Group"
 msgstr ""

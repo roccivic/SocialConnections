@@ -2162,15 +2162,15 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Add Department</td>
+		<td>View Department</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
-		<td>07/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>07/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2178,7 +2178,62 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>This use case shows how an administrator can add a department</td>
+		<td>This use case shows how an administrator can view a department's information</td>
+	</tr>
+	<tr>
+		<td>Precondition:</td>
+		<td>
+			The administrator is logged in<br/>
+			The user is connected to the internet<br/>
+			The department that is to be viewed exists on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage departments"</li>
+				<li>The administrator is shown, by the system, a list of all departments</li>
+				<li>The administrator selects the department that is to be viewed</li>
+				<li>The administrator is shown, by the system, the details of the selected department</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Create Department</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>15/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Administrator, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how an administrator can create a new department</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
@@ -2191,17 +2246,18 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Postconditions:</td>
 		<td>
-			A department is created<br />
-			The administrator is notified by the system if the operation was successful or not
+			A new department is created
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The administrator chooses to create a new department</li>
-				<li>The administrator is displayed a form for creating a new department</li>
-				<li>The administrator enters department details</li>
+				<li>The administrator selects the option "Manage Departments</li>
+				<li>The administrator is shown, by the system, a list of departments and the option to create a new one</li>
+				<li>The administrator selects the option "Create a new department"</li>
+				<li>The administrator is shown a form</li>
+				<li>The administrator enters the name and head of the department</li>
 				<li>The administrator submits the form</li>
 				<li>The system checks if the details entered are okay</li>
 				<li>The system creates a new department</li>
@@ -2232,7 +2288,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>11/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2253,21 +2309,24 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Post Conditions:</td>
 		<td>
-			The department is deleted from the system<br/>
-			The administrator is notified by the system if the operation was successful or not
+			The department is deleted from the system
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
-		<td><ol>
-			<li>The administrator chooses to delete a department</li>
-			<li>The administrator is displayed a form for deleting a department</li>
-			<li>The administrator enters details of department to be deleted</li>
-			<li>The administrator submits the form</li>
-			<li>The system checks if the data entered is okay</li>
-			<li>The system deletes the department</li>
-			<li>The administrator is notified if the operation was successful or not</li>
-		</ol></td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage departments"</li>
+				<li>The administrator is shown,by the system, a list of all departments</li>
+				<li>The administrator selects the department to be deleted</li>
+				<li>The administrator is shown, by the system, the details of the department and the option to delete it</li>
+				<li>The administrator selects the delete option</li>
+				<li>The administrator is shown,by the system, a confirmation dialog</li>
+				<li>The administrator selects OK</li>
+				<li>The system deletes the department</li>
+				<li>The administrator is notified that the operation was successful</li>
+				</ol>
+		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
@@ -2283,7 +2342,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Update Department</td>
+		<td>Edit Department</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -2291,7 +2350,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>11/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2299,7 +2358,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>This use case shows how an administrator can update a department's information</td>
+		<td>This use case shows how an administrator can edit a department</td>
 	</tr>
 	<tr>
 		<td>Precondition:</td>
@@ -2312,22 +2371,82 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Post Conditions:</td>
 		<td>
-			The department's information is updated on the system<br/>
-			The administrator is notified by the system if the operation was successful or not
+			The department's information is updated on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
-		<td><ol>
-			<li>The administrator chooses to update a department's information</li>
-			<li>The administrator is given a list of departments and he picks the one he/she wants to update</li>
-			<li>The administrator is displayed a form for updating a department's information</li>
-			<li>The administrator fills the form</li>
-			<li>The administrator submits the form</li>
-			<li>The system checks if data entered is okay</li>
-			<li>The system updates the information of the department</li>
-			<li>The administrator is notified if the operation was successful or not</li>
-		</ol></td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage departments"</li>
+				<li>The administrator is shown, by the system, a list of all departments</li>
+				<li>The administrator selects the department that is to be edited</li>
+				<li>The administrator is shown, by the system, the details of the selected department and the option to edit it</li>
+				<li>The administrator selects the option to edit the department</li>
+				<li>The administrator is shown, by the system, a form to edit the department</li>
+				<li>The administrator edits the name and the head of the department</li>
+				<li>The administrator selects OK</li>
+				<li>The system updates the information of the department</li>
+				<li>The administrator is notified that the operation was successful</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>View Module</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>15/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>15/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Administrator, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how an administrator can view a module's information</td>
+	</tr>
+	<tr>
+		<td>Precondition:</td>
+		<td>
+			The administrator is logged in<br/>
+			The user is connected to the internet<br/>
+			The module that is to be viewed exists on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage modules"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the module to be viewed is a part of</li>
+				<li>The administrator, is shown by the system, a list of all modules that are part of the selected department</li>
+				<li>The administrator selects the module that is to be viewed</li>
+				<li>The administrator is shown, by the system, the details of the selected module</li>
+			</ol>
+		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
@@ -2352,7 +2471,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>11/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2373,23 +2492,26 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Post Conditions:</td>
 		<td>
-			A module is created<br/>
-			The administrator is notified by the system if the operation was successful or not		
-		
+			A new module is created	
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
-		<td><ol><li>The administrator chooses to create a new module</li>
-			<li>The administrator is displayed a form for creating a new module</li>
-			<li>The administrator enters module details</li>
-			<li>The administrator submits the form</li>
-			<li>The system checks if the details entered are okay</li>
-			<li>The system creates a new module</li>
-			<li>The System notifies the administrator that operation was successful</li>
-
-	</ol>
-	</td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage modules"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the new module will be a part of</li>
+				<li>The administrator, is shown by the system, a list of all modules that are part of the selected department and the option to create a new one</li>
+				<li>The administrator selects the option "Create a new module"</li>
+				<li>The administrator is shown a form</li>
+				<li>The administrator enters the name,CRN number and credits of the module</li>
+				<li>The administrator submits the form</li>
+				<li>The system checks if the details entered are okay</li>
+				<li>The system creates a new module</li>
+				<li>The system notifies the administrator that operation was successful</li>		
+			</ol>
+		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
@@ -2413,7 +2535,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>11/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2434,21 +2556,26 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Post Conditions:</td>
 		<td>
-			The module is deleted from the system<br/>
-			The administrator is notified by the system if the operation was successful or not
+			The module is deleted from the system
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
-		<td><ol>
-			<li>The administrator chooses to delete a module</li>
-			<li>The administrator is displayed a form for deleting a module</li>
-			<li>The administrator enters details of module to be deleted</li>
-			<li>The administrator submits the form</li>
-			<li>The system checks if the data entered is okay</li>
-			<li>The system deletes the module</li>
-			<li>The administrator is notified if the operation was successful or not</li>
-		</ol></td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage modules"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the module to be deleted is a part of</li>
+				<li>The administrator is shown,by the system, a list of all modules that are a part of the selected department</li>
+				<li>The administrator selects the module to be deleted</li>
+				<li>The administrator is shown, by the system, the details of the module and the option to delete it</li>
+				<li>The administrator selects the delete option</li>
+				<li>The administrator is shown,by the system, a confirmation dialog</li>
+				<li>The administrator selects OK</li>
+				<li>The system deletes the module</li>
+				<li>The administrator is notified that the operation was successful</li>
+			</ol>
+		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
@@ -2464,7 +2591,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Update Module</td>
+		<td>Edit Module</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -2472,7 +2599,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>11/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2480,7 +2607,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>This use case shows how an administrator can update a module's information</td>
+		<td>This use case shows how an administrator can edit a module</td>
 	</tr>
 	<tr>
 		<td>Precondition:</td>
@@ -2493,22 +2620,84 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Post Conditions:</td>
 		<td>
-			The module's information is updated on the system<br/>
-			The administrator is notified by the system if the operation was successful or not
+			The module's information is updated on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
-		<td><ol>
-			<li>The administrator chooses to update a module's information</li>
-			<li>The administrator is given a list of modules and he picks the one he/she wants to update</li>
-			<li>The administrator is displayed a form for updating a module's information</li>
-			<li>The administrator fills the form</li>
-			<li>The administrator submits the form</li>
-			<li>The system checks if data entered is okay</li>
-			<li>The system updates the information of the module</li>
-			<li>The administrator is notified if the operation was successful or not</li>
-		</ol></td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage modules"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the module to be edited is a part of</li>
+				<li>The administrator is shown,by the system, a list of all modules that are a part of the selected department</li>
+				<li>The administrator selects the module that is to be edited</li>
+				<li>The administrator is shown, by the system, the details of the selected module and the option to edit it</li>
+				<li>The administrator selects the option to edit the module</li>
+				<li>The administrator is shown, by the system, a form to edit the module</li>
+				<li>The administrator edits the name,CRN number and credits of the module</li>
+				<li>The administrator selects OK</li>
+				<li>The system updates the information of the module</li>
+				<li>The administrator is notified that the operation was successful</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>View Class</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>15/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>15/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Administrator, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how an administrator can view a class</td>
+	</tr>
+	<tr>
+		<td>Precondition:</td>
+		<td>
+			The administrator is logged in<br/>
+			The user is connected to the internet<br/>
+			The class that is to be viewed exists on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Post Conditions:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage classes"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the class to be edited is a part of</li>
+				<li>The administrator is shown,by the system, a list of all classes that are a part of the selected department</li>
+				<li>The administrator selects the class that is to be viewed</li>
+				<li>The administrator is shown, by the system, the details of the selected class</li>
+			</ol>
+		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
@@ -2532,7 +2721,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>11/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2547,28 +2736,32 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>
 			The Administrator is logged in<br/>
 			The user is connected to the internet<br/>
-			A class with the given name does not exist yet on the system
+			A class with the given name does not exist on the system yet
 		</td>
 	</tr>
 	<tr>
 		<td>Post Conditions:</td>
 		<td>
-			A class is created<br/>
-			The administrator is notified by the system if the operation was successful or not	
+			A new class is created<br/>
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
-		<td><ol><li>The administrator chooses to create a new class</li>
-			<li>The administrator is displayed a form for creating a new class</li>
-			<li>The administrator enters class details</li>
-			<li>The administrator submits the form</li>
-			<li>The system checks if the details entered are okay</li>
-			<li>The system creates a new class</li>
-			<li>The System notifies the administrator that operation was successful</li>
-
-	</ol>
-	</td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage classes"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the new class will be a part of</li>
+				<li>The administrator, is shown by the system, a list of all classes that are part of the selected department and the option to create a new one</li>
+				<li>The administrator selects the option "Create a new class"</li>
+				<li>The administrator is shown a form</li>
+				<li>The administrator enters the name of the new class</li>
+				<li>The administrator submits the form</li>
+				<li>The system checks if the details entered are okay</li>
+				<li>The system creates a new class</li>
+				<li>The system notifies the administrator that operation was successful</li>
+			</ol>
+		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
@@ -2592,7 +2785,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>11/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2613,21 +2806,26 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Post Conditions:</td>
 		<td>
-			The class is deleted from the system<br/>
-			The administrator is notified by the system if the operation was successful or not
+			The class is deleted from the system
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
-		<td><ol>
-			<li>The administrator chooses to delete a class</li>
-			<li>The administrator is displayed a form for deleting a class</li>
-			<li>The administrator enters details of the class to be deleted</li>
-			<li>The administrator submits the form</li>
-			<li>The system checks if the data entered is okay</li>
-			<li>The system deletes the class</li>
-			<li>The administrator is notified if the operation was successful or not</li>
-		</ol></td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage classes"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the class to be deleted is a part of</li>
+				<li>The administrator is shown,by the system, a list of all classes that are a part of the selected department</li>
+				<li>The administrator selects the class to be deleted</li>
+				<li>The administrator is shown, by the system, the details of the class and the option to delete it</li>
+				<li>The administrator selects the delete option</li>
+				<li>The administrator is shown,by the system, a confirmation dialog</li>
+				<li>The administrator selects OK</li>
+				<li>The system deletes the class</li>
+				<li>The administrator is notified that the operation was successful</li>
+			</ol>
+		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
@@ -2642,7 +2840,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Update Class</td>
+		<td>Edit Class</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -2650,7 +2848,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>11/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2658,35 +2856,40 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>This use case shows how an administrator can update a class' information</td>
+		<td>This use case shows how an administrator can edit a class</td>
 	</tr>
 	<tr>
 		<td>Precondition:</td>
 		<td>
 			The administrator is logged in<br/>
 			The user is connected to the internet<br/>
-			The class that is to be updated exists on the system
+			The class that is to be edited exists on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Post Conditions:</td>
 		<td>
-			The class' information is updated on the system<br/>
-			The administrator is notified by the system if the operation was successful or not
+			The class' information is updated on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
-		<td><ol>
-			<li>The administrator chooses to update a class' information</li>
-			<li>The administrator is given a list of classes and he picks the one he/she wants to update</li>
-			<li>The administrator is displayed a form for updating a class' information</li>
-			<li>The administrator fills the form</li>
-			<li>The administrator submits the form</li>
-			<li>The system checks if data entered is okay</li>
-			<li>The system updates the information of the class</li>
-			<li>The administrator is notified if the operation was successful or not</li>
-		</ol></td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage classes"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the class to be edited is a part of</li>
+				<li>The administrator is shown,by the system, a list of all classes that are a part of the selected department</li>
+				<li>The administrator selects the class that is to be edited</li>
+				<li>The administrator is shown, by the system, the details of the selected class and the option to edit it</li>
+				<li>The administrator selects the option to edit the class</li>
+				<li>The administrator is shown, by the system, a form to edit the class</li>
+				<li>The administrator edits the name of the module</li>
+				<li>The administrator selects OK</li>
+				<li>The system updates the information of the class</li>
+				<li>The administrator is notified that the operation was successful</li>
+			</ol>
+		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
@@ -2705,7 +2908,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Compare attendance between departments</td>
+		<td>Check attendance</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -2713,7 +2916,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>07/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2721,32 +2924,25 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>This use case shows how an administrator can compare attendance between departments</td>
+		<td>This use case shows how an administrator can check the attendance of all departments</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
 		<td>
 			The administrator is logged in<br />
 			The user is connected to the internet<br />
-			The chosen departments exist on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>The administrator is notified by the system if the operation was successful or not</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The administrator chooses to compare attendance between two departments</li>
-				<li>The administrator is displayed a form for comparing attendance between two departments</li>
-				<li>The administrator enters the names of the departments</li>
-				<li>The administrator submits the form</li>
-				<li>The system calculates the attendance of the two departments</li>
-				<li>The system compares the attendance of the two departments</li>
-				<li>The administrator is notified by the system if the operation was successful or not</li>
-				<li>The administrator is displayed the results</li>
+				<li>The administrator selects the option "Check Attendance"</li>
+				<li>The administrator is shown, by the system, a list of all departments and their overall attendance level</li>
 			</ol>
 		</td>
 	</tr>
@@ -2826,15 +3022,15 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Add lecturer</td>
+		<td>View Lecturer</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
-		<td>07/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>07/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2842,33 +3038,32 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>This use case shows how an administrator can add a new lecturer</td>
+		<td>This use case shows how an administrator can view a lecturer</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
 		<td>
 			The administrator is logged in<br />
-			The user is connected to the internet
+			The user is connected to the internet<br />
+			The lecturer who is to be viewed exists on the system
 		</td>
 	</tr>
 	<tr>
+
 		<td>Postconditions:</td>
-		<td>
-			A new lecturer is created<br />
-			The administrator is notified if operation was successful or not
-		</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The administrator chooses to add a new lecturer</li>
-				<li>The administrator is displayed a form for adding a new lecturer</li>
-				<li>The administrator enters lecturer details</li>
-				<li>The administrator submits the form</li>
-				<li>The System checks the details entered by the administrator</li>
-				<li>The system creates a new lecturer</li>
-				<li>The administrator is notified by the system if operation was successful or not</li>
+				<li>The administrator selects the option "Manage lecturers"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the lecturer to be viewed is a part of</li>
+				<li>The administrator is shown,by the system, a list of all lecturers that are a part of the selected department</li>
+				<li>The administrator selects the lecturer to be viewed</li>
+				<li>The administrator is shown, by the system, the details of the lecturer</li>
+				
 			</ol>
 		</td>
 	</tr>
@@ -2887,7 +3082,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Update lecturer info</td>
+		<td>Create lecturer</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -2895,7 +3090,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>07/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2903,35 +3098,102 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>This use case shows how an administrator can update the information of a lecturer</td>
+		<td>This use case shows how an administrator can create a new lecturer</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
 		<td>
 			The administrator is logged in<br />
-			The user is connected to the internet<br />
-			The lecturer being updated exists on the system
+			The user is connected to the internet
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
 		<td>
-			The lecturer info is updated<br />
-			The administrator is notified by the system if the operation was successful or not
+			A new lecturer is created
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The administrator chooses to update a lecturer's information</li>
-				<li>The administrator is given a list of lecturer names and he picks the one he/she wants to update</li>
-				<li>The administrator is displayed a form for updating a lecturer's information</li>
-				<li>The administrator fills the form</li>
+				<li>The administrator selects the option "Manage lecturers"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the new lecturer will be a part of</li>
+				<li>The administrator, is shown by the system, a list of all lecturers that are part of the selected department and the option to create a new one</li>
+				<li>The administrator selects the option "Create a new lecturer"</li>
+				<li>The administrator is shown a form</li>
+				<li>The administrator enters the first name, last name, username, e-mail and password of the new lecturer</li>
 				<li>The administrator submits the form</li>
-				<li>The system checks if data entered is okay</li>
+				<li>The system checks if the details entered are okay</li>
+				<li>The system creates a new lecturer</li>
+				<li>The system notifies the administrator that operation was successful</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Edit Lecturer</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>07/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>15/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Administrator, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how an administrator can edit a lecturer</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The administrator is logged in<br />
+			The user is connected to the internet<br />
+			The lecturer to be edited exists on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>
+			The lecturer's information is updated on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The administrator selects the option "Manage lecturers"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the lecturer to be edited is a part of</li>
+				<li>The administrator is shown,by the system, a list of all lecturers that are a part of the selected department</li>
+				<li>The administrator selects the lecturer that is to be edited</li>
+				<li>The administrator is shown, by the system, the details of the selected lecturer and the option to edit it</li>
+				<li>The administrator selects the option to edit the lecturer</li>
+				<li>The administrator is shown, by the system, a form to edit the lecturer</li>
+				<li>The administrator edits the first name, last name, username, e-mail and password of the lecturer</li>
+				<li>The administrator selects OK</li>
 				<li>The system updates the information of the lecturer</li>
-				<li>The administrator is notified if the operation was successful or not</li>
+				<li>The administrator is notified that the operation was successful</li>
 			</ol>
 		</td>
 	</tr>
@@ -2958,7 +3220,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>07/02/2013</td>
+		<td>15/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -2980,21 +3242,24 @@ All developers will need a working knowledge so issues can be dealt with immedia
 
 		<td>Postconditions:</td>
 		<td>
-			The lecturer is deleted from the system<br />
-			The administrator is notified if the operation was successful or not
+			The lecturer is deleted from the system
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The administrator chooses to delete a lecturer</li>
-				<li>The administrator is displayed a form for deleting a lecturer</li>
-				<li>The administrator enters details of lecturer to be deleted</li>
-				<li>The administrator submits the form</li>
-				<li>The system checks if the data entered is okay</li>
+				<li>The administrator selects the option "Manage lecturers"</li>
+				<li>The administrator is shown, by the system, a list of departments</li>
+				<li>The administrator selects the department that the lecturer to be deleted is a part of</li>
+				<li>The administrator is shown,by the system, a list of all lecturers that are a part of the selected department</li>
+				<li>The administrator selects the lecturer to be deleted</li>
+				<li>The administrator is shown, by the system, the details of the lecturer and the option to delete it</li>
+				<li>The administrator selects the delete option</li>
+				<li>The administrator is shown,by the system, a confirmation dialog</li>
+				<li>The administrator selects OK</li>
 				<li>The system deletes the lecturer</li>
-				<li>The administrator is notified if the operation was successful or not</li>
+				<li>The administrator is notified that the operation was successful</li>
 			</ol>
 		</td>
 	</tr>

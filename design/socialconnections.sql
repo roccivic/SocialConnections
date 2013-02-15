@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 13, 2013 at 05:49 PM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Generation Time: Feb 15, 2013 at 05:37 PM
+-- Server version: 5.5.29-0ubuntu0.12.04.1
+-- PHP Version: 5.3.10-1ubuntu3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `SocialConnections`
+-- Database: `socialconnections`
 --
 
 -- --------------------------------------------------------
@@ -36,7 +36,14 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `salt` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `fname`, `lname`, `username`, `email`, `password`, `salt`) VALUES
+(1, 'IT', 'Management', 'z87654321', '', '598a4553150f08602cf82422bbbb3b07', 'awxGwfzLNFuNx89EeLiQTsyFg5BnNP3Q');
 
 -- --------------------------------------------------------
 
@@ -50,7 +57,8 @@ CREATE TABLE IF NOT EXISTS `assesment` (
   `name` varchar(64) NOT NULL,
   `weight` tinyint(4) NOT NULL COMMENT 'Percentage of total marks for the module',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `composite` (`id`,`gid`)
+  UNIQUE KEY `composite` (`id`,`gid`),
+  KEY `assesment_ibfk_1` (`gid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -67,7 +75,8 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   `excuse` text,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `excuse_viewed` tinyint(1) NOT NULL DEFAULT '0',
-  UNIQUE KEY `composite` (`sid`,`gid`,`time`)
+  UNIQUE KEY `composite` (`sid`,`gid`,`time`),
+  KEY `attendance_ibfk_2` (`gid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -81,8 +90,17 @@ CREATE TABLE IF NOT EXISTS `class` (
   `name` varchar(64) NOT NULL,
   `did` mediumint(9) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `composite` (`id`,`did`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `composite` (`id`,`did`),
+  KEY `class_ibfk_1` (`did`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `class`
+--
+
+INSERT INTO `class` (`id`, `name`, `did`) VALUES
+(1, 'DCOM3', 1),
+(2, 'DNET3', 1);
 
 -- --------------------------------------------------------
 
@@ -93,9 +111,16 @@ CREATE TABLE IF NOT EXISTS `class` (
 CREATE TABLE IF NOT EXISTS `department` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
-  `headId` mediumint(9) NOT NULL,
+  `headId` mediumint(9) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`id`, `name`, `headId`) VALUES
+(1, 'Computing', 1);
 
 -- --------------------------------------------------------
 
@@ -120,7 +145,8 @@ CREATE TABLE IF NOT EXISTS `group` (
 CREATE TABLE IF NOT EXISTS `group_student` (
   `gid` mediumint(9) NOT NULL,
   `sid` mediumint(9) NOT NULL,
-  PRIMARY KEY (`gid`,`sid`)
+  PRIMARY KEY (`gid`,`sid`),
+  KEY `group_student_ibfk_2` (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -139,8 +165,17 @@ CREATE TABLE IF NOT EXISTS `lecturer` (
   `salt` varchar(32) NOT NULL,
   `did` mediumint(9) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `username` (`username`,`email`),
+  KEY `lecturer_ibfk_1` (`did`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `lecturer`
+--
+
+INSERT INTO `lecturer` (`id`, `fname`, `lname`, `username`, `email`, `password`, `salt`, `did`) VALUES
+(1, 'Jim', 'O''Dwyer', 'r25836947', 'jim.odwyer@cit.ie', '7dfa0466c9ad48b49df466421b19a464', 'wzkGKc8Vaj6aUoAGTzuXlV2ORi3DHcuF', 1),
+(2, 'Mary', 'Davin', 'r12345678', 'mary.davin@cit.ie', '4265f0910b86350037ead6662d51699c', 'jYyPaiH52KxdCDnpPZ0eopACCFeFkbdT', 1);
 
 -- --------------------------------------------------------
 
@@ -153,7 +188,10 @@ CREATE TABLE IF NOT EXISTS `module` (
   `name` varchar(64) NOT NULL,
   `credits` int(11) NOT NULL,
   `CRN` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
+  `did` mediumint(9) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Composite` (`id`,`did`),
+  KEY `did` (`did`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -167,7 +205,8 @@ CREATE TABLE IF NOT EXISTS `moduleoffering` (
   `mid` mediumint(9) NOT NULL,
   `year` year(4) NOT NULL,
   `term` tinyint(4) NOT NULL,
-  UNIQUE KEY `composite` (`id`,`mid`)
+  UNIQUE KEY `composite` (`id`,`mid`),
+  KEY `moduleoffering_ibfk_1` (`mid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -179,7 +218,8 @@ CREATE TABLE IF NOT EXISTS `moduleoffering` (
 CREATE TABLE IF NOT EXISTS `moduleoffering_lecturer` (
   `moid` mediumint(9) NOT NULL,
   `lid` mediumint(9) NOT NULL,
-  UNIQUE KEY `composite` (`moid`,`lid`)
+  UNIQUE KEY `composite` (`moid`,`lid`),
+  KEY `moduleoffering_lecturer_ibfk_2` (`lid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -207,7 +247,8 @@ CREATE TABLE IF NOT EXISTS `results` (
   `sid` mediumint(9) NOT NULL,
   `grade` tinyint(4) NOT NULL,
   `isDraft` tinyint(1) NOT NULL,
-  UNIQUE KEY `composite` (`aid`,`sid`)
+  UNIQUE KEY `composite` (`aid`,`sid`),
+  KEY `results_ibfk_3` (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -221,6 +262,13 @@ CREATE TABLE IF NOT EXISTS `speedlimit` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Rate Limiting for Authentication';
+
+--
+-- Dumping data for table `speedlimit`
+--
+
+INSERT INTO `speedlimit` (`ip`, `timestamp`) VALUES
+('127.0.0.1', '2013-02-13 18:38:11');
 
 -- --------------------------------------------------------
 
@@ -237,10 +285,21 @@ CREATE TABLE IF NOT EXISTS `student` (
   `password` varchar(32) NOT NULL,
   `salt` varchar(32) NOT NULL,
   `cid` mediumint(9) NOT NULL,
+  `hasGrant` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`),
-  UNIQUE KEY `composite` (`id`,`cid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `composite` (`id`,`cid`),
+  KEY `student_ibfk_1` (`cid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`id`, `fname`, `lname`, `username`, `email`, `password`, `salt`, `cid`, `hasGrant`) VALUES
+(1, 'Gary', 'Brady', 'r00012345', 'gary.brady@mycit.ie', '1ceafbd665b7bccfef45ae8e573335da', 'IrUN710qV0GG6HmPOj984eIrwFcC4OCK', 1, 0),
+(2, 'Preslav', 'Petkov', 'r00073209', 'preslav.petkov@mycit.ie', '8471cd440dfd9cf75402d82c8b820ed9', '1DYrhbckFt5uVB5n9N6lqLN7ppxKkwMo', 1, 0),
+(3, 'Rouslan', 'Placella', 'r00077389', 'rouslan.placella@mycit.ie', '25318b182c631b6995b7268c3251aab8', 'NqK3zDnUQAeh6pR3DHFV4NCjKLdT6CRp', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -250,7 +309,6 @@ CREATE TABLE IF NOT EXISTS `student` (
 
 CREATE TABLE IF NOT EXISTS `token` (
   `uid` mediumint(9) NOT NULL,
-  `accesslevel` tinyint(1) NOT NULL,
   `token` char(64) NOT NULL,
   `expires` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `ip` varchar(64) NOT NULL,
@@ -290,14 +348,20 @@ ALTER TABLE `group`
 -- Constraints for table `group_student`
 --
 ALTER TABLE `group_student`
-  ADD CONSTRAINT `group_student_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `group_student_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `group_student_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_student_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `lecturer`
 --
 ALTER TABLE `lecturer`
   ADD CONSTRAINT `lecturer_ibfk_1` FOREIGN KEY (`did`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `module`
+--
+ALTER TABLE `module`
+  ADD CONSTRAINT `module_ibfk_1` FOREIGN KEY (`did`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `moduleoffering`

@@ -26,13 +26,16 @@ abstract class PageFactory {
 			// The requested page exists
 			include_once 'classes/pages/Page_' . $name . '.class.php';
 			$className = 'Page_' . $name;
-			$retval = new $className();
+			// Figure out the access level for the page
+			$reflectionClass = new ReflectionClass('Page_' . $name);
+			$accessLevel = $reflectionClass->getMethod('getAccessLevel')->invoke(null);
 			// Check access level of current user
-			if (User::getAccessLevel() < $retval->getAccessLevel()) {
+			if (User::getAccessLevel() < $accessLevel) {
 				include_once 'classes/pages/Page_authError.class.php';
 				$retval = new Page_authError();
+			} else {
+				$retval = new $className();
 			}
-			$retval = new $className();
 			if (Config::DISPLAY_ERRORS) {
 				foreach ($retval->getRequiredParams() as $param) {
 					if (! isset($_REQUEST[$param])) {

@@ -11,7 +11,7 @@ class Page_Main extends Page {
 	/**
 	 * A user must be at least a student to view this page
 	 */
-	public function getAccessLevel()
+	public static function getAccessLevel()
 	{
 		return User::STUDENT;
 	}

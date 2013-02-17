@@ -46,9 +46,8 @@ abstract class Page {
 	 *
 	 * @return int See the User class for details
 	 */
-	public function getAccessLevel()
+	public static function getAccessLevel()
 	{
-		$this->checkIfReady();
 		return User::ANONYMOUS;
 	}
 	/**

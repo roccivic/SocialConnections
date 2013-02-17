@@ -12,6 +12,14 @@ require_once 'classes/pages/abstract/Page_selectGroup.class.php';
  * show a list of groups before doing something else.
  */
 abstract class Page_selectStudentGroup extends Page_selectGroup {
+    /**
+     * A user must be at least a student to view this page
+     */
+    public static function getAccessLevel()
+    {
+        return User::STUDENT;
+    }
+
 	public function __construct()
 	{
 		parent::__construct();

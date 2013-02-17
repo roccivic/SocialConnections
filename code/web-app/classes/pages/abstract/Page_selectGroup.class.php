@@ -10,14 +10,6 @@ if (! defined('SOCIALCONNECTIONS')) {
  * to retrieve the list of groups from the db.
  */
 abstract class Page_selectGroup extends Page {
-	/**
-	 * A user must be at least a student to view this page
-	 */
-	public function getAccessLevel()
-	{
-		return User::STUDENT;
-	}
-
 	public function __construct()
 	{
 		parent::__construct();

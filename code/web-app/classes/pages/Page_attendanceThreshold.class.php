@@ -9,7 +9,7 @@ if (! defined('SOCIALCONNECTIONS')) {
  * attendance threshold for modules
  */
 class Page_attendanceThreshold extends Page {
-	public function getAccessLevel()
+	public static function getAccessLevel()
 	{
 		return User::ADMIN;
 	}

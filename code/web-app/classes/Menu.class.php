@@ -60,7 +60,7 @@ class Menu {
 				__('Manage Lecturers') => 'manageLecturers',
 				__('Manage Classes') => 'manageClasses',
 				__('Manage Modules') => 'manageModules',
-				__('Check Attendance') => 'checkAttendance',
+				__('Check Attendance') => 'adminCheckAttendance',
 				__('Attendance Threshold') => 'attendanceThreshold',
 				__('Grant Students') => 'grantStudents'
 				

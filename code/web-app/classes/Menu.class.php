@@ -75,7 +75,7 @@ class Menu {
 	 */
 	private function getMenuHtml($title, $items)
 	{
-		asort($items);
+		ksort($items);
 		$action = ! empty($_REQUEST['action']) ? $_REQUEST['action'] : '';
 		$retval  = '<nav>';
 		$retval .= '<ul data-role="listview" data-theme="c" data-dividertheme="d">';

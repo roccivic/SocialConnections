@@ -1282,7 +1282,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>View attendance of students from classes that the lecturer teaches</td>
+		<td>View attendance of students</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -1298,28 +1298,30 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>Show a student can check his attendance for a module that he is enrolled in</td>
+		<td>This use case descibes how a lecturer views a student's attendance on the system</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
 		<td>
 			The lecturer is logged into the system<br />
 			The lecturer is connected to the internet<br />
-			The lecturer is has students enrolled in their modules
+			The lecturer has students enrolled in one of his groups
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>The lecturer has viewed their attendance records</td>
+		<td>The lecturer has viewed a student's attendance records</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer selects the "Check module attendance" option from main menu</li>
-				<li>The lecturer is shown a list of modules that they teach that are in the system</li>
-				<li>The lecturer selects the modules that they are interested in</li>
-				<li>The lecturer is shown the percentage attendance of the students enrolled for the selected module</li>
+				<li>The lecturer selects the "Check attendance" option from main menu</li>
+				<li>The lecturer is shown a list of groups that he teaches </li>
+				<li>The lecturer selects a group</li>
+				<li>The lecturer is shown a list of students enrolled in the selected group</li>
+				<li>The lecturer selects a student</li>
+				<li>The lecturer is shown the students overall attendance and lab attendance </li>
 			</ol>
 		</td>
 	</tr>
@@ -1331,6 +1333,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 
 <h1>&nbsp;</h1>
 
+
 <table border="1" width="100%" cellpadding="4">
 	<tr>
 		<td width="20%">Use case ID:</td>
@@ -1338,7 +1341,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>View attendance of students from classes that the lecturer does not teach</td>
+		<td>Publish CA results</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -1354,91 +1357,39 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>A lecturer can check the attendance of other modules that the logged in lecturer is not teaching</td>
+		<td>This use case shows how a lecturer can publish the results for an assessment</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
 		<td>
 			The lecturer is logged into the system<br />
 			The lecturer is connected to the internet<br />
-		</td>
-	</tr>
-	<tr>
-		<td>Postconditions:</td>
-		<td>The lecturer has viewed thee attendance records of a module</td>
-	</tr>
-	<tr>
-		<td>Normal Flow:</td>
-		<td>
-			<ol>
-				<li>The lecturer selects the "Check other module attendance" option from main menu</li>
-				<li>The lecturer is shown a list of modules that are in the system</li>
-				<li>The lecturer selects the modules that they are interested in</li>
-				<li>The lecturer is shown the percentage attendance of the students enrolled for the selected module</li>
-			</ol>
-		</td>
-	</tr>
-	<tr>
-		<td>Priority:</td>
-		<td>High</td>
-	</tr>
-</table>
-
-<h1>&nbsp;</h1>
-
-<table border="1" width="100%" cellpadding="4">
-	<tr>
-		<td width="20%">Use case ID:</td>
-		<td width="80%"></td>
-	</tr>
-	<tr >
-		<td>Use Case Name:</td>
-		<td>Manage CA results</td>
-	</tr>
-	<tr>
-		<td>Date Created:</td>
-		<td>08/02/2013</td>
-	</tr>
-	<tr>
-		<td>Date Last Updated:</td>
-		<td>08/02/2013</td>
-	</tr>
-	<tr>
-		<td>Actors:</td>
-		<td>Lecturer, System</td>
-	</tr>
-	<tr>
-		<td>Description:</td>
-		<td>A lecturer can create  a draft of CA results and commit a final draft of CA results to the system. They can then view, update, delete and publish those CA results</td>
-	</tr>
-	<tr>
-		<td>Preconditions:</td>
-		<td>
-			The lecturer is logged into the system<br />
-			The lecturer is connected to the internet<br />
-			The lecturer is is teaching a module on the system
+			The lecturer is is teaching a group on the system<br />
+			An assessment already exists on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
 		<td>
-			The lecture has created a draft of CA results, published them and has the ability of viewing, updating and deleting these results
+			The system has published the results of an assessment
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer clicks the "Manage CA results" button</li>
-				<li>The lecturer is shown a list of modules that are in the system that they teach</li>
-				<li>The lecturer selects the modules that they want to modify CA results in</li>
-				<li>The lecturer is shown the students that are enrolled in that lecture</li>
-				<li>The lecturer can then add a draft of results for the students, once it is completed, the lecturer can publish the results</li>
-				<li>The lecturer can select "View CA results" to view current CA results of the module</li>
-				<li>The lecturer can click "Update CA results" to update current CA results</li>
-				<li>The lecturer can click "Delete CA results", a list of the CA results are shown and can be deleted by clicking check boxes and confirming delete</li>
-				<li>The lecturer </li>
-				
+				<li>The lecturer clicks the "Manage Assessments" button</li>
+				<li>The lecturer is shown a list of groups</li>
+				<li>The lecturer selects the group </li>
+				<li>The lecturer is shown a list of assessments by the system</li>
+				<li>The lecturer clicks on an assessment</li>
+				<li>The lecturer is shown the details of the assessment by the system</li>
+				<li>The lecturer clicks on "Manage results" </li>
+				<li>The lecturer is shown a list of students and their results</li>
+				<li>The lecturer clicks "Publish"</li>
+				<li>The lecturer confirms the publishing of the results</li>
+				<li>The system publishes the results</li>
+				<li>The system shows a confirmation to the lecturer</li>
 			</ol>
 		</td>
 	</tr>
@@ -1457,7 +1408,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Create students</td>
+		<td>Update CA results</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -1473,30 +1424,105 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>A lecturer creates a student and adds them to a group on the system</td>
+		<td>This use case shows how a lecturer can update the results for an assessment</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
 		<td>
 			The lecturer is logged into the system<br />
 			The lecturer is connected to the internet<br />
-			
+			The lecturer is is teaching a group on the system<br />
+			An assessment already exists on the system <br />
+			The assessment results have not been published yet
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
 		<td>
-			The lecture added a student to a group
+			The system has updated the results of an assessment
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer clicks the "Manage students" button</li>
-				<li>The lecturer clicks "create student"</li>
-				<li>the lecturer enters group of student and details</li>
-				<li>the lecturer commits this information to the system</li>	
+				<li>The lecturer clicks the "Manage Assessments" button</li>
+				<li>The lecturer is shown a list of groups</li>
+				<li>The lecturer selects the group </li>
+				<li>The lecturer is shown a list of assessments by the system</li>
+				<li>The lecturer clicks on an assessment</li>
+				<li>The lecturer is shown the details of the assessment by the system</li>
+				<li>The lecturer clicks on "Manage results" </li>
+				<li>The lecturer is shown a list of students and their results</li>
+				<li>The lecturer edits the reults for the assessment</li>
+				<li>The lecturer clicks "Update"</li>
+				<li>The system updates the results</li>
+				<li>The system shows a confirmation to the lecturer</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>high</td>
+	</tr>
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Create student</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>08/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>08/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case describes how a lecturer can create a student</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet<br />
+			There is at least one class on the system
+			
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>
+			A student has been added to the system
+		</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer clicks "Manage Students" from the main menu</li>
+				<li>The lecturer is shown a list of departments by the system</li>
+				<li>The lecturer selects the department</li>
+				<li>The lecturer is shown a list of classes by the system</li>
+				<li>The lecturer selects a class</li>
+				<li>The lecturer clicks the "Create student" button</li>
+				<li>The lecturer is shown the form by the system</li>
+				<li>The lecturer fills out the details of the form</li>
+				<li>The lecturer submits the form</li>
+				<li>The system processes the form</li>
+				<li>The system shows a confirmation to the lecturer</li>
 			</ol>
 		</td>
 	</tr>
@@ -1515,15 +1541,15 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Manage students</td>
+		<td>View students</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
-		<td>08/02/2013</td>
+		<td>14/02/2013</td>
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>08/02/2013</td>
+		<td>14/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -1531,34 +1557,31 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>A lecturer can view, update or delete a student from the system</td>
+		<td>A lecturer can view a particular student on the system </td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
-		<td>
-			The lecturer is logged into the system<br />
+		<td>The lecturer is logged into the system<br />
 			The lecturer is connected to the internet<br />
-			There are students on the system
+			There is a student on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>
-			The lecture has either viewed, updated or deleted a student from the system
-		</td>
+		<td>The lecturer has viewed a student on the system</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer clicks "View students"</li>
-				<li>The lecturer selects a group that the student that they want to view is in</li>
-				<li>the lecturer picks the student they want to view</li>
-				<li>The information about this student is shown </li>
-				<li>The lecturer clicks "Update student"</li>
-				<li>The lecturer adds/edits information about that student and publishes that information to the system</li>
-				<li>The lecturer can click "delete student", a confirmation message will be alert the lecturer</li>
-				<li>The lecturer clicks "yes" to confirm the delete and the student is removed from the system</li>
+				<li>The lecturer clicks "Manage Students" from the main menu</li>
+				<li>The lecturer is shown a list of departments by the system</li>
+				<li>The lecturer selects the department</li>
+				<li>The lecturer is shown a list of classes by the system</li>
+				<li>The lecturer selects a class</li>
+				<li>The lecturer is shown a list of students</li>
+				<li>The lecturer clicks a students name</li>
+				<li>The lecturer is shown the student details</li>
 			</ol>
 		</td>
 	</tr>
@@ -1577,15 +1600,15 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Create modules</td>
+		<td>Edit student details</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
-		<td>08/02/2013</td>
+		<td>14/02/2013</td>
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>08/02/2013</td>
+		<td>14/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -1593,29 +1616,37 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>A lecturer creates a module and adds it to system</td>
+		<td>A lecturer can edit a particular student on the system </td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
-		<td>
-			The lecturer is logged into the system<br />
+		<td>The lecturer is logged into the system<br />
 			The lecturer is connected to the internet<br />
-			
+			There is a student on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>
-			The lecture added a module to the system
-		</td>
+		<td>The lecturer has edited student details on the system</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer clicks the "Add module" button</li>
-				<li>The lecturer enters details about the module</li>
-				<li>the lecturer commits this information to the system</li>	
+				<li>The lecturer clicks "Manage Students" from the main menu</li>
+				<li>The lecturer is shown a list of departments by the system</li>
+				<li>The lecturer selects the department</li>
+				<li>The lecturer is shown a list of classes by the system</li>
+				<li>The lecturer selects a class</li>
+				<li>The lecturer is shown a list of students</li>
+				<li>The lecturer clicks a students name</li>
+				<li>The lecturer is shown the student details</li>
+				<li>The lecturer clicks on "Edit"</li>
+				<li>The lecturer is shown a form by the system</li>
+				<li>The lecturer edits the form</li>
+				<li>The lecturer submits the form</li>
+				<li>The system processes the form</li>
+				<li>The lecturer is shown a confirmation message by the system</li>
 			</ol>
 		</td>
 	</tr>
@@ -1624,6 +1655,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>High</td>
 	</tr>
 </table>
+
 
 <h1>&nbsp;</h1>
 
@@ -1634,15 +1666,15 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Manage modules</td>
+		<td>Delete student</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
-		<td>08/02/2013</td>
+		<td>14/02/2013</td>
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>08/02/2013</td>
+		<td>14/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -1650,33 +1682,35 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>A lecturer can view, update or delete modules from the system</td>
+		<td>A lecturer can delete a particular student from the system </td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
-		<td>
-			The lecturer is logged into the system<br />
+		<td>The lecturer is logged into the system<br />
 			The lecturer is connected to the internet<br />
-			There are modules on the system
+			There is a student on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>
-			The lecture has either viewed, updated or deleted a module from the system
-		</td>
+		<td>The lecturer has deleted a student from the system</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer clicks "View modules"</li>
-				<li>the lecturer picks the module they want to view</li>
-				<li>The information about this module is shown </li>
-				<li>The lecturer clicks "Update module"</li>
-				<li>The lecturer adds/edits information about that module and publishes that information to the system</li>
-				<li>The lecturer can click "delete module", a confirmation message will be alert the lecturer</li>
-				<li>The lecturer clicks "yes" to confirm the delete and the module is removed from the system</li>
+				<li>The lecturer clicks "Manage Students" from the main menu</li>
+				<li>The lecturer is shown a list of departments by the system</li>
+				<li>The lecturer selects the department</li>
+				<li>The lecturer is shown a list of classes by the system</li>
+				<li>The lecturer selects a class</li>
+				<li>The lecturer is shown a list of students</li>
+				<li>The lecturer clicks a students name</li>
+				<li>The lecturer is shown the student details</li>
+				<li>The lecturer clicks on "Delete"</li>
+				<li>The lecturer confirms the deletion</li>
+				<li>The system deletes the student</li>
+				<li>The lecturer is shown a confirmation message by the system</li>
 			</ol>
 		</td>
 	</tr>
@@ -1711,31 +1745,35 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>A lecturer creates a group and adds it to module</td>
+		<td>This use case describes how a lecturer creates a group</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
 		<td>
 			The lecturer is logged into the system<br />
 			The lecturer is connected to the internet<br />
+			A module already exists on the system
 			
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
 		<td>
-			The lecture created a group and added enrolled it in a module
+			The lecturer created a group
 		</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer clicks the "Add group" button</li>
-				<li>The lecturer enters details about the group</li>
-				<li>The lecturer adds students to the group</li>
-				<li>The lecturer adds the group to a module</li>
-				<li>the lecturer commits this information to the system</li>	
+				<li>The lecturer clicks "Manage groups" from the main menu</li>
+				<li>The lecturer is shown a list of groups</li>	
+				<li>The lecturer clicks "Create group"</li>
+				<li>The lecturer is shown a form by the system</li>
+				<li>The lecturer fills in the group details</li>
+				<li>The lecturer submits the form</li>
+				<li>The system processes the form</li>
+				<li>The lecturer is shown a confirmation message by the system</li>
 			</ol>
 		</td>
 	</tr>
@@ -1754,15 +1792,15 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Manage groups</td>
+		<td>View group</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
-		<td>08/02/2013</td>
+		<td>14/02/2013</td>
 	</tr>
 	<tr>
 		<td>Date Last Updated:</td>
-		<td>08/02/2013</td>
+		<td>14/02/2013</td>
 	</tr>
 	<tr>
 		<td>Actors:</td>
@@ -1770,39 +1808,279 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>A lecturer can view, update or delete groups from the system</td>
+		<td>A lecturer can view a particular group on the system </td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
-		<td>
-			The lecturer is logged into the system<br />
+		<td>The lecturer is logged into the system<br />
 			The lecturer is connected to the internet<br />
-			There are groups on the system
+			The lecturer is is teaching a group on the system
 		</td>
 	</tr>
 	<tr>
 		<td>Postconditions:</td>
-		<td>
-			The lecture has either viewed, updated or deleted a group from the system
-		</td>
+		<td>The lecturer has viewed a group on the system</td>
 	</tr>
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer clicks "View groups"</li>
-				<li>the lecturer picks the group they want to view</li>
-				<li>The information about this group is shown </li>
-				<li>The lecturer clicks "Update group"</li>
-				<li>The lecturer adds/edits information about that group and publishes that information to the system</li>
-				<li>The lecturer can click "delete group", a confirmation message will be alert the lecturer</li>
-				<li>The lecturer clicks "yes" to confirm the delete and the group is removed from the system</li>
+				<li>The lecturer clicks "Manage group" from the main menu</li>
+				<li>The system shows list of groups</li>
+				<li>The lecturer clicks on the group to view</li>
+				<li>The lecturer sees information about the selected group</li>
 			</ol>
 		</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
 		<td>High</td>
+	</tr>
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Update group</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>14/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>14/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturers, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>A lecturer can update inforamtion about a particular group on the system </td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>The lecturer is logged into the system<br />
+			The lecturer is connected to the internet<br />
+			The lecturer is is teaching a group on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>The lecturer has updated a groups information on the system</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer clicks "Manage groups" from the main menu</li>
+				<li>The lecturer is shown a list of groups</li>	
+				<li>The lecturer clicks on the group to update</li>
+				<li>The lecturer is shown the information about the selected group</li>
+				<li>The lecturer updates the information</li>
+				<li>The lecturer commits the changes to the system</li>
+				<li>The system returns a confirmation message to the lecturer</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Delete group</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>14/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>14/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>A lecturer can delete a particular group off the system </td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>The lecturer is logged into the system<br />
+			The lecturer is connected to the internet<br />
+			The lecturer is is teaching a group on the system
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>The lecturer has deleted a group from the system</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer clicks "Manage group" from the main menu</li>
+				<li>The system shows list of groups</li>
+				<li>The lecturer clicks on the group to delete</li>
+				<li>The lecturer is shown the information about the selected group</li>
+				<li>The lecturer clicks the delete button</li>
+				<li>The lecturer confirms the deletion</li>
+				<li>The system returns confirmation of the delete</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>High</td>
+	</tr>
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Add student to group</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>16/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>16/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>A lecturer adds a student to a group on the system</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet<br />
+			The student is already on the system<br />
+			The group is already on the system<br />
+			
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>
+			The lecture has added a student to a group
+		</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer clicks "Manage groups" from the main menu</li>
+				<li>The system shows list of groups</li>
+				<li>The lecturer clicks on the group to add a student to</li>
+				<li>The lecturer is shown the information about the selected group</li>
+				<li>The lecturer clicks "Add student" </li>
+				<li>The lecturer is shown a list of departments by the system</li>
+				<li>The lecturer selects the department the student they want to add is in</li>
+				<li>The lecturer is shown a list of students</li>
+				<li>The lecturer clicks a students name</li>
+				<li>The system returns a confirmation message to the lecturer</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>high</td>
+	</tr>
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Delete student from group</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>16/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>16/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>A lecturer deletes a students to a group on the system</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet<br />
+			The student is already on the system<br />
+			The group is already on the system<br />
+			
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>
+			The lecture delete a student to a group
+		</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer clicks "Manage groups" from the main menu</li>
+				<li>The system shows list of groups</li>
+				<li>The lecturer clicks on the group to delete a student to</li>
+				<li>The lecturer is shown the information about the selected group</li>
+				<li>The lecturer clicks "Delete student" </li>
+				<li>The lecturer is shown a list of students</li>
+				<li>The lecturer is asked to confirm the delete</li>
+				<li>The system returns a confirmation message to the lecturer</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>high</td>
 	</tr>
 </table>
 
@@ -1933,7 +2211,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Add pictures to students profile</td>
+		<td>Add picture to a student's profile</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -1949,13 +2227,14 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>The lecturer will take a picture a picture of a student and add it to their profile for the purpose of face recognition</td>
+		<td>This use case describes how a lecturer can add a picture to a student's profile</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
-		<td>The lecturer is logged into the system
-			The lecturer is connected to the internet
-			The lecturer has the android application installed on their smart phone
+		<td>The lecturer is logged into the system<br />
+			The lecturer is connected to the internet<br />
+			The lecturer has the android application installed on their smart phone<br />
+			The student exists on the system
 		</td>
 	</tr>
 	<tr>
@@ -1965,13 +2244,15 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	<tr>
 		<td>Normal Flow:</td>
 		<td>
-				<li>The lecturer clicks "View students"</li>
-				<li>The lecturer selects the student that they want to add a picture of</li>
-				<li>The information about this student is shown </li>
-				<li>The lecturer clicks "Update student"</li>
+				<li>The lecturer clicks "Upload picture" from the main menu</li>
+				<li>The lecturer is shown a form by the system</li>
+				<li>The lecturer enters the ID of the student</li>
 				<li>The lecturer clicks "Add picture"</li>
-				<li>The lecturer takes a picture of the student and confirms the picture is of good quality</li>
+				<li>The lecturer takes a picture of the student</li>
+				<li>the lecturer submits the form</li>
+				<li>The system processes the form</li>
 				<li>The picture is added to the system</li>
+				<li>The system returns a confirmation message to the lecturer</li>
 		</td>
 	</tr>
 	<tr>
@@ -1989,7 +2270,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Take attendance using facial recognition</td>
+		<td>Take attendance</td>
 	</tr>
 	<tr>
 		<td>Date Created:</td>
@@ -2005,14 +2286,15 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>The lecturer uses the camera on their phone to take a picture of the class. This is then used to take attendance </td>
+		<td>This use case describes how the lecturer takes attendance</td>
 	</tr>
 	<tr>
 		<td>Preconditions:</td>
 		<td>
 			The lecturer is logged into the system<br />
 			The lecturer is connected to the internet<br />
-			There are students on the system
+			There are students on the system<br />
+			The lecturer has the android application installed on their smart phone
 		</td>
 	</tr>
 	<tr>
@@ -2023,9 +2305,17 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>After trying facial recognition for attendace, if there are unrecognised faces a list of students not accounted for are show to the lecturer</li>
-				<li>The lecturer ticks the names of students that are present</li>
-				<li>These corrections are sent to the system</li>
+				<li>The lecturer clicks "Take attendance" from the main menu</li>
+				<li>The lecturer is shown a list of groups</li>	
+				<li>The lecturer clicks on the group for which to take attendance</li>
+				<li>The lecturer is shown a page where he clicks the "Add picture" button</li>
+				<li>The lecturer takes a picture of the group</li>
+				<li>The system processes the image</li>
+				<li>The lecturer clicks "Ok"</li>
+				<li>The system displays a list of students with checked boxes for recognised students</li>
+				<li>The lecturer clicks "Ok"</li>
+				<li>The system records the attendance</li>
+				<li>The system returns a confirmation message to the lecturer</li>
 			</ol>
 		</td>
 	</tr>
@@ -2037,63 +2327,6 @@ All developers will need a working knowledge so issues can be dealt with immedia
 
 <h1>&nbsp;</h1>
 
-<table border="1" width="100%" cellpadding="4">
-	<tr>
-		<td width="20%">Use case ID:</td>
-		<td width="80%"></td>
-	</tr>
-	<tr >
-		<td>Use Case Name:</td>
-		<td>Manually take attendance</td>
-	</tr>
-	<tr>
-		<td>Date Created:</td>
-		<td>10/02/2013</td>
-	</tr>
-	<tr>
-		<td>Date Last Updated:</td>
-		<td>10/02/2013</td>
-	</tr>
-	<tr>
-		<td>Actors:</td>
-		<td>Lecturer, system</td>
-	</tr>
-	<tr>
-		<td>Description:</td>
-		<td>The lecturer uses their phone to take attendance of students not recognised by the system </td>
-	</tr>
-	<tr>
-		<td>Preconditions:</td>
-		<td>
-			The lecturer is logged into the system<br />
-			The lecturer is connected to the internet<br />
-			The lecturer has already tried facial recognition to take attendance
-		</td>
-	</tr>
-	<tr>
-		<td>Postconditions:</td>
-		<td>Attendance of the group was taken </td>
-	</tr>
-	<tr>
-		<td>Normal Flow:</td>
-		<td>
-			<ol>
-				<li>The lecturer selects "Take attendance" from the main menu</li>
-				<li>The lecturer takes a picture using their phones camera</li>
-				<li>The picture is analysed to detect how many faces are in the picture.</li>
-				<li>The detected faces are sent to the 3rd party face recognition software</li>
-				<li>An array of names and student ID numbers are returned</li>
-				<li>If all faces were recognised, then the attendance has been taken</li>
-			</ol>
-		</td>
-	</tr>
-	<tr>
-		<td>Priority:</td>
-		<td>High</td>
-	</tr>
-</table>
-
-<h1>&nbsp;</h1>
 
 <table border="1" width="100%" cellpadding="4">
 	<tr>

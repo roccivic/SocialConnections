@@ -53,7 +53,8 @@ class Page_manageDepartments extends Page_selectDepartment {
 					'error',
 					__('An error occured while processing your request.')
 				);
-				$name = $this->getDepartmentDetails($did)['dname'];
+				$details = $this->getDepartmentDetails($did);
+				$name = $details['dname'];
 				$this->editDepartmentForm($did, $name);
 			}
 		} else if (! empty($_REQUEST['create'])) {
@@ -73,7 +74,8 @@ class Page_manageDepartments extends Page_selectDepartment {
 				$this->editDepartmentForm($did, $name);
 			}
 		} else if (! empty($_REQUEST['editForm'])) {
-			$name = $this->getDepartmentDetails($did)['dname'];
+			$details = $this->getDepartmentDetails($did);
+			$name = $details['dname'];
 			if ($did > 0 && empty($name)) {
 				$this->addNotification(
 					'error',
@@ -166,7 +168,8 @@ class Page_manageDepartments extends Page_selectDepartment {
 		$html .= '<label for="head">' . __('Head of Department') . ': </label>';
 		$html .= '<select id="head" name="head">';
 		$html .= '<option value="0">' . __('Not assigned') . '</option>';
-		$headId = $this->getDepartmentDetails($did)['headId'];
+		$details = $this->getDepartmentDetails($did);
+		$headId = $details['headId'];
 		foreach($this->getLecturers() as $key => $value) {
 			$html .= '<option value="' . $key . '"';
 			if ($key == $headId) {

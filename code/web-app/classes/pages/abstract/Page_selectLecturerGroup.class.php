@@ -19,9 +19,9 @@ abstract class Page_selectLecturerGroup extends Page_selectGroup {
     {
         return User::LECTURER;
     }
-	public function __construct()
+	public function __construct($haveCreateBtn)
 	{
-		parent::__construct();
+		parent::__construct($haveCreateBtn);
 	}
 	/**
 	 * This function must be implemented in a subclass

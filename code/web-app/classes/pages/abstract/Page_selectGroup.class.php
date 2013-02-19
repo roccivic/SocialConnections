@@ -10,19 +10,19 @@ if (! defined('SOCIALCONNECTIONS')) {
  * to retrieve the list of groups from the db.
  */
 abstract class Page_selectGroup extends Page {
-	public function __construct()
+	public function __construct($haveCreateBtn)
 	{
 		parent::__construct();
 		$gid = 0;
 		if (! empty($_REQUEST['gid'])) {
 			$gid = intval($_REQUEST['gid']);
 		}
-		if ($gid > 0) {
+		if ($gid > 0 || ! empty($_REQUEST['editForm'])) {
 			$this->display(
 				intval($_REQUEST['gid'])
 			);
 		} else {
-			$this->groupSelector();
+			$this->groupSelector($haveCreateBtn);
 		}
 	}
 	/**
@@ -44,7 +44,7 @@ abstract class Page_selectGroup extends Page {
 	 *
 	 * @return void
 	 */
-	private function groupSelector()
+	protected function groupSelector($haveCreateBtn)
 	{
 		$db = Db::getLink();
 		$stmt = $db->prepare(
@@ -54,7 +54,7 @@ abstract class Page_selectGroup extends Page {
 		$stmt->execute();
 		$stmt->store_result();
 		if ($stmt->num_rows) {
-			$this->printListHeader();
+			$this->printListHeader($haveCreateBtn);
 			$stmt->bind_result($gid, $name);
 			while ($stmt->fetch()) {
 		        $this->printListItem($gid, $name);
@@ -73,9 +73,15 @@ abstract class Page_selectGroup extends Page {
 	 *
 	 * @return void
 	 */
-	private function printListHeader()
+	private function printListHeader($haveCreateBtn)
 	{
-        $html  = '<ul data-role="listview" data-divider-theme="b" ';
+		$html='';
+		if (isset($haveCreateBtn)) {
+        	$html .= '<a href="?action=manageGroups&editForm=1"';
+        	$html .= ' data-role="button" data-theme="b">';
+        	$html .= __('Create Group') . '</a>';
+        }
+        $html .= '<ul data-role="listview" data-divider-theme="b" ';
         $html .= 'data-inset="true">';
         $html .= '<li data-role="list-divider" role="heading">';
         $html .= __('Select Group');

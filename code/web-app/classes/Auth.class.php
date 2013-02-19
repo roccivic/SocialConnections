@@ -161,7 +161,7 @@ abstract class Auth {
 		$db = Db::getLink();
 		// The token is valid for 5 minutes
 		$stmt = $db->prepare(
-			"INSERT INTO token(uid, accesslevel, token, expires, ip) VALUES (?,?,?,CURRENT_TIMESTAMP + INTERVAL 5 MINUTE,?)"
+			"INSERT INTO token(uid, accesslevel, token, expires, ip) VALUES (?,?,?,CURRENT_TIMESTAMP + INTERVAL 20 MINUTE,?)"
 		);
 		$stmt->bind_param(
 			'iiss',

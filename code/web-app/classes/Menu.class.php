@@ -42,7 +42,8 @@ class Menu {
 				__('Twitter') => 'twitter',
 				__('Manage Assessments') => 'manageAssessments',
 				__('Manage Students') => 'manageStudents',
-				__('Manage Groups') => 'manageGroups'
+				__('Manage Groups') => 'manageGroups',
+				__('Take Student Attendance') => 'takeAttendance'
 			)
 		);
 	}

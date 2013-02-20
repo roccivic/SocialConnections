@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2013 at 12:18 AM
+-- Generation Time: Feb 20, 2013 at 08:39 PM
 -- Server version: 5.5.29-0ubuntu0.12.10.1
 -- PHP Version: 5.4.6-1ubuntu1.1
 
@@ -259,12 +259,13 @@ CREATE TABLE IF NOT EXISTS `student` (
 --
 
 CREATE TABLE IF NOT EXISTS `student_attendance` (
-  `sid` int(11) NOT NULL,
+  `sid` mediumint(9) NOT NULL,
   `aid` int(11) NOT NULL,
-  `present` tinyint(1) NOT NULL DEFAULT '0',
+  `present` tinyint(1) NOT NULL,
   `excuse` text,
   `excuse_viewed` tinyint(1) NOT NULL DEFAULT '1',
-  UNIQUE KEY `sid` (`sid`,`aid`)
+  UNIQUE KEY `sid` (`sid`,`aid`),
+  KEY `aid` (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -372,6 +373,13 @@ ALTER TABLE `results`
 --
 ALTER TABLE `student`
   ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `class` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `student_attendance`
+--
+ALTER TABLE `student_attendance`
+  ADD CONSTRAINT `student_attendance_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `student_attendance_ibfk_1` FOREIGN KEY (`aid`) REFERENCES `attendance` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

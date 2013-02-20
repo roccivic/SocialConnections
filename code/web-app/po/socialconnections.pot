@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: socialconnections@placella.com\n"
-"POT-Creation-Date: 2013-02-20 00:07+0000\n"
+"POT-Creation-Date: 2013-02-20 20:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,7 +141,7 @@ msgid "An error occured while processing your request."
 msgstr ""
 
 #: classes/pages/Page_attendanceThreshold.class.php:44
-#: classes/pages/Page_takeAttendance.class.php:61
+#: classes/pages/Page_takeAttendance.class.php:62
 msgid "The values in the form were invalid. Please try again."
 msgstr ""
 
@@ -213,6 +213,14 @@ msgstr ""
 
 #: classes/pages/Page_main.class.php:53
 msgid "Photo of main campus"
+msgstr ""
+
+#: classes/pages/Page_manageClasses.class.php:76
+msgid "Create Class"
+msgstr ""
+
+#: classes/pages/Page_manageClasses.class.php:80
+msgid "Select Class"
 msgstr ""
 
 #: classes/pages/Page_manageDepartments.class.php:48
@@ -287,11 +295,11 @@ msgstr ""
 msgid "Take attendance for group `%s`"
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:48
+#: classes/pages/Page_takeAttendance.class.php:49
 msgid "Successfully saved the attendance data."
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:54
+#: classes/pages/Page_takeAttendance.class.php:55
 msgid "Database error: Could not save the data."
 msgstr ""
 
@@ -327,11 +335,6 @@ msgstr ""
 msgid "Invalid time format"
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:209
-#, possible-php-format
-msgid "Failed to add student with id `%s`"
-msgstr ""
-
 #: classes/pages/abstract/Page_selectDepartment.class.php:58
 msgid "There are no departments in the system."
 msgstr ""
@@ -344,6 +347,10 @@ msgstr ""
 msgid "You are not assigned to any groups"
 msgstr ""
 
-#: classes/pages/abstract/Page_selectGroup.class.php:81
+#: classes/pages/abstract/Page_selectGroup.class.php:82
+msgid "Create Group"
+msgstr ""
+
+#: classes/pages/abstract/Page_selectGroup.class.php:87
 msgid "Select Group"
 msgstr ""

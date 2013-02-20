@@ -10,7 +10,7 @@ if (! defined('SOCIALCONNECTIONS')) {
  * to retrieve the list of groups from the db.
  */
 abstract class Page_selectGroup extends Page {
-	public function __construct($haveCreateBtn)
+	public function __construct($haveCreateBtn = null)
 	{
 		parent::__construct();
 		$gid = 0;
@@ -44,7 +44,7 @@ abstract class Page_selectGroup extends Page {
 	 *
 	 * @return void
 	 */
-	protected function groupSelector($haveCreateBtn)
+	protected function groupSelector($haveCreateBtn = null)
 	{
 		$db = Db::getLink();
 		$stmt = $db->prepare(

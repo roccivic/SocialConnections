@@ -32,6 +32,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 		);
 		$html .= '</h3>';
 
+		$dbStudents = $this->getStudents($gid);
 		$isLecture = ! empty($_REQUEST['isLecture']) ? 1 : 0;
 		$date = ! empty($_REQUEST['date']) ? $_REQUEST['date'] : date("m/d/y");
 		$time = ! empty($_REQUEST['time']) ? $_REQUEST['time'] : date("H:i");
@@ -42,7 +43,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 
 		if (! empty($_REQUEST['process'])) {
 			if ($this->validate($date, $time)) {
-				if ($this->save($gid, $date, $time, $students, $isLecture)) {
+				if ($this->save($gid, $date, $time, $students, $isLecture, $dbStudents)) {
 					$this->addNotification(
 						'notice',
 						__('Successfully saved the attendance data.')
@@ -53,17 +54,17 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 						'error',
 						__('Database error: Could not save the data.')
 					);
-					$this->printForm($gid, $date, $time, $students);		
+					$this->printForm($gid, $date, $time, $students, $dbStudents);
 				}
 			} else {
 				$this->addNotification(
 					'error',
 					__('The values in the form were invalid. Please try again.')
 				);
-				$this->printForm($gid, $date, $time, $students);	
+				$this->printForm($gid, $date, $time, $students, $dbStudents);
 			}
 		} else {
-			$this->printForm($gid, $date, $time, $students, $isLecture);	
+			$this->printForm($gid, $date, $time, $students, $dbStudents);
 		}
 	}
 	/**
@@ -90,8 +91,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	 *
 	 * @return void
 	 */
-	private function printForm($gid, $date, $time, $students) {
-		$dbStudents = $this->getStudents($gid);
+	private function printForm($gid, $date, $time, $students, $dbStudents) {
 		if (count($dbStudents)) {
 			$html  = '<form action="" method="post">';
 			$html .= '<input type="hidden" name="process" value="1" />';
@@ -153,7 +153,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	private function validate($date, $time)
 	{
 		$success = true;
-		if (! preg_match('@^\d\d?/\d\d?/\d\d$?@', $date)) {
+		if (! preg_match('@^\d\d?/\d\d?/\d\d?$@', $date)) {
 			$this->addNotification(
 				'warning',
 				__('Invalid date format')
@@ -174,7 +174,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	 *
 	 * @return bool
 	 */
-	private function save($gid, $date, $time, $students, $isLecture)
+	private function save($gid, $date, $time, $students, $isLecture, $dbStudents)
 	{
 		$db = Db::getLink();
 		$stmt = $db->prepare(
@@ -191,26 +191,23 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 		$aid = $stmt->insert_id;
 
 		if ($success) {
-			foreach ($students as $value) {
-				if ($sid = $this->getStudentId($value)) {
-					$stmt = $db->prepare(
-						"INSERT INTO `student_attendance`
-						(`aid`, `sid`)
-						VALUES (?,?);"
-					);
-					$stmt->bind_param('ii', $aid, $sid);
-					;
-					$stmt->execute();
-					$stmt->close();
-				} else {
-					$this->addNotification(
-						'warning',
-						sprintf(
-							__('Failed to add student with id `%s`'),
-							htmlspecialchars($value)
-						)
-					);
+			foreach ($dbStudents as $key => $value) {
+				$present = 0;
+				foreach ($students as $stid) {
+					if ($stid === $key) {
+						$present = 1;
+						break;
+					}
 				}
+				$stmt = $db->prepare(
+					"INSERT INTO `student_attendance`
+					(`aid`, `sid`, `present`)
+					VALUES (?,?,?);"
+				);
+				$stmt->bind_param('iii', $aid, $this->getStudentId($key), $present);
+				;
+				$stmt->execute();
+				$stmt->close();
 			}
 		}
 		return $success;

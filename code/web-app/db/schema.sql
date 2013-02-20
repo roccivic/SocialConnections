@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.5
+-- version 4.0.0-beta1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Feb 15, 2013 at 05:37 PM
--- Server version: 5.5.29-0ubuntu0.12.04.1
--- PHP Version: 5.3.10-1ubuntu3.5
+-- Host: 127.0.0.1
+-- Generation Time: Feb 20, 2013 at 12:18 AM
+-- Server version: 5.5.29-0ubuntu0.12.10.1
+-- PHP Version: 5.4.6-1ubuntu1.1
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -61,16 +61,13 @@ CREATE TABLE IF NOT EXISTS `assesment` (
 --
 
 CREATE TABLE IF NOT EXISTS `attendance` (
-  `sid` mediumint(9) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `gid` mediumint(9) NOT NULL,
   `isLecture` tinyint(1) NOT NULL DEFAULT '1',
-  `present` tinyint(1) NOT NULL DEFAULT '0',
-  `excuse` text,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `excuse_viewed` tinyint(1) NOT NULL DEFAULT '0',
-  UNIQUE KEY `composite` (`sid`,`gid`,`time`),
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
   KEY `attendance_ibfk_2` (`gid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -253,7 +250,22 @@ CREATE TABLE IF NOT EXISTS `student` (
   UNIQUE KEY `username` (`username`,`email`),
   UNIQUE KEY `composite` (`id`,`cid`),
   KEY `student_ibfk_1` (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_attendance`
+--
+
+CREATE TABLE IF NOT EXISTS `student_attendance` (
+  `sid` int(11) NOT NULL,
+  `aid` int(11) NOT NULL,
+  `present` tinyint(1) NOT NULL DEFAULT '0',
+  `excuse` text,
+  `excuse_viewed` tinyint(1) NOT NULL DEFAULT '1',
+  UNIQUE KEY `sid` (`sid`,`aid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -296,8 +308,7 @@ ALTER TABLE `assesment`
 -- Constraints for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `attendance_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `class`

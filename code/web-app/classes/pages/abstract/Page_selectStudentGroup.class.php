@@ -39,6 +39,43 @@ abstract class Page_selectStudentGroup extends Page_selectGroup {
                 ON `group`.`moid` = `moduleoffering`.`id`
                 INNER JOIN `module`
                 ON `moduleoffering`.`mid` = `module`.`id`
-                WHERE `sid` = ?";
+                WHERE `sid` = ?
+                AND `moduleoffering`.`year` = ?
+                AND `moduleoffering`.`term` = ?";
+    }
+    /**
+     * Retrieves a list of terms that
+     * the user is registered for
+     *
+     * @return @array
+     */
+    protected function getTerms($sid)
+    {
+        $arr = array();
+        $db = Db::getLink();
+        $stmt = $db->prepare(
+            'SELECT `year`, `term`
+            FROM `moduleoffering`
+            INNER JOIN `group`
+            ON `group`.`moid` = `moduleoffering`.`id`
+            INNER JOIN `group_student`
+            ON `group_student`.`gid` = `group`.`id`
+            INNER JOIN `student`
+            ON `student`.`id` = `group_student`.`sid`
+            WHERE `student`.`id` = ?
+            GROUP BY `year`,`term`
+            ORDER BY `year` DESC, `term` DESC;'
+        );
+        $stmt->bind_param('i', $sid);
+        $stmt->execute();
+        $stmt->bind_result($year, $term);
+        while ($stmt->fetch()) {
+            $arr[] = array(
+                'year' => $year,
+                'term' => $term
+            );
+        }
+        $stmt->close();
+        return $arr;
     }
 }

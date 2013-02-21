@@ -47,33 +47,41 @@ abstract class Page_selectGroup extends Page {
 	protected function groupSelector($haveCreateBtn = null)
 	{
 		$db = Db::getLink();
-		$stmt = $db->prepare(
-			$this->getQuery()
+		$this->addHtml(
+			'<h3>' . __('Select Group') . '</h3>'
 		);
-		$stmt->bind_param('s', $_SESSION['uid']);
-		$stmt->execute();
-		$stmt->store_result();
-		if ($stmt->num_rows) {
-			$this->printListHeader($haveCreateBtn);
-			$stmt->bind_result($gid, $name);
-			while ($stmt->fetch()) {
-		        $this->printListItem($gid, $name);
-		    }
-		    $this->printListFooter();
-		} else {
-			$this->addNotification(
-				'warning',
-				__('You are not assigned to any groups')
+		foreach ($this->getTerms($_SESSION['uid']) as $value) {
+			$stmt = $db->prepare(
+				$this->getQuery($value['year'], $value['term'])
 			);
+			$stmt->bind_param('iii', $_SESSION['uid'], $value['year'], $value['term']);
+			$stmt->execute();
+			$stmt->store_result();
+			if ($stmt->num_rows) {
+				$this->printListHeader($haveCreateBtn, $value['year'], $value['term']);
+				$stmt->bind_result($gid, $name);
+				while ($stmt->fetch()) {
+			        $this->printListItem($gid, $name);
+			    }
+			    $this->printListFooter();
+			} else {
+				$this->addNotification(
+					'warning',
+					__('You are not assigned to any groups')
+				);
+			}
+			$stmt->close();
 		}
-		$stmt->close();
+		$this->addHtml(
+			$this->getExtraFooter($_SESSION['uid'])
+		);
 	}
 	/**
 	 * Prints the header for the list of groups
 	 *
 	 * @return void
 	 */
-	private function printListHeader($haveCreateBtn)
+	private function printListHeader($haveCreateBtn, $year, $term)
 	{
 		$html='';
 		if (isset($haveCreateBtn)) {
@@ -84,7 +92,11 @@ abstract class Page_selectGroup extends Page {
         $html .= '<ul data-role="listview" data-divider-theme="b" ';
         $html .= 'data-inset="true">';
         $html .= '<li data-role="list-divider" role="heading">';
-        $html .= __('Select Group');
+        $html .= sprintf(
+        	__('Year %d, Semester %d'),
+        	$year,
+        	$term
+        );
         $html .= '</li>';
         $this->addHtml($html);
 	}
@@ -112,5 +124,22 @@ abstract class Page_selectGroup extends Page {
 	private function printListFooter()
 	{
         $this->addHtml('</ul>');
+	}
+	/**
+	 * Retrieves a list of terms that
+	 * the user is registered for
+	 *
+	 * @return @array
+	 */
+    protected abstract function getTerms($id);
+	/**
+	 * Puts some HTML code into the footer of the page,
+	 * override in a subclass
+	 *
+	 * @return @string
+	 */
+	protected function getExtraFooter($sid)
+	{
+        return '';
 	}
 }

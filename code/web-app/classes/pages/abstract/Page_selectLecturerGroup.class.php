@@ -32,8 +32,48 @@ abstract class Page_selectLecturerGroup extends Page_selectGroup {
 	protected function getQuery()
 	{
         return "SELECT `group`.`id`, `group`.`name`
-				FROM `group` INNER JOIN `moduleoffering_lecturer`
+				FROM `group`
+				INNER JOIN `moduleoffering_lecturer`
 				ON `group`.`moid` = `moduleoffering_lecturer`.`moid`
-				WHERE `lid` = ?";
+				INNER JOIN `moduleoffering`
+				ON `moduleoffering_lecturer`.`moid` = `moduleoffering`.`id`
+				WHERE `lid` = ?
+				AND `moduleoffering`.`year` = ?
+				AND `moduleoffering`.`term` = ?";
 	}
+	/**
+	 * Retrieves a list of terms that
+	 * the user is registered for
+	 *
+	 * @return @array
+	 */
+    protected function getTerms($lid)
+    {
+        $arr = array();
+        $db = Db::getLink();
+        $stmt = $db->prepare(
+            'SELECT `year`, `term`
+            FROM `moduleoffering`
+            INNER JOIN `group`
+            ON `group`.`moid` = `moduleoffering`.`id`
+            INNER JOIN `moduleoffering_lecturer`
+            ON `moduleoffering_lecturer`.`moid` = `moduleoffering`.`id`
+			INNER JOIN `lecturer`
+            ON `moduleoffering_lecturer`.`lid` = `lecturer`.`id`
+            WHERE `moduleoffering_lecturer`.`lid` = ?
+            GROUP BY `year`,`term`
+            ORDER BY `year` DESC, `term` DESC;'
+        );
+        $stmt->bind_param('i', $lid);
+        $stmt->execute();
+        $stmt->bind_result($year, $term);
+        while ($stmt->fetch()) {
+            $arr[] = array(
+                'year' => $year,
+                'term' => $term
+            );
+        }
+        $stmt->close();
+        return $arr;
+    }
 }

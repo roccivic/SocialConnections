@@ -47,11 +47,7 @@ class Page_checkAttendance extends Page_selectStudentGroup {
         );
 
         foreach ($data as $key => $value) {
-        	if ($key === __('Total')) {
-	        	$html .= '<li data-theme="e">';
-	    	} else {
-	    		$html .= '<li>';
-	    	}
+    		$html .= '<li>';
 	        $html .= $key;
 	        $html .= '<span class="ui-li-count">';
 	        $html .= round($value * 100) . ' %';
@@ -82,11 +78,7 @@ class Page_checkAttendance extends Page_selectStudentGroup {
         );
 
         foreach ($data as $key => $value) {
-        	if ($key === __('Total')) {
-	        	$html .= '<li data-theme="e">';
-	    	} else {
-	    		$html .= '<li>';
-	    	}
+	    	$html .= '<li>';
 	        $html .= $key;
 	        $html .= '<span class="ui-li-count">';
 	        $html .= round($value * 100) . ' %';

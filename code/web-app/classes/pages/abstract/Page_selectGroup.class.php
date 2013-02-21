@@ -46,6 +46,7 @@ abstract class Page_selectGroup extends Page {
 	 */
 	protected function groupSelector($haveCreateBtn = null)
 	{
+		$val = 0;
 		$db = Db::getLink();
 		$this->addHtml(
 			'<h3>' . __('Select Group') . '</h3>'
@@ -58,7 +59,14 @@ abstract class Page_selectGroup extends Page {
 			$stmt->execute();
 			$stmt->store_result();
 			if ($stmt->num_rows) {
-				$this->printListHeader($haveCreateBtn, $value['year'], $value['term']);
+				if($val == 0)
+				{
+					$this->printListHeader($haveCreateBtn, $value['year'], $value['term']);
+					$val = 1;
+				}
+				else {
+					$this->printListHeader(null, $value['year'], $value['term']);
+				}
 				$stmt->bind_result($gid, $name);
 				while ($stmt->fetch()) {
 			        $this->printListItem($gid, $name);

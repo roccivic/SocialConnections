@@ -8,11 +8,6 @@ require_once 'classes/pages/abstract/Page_selectLecturerGroup.class.php';
  * This page is used by lecturers to take attendance
  */
 class Page_takeAttendance extends Page_selectLecturerGroup {
-	public static function getAccessLevel()
-	{
-		return User::LECTURER;
-	}
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -34,7 +29,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 
 		$dbStudents = $this->getStudents($gid);
 		$isLecture = ! empty($_REQUEST['isLecture']) ? 1 : 0;
-		$date = ! empty($_REQUEST['date']) ? $_REQUEST['date'] : date("m/d/y");
+		$date = ! empty($_REQUEST['date']) ? $_REQUEST['date'] : date("Y-m-d");
 		$time = ! empty($_REQUEST['time']) ? $_REQUEST['time'] : date("H:i");
 		$students = array();
 		if (! empty($_REQUEST['students']) && is_array($_REQUEST['students'])) {
@@ -97,11 +92,19 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 			$html .= '<input type="hidden" name="process" value="1" />';
 			$html .= '<div data-role="fieldcontain">';
 			$html .= '<label for="date">' . __('Date:') . '</label>';
-			$html .= '<input id="date" name="date" value="' . htmlspecialchars(date("m/d/y", strtotime($date))) . '" />';
+			$html .= '<input type="date" data-role="datebox" ';
+			$html .= 'data-options=\'{"mode":"calbox", "useNewStyle":true}\' id="date" ';
+			$html .= 'name="date" value="' . htmlspecialchars(
+				date("Y-m-d", strtotime($date))
+			) . '" />';
 			$html .= '</div>';
 			$html .= '<div data-role="fieldcontain">';
 			$html .= '<label for="time">' . __('Time:') . '</label>';
-			$html .= '<input id="time" name="time" value="' . htmlspecialchars(date("H:i", strtotime($time))) . '" />';
+			$html .= '<input type="time" data-role="datebox" ';
+			$html .= 'data-options=\'{"mode":"timebox", "useNewStyle":true}\' id="time" ';
+			$html .= 'name="time" value="' . htmlspecialchars(
+				date("H:i", strtotime($time))
+			) . '" />';
 			$html .= '</div>';
 			$html .= '<div data-role="fieldcontain">';
 			$html .= '<fieldset data-role="controlgroup">';
@@ -153,7 +156,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	private function validate($date, $time)
 	{
 		$success = true;
-		if (! preg_match('@^\d\d?/\d\d?/\d\d?$@', $date)) {
+		if (! preg_match('@^\d\d+-\d\d?-\d\d?$@', $date)) {
 			$this->addNotification(
 				'warning',
 				__('Invalid date format')

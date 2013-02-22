@@ -46,41 +46,52 @@ abstract class Page_selectGroup extends Page {
 	{
 		$val = 0;
 		$db = Db::getLink();
-		$this->addHtml(
-			'<h3>' . __('Select Group') . '</h3>'
-		);
-		foreach ($this->getTerms($_SESSION['uid']) as $value) {
-			$stmt = $db->prepare(
-				$this->getQuery($value['year'], $value['term'])
+		$terms = $this->getTerms($_SESSION['uid']);
+		if (count($terms) > 0) {
+			$this->addHtml(
+				'<h3>' . __('Select Group') . '</h3>'
 			);
-			$stmt->bind_param('iii', $_SESSION['uid'], $value['year'], $value['term']);
-			$stmt->execute();
-			$stmt->store_result();
-			if ($stmt->num_rows) {
-				if($val == 0)
-				{
-					$this->printListHeader($haveCreateBtn, $value['year'], $value['term']);
-					$val = 1;
-				}
-				else {
-					$this->printListHeader(null, $value['year'], $value['term']);
-				}
-				$stmt->bind_result($gid, $name);
-				while ($stmt->fetch()) {
-			        $this->printListItem($gid, $name);
-			    }
-			    $this->printListFooter();
-			} else {
-				$this->addNotification(
-					'warning',
-					__('You are not assigned to any groups')
+			foreach ($terms as $value) {
+				$stmt = $db->prepare(
+					$this->getQuery($value['year'], $value['term'])
 				);
+				$stmt->bind_param('iii', $_SESSION['uid'], $value['year'], $value['term']);
+				$stmt->execute();
+				$stmt->store_result();
+				if ($stmt->num_rows) {
+					if($val == 0)
+					{
+						$this->printListHeader($haveCreateBtn, $value['year'], $value['term']);
+						$val = 1;
+					}
+					else {
+						$this->printListHeader(null, $value['year'], $value['term']);
+					}
+					$stmt->bind_result($gid, $name);
+					while ($stmt->fetch()) {
+				        $this->printListItem($gid, $name);
+				    }
+				    $this->printListFooter();
+				}
+				$stmt->close();
 			}
-			$stmt->close();
+		} else {
+			$this->addNotification(
+				'warning',
+				__('You are not assigned to any groups')
+			);
+			$this->addHtml($this->getCreateGroupBtn());
 		}
 		$this->addHtml(
 			$this->getExtraFooter($_SESSION['uid'])
 		);
+	}
+	private function getCreateGroupBtn()
+	{
+	    $html  = '<a href="?action=manageGroups&editForm=1"';
+    	$html .= ' data-role="button" data-theme="b">';
+    	$html .= __('Create Group') . '</a>';
+    	return $html;
 	}
 	/**
 	 * Prints the header for the list of groups
@@ -91,9 +102,7 @@ abstract class Page_selectGroup extends Page {
 	{
 		$html='';
 		if (isset($haveCreateBtn)) {
-        	$html .= '<a href="?action=manageGroups&editForm=1"';
-        	$html .= ' data-role="button" data-theme="b">';
-        	$html .= __('Create Group') . '</a>';
+			$html .= $this->getCreateGroupBtn();
         }
         $html .= '<ul data-role="listview" data-divider-theme="b" ';
         $html .= 'data-inset="true">';

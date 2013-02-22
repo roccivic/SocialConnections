@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2013 at 08:26 PM
+-- Generation Time: Feb 22, 2013 at 08:41 PM
 -- Server version: 5.5.29-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.5
 
@@ -46,13 +46,13 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 CREATE TABLE IF NOT EXISTS `assesment` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `gid` mediumint(9) NOT NULL,
+  `moid` mediumint(9) NOT NULL,
   `name` varchar(64) NOT NULL,
   `weight` tinyint(4) NOT NULL COMMENT 'Percentage of total marks for the module',
   `isDraft` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `composite` (`id`,`gid`),
-  KEY `assesment_ibfk_1` (`gid`)
+  UNIQUE KEY `composite` (`id`,`moid`),
+  KEY `assesment_ibfk_1` (`moid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `token` (
 -- Constraints for table `assesment`
 --
 ALTER TABLE `assesment`
-  ADD CONSTRAINT `assesment_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `assesment_ibfk_1` FOREIGN KEY (`moid`) REFERENCES `moduleoffering` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `attendance`

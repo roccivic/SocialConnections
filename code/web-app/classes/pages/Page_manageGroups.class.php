@@ -315,7 +315,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$arr = array();
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT `id`, `name` FROM `module`"
+			"SELECT `id`, `name` FROM `module` ORDER BY `name`"
 		);
 		$stmt->execute();
 		$stmt->bind_result($id, $name);
@@ -486,7 +486,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	{
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT id, name FROM department"
+			"SELECT id, name FROM department ORDER BY name"
 		);
 		$stmt->execute();
 		$stmt->store_result();
@@ -581,7 +581,12 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$arr = array();
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT `id`, `fname`, `lname` FROM `student` WHERE `cid` IN(SELECT id FROM `class` WHERE `did`=? )"
+			"SELECT `id`, `fname`, `lname`
+			FROM `student`
+			WHERE `cid` IN (
+				SELECT id FROM `class` WHERE `did`=?
+			)
+			ORDER BY `fname` ASC, `lname` ASC;"
 		);
 		$stmt->bind_param("i",$did);
 		$stmt->execute();
@@ -641,7 +646,12 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$arr = array();
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT `id`, `fname`, `lname` FROM `student` WHERE `id` IN(SELECT sid FROM `group_student` WHERE `gid`=?)"
+			"SELECT `id`, `fname`, `lname`
+			FROM `student`
+			WHERE `id` IN (
+				SELECT sid FROM `group_student` WHERE `gid`=?
+			)
+			ORDER BY `fname` ASC, `lname` ASC;"
 		);
 		$stmt->bind_param("i",$gid);
 		$stmt->execute();

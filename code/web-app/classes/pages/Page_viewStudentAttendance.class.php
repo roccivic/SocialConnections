@@ -29,8 +29,16 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 				$sid = intval($_REQUEST['sid']);
 			}
 			if ($sid > 0) {
-				$this->showTotalAttendance($sid);
-				$this->showTermAttendance($sid);
+				if (strlen($this->getStudentName($sid)) > 1) {
+					$this->showTotalAttendance($sid);
+					$this->showTermAttendance($sid);
+				} else {
+					$this->addNotification(
+						'error',
+						__('Invalid student selected')
+					);
+					$this->printStudentSelector($did);
+				}
 			} else {
 				$this->printStudentSelector($did);
 			}
@@ -241,20 +249,28 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 		 */
 		private function printStudentSelector($did)
 		{
-			$students = $this->getStudents($did);
-			if (count($students) > 0) {
-				$this->addHtml("<h3>" . __('View Attendance') . "</h3>");
-				$html = $this->printStudentListHeader($did);
-				foreach ($students as $key => $value) {
-					$html .= $this->printStudentListItem($did, $key, $value[0]);
-				}
-				$html .= $this->printStudentListFooter();
-				$this->addHtml($html);
-			} else {
+			if (! strlen($this->getDepartmentName($did))) {
 				$this->addNotification(
-					'warning',
-					__('The are no students in this department')
+					'error',
+					__('Invalid department selected')
 				);
+				$this->departmentSelector();
+			} else {
+				$students = $this->getStudents($did);
+				if (count($students) > 0) {
+					$this->addHtml("<h3>" . __('View Attendance') . "</h3>");
+					$html = $this->printStudentListHeader($did);
+					foreach ($students as $key => $value) {
+						$html .= $this->printStudentListItem($did, $key, $value[0]);
+					}
+					$html .= $this->printStudentListFooter();
+					$this->addHtml($html);
+				} else {
+					$this->addNotification(
+						'warning',
+						__('The are no students in this department')
+					);
+				}
 			}
 		}
 		/**
@@ -432,10 +448,36 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 				$sid = intval($_REQUEST['sid']);
 			}
 			if ($sid > 0) {
-				$this->showAttendance($gid, $sid);
+				if ($this->isStudentIngroup($sid, $gid)) {
+					$this->showAttendance($gid, $sid);
+				} else {
+					$this->addNotification(
+						'error',
+						__('Invalid student or group selected')
+					);
+					$this->printStudentSelector($gid);
+				}
 			} else {
 				$this->printStudentSelector($gid);
 			}
+		}
+		private function isStudentIngroup($sid, $gid)
+		{
+
+			$db = Db::getLink();
+			$stmt = $db->prepare(
+				"SELECT COUNT(*)
+				FROM `group_student`
+				WHERE `gid` = ?
+				AND `sid` = ?;"
+			);
+			$stmt->bind_param('ii', $gid, $sid);
+			$stmt->execute();
+			$stmt->bind_result($result);
+			$stmt->fetch();
+			$stmt->close();
+			return $result;
+
 		}
 		/**
 		 * Displays the attendance of a student
@@ -495,13 +537,29 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 		 */
 		private function printStudentSelector($gid)
 		{
-			$this->addHtml("<h3>" . __('View Attendance') . "</h3>");
-			$html = $this->printStudentListHeader($gid);
-			foreach ($this->getStudents($gid) as $key => $value) {
-				$html .= $this->printStudentListItem($key, $gid, $value);
+			if (! strlen($this->getGroupName($gid))) {
+				$this->addNotification(
+					'error',
+					__('Invalid group selected')
+				);
+				$this->groupSelector();
+			} else {
+				$students = $this->getStudents($gid);
+				if (count($students) > 0) {
+					$this->addHtml("<h3>" . __('View Attendance') . "</h3>");
+					$html = $this->printStudentListHeader($gid);
+					foreach ($students as $key => $value) {
+						$html .= $this->printStudentListItem($key, $gid, $value);
+					}
+					$html .= $this->printStudentListFooter();
+					$this->addHtml($html);
+				} else {
+					$this->addNotification(
+						'warning',
+						__('The are no students in this group')
+					);
+				}
 			}
-			$html .= $this->printStudentListFooter();
-			$this->addHtml($html);
 		}
 		/**
 		 * Returns a list of students for a given group id

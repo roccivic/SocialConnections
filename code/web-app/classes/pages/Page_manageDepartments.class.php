@@ -37,25 +37,42 @@ class Page_manageDepartments extends Page_selectDepartment {
 		}
 
 		if (! empty($_REQUEST['delete'])) {
-			$this->deleteDepartment($did);
+			$details = $this->getDepartmentDetails($did);
+			if (empty($details['dname'])) {
+				$this->addNotification(
+					'error',
+					__('The selected department does not exist')
+				);
+			} else {
+				$this->deleteDepartment($did);
+			}
 			$this->departmentSelector(true);
 		} else if (! empty($_REQUEST['edit'])) {
-			if ($this->validateForm(false, $did, $name, $head)
-				&& $this->updateDepartment($did, $name, $head)
-			) {
+			$details = $this->getDepartmentDetails($did);
+			if (empty($details['dname'])) {
 				$this->addNotification(
-					'notice',
-					__('The department details were successfully updated.')
+					'error',
+					__('The selected department does not exist')
 				);
 				$this->departmentSelector(true);
 			} else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-				$details = $this->getDepartmentDetails($did);
-				$name = $details['dname'];
-				$this->editDepartmentForm($did, $name);
+				if ($this->validateForm(false, $did, $name, $head)
+					&& $this->updateDepartment($did, $name, $head)
+				) {
+					$this->addNotification(
+						'notice',
+						__('The department details were successfully updated.')
+					);
+					$this->departmentSelector(true);
+				} else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$details = $this->getDepartmentDetails($did);
+					$name = $details['dname'];
+					$this->editDepartmentForm($did, $name);
+				}
 			}
 		} else if (! empty($_REQUEST['create'])) {
 			if ($this->validateForm(true, $did, $name, $head)
@@ -86,7 +103,16 @@ class Page_manageDepartments extends Page_selectDepartment {
 				$this->editDepartmentForm($did, $name);
 			}
 		} else {
-			$this->displayDepartmentDetails($did);
+			$details = $this->getDepartmentDetails($did);
+			if (empty($details['dname'])) {
+				$this->addNotification(
+					'error',
+					__('The selected department does not exist')
+				);
+				$this->departmentSelector(true);
+			} else {
+				$this->displayDepartmentDetails($did, $details);
+			}
 		}
 	}
 	/**
@@ -115,8 +141,7 @@ class Page_manageDepartments extends Page_selectDepartment {
 	 *
 	 * @return void
 	 */
-	private function displayDepartmentDetails($did) {
-		$details = $this->getDepartmentDetails($did);
+	private function displayDepartmentDetails($did, $details) {
 		if (isset($details['did'])) {
 			$html  = '<h3>' . $details['dname'] . '</h3>';
 			$html .= __('Head of Department: ');

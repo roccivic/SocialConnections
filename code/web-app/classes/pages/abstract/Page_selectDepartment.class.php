@@ -37,7 +37,7 @@ abstract class Page_selectDepartment extends Page {
 	 *
 	 * @return void
 	 */
-	protected function departmentSelector($haveCreateBtn)
+	protected function departmentSelector($haveCreateBtn = null)
 	{
 		$db = Db::getLink();
 		$stmt = $db->prepare(

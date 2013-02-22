@@ -23,20 +23,7 @@ class Page_makeExcuse extends Page_selectStudentGroup {
 		$aid = ! empty($_REQUEST['aid']) ? intval($_REQUEST['aid']) : 0;
 		$excuse = ! empty($_REQUEST['excuse']) ? $_REQUEST['excuse'] : '';
 		if ($aid > 0 && ! empty($_REQUEST['process'])) {
-
-			$db = Db::getLink();
-			$stmt = $db->prepare(
-				"SELECT count(*) FROM `student_attendance`
-				WHERE sid = ?
-				AND aid = ?;"
-			);
-			$stmt->bind_param('ii', $_SESSION['uid'], $aid);
-			$stmt->execute();
-			$stmt->bind_result($valid);
-			$stmt->fetch();
-			$stmt->close();
-
-			if ($valid) {
+			if ($this->isAidValid($aid)) {
 				if ($this->validate($excuse, $aid)) {
 					if ($this->save($aid, $excuse)) {
 						$this->addNotification(
@@ -61,27 +48,64 @@ class Page_makeExcuse extends Page_selectStudentGroup {
 			} else {
 				$this->addNotification(
 					'error',
-					__('An invalid class was selected.')
+					__('Invalid class selected')
 				);
 				$this->groupSelector();
 			}
 		} else if ($aid > 0) {
-			$this->printExcuseForm($gid, $aid, '');
-		} else {
-			$classes = $this->getMissedClasses($gid);
-			if (count($classes)) {
-				$this->printExcuseListHeader();
-				foreach ($classes as $aid => $timestamp) {
-					$this->printExcuseListItem($gid, $aid, $timestamp);
-				}
-				$this->printExcuseListFooter();
+			if ($this->isAidValid($aid)) {
+				$this->printExcuseForm($gid, $aid, '');
 			} else {
 				$this->addNotification(
-					'notice',
-					__('You have no classes in this module to excuse yourself for')
+					'error',
+					__('Invalid class selected')
 				);
+				$this->groupSelector();
+			}
+		} else {
+			if (strlen($this->getGroupName($gid))) {
+				$classes = $this->getMissedClasses($gid);
+				if (count($classes)) {
+					$this->printExcuseListHeader();
+					foreach ($classes as $aid => $timestamp) {
+						$this->printExcuseListItem($gid, $aid, $timestamp);
+					}
+					$this->printExcuseListFooter();
+				} else {
+					$this->addNotification(
+						'notice',
+						__('You have no classes in this module to excuse yourself for')
+					);
+				}
+			} else {
+				$this->addNotification(
+					'error',
+					__('Invalid group selected')
+				);
+				$this->groupSelector();
 			}
 		}
+	}
+	/**
+	 * Check if a student has an attendance record
+	 * for a given attendance id
+	 *
+	 * @return bool
+	 */
+	private function isAidValid($aid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT COUNT(*) FROM `student_attendance`
+			WHERE sid = ?
+			AND aid = ?;"
+		);
+		$stmt->bind_param('ii', $_SESSION['uid'], $aid);
+		$stmt->execute();
+		$stmt->bind_result($valid);
+		$stmt->fetch();
+		$stmt->close();
+		return $valid;
 	}
 
 	private function getMissedClasses($gid) {

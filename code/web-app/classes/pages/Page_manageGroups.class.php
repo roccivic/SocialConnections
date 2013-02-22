@@ -282,13 +282,14 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$html .= '>' . htmlspecialchars($value) . '</option>';	
 		}
 		$html .= '</select>';
-		$html .= '<br/><br/>';
+		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$year = $details['year'];
 		$html .= '<label for="year">' . __('Year') . ': </label>';
 		$html .= '<input type="text" name="year" id="year" ';
 		$html .= 'value="' . htmlspecialchars($year) . '" />';
 		$html .= '</div>';
+		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="term">' . __('Term') . ': </label>';
 		$html .= '<select id="term" name="term">';
 		$term = $details['term'];

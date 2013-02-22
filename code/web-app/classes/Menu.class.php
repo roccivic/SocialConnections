@@ -43,7 +43,8 @@ class Menu {
 				__('Manage Assessments') => 'manageAssessments',
 				__('Manage Students') => 'manageStudents',
 				__('Manage Groups') => 'manageGroups',
-				__('Take Student Attendance') => 'takeAttendance'
+				__('Take Student Attendance') => 'takeAttendance',
+				__('View Student Excuses') => 'viewExcuses'
 			)
 		);
 	}

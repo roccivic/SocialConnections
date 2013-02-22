@@ -174,7 +174,7 @@ abstract class Page {
 		$page .= '<div class="content-primary">';
     	foreach ($this->notifications as $notification) {
 			$page .= '<div class="notification ' . $notification['type'] . '">';
-			$page .= htmlspecialchars($notification['html']);
+			$page .= $notification['html'];
 			$page .= '</div>';
     	}
 		$page .= $this->html;

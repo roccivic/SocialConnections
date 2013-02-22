@@ -107,7 +107,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 			) . '" />';
 			$html .= '</div>';
 			$html .= '<div data-role="fieldcontain">';
-			$html .= '<fieldset data-role="controlgroup">';
+			$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
 			$html .= '<legend>' . __('Type') . ':</legend>';
 
 			$html .= '<input type="radio" name="isLecture"';

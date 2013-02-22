@@ -86,6 +86,13 @@ public class Activity_LecturerMenu extends Activity {
 				Activity_Web.launch(self, "manageGroups", token);
 			}
         });
+        button = (Button) findViewById(R.id.viewExcusesBtn);
+        button.setOnClickListener(new Button.OnClickListener () {
+			@Override
+			public void onClick(View arg0) {
+				Activity_Web.launch(self, "viewExcuses", token);
+			}
+        });
     }
     
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 

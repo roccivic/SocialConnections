@@ -60,4 +60,5 @@
     <string name="manageAssessments">Manage Assessments</string>
     <string name="manageStudents">Manage Students</string>
     <string name="manageGroups">Manage Groups</string>
+    <string name="viewExcuses">View Student Excuses</string>
 </resources>

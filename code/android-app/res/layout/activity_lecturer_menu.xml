@@ -45,6 +45,12 @@
                 android:text="@string/viewStudentAttendance" />
 
             <Button
+                android:id="@+id/viewExcusesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/viewExcuses" />
+
+            <Button
                 android:id="@+id/twitterBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

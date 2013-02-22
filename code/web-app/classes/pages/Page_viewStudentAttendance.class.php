@@ -249,13 +249,13 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 					$html .= $this->printStudentListItem($did, $key, $value[0]);
 				}
 				$html .= $this->printStudentListFooter();
+				$this->addHtml($html);
 			} else {
 				$this->addNotification(
 					'warning',
 					__('The are no students in this department')
 				);
 			}
-			$this->addHtml($html);
 		}
 		/**
 		 * Displays the attendance of a student

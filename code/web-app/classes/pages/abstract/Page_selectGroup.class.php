@@ -75,6 +75,9 @@ abstract class Page_selectGroup extends Page {
 				}
 				$stmt->close();
 			}
+			$this->addHtml(
+				$this->getExtraFooter($_SESSION['uid'])
+			);
 		} else {
 			$this->addNotification(
 				'warning',
@@ -84,9 +87,6 @@ abstract class Page_selectGroup extends Page {
 				$this->addHtml($this->getCreateGroupBtn());
 			}
 		}
-		$this->addHtml(
-			$this->getExtraFooter($_SESSION['uid'])
-		);
 	}
 	private function getCreateGroupBtn()
 	{

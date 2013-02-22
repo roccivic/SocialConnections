@@ -112,15 +112,14 @@ class Page_manageGroups extends Page_selectLecturerGroup
 					'notice',
 					__('The Student was successfully added to the group.')
 				);
-				$this->groupSelector(true);
 			}
 			else {
 				$this->addNotification(
 					'error',
 					__('An error occured while processing your request.')
 				);
-				$this->groupSelector(true);
 			}
+			$this->displayGroupDetails($gid);
 		}else if(!empty($_REQUEST['addStudent'])){
 			$this->departmentSelector($gid);
 		}else if(!empty($_REQUEST['addStudentForm'])){
@@ -134,22 +133,20 @@ class Page_manageGroups extends Page_selectLecturerGroup
 				);
 				$this->groupSelector(true);
 			}
-			
 		}else if(!empty($_REQUEST['removingStudentFromGroup'])){
 			if($this->removeStudentFromGroup($gid, $sid)){
 				$this->addNotification(
 					'notice',
 					__('The Student was successfully removed from the group.')
 				);
-				$this->groupSelector(true);
 			}
 			else {
 				$this->addNotification(
 					'error',
 					__('An error occured while processing your request.')
 				);
-				$this->groupSelector(true);
 			}
+			$this->displayGroupDetails($gid);
 		}else if(!empty($_REQUEST['removeStudent'])){
 			$this->removeStudentForm($gid);
 		}else {

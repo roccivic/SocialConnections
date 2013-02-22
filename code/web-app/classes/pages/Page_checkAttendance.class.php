@@ -20,7 +20,15 @@ class Page_checkAttendance extends Page_selectStudentGroup {
 	 * @return void
 	 */
 	protected function display($gid) {
-		$this->showAttendance($gid);
+		if ($this->isStudentIngroup($_SESSION['uid'], $gid)) {
+			$this->showAttendance($gid);
+		} else {
+			$this->addNotification(
+				'error',
+				__('Invalid group selected')
+			);
+			$this->groupSelector();
+		}
 	}
 	/**
 	 * Displays the attendance of a student
@@ -210,5 +218,21 @@ class Page_checkAttendance extends Page_selectStudentGroup {
 			'labs' => $labs,
 			'lectures' => $lectures
 		);
+	}
+	private function isStudentIngroup($sid, $gid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT COUNT(*)
+			FROM `group_student`
+			WHERE `gid` = ?
+			AND `sid` = ?;"
+		);
+		$stmt->bind_param('ii', $gid, $sid);
+		$stmt->execute();
+		$stmt->bind_result($result);
+		$stmt->fetch();
+		$stmt->close();
+		return $result;
 	}
 }

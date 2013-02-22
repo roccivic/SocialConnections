@@ -85,8 +85,8 @@ class Page_Login extends Page {
 		$form .= Lang::getLanguageOptions();
 		$form .= '</select>';
 		$form .= '</div>';
-		$form .= '<input data-theme="e" type="submit" value="' . __('Go') . '" />';
-		$form .= '<input type="hidden" name="processform" value="1" />';		
+		$form .= '<input data-theme="b" type="submit" value="' . __('Go') . '" />';
+		$form .= '<input type="hidden" name="processform" value="1" />';
 		$form .= '</form>';
 		return $form;
 	}

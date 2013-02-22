@@ -271,7 +271,6 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="module">' . __('Module') . ': </label>';
 		$html .= '<select id="module" name="module">';
-		$html .= '<option value="0">' . __('Not assigned') . '</option>';
 		$details = $this->getGroupDetails($gid);
 		$module = $details['module'];
 		foreach($this->getModules() as $key => $value) {
@@ -562,7 +561,6 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="sid">' . __('Student') . ': </label>';
 		$html .= '<select id="sid" name="sid">';
-		$html .= '<option value="0">' . __('Not assigned') . '</option>';
 		foreach($this->getStudents($did) as $key => $value) {
 			$html .= '<option value="' . $key . '"';
 			$html .= '>' . htmlspecialchars($value) . '</option>';	
@@ -623,7 +621,6 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="sid">' . __('Student') . ': </label>';
 		$html .= '<select id="sid" name="sid">';
-		$html .= '<option value="0">' . __('Not assigned') . '</option>';
 		foreach($this->getStudentsInGroup($gid) as $key => $value) {
 			$html .= '<option value="' . $key . '"';
 			$html .= '>' . htmlspecialchars($value) . '</option>';	

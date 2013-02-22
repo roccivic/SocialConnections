@@ -80,7 +80,9 @@ abstract class Page_selectGroup extends Page {
 				'warning',
 				__('You are not assigned to any groups')
 			);
-			$this->addHtml($this->getCreateGroupBtn());
+			if (isset($haveCreateBtn)) {
+				$this->addHtml($this->getCreateGroupBtn());
+			}
 		}
 		$this->addHtml(
 			$this->getExtraFooter($_SESSION['uid'])

@@ -242,12 +242,20 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 		 */
 		private function printStudentSelector($did)
 		{
-			$this->addHtml("<h3>" . __('View Attendance') . "</h3>");
-			$html = $this->printStudentListHeader($did);
-			foreach ($this->getStudents($did) as $key => $value) {
-				$html .= $this->printStudentListItem($did, $key, $value[0]);
+			$students = $this->getStudents($did);
+			if (count($students) > 0) {
+				$this->addHtml("<h3>" . __('View Attendance') . "</h3>");
+				$html = $this->printStudentListHeader($did);
+				foreach ($students as $key => $value) {
+					$html .= $this->printStudentListItem($did, $key, $value[0]);
+				}
+				$html .= $this->printStudentListFooter();
+			} else {
+				$this->addNotification(
+					'warning',
+					__('The are no students in this department')
+				);
 			}
-			$html .= $this->printStudentListFooter();
 			$this->addHtml($html);
 		}
 		/**

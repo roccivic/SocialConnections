@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2013 at 01:02 PM
+-- Generation Time: Feb 22, 2013 at 08:26 PM
 -- Server version: 5.5.29-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.5
 
@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `assesment` (
   `gid` mediumint(9) NOT NULL,
   `name` varchar(64) NOT NULL,
   `weight` tinyint(4) NOT NULL COMMENT 'Percentage of total marks for the module',
+  `isDraft` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `composite` (`id`,`gid`),
   KEY `assesment_ibfk_1` (`gid`)
@@ -213,7 +214,6 @@ CREATE TABLE IF NOT EXISTS `results` (
   `aid` mediumint(9) NOT NULL,
   `sid` mediumint(9) NOT NULL,
   `grade` tinyint(4) NOT NULL,
-  `isDraft` tinyint(1) NOT NULL,
   UNIQUE KEY `composite` (`aid`,`sid`),
   KEY `results_ibfk_3` (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

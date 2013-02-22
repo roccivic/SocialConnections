@@ -175,7 +175,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$html .= __('Year: ');
 			$html .= $details['year'];
 			$html .= '<br/>';
-			$html .= __('Term: ');
+			$html .= __('Semester: ');
 			$html .= $details['term'];
 			$html .= '<br/><br/>';
 			$html .= '<a href="?action=manageGroups&editForm=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
@@ -290,7 +290,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= 'value="' . htmlspecialchars($year) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
-		$html .= '<label for="term">' . __('Term') . ': </label>';
+		$html .= '<label for="term">' . __('Semester') . ': </label>';
 		$html .= '<select id="term" name="term">';
 		$term = $details['term'];
 		for($t=1;$t<3;$t++) {
@@ -394,7 +394,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 				$success = false;
 				$this->addNotification(
 					'warning',
-					__('Invalid term selected.')
+					__('Invalid semester selected.')
 				);
 			}
 		}

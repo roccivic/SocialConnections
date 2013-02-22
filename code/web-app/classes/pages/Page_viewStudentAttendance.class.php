@@ -202,8 +202,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 	        $html .= '<li data-role="list-divider" role="heading">';
 	        $html .= sprintf(
 	        	__('Students of department `%s`'),
-	        	$did
-	        	//$this->getGroupName($gid) // FIXME
+	        	htmlspecialchars($this->getDepartmentName($did))
 	        );
 	        $html .= '</li>';
 	        $this->addHtml($html);
@@ -350,6 +349,24 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 			$stmt->fetch();
 			$stmt->close();
 			return $fname . ' ' . $lname;
+		}
+		/**
+		 * Returns the name of a department given its id
+		 *
+		 * @return string
+		 */
+		private function getDepartmentName($did)
+		{
+			$db = Db::getLink();
+			$stmt = $db->prepare(
+				"SELECT `name` FROM `department` WHERE `id` = ?;"
+			);
+			$stmt->bind_param('i', $did);
+			$stmt->execute();
+			$stmt->bind_result($name);
+			$stmt->fetch();
+			$stmt->close();
+			return $name;
 		}
 		/**
 		 * Retrieves a list of terms that

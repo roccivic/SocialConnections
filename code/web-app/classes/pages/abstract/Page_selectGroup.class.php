@@ -18,9 +18,7 @@ abstract class Page_selectGroup extends Page {
 			$gid = intval($_REQUEST['gid']);
 		}
 		if ($gid > 0 || ! empty($_REQUEST['editForm'])) {
-			$this->display(
-				intval($_REQUEST['gid'])
-			);
+			$this->display($gid);
 		} else {
 			$this->groupSelector($haveCreateBtn);
 		}

@@ -57,6 +57,12 @@ class Page_attendanceThreshold extends Page {
 		$levels = $this->getLevels();
 
 		$html  = '<h3>' . __('Poor Attendance Threshold') . '</h3>';
+		$html .= '<p>';
+		$html .= __(
+			'Here you can define below what percencentage a '
+			. 'student\'s attendance will be considered to be poor.'
+		);
+		$html .= '</p>';
 		$html .= '<form method="post" action="">';
 		$html .= '<input name="process" value="1" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';

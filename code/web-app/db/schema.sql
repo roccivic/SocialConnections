@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.0-beta1
+-- version 3.5.5
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 20, 2013 at 08:39 PM
--- Server version: 5.5.29-0ubuntu0.12.10.1
--- PHP Version: 5.4.6-1ubuntu1.1
+-- Host: localhost
+-- Generation Time: Feb 22, 2013 at 01:02 PM
+-- Server version: 5.5.29-0ubuntu0.12.04.1
+-- PHP Version: 5.3.10-1ubuntu3.5
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `salt` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `class` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `composite` (`id`,`did`),
   KEY `class_ibfk_1` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `department` (
   `name` varchar(64) NOT NULL,
   `headId` mediumint(9) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `lecturer` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`),
   KEY `lecturer_ibfk_1` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -246,6 +246,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `salt` varchar(32) NOT NULL,
   `cid` mediumint(9) NOT NULL,
   `hasGrant` tinyint(1) NOT NULL DEFAULT '0',
+  `grantOwed` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`),
   UNIQUE KEY `composite` (`id`,`cid`),

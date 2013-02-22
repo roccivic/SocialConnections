@@ -41,10 +41,10 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `assesment`
+-- Table structure for table `assessment`
 --
 
-CREATE TABLE IF NOT EXISTS `assesment` (
+CREATE TABLE IF NOT EXISTS `assessment` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `moid` mediumint(9) NOT NULL,
   `name` varchar(64) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `assesment` (
   `isDraft` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `composite` (`id`,`moid`),
-  KEY `assesment_ibfk_1` (`moid`)
+  KEY `assessment_ibfk_1` (`moid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -301,10 +301,10 @@ CREATE TABLE IF NOT EXISTS `token` (
 --
 
 --
--- Constraints for table `assesment`
+-- Constraints for table `assessment`
 --
-ALTER TABLE `assesment`
-  ADD CONSTRAINT `assesment_ibfk_1` FOREIGN KEY (`moid`) REFERENCES `moduleoffering` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `assessment`
+  ADD CONSTRAINT `assessment_ibfk_1` FOREIGN KEY (`moid`) REFERENCES `moduleoffering` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `attendance`
@@ -366,7 +366,7 @@ ALTER TABLE `notes`
 -- Constraints for table `results`
 --
 ALTER TABLE `results`
-  ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`aid`) REFERENCES `assesment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`aid`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

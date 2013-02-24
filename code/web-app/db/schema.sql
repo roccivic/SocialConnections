@@ -207,16 +207,44 @@ CREATE TABLE IF NOT EXISTS `notes` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notes_notifications`
+--
+
+CREATE TABLE IF NOT EXISTS `notes_notifications` (
+  `sid` mediumint(11) NOT NULL,
+  `nid` mediumint(11) NOT NULL,
+  UNIQUE KEY `composite` (`sid`,`nid`),
+  KEY `nid` (`nid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `results`
 --
 
 CREATE TABLE IF NOT EXISTS `results` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `aid` mediumint(9) NOT NULL,
   `sid` mediumint(9) NOT NULL,
   `grade` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `composite` (`aid`,`sid`),
   KEY `results_ibfk_3` (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `results_notifications`
+--
+
+CREATE TABLE IF NOT EXISTS `results_notifications` (
+  `sid` mediumint(11) NOT NULL,
+  `rid` mediumint(11) NOT NULL,
+  UNIQUE KEY `composite` (`sid`,`rid`),
+  KEY `rid` (`rid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -296,6 +324,20 @@ CREATE TABLE IF NOT EXISTS `token` (
   KEY `expires` (`expires`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Remote Authentication Tokens';
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `twitter_notifications`
+--
+
+CREATE TABLE IF NOT EXISTS `twitter_notifications` (
+  `sid` mediumint(11) NOT NULL,
+  `gid` mediumint(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `composite` (`sid`,`gid`),
+  KEY `gid` (`gid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Constraints for dumped tables
 --
@@ -363,11 +405,25 @@ ALTER TABLE `notes`
   ADD CONSTRAINT `notes_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `notes_notifications`
+--
+ALTER TABLE `notes_notifications`
+  ADD CONSTRAINT `notes_notifications_ibfk_2` FOREIGN KEY (`nid`) REFERENCES `notes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notes_notifications_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `results`
 --
 ALTER TABLE `results`
   ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`aid`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `results_notifications`
+--
+ALTER TABLE `results_notifications`
+  ADD CONSTRAINT `results_notifications_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `results_notifications_ibfk_1` FOREIGN KEY (`rid`) REFERENCES `results` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student`
@@ -381,6 +437,13 @@ ALTER TABLE `student`
 ALTER TABLE `student_attendance`
   ADD CONSTRAINT `student_attendance_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_attendance_ibfk_1` FOREIGN KEY (`aid`) REFERENCES `attendance` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `twitter_notifications`
+--
+ALTER TABLE `twitter_notifications`
+  ADD CONSTRAINT `twitter_notifications_ibfk_2` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `twitter_notifications_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

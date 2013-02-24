@@ -8,5 +8,7 @@ ErrorDocument 500 /error.php?error=500
 	ExpiresActive On
 	<FilesMatch "\.(jpg|jpeg|png|gif)$">
 		ExpiresDefault "access plus 1 month"
+		Header unset ETag
+		FileETag None
 	</FilesMatch>
 </IfModule>

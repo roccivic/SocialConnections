@@ -258,7 +258,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 			} else {
 				$students = $this->getStudents($did);
 				if (count($students) > 0) {
-					$this->addHtml("<h3>" . __('View Attendance') . "</h3>");
+					$this->addHtml("<h3>" . __('Select Student') . "</h3>");
 					$html = $this->printStudentListHeader($did);
 					foreach ($students as $key => $value) {
 						$html .= $this->printStudentListItem($did, $key, $value[0]);
@@ -270,6 +270,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 						'warning',
 						__('The are no students in this department')
 					);
+					$this->departmentSelector();
 				}
 			}
 		}
@@ -281,9 +282,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 		private function showTotalAttendance($sid)
 		{
 			$this->addHtml(
-				"<h3>" . __('View Attendance')
-			 	. " &gt; " . $this->getStudentName($sid)
-			 	. "</h3>"
+				"<h3>" . htmlspecialchars($this->getStudentName($sid)) . "</h3>"
 			 );
 
 	        $html  = '<ul data-role="listview" data-divider-theme="b" data-inset="true">';
@@ -487,9 +486,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 		private function showAttendance($gid, $sid)
 		{
 			$this->addHtml(
-				"<h3>" . __('View Attendance')
-			 	. " &gt; " . $this->getStudentName($sid)
-			 	. "</h3>"
+				"<h3>" . htmlspecialchars($this->getStudentName($sid)) . "</h3>"
 			 );
 
 	        $html  = '<ul data-role="listview" data-divider-theme="b" data-inset="true">';
@@ -546,7 +543,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 			} else {
 				$students = $this->getStudents($gid);
 				if (count($students) > 0) {
-					$this->addHtml("<h3>" . __('View Attendance') . "</h3>");
+					$this->addHtml("<h3>" . __('Select Student') . "</h3>");
 					$html = $this->printStudentListHeader($gid);
 					foreach ($students as $key => $value) {
 						$html .= $this->printStudentListItem($key, $gid, $value);
@@ -558,6 +555,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 						'warning',
 						__('The are no students in this group')
 					);
+					$this->groupSelector();
 				}
 			}
 		}

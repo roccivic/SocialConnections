@@ -20,13 +20,6 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	 */
 	public function display($gid) 
 	{
-		$html  = '<h3>';
-		$html .= sprintf(
-			 __('Take attendance for group `%s`'),
-			 $this->getGroupName($gid)
-		);
-		$html .= '</h3>';
-		$this->addHtml($html);
 		$dbStudents = $this->getStudents($gid);
 		$isLecture = ! empty($_REQUEST['isLecture']) ? 1 : 0;
 		$date = ! empty($_REQUEST['date']) ? $_REQUEST['date'] : date("Y-m-d");
@@ -88,6 +81,14 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	 */
 	private function printForm($gid, $date, $time, $students, $dbStudents) {
 		if (strlen($this->getGroupName($gid))) {
+			$this->addHtml(
+				'<h3>'
+				. sprintf(
+					 __('Take attendance for group `%s`'),
+					 $this->getGroupName($gid)
+				)
+				. '</h3>'
+			);
 			if (count($dbStudents)) {
 				$html  = '<form action="" method="post">';
 				$html .= '<input type="hidden" name="process" value="1" />';

@@ -46,6 +46,7 @@ abstract class Page_selectDepartment extends Page {
 		$stmt->execute();
 		$stmt->store_result();
 		if ($stmt->num_rows) {
+			$this->addHtml('<h3>' . __('Select Department') . '</h3>');
 			$this->printListHeader($haveCreateBtn);
 			$stmt->bind_result($did, $name);
 			while ($stmt->fetch()) {

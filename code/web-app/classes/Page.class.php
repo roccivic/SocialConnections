@@ -177,6 +177,7 @@ abstract class Page {
 			$page .= $notification['html'];
 			$page .= '</div>';
     	}
+    	$page .= '<h2>' . $this->getHeading() . '</h2>';
 		$page .= $this->html;
 		if ($this->isMobile()
 			&& ! empty($_SERVER['HTTP_REFERER'])
@@ -278,6 +279,26 @@ abstract class Page {
     	}
 
 		return $html;
+	}
+	/**
+	 * Returns the name of the current page
+	 *
+	 * @return string
+	 */
+	protected function getHeading()
+	{
+		$menu = new Menu();
+		$pages = $menu->getAllPages();
+		$action = ! empty($_REQUEST['action']) ? $_REQUEST['action'] : '';
+		if (empty($_SESSION['uid']) || $action === 'login') {
+			return __('Login Form');
+		} if (empty($action) || $action == 'main') {
+			return __('Main Page');
+		} else if (isset($pages[$action])) {
+			return $pages[$action];
+		} else {
+			return '';
+		}
 	}
 	/**
 	 * Generates the HTML footer for the page

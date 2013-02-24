@@ -270,7 +270,7 @@ abstract class Page {
 	        $html .= '<h1>' . $title . '</h1>';
 	        $html .= '<a href="' . Config::URL . '" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>';
 	        if (User::getAccessLevel() > User::ANONYMOUS) {
-	        	$html .= '<a href="' . Config::URL . '?action=logout">';
+	        	$html .= '<a data-ajax="false" href="' . Config::URL . '?action=logout">';
 	        	$html .= __('Log out');
 	        	$html .= '</a>';
 	    	}

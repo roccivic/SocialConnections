@@ -258,14 +258,7 @@ abstract class Page {
 		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/style.css" />';
 		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/jqm-datebox-1.1.0.css" />';
 		$html .= '<link href="' . Config::URL . 'images/favicon.png" rel="shortcut icon" />';
-		$html .= '<script src="' . Config::URL . 'scripts/jquery-1.8.2.min.js" type="text/javascript"></script>';
-		$html .= '<script type="text/javascript">';
-		$html .= '$(document).live("mobileinit", function(){$.mobile.ajaxEnabled = false;});';
-		$html .= '</script>';
-		$html .= '<script src="' . Config::URL . 'scripts/jquery.mobile-1.2.0.min.js" type="text/javascript"></script>';
-		$html .= '<script src="' . Config::URL . 'scripts/jqm-datebox-1.1.0.core.min.js" type="text/javascript"></script>';
-		$html .= '<script src="' . Config::URL . 'scripts/jqm-datebox-1.1.0.mode.calbox.min.js" type="text/javascript"></script>';
-		$html .= '<script src="' . Config::URL . 'scripts/jqm-datebox-1.1.0.mode.datebox.min.js" type="text/javascript"></script>';
+		$html .= '<script src="' . Config::URL . 'scripts/scripts.js.php" type="text/javascript"></script>';
 		$html .= '</head>';
 		$html .= '<body>';
 		$html .= sprintf(

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: socialconnections@placella.com\n"
-"POT-Creation-Date: 2013-02-20 20:28+0000\n"
+"POT-Creation-Date: 2013-02-24 17:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: classes/Lang.class.php:25
 msgid "English"
@@ -29,7 +30,8 @@ msgstr ""
 msgid "Student Menu"
 msgstr ""
 
-#: classes/Menu.class.php:22 classes/Menu.class.php:64
+#: classes/Menu.class.php:22 classes/Menu.class.php:65
+#: classes/pages/Page_adminCheckAttendance.class.php:20
 msgid "Check Attendance"
 msgstr ""
 
@@ -77,31 +79,35 @@ msgstr ""
 msgid "Take Student Attendance"
 msgstr ""
 
-#: classes/Menu.class.php:58
+#: classes/Menu.class.php:47
+msgid "View Student Excuses"
+msgstr ""
+
+#: classes/Menu.class.php:59
 msgid "Admin Menu"
 msgstr ""
 
-#: classes/Menu.class.php:60
+#: classes/Menu.class.php:61
 msgid "Manage Departments"
 msgstr ""
 
-#: classes/Menu.class.php:61
+#: classes/Menu.class.php:62
 msgid "Manage Lecturers"
 msgstr ""
 
-#: classes/Menu.class.php:62
+#: classes/Menu.class.php:63
 msgid "Manage Classes"
 msgstr ""
 
-#: classes/Menu.class.php:63
+#: classes/Menu.class.php:64
 msgid "Manage Modules"
 msgstr ""
 
-#: classes/Menu.class.php:65
+#: classes/Menu.class.php:66
 msgid "Attendance Threshold"
 msgstr ""
 
-#: classes/Menu.class.php:66
+#: classes/Menu.class.php:67
 msgid "Grant Students"
 msgstr ""
 
@@ -117,7 +123,7 @@ msgstr ""
 msgid "Social Connections Web App"
 msgstr ""
 
-#: classes/Page.class.php:279
+#: classes/Page.class.php:283
 msgid "Log out"
 msgstr ""
 
@@ -130,18 +136,39 @@ msgstr ""
 msgid "The requested page does not exist"
 msgstr ""
 
+#: classes/pages/Page_adminCheckAttendance.class.php:42
+msgid "Average Attendance"
+msgstr ""
+
+#: classes/pages/Page_adminCheckAttendance.class.php:47
+msgid "Attendance data empty"
+msgstr ""
+
+#: classes/pages/Page_adminCheckAttendance.class.php:64
+#: classes/pages/Page_viewStudentAttendance.class.php:326
+#: classes/pages/abstract/Page_selectGroup.class.php:113
+#, possible-php-format
+msgid "Year %d, Semester %d"
+msgstr ""
+
 #: classes/pages/Page_attendanceThreshold.class.php:33
 msgid "The threshold values were successfully updated."
 msgstr ""
 
 #: classes/pages/Page_attendanceThreshold.class.php:38
-#: classes/pages/Page_manageDepartments.class.php:54
-#: classes/pages/Page_manageDepartments.class.php:72
+#: classes/pages/Page_makeExcuse.class.php:37
+#: classes/pages/Page_manageDepartments.class.php:70
+#: classes/pages/Page_manageDepartments.class.php:89
+#: classes/pages/Page_manageGroups.class.php:74
+#: classes/pages/Page_manageGroups.class.php:93
+#: classes/pages/Page_manageGroups.class.php:119
+#: classes/pages/Page_manageGroups.class.php:146
 msgid "An error occured while processing your request."
 msgstr ""
 
 #: classes/pages/Page_attendanceThreshold.class.php:44
-#: classes/pages/Page_takeAttendance.class.php:62
+#: classes/pages/Page_makeExcuse.class.php:44
+#: classes/pages/Page_takeAttendance.class.php:57
 msgid "The values in the form were invalid. Please try again."
 msgstr ""
 
@@ -149,22 +176,74 @@ msgstr ""
 msgid "Poor Attendance Threshold"
 msgstr ""
 
-#: classes/pages/Page_attendanceThreshold.class.php:63
+#: classes/pages/Page_attendanceThreshold.class.php:62
+msgid ""
+"Here you can define below what percencentage a student's attendance will be "
+"considered to be poor."
+msgstr ""
+
+#: classes/pages/Page_attendanceThreshold.class.php:69
 msgid "Overall (%)"
 msgstr ""
 
-#: classes/pages/Page_attendanceThreshold.class.php:68
+#: classes/pages/Page_attendanceThreshold.class.php:74
 msgid "Labs (%)"
 msgstr ""
 
-#: classes/pages/Page_attendanceThreshold.class.php:72
-#: classes/pages/Page_manageDepartments.class.php:182
-#: classes/pages/Page_takeAttendance.class.php:138
+#: classes/pages/Page_attendanceThreshold.class.php:78
+#: classes/pages/Page_makeExcuse.class.php:192
+#: classes/pages/Page_manageDepartments.class.php:207
+#: classes/pages/Page_manageGroups.class.php:301
+#: classes/pages/Page_takeAttendance.class.php:142
 msgid "Save"
 msgstr ""
 
 #: classes/pages/Page_authError.class.php:18
 msgid "You don't have the permissions to view this page."
+msgstr ""
+
+#: classes/pages/Page_checkAttendance.class.php:28
+#: classes/pages/Page_makeExcuse.class.php:83
+#: classes/pages/Page_manageGroups.class.php:337
+#: classes/pages/Page_takeAttendance.class.php:155
+#: classes/pages/Page_viewStudentAttendance.class.php:543
+msgid "Invalid group selected"
+msgstr ""
+
+#: classes/pages/Page_checkAttendance.class.php:42
+#: classes/pages/Page_viewStudentAttendance.class.php:261
+#: classes/pages/Page_viewStudentAttendance.class.php:284
+#: classes/pages/Page_viewStudentAttendance.class.php:490
+#: classes/pages/Page_viewStudentAttendance.class.php:549
+msgid "View Attendance"
+msgstr ""
+
+#: classes/pages/Page_checkAttendance.class.php:52
+#: classes/pages/Page_checkAttendance.class.php:83
+#: classes/pages/Page_viewStudentAttendance.class.php:296
+#: classes/pages/Page_viewStudentAttendance.class.php:334
+#: classes/pages/Page_viewStudentAttendance.class.php:502
+msgid "Lectures"
+msgstr ""
+
+#: classes/pages/Page_checkAttendance.class.php:53
+#: classes/pages/Page_checkAttendance.class.php:84
+#: classes/pages/Page_viewStudentAttendance.class.php:297
+#: classes/pages/Page_viewStudentAttendance.class.php:335
+#: classes/pages/Page_viewStudentAttendance.class.php:503
+msgid "Labs"
+msgstr ""
+
+#: classes/pages/Page_checkAttendance.class.php:54
+#: classes/pages/Page_checkAttendance.class.php:85
+#: classes/pages/Page_viewStudentAttendance.class.php:298
+#: classes/pages/Page_viewStudentAttendance.class.php:336
+#: classes/pages/Page_viewStudentAttendance.class.php:504
+msgid "Total"
+msgstr ""
+
+#: classes/pages/Page_checkAttendance.class.php:78
+msgid "Average attendance for all groups"
 msgstr ""
 
 #: classes/pages/Page_login.class.php:24
@@ -202,17 +281,64 @@ msgstr ""
 msgid "Go"
 msgstr ""
 
-#: classes/pages/Page_main.class.php:45
+#: classes/pages/Page_main.class.php:48
 #, possible-php-format
 msgid "Welcome, %1$s %2$s."
 msgstr ""
 
-#: classes/pages/Page_main.class.php:51
+#: classes/pages/Page_main.class.php:54
 msgid "To start, please select an action from the menu."
 msgstr ""
 
-#: classes/pages/Page_main.class.php:53
+#: classes/pages/Page_main.class.php:56
 msgid "Photo of main campus"
+msgstr ""
+
+#: classes/pages/Page_main.class.php:90
+msgid "View"
+msgstr ""
+
+#: classes/pages/Page_main.class.php:94
+#, possible-php-format
+msgid "There is %d unviewed excuse from a student that has missed a class"
+msgid_plural ""
+"There are %d unviewed excuses from students that have missed a class"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/pages/Page_makeExcuse.class.php:31
+msgid "Your excuse was succeessfully saved."
+msgstr ""
+
+#: classes/pages/Page_makeExcuse.class.php:51
+#: classes/pages/Page_makeExcuse.class.php:61
+msgid "Invalid class selected"
+msgstr ""
+
+#: classes/pages/Page_makeExcuse.class.php:77
+msgid "You have no classes in this module to excuse yourself for"
+msgstr ""
+
+#: classes/pages/Page_makeExcuse.class.php:142
+msgid "Missed Classes"
+msgstr ""
+
+#: classes/pages/Page_makeExcuse.class.php:177
+#: classes/pages/Page_viewStudentAttendance.class.php:594
+#, possible-php-format
+msgid "Group `%s`"
+msgstr ""
+
+#: classes/pages/Page_makeExcuse.class.php:187
+msgid "Excuse"
+msgstr ""
+
+#: classes/pages/Page_makeExcuse.class.php:236
+msgid "The excuse must be less than 640 characters in length"
+msgstr ""
+
+#: classes/pages/Page_makeExcuse.class.php:242
+msgid "The excuse must be at least 5 characters in length"
 msgstr ""
 
 #: classes/pages/Page_manageClasses.class.php:76
@@ -223,87 +349,207 @@ msgstr ""
 msgid "Select Class"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:48
-msgid "The department details were successfully updated."
-msgstr ""
-
-#: classes/pages/Page_manageDepartments.class.php:66
-msgid "The department was successfully created."
-msgstr ""
-
-#: classes/pages/Page_manageDepartments.class.php:82
-#: classes/pages/Page_manageDepartments.class.php:141
+#: classes/pages/Page_manageDepartments.class.php:44
+#: classes/pages/Page_manageDepartments.class.php:55
+#: classes/pages/Page_manageDepartments.class.php:99
+#: classes/pages/Page_manageDepartments.class.php:110
+#: classes/pages/Page_manageDepartments.class.php:166
+#: classes/pages/Page_manageGroups.class.php:132
 msgid "The selected department does not exist"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:122
+#: classes/pages/Page_manageDepartments.class.php:64
+msgid "The department details were successfully updated."
+msgstr ""
+
+#: classes/pages/Page_manageDepartments.class.php:83
+msgid "The department was successfully created."
+msgstr ""
+
+#: classes/pages/Page_manageDepartments.class.php:147
 msgid "Head of Department: "
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:126
-#: classes/pages/Page_manageDepartments.class.php:170
+#: classes/pages/Page_manageDepartments.class.php:151
+#: classes/pages/Page_manageDepartments.class.php:195
 msgid "Not assigned"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:129
+#: classes/pages/Page_manageDepartments.class.php:154
+#: classes/pages/Page_manageGroups.class.php:178
 msgid "Edit"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:133
+#: classes/pages/Page_manageDepartments.class.php:158
 msgid "Are you sure you want to delete this department?"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:135
+#: classes/pages/Page_manageDepartments.class.php:160
+#: classes/pages/Page_manageGroups.class.php:185
 msgid "Delete"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:155
+#: classes/pages/Page_manageDepartments.class.php:180
 #: classes/pages/abstract/Page_selectDepartment.class.php:74
 msgid "Create Department"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:158
+#: classes/pages/Page_manageDepartments.class.php:183
 msgid "Edit Department"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:163
+#: classes/pages/Page_manageDepartments.class.php:188
+#: classes/pages/Page_manageGroups.class.php:264
 msgid "Name"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:168
+#: classes/pages/Page_manageDepartments.class.php:193
 msgid "Head of Department"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:281
+#: classes/pages/Page_manageDepartments.class.php:306
+#: classes/pages/Page_viewStudentAttendance.class.php:255
 msgid "Invalid department selected"
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:287
+#: classes/pages/Page_manageDepartments.class.php:312
 msgid "Department name must be 64 characters long or less."
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:293
+#: classes/pages/Page_manageDepartments.class.php:318
 msgid "Department name must be at least 1 character long."
 msgstr ""
 
-#: classes/pages/Page_manageDepartments.class.php:309
+#: classes/pages/Page_manageDepartments.class.php:334
 msgid "Invalid lecturer selected as head of department."
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:30
+#: classes/pages/Page_manageGroups.class.php:68
+msgid "The group details were successfully updated."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:87
+msgid "The Group was successfully created."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:103
+#: classes/pages/Page_manageGroups.class.php:191
+msgid "The selected group does not exist"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:113
+msgid "The Student was successfully added to the group."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:140
+msgid "The Student was successfully removed from the group."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:167
+msgid "Module: "
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:172
+msgid "Year: "
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:175
+msgid "Semester: "
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:179
+#: classes/pages/Page_manageGroups.class.php:555
+msgid "Add Student"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:180
+#: classes/pages/Page_manageGroups.class.php:620
+msgid "Remove Student"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:183
+msgid "Are you sure you want to delete this group?"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:256
+#: classes/pages/abstract/Page_selectGroup.class.php:95
+msgid "Create Group"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:259
+msgid "Edit Group"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:269
+msgid "Module"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:284
+msgid "Year"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:289
+msgid "Semester"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:343
+msgid "Group name must be 64 characters long or less."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:349
+msgid "Group name must be at least 1 character long."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:365
+#: classes/pages/Page_manageGroups.class.php:372
+msgid "Invalid module selected."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:378
+msgid "Invalid year selected."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:393
+msgid "Invalid semester selected."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:500
+#: classes/pages/abstract/Page_selectDepartment.class.php:58
+msgid "There are no departments in the system."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:517
+#: classes/pages/abstract/Page_selectDepartment.class.php:79
+msgid "Select Department"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:559
+#: classes/pages/Page_manageGroups.class.php:624
+msgid "Student"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:567
+msgid "Add"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:632
+msgid "Remove"
+msgstr ""
+
+#: classes/pages/Page_takeAttendance.class.php:25
 #, possible-php-format
 msgid "Take attendance for group `%s`"
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:49
+#: classes/pages/Page_takeAttendance.class.php:44
 msgid "Successfully saved the attendance data."
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:55
+#: classes/pages/Page_takeAttendance.class.php:50
 msgid "Database error: Could not save the data."
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:99
+#: classes/pages/Page_takeAttendance.class.php:95
 msgid "Date:"
 msgstr ""
 
@@ -311,46 +557,75 @@ msgstr ""
 msgid "Time:"
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:108
+#: classes/pages/Page_takeAttendance.class.php:112
 msgid "Type"
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:112
+#: classes/pages/Page_takeAttendance.class.php:116
 msgid "Lecture"
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:116
+#: classes/pages/Page_takeAttendance.class.php:120
 msgid "Lab"
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:144
+#: classes/pages/Page_takeAttendance.class.php:148
 msgid "There are no students assigned to this group"
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:159
+#: classes/pages/Page_takeAttendance.class.php:171
 msgid "Invalid date format"
 msgstr ""
 
-#: classes/pages/Page_takeAttendance.class.php:166
+#: classes/pages/Page_takeAttendance.class.php:178
 msgid "Invalid time format"
 msgstr ""
 
-#: classes/pages/abstract/Page_selectDepartment.class.php:58
-msgid "There are no departments in the system."
+#: classes/pages/Page_viewExcuses.class.php:47
+msgid "There are no excuses to be viewed at the moment"
 msgstr ""
 
-#: classes/pages/abstract/Page_selectDepartment.class.php:79
-msgid "Select Department"
+#: classes/pages/Page_viewStudentAttendance.class.php:38
+msgid "Invalid student selected"
 msgstr ""
 
-#: classes/pages/abstract/Page_selectGroup.class.php:66
-msgid "You are not assigned to any groups"
+#: classes/pages/Page_viewStudentAttendance.class.php:208
+msgid "Search..."
 msgstr ""
 
-#: classes/pages/abstract/Page_selectGroup.class.php:82
-msgid "Create Group"
+#: classes/pages/Page_viewStudentAttendance.class.php:212
+#, possible-php-format
+msgid "Students of department `%s`"
 msgstr ""
 
-#: classes/pages/abstract/Page_selectGroup.class.php:87
+#: classes/pages/Page_viewStudentAttendance.class.php:271
+msgid "The are no students in this department"
+msgstr ""
+
+#: classes/pages/Page_viewStudentAttendance.class.php:291
+msgid "Average attendance"
+msgstr ""
+
+#: classes/pages/Page_viewStudentAttendance.class.php:456
+msgid "Invalid student or group selected"
+msgstr ""
+
+#: classes/pages/Page_viewStudentAttendance.class.php:519
+msgid "View aggregate attendance"
+msgstr ""
+
+#: classes/pages/Page_viewStudentAttendance.class.php:530
+msgid "View Attendance of Other Students"
+msgstr ""
+
+#: classes/pages/Page_viewStudentAttendance.class.php:559
+msgid "The are no students in this group"
+msgstr ""
+
+#: classes/pages/abstract/Page_selectGroup.class.php:52
 msgid "Select Group"
+msgstr ""
+
+#: classes/pages/abstract/Page_selectGroup.class.php:84
+msgid "You are not assigned to any groups"
 msgstr ""

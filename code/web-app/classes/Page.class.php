@@ -254,9 +254,7 @@ abstract class Page {
 		$html .= '<title>' . $title . '</title>';
 		$html .= '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
-		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/jquery.mobile-1.2.0.min.css" />';
-		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/style.css" />';
-		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/jqm-datebox-1.1.0.css" />';
+		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/styles.css.php" />';
 		$html .= '<link href="' . Config::URL . 'images/favicon.png" rel="shortcut icon" />';
 		$html .= '<script src="' . Config::URL . 'scripts/scripts.js.php" type="text/javascript"></script>';
 		$html .= '</head>';

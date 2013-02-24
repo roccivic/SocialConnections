@@ -77,7 +77,7 @@ abstract class Page_selectDepartment extends Page {
         $html .= '<ul data-role="listview" data-divider-theme="b" ';
         $html .= 'data-inset="true">';
         $html .= '<li data-role="list-divider" role="heading">';
-        $html .= __('Select Department');
+        $html .= __('Departments');
         $html .= '</li>';
         $this->addHtml($html);
 	}

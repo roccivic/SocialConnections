@@ -84,7 +84,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 			$this->addHtml(
 				'<h3>'
 				. sprintf(
-					 __('Take attendance for group `%s`'),
+					 __('Group `%s`'),
 					 $this->getGroupName($gid)
 				)
 				. '</h3>'

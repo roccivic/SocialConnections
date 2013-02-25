@@ -202,7 +202,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	{
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT `group`.`id` , `group`.`name` , `module`.`name`, `moduleoffering`.`term`,`moduleoffering`.`year`
+			"SELECT `group`.`id` , `group`.`name` , `module`.`id`, `moduleoffering`.`term`,`moduleoffering`.`year`
 			FROM `group` INNER JOIN `moduleoffering` 
 			ON `group`.`moid` = `moduleoffering`.`id`
 			LEFT JOIN `module` 

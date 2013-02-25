@@ -524,12 +524,6 @@ class Page_manageStudents extends Page_selectDepartment {
 				'warning',
 				__('Invalid e-mail address.')
 			);
-		} else if ($isCreate && strlen($pass) > 32) {
-			$success = false;
-			$this->addNotification(
-				'warning',
-				__('Student\'s password must be 64 characters long or less.')
-			);
 		} else if ($isCreate && strlen($pass) < 6) {
 			$success = false;
 			$this->addNotification(

@@ -147,9 +147,9 @@ class Page_manageGroups extends Page_selectLecturerGroup
 					__('An error occured while processing your request.')
 				);
 			}
-			$this->displayGroupDetails($gid);
+			$this->removeStudentForm($gid, $did);
 		}else if(!empty($_REQUEST['removeStudent'])){
-			$this->removeStudentForm($gid);
+			$this->removeStudentForm($gid, $did);
 		}else {
 			$this->displayGroupDetails($gid);
 		}
@@ -561,7 +561,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$this->addHtml("<h3>" . __('Select Student') . "</h3>");
 		$html = $this->printStudentListHeader($gid);
 		foreach ($students as $key => $value) {
-			$html .= $this->printStudentListItem($key, $gid, $value, $did);
+			$html .= $this->printAddStudentListItem($key, $gid, $value, $did);
 		}
 		$html .= $this->printStudentListFooter();
 		$this->addHtml($html);
@@ -585,7 +585,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		 *
 		 * @return void
 		 */
-		private function printStudentListItem($sid, $gid, $name, $did)
+		private function printAddStudentListItem($sid, $gid, $name, $did)
 		{
 	        $this->addHtml(
 		        sprintf(
@@ -655,25 +655,35 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 *
 	 * @return void
 	 */
-	private function removeStudentForm($gid)
+	private function removeStudentForm($gid,$did)
 	{
-		$html = '<form method="post" action="">';
-		$html .= '<h3>' . __('Remove Student') . '</h3>';
-		$html .= '<input name="removingStudentFromGroup" value="1" type="hidden" />';
-		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
-		$html .= '<div data-role="fieldcontain">';
-		$html .= '<label for="sid">' . __('Student') . ': </label>';
-		$html .= '<select id="sid" name="sid">';
-		foreach($this->getStudentsInGroup($gid) as $key => $value) {
-			$html .= '<option value="' . $key . '"';
-			$html .= '>' . htmlspecialchars($value) . '</option>';	
+		$students = $this->getStudentsInGroup($gid);
+		$this->addHtml("<h3>" . __('Select Student') . "</h3>");
+		$html = $this->printStudentListHeader($gid);
+		foreach ($students as $key => $value) {
+			$html .= $this->printRemoveStudentListItem($key, $gid, $value, $did);
 		}
-		$html .= '</select>';
-		$html .= '</div>';
-		$html .= '<input data-theme="b" type="submit" value="' . __('Remove') . '" />';
-		$html .= '</form>';
+		$html .= $this->printStudentListFooter();
 		$this->addHtml($html);
 	}
+	/**
+		 * Prints a single item for the list of students
+		 *
+		 * @return void
+		 */
+		private function printRemoveStudentListItem($sid, $gid, $name, $did)
+		{
+	        $this->addHtml(
+		        sprintf(
+		        	'<li><a href="?action=manageGroups&removingStudentFromGroup=1&gid=%d&sid=%d&did=%d">%s</a></li>',
+		        	$gid,
+		        	$sid,
+		        	$did,
+		        	$name
+		        	
+		        )
+	        );
+		}
 	/**
 	 * Returns an array of students in a group
 	 *

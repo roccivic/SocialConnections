@@ -112,6 +112,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 					'notice',
 					__('The Student was successfully added to the group.')
 				);
+				
 			}
 			else {
 				$this->addNotification(
@@ -119,7 +120,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 					__('An error occured while processing your request.')
 				);
 			}
-			$this->displayGroupDetails($gid);
+			$this->addStudentForm($gid, $did);
 		}else if(!empty($_REQUEST['addStudent'])){
 			$this->departmentSelector($gid);
 		}else if(!empty($_REQUEST['addStudentForm'])){
@@ -556,23 +557,58 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 */
 	private function addStudentForm($gid, $did)
 	{
-		$html = '<form method="post" action="">';
-		$html .= '<h3>' . __('Add Student') . '</h3>';
-		$html .= '<input name="addingStudent" value="1" type="hidden" />';
-		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
-		$html .= '<div data-role="fieldcontain">';
-		$html .= '<label for="sid">' . __('Student') . ': </label>';
-		$html .= '<select id="sid" name="sid">';
-		foreach($this->getStudentsNotInGroup($did,$gid) as $key => $value) {
-			$html .= '<option value="' . $key . '"';
-			$html .= '>' . htmlspecialchars($value) . '</option>';	
+		$students = $this->getStudentsNotInGroup($did, $gid);
+		$this->addHtml("<h3>" . __('Select Student') . "</h3>");
+		$html = $this->printStudentListHeader($gid);
+		foreach ($students as $key => $value) {
+			$html .= $this->printStudentListItem($key, $gid, $value, $did);
 		}
-		$html .= '</select>';
-		$html .= '</div>';
-		$html .= '<input data-theme="b" type="submit" value="' . __('Add') . '" />';
-		$html .= '</form>';
+		$html .= $this->printStudentListFooter();
 		$this->addHtml($html);
 	}
+	/**
+		 * Prints the header for the list of students
+		 *
+		 * @return void
+		 */
+		private function printStudentListHeader($gid)
+		{
+			$html  = '<ul data-role="listview" data-divider-theme="b" ';
+	          $html .= 'data-filter-placeholder="' . __('Search...') . '" ';
+	        $html .= 'data-filter="true" data-inset="true">';
+	        $html .= '<li data-role="list-divider" role="heading">';
+	        $html .= '</li>';
+	        $this->addHtml($html);
+		}
+		/**
+		 * Prints a single item for the list of students
+		 *
+		 * @return void
+		 */
+		private function printStudentListItem($sid, $gid, $name, $did)
+		{
+	        $this->addHtml(
+		        sprintf(
+		        	'<li><a href="?action=manageGroups&addingStudent=1&gid=%d&sid=%d&did=%d">%s</a></li>',
+		        	$gid,
+		        	$sid,
+		        	$did,
+		        	$name
+		        	
+		        )
+	        );
+		}
+		/**
+		 * Prints the footer for the list of students
+		 *
+		 * @return void
+		 */
+		private function printStudentListFooter()
+		{
+	        $this->addHtml(
+	        	'</ul>'
+	        );
+		}
 	/**
 	 * Returns an array of students
 	 *

@@ -202,7 +202,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	{
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT `group`.`id` , `group`.`name` , `module`.`id`, `moduleoffering`.`term`,`moduleoffering`.`year`
+			"SELECT `group`.`id` , `group`.`name` , `module`.`name`, `module`.`id`, `moduleoffering`.`term`,`moduleoffering`.`year`
 			FROM `group` INNER JOIN `moduleoffering` 
 			ON `group`.`moid` = `moduleoffering`.`id`
 			LEFT JOIN `module` 
@@ -211,13 +211,14 @@ class Page_manageGroups extends Page_selectLecturerGroup
 				);
 		$stmt->bind_param('i', $gid);
 		$stmt->execute();
-		$stmt->bind_result($id, $gname, $module,$term,$year);
+		$stmt->bind_result($id, $gname, $module,$mid,$term,$year);
 		$stmt->fetch();
 		$stmt->close();
 		return array(
 			'gid' => $id,
 			'gname' => $gname,
 			'module' => $module,
+			'mid' => $mid,
 			'term' => $term,
 			'year' => $year
 		);
@@ -269,7 +270,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<label for="module">' . __('Module') . ': </label>';
 		$html .= '<select id="module" name="module">';
 		$details = $this->getGroupDetails($gid);
-		$module = $details['module'];
+		$module = $details['mid'];
 		foreach($this->getModules() as $key => $value) {
 			$html .= '<option value="' . $key . '"';
 			if ($key == $module) {

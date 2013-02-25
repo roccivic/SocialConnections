@@ -430,23 +430,19 @@ class Page_manageStudents extends Page_selectDepartment {
 			$html .= '<input type="password" name="pass" id="pass" ';
 			$html .= '</div>';
 			$html .= '<div data-role="fieldcontain">';
-			$html .= '<label for="varpass">' . __('Varify password') . ': </label>';
+			$html .= '<label for="varpass">' . __('Verify password') . ': </label>';
 			$html .= '<input type="password" name="varpass" id="varpass" ';
 			$html .= '</div>';
 		}	
-		$html .= '<label for="hasGrant">' . __('Grant aided?') . ': </label>';
-		$html .= '<select id="hasGrant" name="hasGrant">';
-		for($i=0;$i<2;$i++){
-			 $html .= '<option value="' . $i . '"';
-			if ($i == 0) {
-				$value = 'No';
-			}
-			else {
-				$value = 'Yes';
-			}
-			$html .= '>' . htmlspecialchars($value) . '</option>';	
-		}
-		$html .= '</select>';
+		$html .= '<div data-role="fieldcontain">';
+		$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
+		$html .= '<legend>' . __('Grant aided') . ': </legend>';
+		$html .= '<label for="hasGrant1">' . __('Yes') . '</label>';
+		$html .= '<input id="hasGrant1" type="radio" name="hasGrant" value="1" />';
+		$html .= '<label for="hasGrant0">' . __('No') . '</label>';
+		$html .= '<input id="hasGrant0" type="radio" name="hasGrant" value="0" />';
+		$html .= '</fieldset>';
+		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="grantOwed">' . __('Grant amount') . ': </label>';
 		$html .= '<input type="text" name="grantOwed" id="grantOwed" ';

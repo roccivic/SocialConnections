@@ -63,8 +63,7 @@ class Page_Login extends Page {
 	 * @return string HTML
 	 */
 	private function loginForm() {
-		$form = '<h2>' . __('Login Form') . '</h2>';
-		$form .= '<form method="post" action="?action=login">';
+		$form  = '<form data-ajax="false" method="post" action="?action=login">';
 		$form .= '<div data-role="fieldcontain">';
 		$form .= '<label for="username">' . __('Username') . ': </label>';
 		$form .= '<input type="text" name="username" id="username" value="';

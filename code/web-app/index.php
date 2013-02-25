@@ -10,6 +10,8 @@ if (Config::DISPLAY_ERRORS) {
 } else {
 	error_reporting(0);
 }
+// Fix timezone
+date_default_timezone_set(Config::TIMEZONE);
 // Initialise session management
 session_name('SOCIALCONNECTIONS');
 session_start();

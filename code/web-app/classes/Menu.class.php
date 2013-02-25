@@ -9,6 +9,40 @@ if (! defined('SOCIALCONNECTIONS')) {
  * Used by the Page class
  */
 class Menu {
+	private $studentArray;
+	private $lecturerArray;
+	private $adminArray;
+
+	public function __construct()
+	{
+		$this->studentArray = array(
+			'checkAttendance' => __('Check Attendance'),
+			'viewResults' => __('View Your Results'),
+			'makeExcuse' => __('Excuse Yourself for Missing a Class'),
+			'notes' => __('Notes'),
+			'twitter' => __('Twitter')
+		);
+		$this->lecturerArray = array(
+			'postNotes' => __('Post Notes on Dropbox'),
+			'viewStudentAttendance' => __('View Student Attendance'),
+			'twitter' => __('Twitter'),
+			'manageAssessments' => __('Manage Assessments'),
+			'manageStudents' => __('Manage Students'),
+			'manageGroups' => __('Manage Groups'),
+			'takeAttendance' => __('Take Student Attendance'),
+			'viewExcuses' => __('View Student Excuses')
+		);
+		$this->adminArray = array(
+			'manageDepartments' => __('Manage Departments'),
+			'manageLecturers' => __('Manage Lecturers'),
+			'manageClasses' => __('Manage Classes'),
+			'manageModules' => __('Manage Modules'),
+			'adminCheckAttendance' => __('Check Attendance'),
+			'attendanceThreshold' => __('Attendance Threshold'),
+			'grantStudents' => __('Grant Students')
+			
+		);
+	}
 	/**
 	 * Returns the menu for a student
 	 *
@@ -18,13 +52,7 @@ class Menu {
 	{
 		return $this->getMenuHtml(
 			__('Student Menu'),
-			array(
-				__('Check Attendance') => 'checkAttendance',
-				__('View Your Results') => 'viewResults',
-				__('Excuse Yourself for Missing a Class') => 'makeExcuse',
-				__('Notes') => 'notes',
-				__('Twitter') => 'twitter'
-			)
+			$this->studentArray
 		);
 	}
 	/**
@@ -36,16 +64,7 @@ class Menu {
 	{
 		return $this->getMenuHtml(
 			__('Lecturer Menu'),
-			array(
-				__('Post Notes on Dropbox') => 'postNotes',
-				__('View Student Attendance') => 'viewStudentAttendance',
-				__('Twitter') => 'twitter',
-				__('Manage Assessments') => 'manageAssessments',
-				__('Manage Students') => 'manageStudents',
-				__('Manage Groups') => 'manageGroups',
-				__('Take Student Attendance') => 'takeAttendance',
-				__('View Student Excuses') => 'viewExcuses'
-			)
+			$this->lecturerArray
 		);
 	}
 	/**
@@ -57,16 +76,7 @@ class Menu {
 	{
 		return $this->getMenuHtml(
 			__('Admin Menu'),
-			array(
-				__('Manage Departments') => 'manageDepartments',
-				__('Manage Lecturers') => 'manageLecturers',
-				__('Manage Classes') => 'manageClasses',
-				__('Manage Modules') => 'manageModules',
-				__('Check Attendance') => 'adminCheckAttendance',
-				__('Attendance Threshold') => 'attendanceThreshold',
-				__('Grant Students') => 'grantStudents'
-				
-			)
+			$this->adminArray
 		);
 	}
 	/**
@@ -84,7 +94,7 @@ class Menu {
 		$retval .= '<li data-role="list-divider">';
 		$retval .= htmlspecialchars($title);
 		$retval .= '</li>';
-		foreach ($items as $label => $link) {
+		foreach ($items as $link => $label) {
 			if ($link === $action) {
 				$retval .= '<li data-theme="e">';
 			} else {
@@ -98,6 +108,19 @@ class Menu {
 		$retval .= '</ul>';
 		$retval .= '</nav>';
 		return $retval;
+	}
+	/**
+	 * Returns a list of all pages from all menus
+	 *
+	 * @return array
+	 */
+	public function getAllPages()
+	{
+		return array_merge(
+			$this->studentArray,
+			$this->lecturerArray,
+			$this->adminArray
+		);
 	}
 }
 

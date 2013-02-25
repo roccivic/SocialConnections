@@ -177,6 +177,7 @@ abstract class Page {
 			$page .= $notification['html'];
 			$page .= '</div>';
     	}
+    	$page .= '<h2>' . $this->getHeading() . '</h2>';
 		$page .= $this->html;
 		if ($this->isMobile()
 			&& ! empty($_SERVER['HTTP_REFERER'])
@@ -254,18 +255,9 @@ abstract class Page {
 		$html .= '<title>' . $title . '</title>';
 		$html .= '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
-		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/jquery.mobile-1.2.0.min.css" />';
-		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/style.css" />';
-		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/jqm-datebox-1.1.0.css" />';
+		$html .= '<link rel="stylesheet" type="text/css" href="' . Config::URL . 'css/styles.css.php" />';
 		$html .= '<link href="' . Config::URL . 'images/favicon.png" rel="shortcut icon" />';
-		$html .= '<script src="' . Config::URL . 'scripts/jquery-1.8.2.min.js" type="text/javascript"></script>';
-		$html .= '<script type="text/javascript">';
-		$html .= '$(document).live("mobileinit", function(){$.mobile.ajaxEnabled = false;});';
-		$html .= '</script>';
-		$html .= '<script src="' . Config::URL . 'scripts/jquery.mobile-1.2.0.min.js" type="text/javascript"></script>';
-		$html .= '<script src="' . Config::URL . 'scripts/jqm-datebox-1.1.0.core.min.js" type="text/javascript"></script>';
-		$html .= '<script src="' . Config::URL . 'scripts/jqm-datebox-1.1.0.mode.calbox.min.js" type="text/javascript"></script>';
-		$html .= '<script src="' . Config::URL . 'scripts/jqm-datebox-1.1.0.mode.datebox.min.js" type="text/javascript"></script>';
+		$html .= '<script src="' . Config::URL . 'scripts/scripts.js.php" type="text/javascript"></script>';
 		$html .= '</head>';
 		$html .= '<body>';
 		$html .= sprintf(
@@ -279,7 +271,7 @@ abstract class Page {
 	        $html .= '<h1>' . $title . '</h1>';
 	        $html .= '<a href="' . Config::URL . '" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>';
 	        if (User::getAccessLevel() > User::ANONYMOUS) {
-	        	$html .= '<a href="' . Config::URL . '?action=logout">';
+	        	$html .= '<a data-ajax="false" href="' . Config::URL . '?action=logout">';
 	        	$html .= __('Log out');
 	        	$html .= '</a>';
 	    	}
@@ -287,6 +279,26 @@ abstract class Page {
     	}
 
 		return $html;
+	}
+	/**
+	 * Returns the name of the current page
+	 *
+	 * @return string
+	 */
+	protected function getHeading()
+	{
+		$menu = new Menu();
+		$pages = $menu->getAllPages();
+		$action = ! empty($_REQUEST['action']) ? $_REQUEST['action'] : '';
+		if (empty($_SESSION['uid']) || $action === 'login') {
+			return __('Login Form');
+		} if (empty($action) || $action == 'main') {
+			return __('Main Page');
+		} else if (isset($pages[$action])) {
+			return $pages[$action];
+		} else {
+			return '';
+		}
 	}
 	/**
 	 * Generates the HTML footer for the page

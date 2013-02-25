@@ -20,13 +20,6 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	 */
 	public function display($gid) 
 	{
-		$html  = '<h3>';
-		$html .= sprintf(
-			 __('Take attendance for group `%s`'),
-			 $gid
-		);
-		$html .= '</h3>';
-
 		$dbStudents = $this->getStudents($gid);
 		$isLecture = ! empty($_REQUEST['isLecture']) ? 1 : 0;
 		$date = ! empty($_REQUEST['date']) ? $_REQUEST['date'] : date("Y-m-d");
@@ -87,65 +80,82 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	 * @return void
 	 */
 	private function printForm($gid, $date, $time, $students, $dbStudents) {
-		if (count($dbStudents)) {
-			$html  = '<form action="" method="post">';
-			$html .= '<input type="hidden" name="process" value="1" />';
-			$html .= '<div data-role="fieldcontain">';
-			$html .= '<label for="date">' . __('Date:') . '</label>';
-			$html .= '<input type="date" data-role="datebox" ';
-			$html .= 'data-options=\'{"mode":"calbox", "useNewStyle":true}\' id="date" ';
-			$html .= 'name="date" value="' . htmlspecialchars(
-				date("Y-m-d", strtotime($date))
-			) . '" />';
-			$html .= '</div>';
-			$html .= '<div data-role="fieldcontain">';
-			$html .= '<label for="time">' . __('Time:') . '</label>';
-			$html .= '<input type="time" data-role="datebox" ';
-			$html .= 'data-options=\'{"mode":"timebox", "useNewStyle":true}\' id="time" ';
-			$html .= 'name="time" value="' . htmlspecialchars(
-				date("H:i", strtotime($time))
-			) . '" />';
-			$html .= '</div>';
-			$html .= '<div data-role="fieldcontain">';
-			$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
-			$html .= '<legend>' . __('Type') . ':</legend>';
+		if (strlen($this->getGroupName($gid))) {
+			$this->addHtml(
+				'<h3>'
+				. sprintf(
+					 __('Group `%s`'),
+					 $this->getGroupName($gid)
+				)
+				. '</h3>'
+			);
+			if (count($dbStudents)) {
+				$html  = '<form action="" method="post">';
+				$html .= '<input type="hidden" name="process" value="1" />';
+				$html .= '<div data-role="fieldcontain">';
+				$html .= '<label for="date">' . __('Date:') . '</label>';
+				$html .= '<input type="date" data-role="datebox" ';
+				$html .= 'data-options=\'{"mode":"calbox", "useNewStyle":true}\' id="date" ';
+				$html .= 'name="date" value="' . htmlspecialchars(
+					date("Y-m-d", strtotime($date))
+				) . '" />';
+				$html .= '</div>';
+				$html .= '<div data-role="fieldcontain">';
+				$html .= '<label for="time">' . __('Time:') . '</label>';
+				$html .= '<input type="time" data-role="datebox" ';
+				$html .= 'data-options=\'{"mode":"timebox", "useNewStyle":true}\' id="time" ';
+				$html .= 'name="time" value="' . htmlspecialchars(
+					date("H:i", strtotime($time))
+				) . '" />';
+				$html .= '</div>';
+				$html .= '<div data-role="fieldcontain">';
+				$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
+				$html .= '<legend>' . __('Type') . ':</legend>';
 
-			$html .= '<input type="radio" name="isLecture"';
-			$html .= ' id="radio-1" value="1" checked="checked" />';
-			$html .= '<label for="radio-1">' . __('Lecture') . '</label>';
+				$html .= '<input type="radio" name="isLecture"';
+				$html .= ' id="radio-1" value="1" checked="checked" />';
+				$html .= '<label for="radio-1">' . __('Lecture') . '</label>';
 
-			$html .= '<input type="radio" name="isLecture"';
-			$html .= ' id="radio-2" value="0" />';
-			$html .= '<label for="radio-2">' . __('Lab') . '</label>';
+				$html .= '<input type="radio" name="isLecture"';
+				$html .= ' id="radio-2" value="0" />';
+				$html .= '<label for="radio-2">' . __('Lab') . '</label>';
 
-			$html .= '</fieldset>';
-			$html .= '</div>';
-			$html .= '<div id="checkboxes1" data-role="fieldcontain">';
-			$html .= '<fieldset data-role="controlgroup" data-type="vertical">';
-			$html .= '<legend>Students:</legend>';
-	        $i = 0;
-	        foreach ($dbStudents as $id => $name) {
-	        	$i++;
-		        $html .= '<input id="checkbox' . $i . '" name="students[]" type="checkbox" value="' . $id . '";';
-		        foreach ($students as $value) {
-		        	if ($value === $id) {
-		        		$html .= ' checked="checked"';
-		        		break;
-		        	}
-		        }
-		        $html .= ' />';
-		        $html .= '<label for="checkbox' . $i . '">' . htmlspecialchars($name) . '</label>';
-		    }
-			$html .= '</fieldset>';
-	        $html .= '</div>';
-	        $html .= '<input type="submit" data-theme="b" value="' . __('Save') . '" />';
-			$html .= '</form>';
-			$this->addHtml($html);
+				$html .= '</fieldset>';
+				$html .= '</div>';
+				$html .= '<div id="checkboxes1" data-role="fieldcontain">';
+				$html .= '<fieldset data-role="controlgroup" data-type="vertical">';
+				$html .= '<legend>Students:</legend>';
+		        $i = 0;
+		        foreach ($dbStudents as $id => $name) {
+		        	$i++;
+			        $html .= '<input id="checkbox' . $i . '" name="students[]" type="checkbox" value="' . $id . '";';
+			        foreach ($students as $value) {
+			        	if ($value === $id) {
+			        		$html .= ' checked="checked"';
+			        		break;
+			        	}
+			        }
+			        $html .= ' />';
+			        $html .= '<label for="checkbox' . $i . '">' . htmlspecialchars($name) . '</label>';
+			    }
+				$html .= '</fieldset>';
+		        $html .= '</div>';
+		        $html .= '<input type="submit" data-theme="b" value="' . __('Save') . '" />';
+				$html .= '</form>';
+				$this->addHtml($html);
+			} else {
+				$this->addNotification(
+					'error',
+					__('There are no students assigned to this group')
+				);
+				$this->groupSelector();
+			}
 		} else {
 			$this->addNotification(
 				'error',
-				__('There are no students assigned to this group')
+				__('Invalid group selected')
 			);
+			$this->groupSelector();
 		}
 	}
 	/**
@@ -232,6 +242,24 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 		$stmt->fetch();
 		$stmt->close();
 		return $id;
+	}
+	/**
+	 * Returns the name of a group given its id
+	 *
+	 * @return string
+	 */
+	private function getGroupName($gid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `name` FROM `group` WHERE `id` = ?;"
+		);
+		$stmt->bind_param('i', $gid);
+		$stmt->execute();
+		$stmt->bind_result($name);
+		$stmt->fetch();
+		$stmt->close();
+		return $name;
 	}
 }
 

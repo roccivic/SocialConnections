@@ -13,6 +13,9 @@ abstract class Config {
 	const URL = 'http://109.255.78.105/socialconnections/';
 	//const URL = 'http://socialconnections.placella.com/';
 
+	// 'Country/City'
+	const TIMEZONE = 'GB-Eire';
+
 	// Database access parameters
 	const DB_HOST   = 'localhost';
 	const DB_USER   = 'root';

@@ -67,7 +67,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 					'notice',
 					__('The group details were successfully updated.')
 				);
-				$this->groupSelector(true);
+				$this->displayGroupDetails($gid);
 			} else {
 				$this->addNotification(
 					'error',

@@ -401,8 +401,8 @@ class Page_manageStudents extends Page_selectDepartment {
 			$html .= '<h3>' . __('Edit Student') . '</h3>';
 			$html .= '<input name="edit" value="1" type="hidden" />';
 		}
-		$html .= '<input name="did" value="'.$sid.'" type="hidden" />';
-		$html .= '<input name="did" value="'.$cid.'" type="hidden" />';
+		$html .= '<input name="sid" value="'.$sid.'" type="hidden" />';
+		$html .= '<input name="cid" value="'.$cid.'" type="hidden" />';
 		$html .= '<input name="did" value="'.$did.'" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="fname">' . __('First name') . ': </label>';

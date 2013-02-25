@@ -562,7 +562,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="sid">' . __('Student') . ': </label>';
 		$html .= '<select id="sid" name="sid">';
-		foreach($this->getStudents($did) as $key => $value) {
+		foreach($this->getStudentsNotInGroup($did,$gid) as $key => $value) {
 			$html .= '<option value="' . $key . '"';
 			$html .= '>' . htmlspecialchars($value) . '</option>';	
 		}
@@ -677,6 +677,41 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$success = $stmt->execute();
 		$stmt->close();
 		return $success;
+	}
+	/**
+	 * Returns an array of students that are not in the group
+	 *
+	 * @return array
+	 */
+	private function getStudentsNotInGroup($did,$gid)
+	{
+		$sArray = $this->getStudentsInGroup($gid);
+		$success = true;
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `id`, `fname`, `lname`
+			FROM `student`
+			WHERE `cid` IN (
+				SELECT id FROM `class` WHERE `did`=?
+			)
+			ORDER BY `fname` ASC, `lname` ASC;"
+		);
+		$stmt->bind_param("i",$did);
+		$stmt->execute();
+		$stmt->bind_result($id, $fname,$lname);
+		while ($stmt->fetch()) {
+			foreach($sArray as $key => $value) {
+				if($key == $id) {
+					$success = false;
+				}
+			}
+			if($success == true) {
+				$arr[$id] = $fname . ' ' . $lname;
+			}
+			$success = true;
+		}
+		return $arr;
 	}
 }
 ?>

@@ -108,20 +108,31 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 					date("H:i", strtotime($time))
 				) . '" />';
 				$html .= '</div>';
+
 				$html .= '<div data-role="fieldcontain">';
 				$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
 				$html .= '<legend>' . __('Type') . ':</legend>';
-
 				$html .= '<input type="radio" name="isLecture"';
 				$html .= ' id="radio-1" value="1" checked="checked" />';
 				$html .= '<label for="radio-1">' . __('Lecture') . '</label>';
-
 				$html .= '<input type="radio" name="isLecture"';
 				$html .= ' id="radio-2" value="0" />';
 				$html .= '<label for="radio-2">' . __('Lab') . '</label>';
-
 				$html .= '</fieldset>';
 				$html .= '</div>';
+
+				$html .= '<div data-role="fieldcontain">';
+				$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
+				$html .= '<legend>&nbsp;</legend>';
+				$html .= '<a style="width: 49%" data-role="button"';
+				$html .= ' data-theme="e" id="checkall">';
+				$html .= __('Check All') . '</a>';
+				$html .= '<a style="width: 49%" data-role="button"';
+				$html .= ' data-theme="e" id="uncheckall">';
+				$html .= __('Uncheck All') . '</a>';
+				$html .= '</fieldset>';
+				$html .= '</div>';
+
 				$html .= '<div id="checkboxes1" data-role="fieldcontain">';
 				$html .= '<fieldset data-role="controlgroup" data-type="vertical">';
 				$html .= '<legend>Students:</legend>';

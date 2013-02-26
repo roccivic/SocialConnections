@@ -392,6 +392,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		$stmt->bind_param('i', $gid);
 		$success = $stmt->execute();
 		$stmt->bind_result($moid);
+		$stmt->fetch();
 		$stmt->close();
 		if($success){
 			$stmt = $db->prepare(

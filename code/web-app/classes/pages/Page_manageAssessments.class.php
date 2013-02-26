@@ -40,16 +40,45 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 			$weight = $_REQUEST['weight'];
 		}
 		$results = $this->getResults($gid);
-		foreach($results as $key => $value)
-		{
-			if(!empty($_REQUEST[$key])){
-			
+		foreach($results as $key => $value) {
+			if(! empty($_REQUEST['sid_' . $key])){
+				$results[$key] = intval($_REQUEST['sid_' . $key]);
 			}
 		}
 		$gName = $this->getGroupName($gid);
 		$details = $this->getAssessmentDetails($aid);
 		if(!empty($gName)) {
-			if(!empty($_REQUEST['AssessmentDetails'])){
+			if(!empty($_REQUEST['publish'])){
+				if($this->publishResults($aid)) {
+					$this->addNotification(
+						'notice',
+						__('The assessment results were published.')
+					);
+					$this->manageResults($aid, $gid);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->groupSelector();
+				}
+			}else if(!empty($_REQUEST['update'])){ 
+				if($this->validateUpdateForm($results)
+					&& $this->editResults($aid, $results)){
+					$this->addNotification(
+						'notice',
+						__('The assessment results were updated successfully.')
+					);
+					$this->manageResults($aid, $gid);
+				}else {
+					$this->addNotification(
+						'warning',
+						__('An error occured while processing your request.')
+					);
+					$this->groupSelector();
+				}
+			} else if (!empty($_REQUEST['AssessmentDetails'])){
 				if(empty($details['name'])) {
 					$this->addNotification(
 						'error',
@@ -132,36 +161,6 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 					);
 					$this->displayAssessments($gid);
 				}
-			}else if(!empty($_REQUEST['publish'])){
-				if($this->publishResults($aid)) {
-					$this->addNotification(
-						'notice',
-						__('The assessment results were published.')
-					);
-					$this->manageResults($aid, $gid);
-				}
-				else {
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
-					$this->groupSelector();
-				}
-			}else if(!empty($_REQUEST['update'])){ 
-				if($this->validateUpdateForm($results)
-					&& $this->editResults($aid, $results)){
-					$this->addNotification(
-						'notice',
-						__('The assessment results were updated successfully.')
-					);
-					$this->manageResults($aid, $gid);
-				}else {
-					$this->addNotification(
-						'warning',
-						__('An error occured while processing your request.')
-					);
-					$this->groupSelector();
-				}
 			}else {
 				$this->displayAssessments($gid);
 			}
@@ -182,12 +181,20 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	private function displayAssessments($gid)
 	{
 		$assessments = $this->getAssessments($gid);
-		$html = $this->printAssessmentsListHeader($gid);
-		foreach($assessments as $key => $value) {
-			$html .= $this->printAssessmentsListItem($key, $gid, $value);
+		if (count($assessments) > 0) {
+			$html = $this->printAssessmentsListHeader($gid);
+			foreach($assessments as $key => $value) {
+				$html .= $this->printAssessmentsListItem($key, $gid, $value);
+			}
+			$html .= $this->printAssessmentsListFooter();
+			$this->addHtml($html);
+		} else {
+			$this->addHtml($this->getCreateButton($gid));
+			$this->addNotification(
+				'warning',
+				__('The are no assessments to display')
+			);
 		}
-		$html .= $this->printAssessmentsListFooter();
-		$this->addHtml($html);
 	}
 	/**
 	 * Returns an array of assessments
@@ -211,16 +218,24 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		return $arr;
 	}
 	/**
+	 * Returns the create button
+	 *
+	 * @return string
+	 */
+	private function getCreateButton($gid) {
+		$html  = '<a href="?action=manageAssessments&editForm=1&gid='.$gid.'"';
+    	$html .= ' data-role="button" data-theme="b">';
+    	$html .= __('Create Assessment') . '</a>';
+    	return $html;
+	}
+	/**
 	 * Prints the header for the list of assessments
 	 *
 	 * @return void
 	 */
 	private function printAssessmentsListHeader($gid)
 	{
-		$html = '';
-		 $html  = '<a href="?action=manageAssessments&editForm=1&gid='.$gid.'"';
-    	$html .= ' data-role="button" data-theme="b">';
-    	$html .= __('Create Assessment') . '</a>';
+		$html  = $this->getCreateButton($gid);
     	$html .= '<ul data-role="listview" data-divider-theme="b" ';
         $html .= 'data-inset="true">';
         $html .= '<li data-role="list-divider" role="heading">';
@@ -495,37 +510,39 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	{
 		$students = $this->getStudents($gid);
 		$results = $this->getResults($gid);
-		$html = '<form method="post" action="">';
+		$html  = '<h3>' . __('Assessment `FIXME`') . '<h3><br />';
+		$html .= '<form method="post" action="">';
 		$html .= '<input name="aid" value="'.$aid.'" type="hidden" />';
 		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
-		$html .= '<table border="0" width="100%" cellpadding="4">';
-		$html .= '<tr><td><b>Name</b></td><td><b>Grade</b></td></tr>';
+		$html .= '<ul data-role="listview">';
+		$html .= '<li data-role="list-divider">';
+		$html .= sprintf(
+			__('Group `%s`'),
+			$this->getGroupName($gid)
+		);
+		$html .= '</li>';
 		foreach($students as $key => $value) {
-			$html .= '<tr>';
-			$html .= '<div data-role="fieldcontain">';
-			$html .= '<td width="20%"><label for="'.$key.'">' . $value. ': </label></td>';
-			$html .= '<td><input type="text" name="'.$key.'" id="'.$key.'" ';
-			foreach($results as $sid => $grade)
-			{
-				if($key == $sid) {
-					$html .= 'value="' . $grade . '" />';
-				}
+			$html .= '<li>';
+			$html .= '<input data-mini="true" style="width: 50px; float: right;" type="text" name="sid_'.$key.'" id="'.$key.'" value="';
+			if(! empty($results[$key])) {
+				$html .= $results[$key];
+			} else {
+				$html .= 0;
 			}
-			$html .= '</td></div>';
-			$html .= '</tr>';
+			$html .= '"" />';
+			$html .= '<label for="'.$key.'">' . $value. '</label>';
+			$html .= '<div style="clear: both;"></div></li>';
 		}
-		$html .= '</table>';
+		$html .= '</ul><br />';
 		$assessment = $this->getAssessmentDetails($aid);
         if($assessment['isDraft']){
-        		$html .= '<a href="?action=manageAssessments&update=1&aid='.$aid.'&gid='.$gid.'"';
-		        $html .= ' data-role="button" data-theme="b">';
-		        $html .= __('Update') . '</a>';
+        		$html .= '<input name="update" type="submit" data-theme="b"';
+		        $html .= ' value="' . __('Update') . '" />';
 	       		 $html .= sprintf(
-				'<a onclick="return confirm(\'%s\');" href="?action=manageAssessments&publish=1&gid=%d&aid=%d" data-role="button" data-theme="b">%s</a>',
-				__('Are you sure you want to publish these results?'),
-				$gid,
-				$aid,
-				__('Publish'));
+					'<input name="publish" type="submit" onclick="return confirm(\'%s\');" data-theme="b" value="%s" />',
+					__('Are you sure you want to publish these results?'),
+					__('Publish')
+				);
         }
 		$html .= '</form>';
 		$this->addHtml($html);
@@ -541,7 +558,8 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		$db = Db::getLink();
 		$stmt = $db->prepare(
 			"SELECT `id`, `fname`, `lname` FROM `student` WHERE `id` IN
-			(SELECT `sid` FROM `group_student` WHERE `gid` = ?)"
+			(SELECT `sid` FROM `group_student` WHERE `gid` = ?)
+			ORDER BY `fname` ASC, `lname` ASC"
 		);
 		$stmt->bind_param('i', $gid);
 		$stmt->execute();

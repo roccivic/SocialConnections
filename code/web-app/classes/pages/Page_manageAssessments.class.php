@@ -46,101 +46,133 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 			
 			}
 		}
-		if(!empty($_REQUEST['AssessmentDetails'])){
-			if($aid < 0 || $gid < 0) {
-				$this->addNotification(
-					'error',
-					__('No such assessment.')
-				);
-			}
-			else {
-				$this->displayAssessmentDetails($aid, $gid);
-			}
-		}else if(!empty($_REQUEST['create'])){
-			if($this->validateForm(true,$aid, $gid, $name, $weight) &&
-				$this->createAssessment($gid, $name, $weight)){
-				$this->addNotification(
-					'notice',
-					__('The assessment was successfully created.')
-				);
+		$gName = $this->getGroupName($gid);
+		$details = $this->getAssessmentDetails($aid);
+		if(!empty($gName)) {
+			if(!empty($_REQUEST['AssessmentDetails'])){
+				if(empty($details['name'])) {
+					$this->addNotification(
+						'error',
+						__('No such assessment.')
+					);
+					$this->displayAssessments($gid);
+				}
+				else {
+					$this->displayAssessmentDetails($aid, $gid);
+				}
+			}else if(!empty($_REQUEST['create'])){
+				if($this->validateForm(true,$aid, $gid, $name, $weight) &&
+					$this->createAssessment($gid, $name, $weight)){
+					$this->addNotification(
+						'notice',
+						__('The assessment was successfully created.')
+					);
+					$this->displayAssessments($gid);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->groupSelector();
+				}
+			}else if(!empty($_REQUEST['edit'])){
+				if($this->validateForm(false,$aid, $gid, $name, $weight) &&
+					$this->editAssessment($aid, $name, $weight)){
+					$this->addNotification(
+						'notice',
+						__('The assessment was edited successfully.')
+					);
+					$this->displayAssessmentDetails($aid, $gid);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->groupSelector();
+				}
+			}else if(!empty($_REQUEST['editForm'])){
+					if(empty($details['name']) && $aid > 0) {
+						$this->addNotification(
+						'error',
+						__('Invalid assessment.')
+					);
+						$this->displayAssessments($gid);
+					}
+					else {
+						$this->editForm($aid, $gid);
+					}
+					
+			}else if(!empty($_REQUEST['delete'])){ 
+				if(!empty($details['name'])) {
+					if($this->deleteAssessment($gid, $aid)){
+						$this->addNotification(
+							'notice',
+							__('The assessment was deleted successfully.')
+						);
+						$this->groupSelector();
+					}
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->groupSelector();
+				}
+			}else if(!empty($_REQUEST['manageResults'])){
+				if(!empty($details['name'])) {
+					$this->manageResults($aid, $gid);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('Invalid assessment.')
+					);
+					$this->displayAssessments($gid);
+				}
+			}else if(!empty($_REQUEST['publish'])){
+				if($this->publishResults($aid)) {
+					$this->addNotification(
+						'notice',
+						__('The assessment results were published.')
+					);
+					$this->manageResults($aid, $gid);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->groupSelector();
+				}
+			}else if(!empty($_REQUEST['update'])){ 
+				if($this->validateUpdateForm($results)
+					&& $this->editResults($aid, $results)){
+					$this->addNotification(
+						'notice',
+						__('The assessment results were updated successfully.')
+					);
+					$this->manageResults($aid, $gid);
+				}else {
+					$this->addNotification(
+						'warning',
+						__('An error occured while processing your request.')
+					);
+					$this->groupSelector();
+				}
+			}else {
 				$this->displayAssessments($gid);
 			}
-			else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-				$this->groupSelector();
-			}
-		}else if(!empty($_REQUEST['edit'])){
-			if($this->validateForm(false,$aid, $gid, $name, $weight) &&
-				$this->editAssessment($aid, $name, $weight)){
-				$this->addNotification(
-					'notice',
-					__('The assessment was edited successfully.')
-				);
-				$this->displayAssessmentDetails($aid, $gid);
-			}
-			else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-				$this->groupSelector();
-			}
-		}else if(!empty($_REQUEST['editForm'])){
-			$this->editForm($aid, $gid);
-		}else if(!empty($_REQUEST['delete'])){ 
-			if($this->deleteAssessment($gid, $aid)){
-				$this->addNotification(
-					'notice',
-					__('The assessment was deleted successfully.')
-				);
-				$this->groupSelector();
-			}
-			else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-				$this->groupSelector();
-			}
-		}else if(!empty($_REQUEST['manageResults'])){
-			$this->manageResults($aid, $gid);
-		}else if(!empty($_REQUEST['publish'])){
-			if($this->publishResults($aid)) {
-				$this->addNotification(
-					'notice',
-					__('The assessment results were published.')
-				);
-				$this->manageResults($aid, $gid);
-			}
-			else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-				$this->groupSelector();
-			}
-		}else if(!empty($_REQUEST['update'])){ 
-			if($this->validateUpdateForm($results)
-				&& $this->editResults($aid, $results)){
-				$this->addNotification(
-					'notice',
-					__('The assessment results were updated successfully.')
-				);
-				$this->manageResults($aid, $gid);
-			}else {
-				$this->addNotification(
-					'warning',
-					__('An error occured while processing your request.')
-				);
-				$this->groupSelector();
-			}
-		}else {
-			$this->displayAssessments($gid);
 		}
-		
+		else {
+			$this->addNotification(
+						'error',
+						__('Invalid group selected.')
+					);
+			$this->groupSelector();
+		}
 	}
 	/**
 	 * Displays a list of assessments
@@ -605,7 +637,24 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		return $success;
 
 	}
-	
+	/**
+	 * Returns group name
+	 *
+	 * @return string
+	 */
+	private function getGroupName($gid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `name` FROM `group` WHERE `id`=?"
+		);
+		$stmt->bind_param('i', $gid);
+		$stmt->execute();
+		$stmt->bind_result($name);
+		$stmt->fetch();
+		$stmt->close();
+		return $name;
+	}
 
 
 }

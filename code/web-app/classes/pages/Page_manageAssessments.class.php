@@ -242,7 +242,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 			else {
 				$html .= __('No');
 			}
-			$			$html .= '<br/><br/>';
+			$html .= '<br/><br/>';
 			$html .= '<a href="?action=manageAssessments&editForm=1&aid='.$aid.'&gid='.$gid.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
 			$html .= '<a href="?action=manageAssessments&manageResults=1&aid='.$aid.'&gid='.$gid.'" data-role="button" data-theme="b">'.__('Manage Results').'</a>';
 			$html .= sprintf(

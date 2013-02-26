@@ -63,7 +63,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 					'notice',
 					__('The assessment was successfully created.')
 				);
-				$this->groupSelector();
+				$this->displayAssessments($gid);
 			}
 			else {
 				$this->addNotification(
@@ -79,7 +79,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 					'notice',
 					__('The assessment was edited successfully.')
 				);
-				$this->groupSelector();
+				$this->displayAssessmentDetails($aid, $gid);
 			}
 			else {
 				$this->addNotification(
@@ -113,7 +113,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 					'notice',
 					__('The assessment results were published.')
 				);
-				$this->groupSelector();
+				$this->manageResults($aid, $gid);
 			}
 			else {
 				$this->addNotification(
@@ -129,7 +129,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 					'notice',
 					__('The assessment results were updated successfully.')
 				);
-				$this->groupSelector();
+				$this->manageResults($aid, $gid);
 			}else {
 				$this->addNotification(
 					'warning',

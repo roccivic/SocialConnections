@@ -282,7 +282,12 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '</select>';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
-		$year = $details['year'];
+		if(empty($details['year'])){
+			$year = date("Y");
+		}
+		else {
+			$year = $details['year'];
+		}
 		$html .= '<label for="year">' . __('Year') . ': </label>';
 		$html .= '<input type="text" name="year" id="year" ';
 		$html .= 'value="' . htmlspecialchars($year) . '" />';
@@ -291,13 +296,13 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
 		$html .= '<legend>'. __('Semester').':</legend>';
 		$html .= '<input name="term" id="first" value="1" type="radio"';
-		if($details[term] == 1) {
+		if($details['term'] == 1 || empty($details['term'])) {
 			$html .= 'checked="checked"';
 		}
 		$html .= '>';
 		$html .= '<label for="first">1</label>';
 		$html .= '<input name="term" id="second" value="2" type="radio"';
-		if($details[term] == 2) {
+		if($details['term'] == 2) {
 			$html .= 'checked="checked"';
 		}
 		$html .= '>';

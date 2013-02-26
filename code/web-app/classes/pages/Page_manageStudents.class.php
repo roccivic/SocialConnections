@@ -257,7 +257,7 @@ class Page_manageStudents extends Page_selectDepartment {
 	private function printStudentsListHeader($cid)
 	{
 		$html = '';
-		$html .= '<a href="?action=manageStudents&editForm=1"';
+		$html .= '<a href="?action=manageStudents&editForm=1&cid=' . $cid . '"';
         $html .= ' data-role="button" data-theme="b">';
         $html .= __('Create Student') . '</a>';
     	$html .= '<ul data-role="listview" data-divider-theme="b" ';

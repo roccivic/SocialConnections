@@ -181,12 +181,20 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	private function displayAssessments($gid)
 	{
 		$assessments = $this->getAssessments($gid);
-		$html = $this->printAssessmentsListHeader($gid);
-		foreach($assessments as $key => $value) {
-			$html .= $this->printAssessmentsListItem($key, $gid, $value);
+		if (count($assessments) > 0) {
+			$html = $this->printAssessmentsListHeader($gid);
+			foreach($assessments as $key => $value) {
+				$html .= $this->printAssessmentsListItem($key, $gid, $value);
+			}
+			$html .= $this->printAssessmentsListFooter();
+			$this->addHtml($html);
+		} else {
+			$this->addHtml($this->getCreateButton($gid));
+			$this->addNotification(
+				'warning',
+				__('The are no assessments to display')
+			);
 		}
-		$html .= $this->printAssessmentsListFooter();
-		$this->addHtml($html);
 	}
 	/**
 	 * Returns an array of assessments
@@ -210,16 +218,24 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		return $arr;
 	}
 	/**
+	 * Returns the create button
+	 *
+	 * @return string
+	 */
+	private function getCreateButton($gid) {
+		$html  = '<a href="?action=manageAssessments&editForm=1&gid='.$gid.'"';
+    	$html .= ' data-role="button" data-theme="b">';
+    	$html .= __('Create Assessment') . '</a>';
+    	return $html;
+	}
+	/**
 	 * Prints the header for the list of assessments
 	 *
 	 * @return void
 	 */
 	private function printAssessmentsListHeader($gid)
 	{
-		$html = '';
-		 $html  = '<a href="?action=manageAssessments&editForm=1&gid='.$gid.'"';
-    	$html .= ' data-role="button" data-theme="b">';
-    	$html .= __('Create Assessment') . '</a>';
+		$html  = $this->getCreateButton($gid);
     	$html .= '<ul data-role="listview" data-divider-theme="b" ';
         $html .= 'data-inset="true">';
         $html .= '<li data-role="list-divider" role="heading">';

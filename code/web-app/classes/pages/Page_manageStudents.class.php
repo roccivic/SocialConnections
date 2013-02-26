@@ -516,7 +516,7 @@ class Page_manageStudents extends Page_selectDepartment {
 				'warning',
 				__('Student\'s email must be at least 1 character long.')
 			);
-		}else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		}else if (! preg_match('/.+@.+/', $email)) {
     		$success = false;
     		$this->addNotification(
 				'warning',

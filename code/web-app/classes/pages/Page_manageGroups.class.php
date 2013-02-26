@@ -55,105 +55,114 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		if(!empty($_REQUEST['sid'])){
 			$sid = $_REQUEST['sid'];
 		}
-		if (! empty($_REQUEST['delete'])) 
-		{
-			$this->deleteGroup($gid);
-			$this->groupSelector(true);
-		} else if (! empty($_REQUEST['edit'])) {
-			if ($this->validateForm(false, $gid, $name, $module, $year, $term)
-				&& $this->updateGroup($gid, $name, $module, $year, $term)
-			) {
-				$this->addNotification(
-					'notice',
-					__('The group details were successfully updated.')
-				);
-				$this->displayGroupDetails($gid);
-			} else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
+		$gname = $this->getGroupName($gid);
+		if(!empty($gname)) {
+			if (! empty($_REQUEST['delete'])) 
+			{
+				$this->deleteGroup($gid);
+				$this->groupSelector(true);
+			} else if (! empty($_REQUEST['edit'])) {
+				if ($this->validateForm(false, $gid, $name, $module, $year, $term)
+					&& $this->updateGroup($gid, $name, $module, $year, $term)
+				) {
+					$this->addNotification(
+						'notice',
+						__('The group details were successfully updated.')
+					);
+					$this->displayGroupDetails($gid);
+				} else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$details = $this->getGroupDetails($gid);
+					$name = $details['gname'];
+					$this->editGroupForm($gid, $name);
+				}
+			}else if (! empty($_REQUEST['create'])) 
+				{
+				if ($this->validateForm(true, $gid, $name, $module, $year, $term)
+					&& $this->createGroup($name, $module, $year, $term)) 
+				{
+					$this->addNotification(
+						'notice',
+						__('The Group was successfully created.')
+					);
+					$this->groupSelector(true);
+				} else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->editGroupForm($gid, $name);
+				}
+			}else if (! empty($_REQUEST['editForm'])) {
 				$details = $this->getGroupDetails($gid);
 				$name = $details['gname'];
-				$this->editGroupForm($gid, $name);
+				if ($gid > 0 && empty($name)) {
+					$this->addNotification(
+						'error',
+						__('The selected group does not exist')
+					);
+					$this->groupSelector(true);
+				} else {
+					$this->editGroupForm($gid, $name);
+				}
+			}else if(! empty($_REQUEST['addingStudent'])){
+				if($this->addStudentToGroup($gid, $sid)){
+					$this->addNotification(
+						'notice',
+						__('The Student was successfully added to the group.')
+					);
+					
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+				}
+				$this->addStudentForm($gid, $did);
+			}else if(!empty($_REQUEST['addStudent'])){
+				$this->departmentSelector($gid);
+			}else if(!empty($_REQUEST['addStudentForm'])){
+				if($did > 0){
+					$this->addStudentForm($gid,$did);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('The selected department does not exist')
+					);
+					$this->groupSelector(true);
+				}
+			}else if(!empty($_REQUEST['removingStudentFromGroup'])){
+				if($this->removeStudentFromGroup($gid, $sid)){
+					$this->addNotification(
+						'notice',
+						__('The Student was successfully removed from the group.')
+					);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+				}
+				$this->removeStudentForm($gid, $did);
+			}else if(!empty($_REQUEST['removeStudent'])){
+				$this->removeStudentForm($gid, $did);
+			}else {
+				$this->displayGroupDetails($gid);
 			}
-		}else if (! empty($_REQUEST['create'])) 
-			{
-			if ($this->validateForm(true, $gid, $name, $module, $year, $term)
-				&& $this->createGroup($name, $module, $year, $term)) 
-			{
-				$this->addNotification(
-					'notice',
-					__('The Group was successfully created.')
-				);
-				$this->groupSelector(true);
-			} else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-				$this->editGroupForm($gid, $name);
-			}
-		}else if (! empty($_REQUEST['editForm'])) {
-			$details = $this->getGroupDetails($gid);
-			$name = $details['gname'];
-			if ($gid > 0 && empty($name)) {
-				$this->addNotification(
-					'error',
-					__('The selected group does not exist')
-				);
-				$this->groupSelector(true);
-			} else {
-				$this->editGroupForm($gid, $name);
-			}
-		}else if(! empty($_REQUEST['addingStudent'])){
-			if($this->addStudentToGroup($gid, $sid)){
-				$this->addNotification(
-					'notice',
-					__('The Student was successfully added to the group.')
-				);
-				
-			}
-			else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-			}
-			$this->addStudentForm($gid, $did);
-		}else if(!empty($_REQUEST['addStudent'])){
-			$this->departmentSelector($gid);
-		}else if(!empty($_REQUEST['addStudentForm'])){
-			if($did > 0){
-				$this->addStudentForm($gid,$did);
-			}
-			else {
-				$this->addNotification(
-					'error',
-					__('The selected department does not exist')
-				);
-				$this->groupSelector(true);
-			}
-		}else if(!empty($_REQUEST['removingStudentFromGroup'])){
-			if($this->removeStudentFromGroup($gid, $sid)){
-				$this->addNotification(
-					'notice',
-					__('The Student was successfully removed from the group.')
-				);
-			}
-			else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-			}
-			$this->removeStudentForm($gid, $did);
-		}else if(!empty($_REQUEST['removeStudent'])){
-			$this->removeStudentForm($gid, $did);
-		}else {
-			$this->displayGroupDetails($gid);
 		}
-		
+		else {
+			$this->addNotification(
+						'error',
+						__('The group does not exist!.')
+					);
+			$this->groupSelector(true);
+		}
 	}
 	/**
 	 * Displays the details of a group
@@ -765,5 +774,24 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		}
 		return $arr;
 	}
+	/**
+	 * Returns the name of a group given its id
+	 *
+	 * @return string
+	 */
+	private function getGroupName($gid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `name` FROM `group` WHERE `id` = ?;"
+		);
+		$stmt->bind_param('i', $gid);
+		$stmt->execute();
+		$stmt->bind_result($name);
+		$stmt->fetch();
+		$stmt->close();
+		return $name;
+	}
+
 }
 ?>

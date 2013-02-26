@@ -189,7 +189,7 @@ class Page_makeExcuse extends Page_selectStudentGroup {
 		$html .= htmlspecialchars($excuse);
 		$html .= '</textarea>';
 		$html .= '</div>';
-		$html .= '<input type="submit" value="' . __('Save') . '" />';
+		$html .= '<input data-theme="b" type="submit" value="' . __('Save') . '" />';
 		$html .= '</form>';
 		$this->addHtml($html);
 	}

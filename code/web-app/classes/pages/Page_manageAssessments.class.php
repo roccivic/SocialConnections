@@ -541,7 +541,8 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		$db = Db::getLink();
 		$stmt = $db->prepare(
 			"SELECT `id`, `fname`, `lname` FROM `student` WHERE `id` IN
-			(SELECT `sid` FROM `group_student` WHERE `gid` = ?)"
+			(SELECT `sid` FROM `group_student` WHERE `gid` = ?)
+			ORDER BY `fname` ASC, `lname` ASC"
 		);
 		$stmt->bind_param('i', $gid);
 		$stmt->execute();

@@ -56,7 +56,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$sid = $_REQUEST['sid'];
 		}
 		$gname = $this->getGroupName($gid);
-		if(!empty($gname)) {
+		if(!empty($gname) || !empty($_REQUEST['editForm'])) {
 			if (! empty($_REQUEST['delete'])) 
 			{
 				$this->deleteGroup($gid);

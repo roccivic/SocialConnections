@@ -374,6 +374,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		while ($stmt->fetch()) {
 			$result += $weight;
 		}
+		$stmt->close();
 		return $result;
 	}
 	/**
@@ -516,6 +517,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		while ($stmt->fetch()) {
 			$arr[$id] = $fname . ' ' . $lname;
 		}
+		$stmt->close();
 		return $arr;
 	}
 	/**
@@ -531,6 +533,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		);
 		$stmt->bind_param('i', $aid);
 		$success = $stmt->execute();
+		$stmt->close();
 		return $success;
 	}
 	/**
@@ -553,6 +556,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		while ($stmt->fetch()) {
 			$arr[$id] = $grade;
 		}
+		$stmt->close();
 		return $arr;
 	}
 	/**
@@ -583,16 +587,16 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		$db = Db::getLink();
 		$db->query("SET AUTOCOMMIT=0");
 		$db->query("START TRANSACTION");
+		$stmt = $db->prepare(
+			"UPDATE `results` SET `grade` = ? WHERE `sid` = ? AND `aid` = ?"
+		);
 		foreach($results as $key => $value) {
 			if($success) {
-				$stmt = $db->prepare(
-				"UPDATE `results` SET `grade` = ? WHERE `sid` = ? AND `aid` = ?"
-				);
 				$stmt->bind_param('iii',$value, $key, $aid);
 				$success = $stmt->execute();
-				$stmt->bind_result($id, $grade);
 			}
 		}
+		$stmt->close();
 		if($success) {
 			$db->query("COMMIT");
 		}else {

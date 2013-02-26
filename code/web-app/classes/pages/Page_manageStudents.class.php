@@ -171,6 +171,7 @@ class Page_manageStudents extends Page_selectDepartment {
 		while ($stmt->fetch()) {
 			$arr[$id] = $name;
 		}
+		$stmt->close();
 		return $arr;
 	}
 
@@ -244,6 +245,7 @@ class Page_manageStudents extends Page_selectDepartment {
 		while ($stmt->fetch()) {
 			$arr[$id] = $fname . ' ' . $lname;
 		}
+		$stmt->close();
 		return $arr;
 	}
 

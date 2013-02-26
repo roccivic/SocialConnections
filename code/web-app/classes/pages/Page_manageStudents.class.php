@@ -68,74 +68,105 @@ class Page_manageStudents extends Page_selectDepartment {
 		if(!empty($_REQUEST['grantOwed'])){
 			$grantOwed = $_REQUEST['grantOwed'];
 		}
-
-		if(!empty($_REQUEST['listStudents'])) {
-			if($cid>0){
-			$this->displayStudents($cid,$did);	
-			}
-			else {
-				$this->addNotification(
-					'error',
-					__('The selected class does not exist')
-				);
+		$dName = $this->getDepartmentName($did);
+		$cName = $this->getClassName($cid);
+		$details = $this->getStudentDetails($sid);
+		if(!empty($dName)) {
+			if(!empty($_REQUEST['listStudents'])) {
+				if(!empty($cName)){
+				$this->displayStudents($cid,$did);	
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('Invalid class selected')
+					);
+					$this->displayClasses($did);
+				}
+			}else if(!empty($_REQUEST['delete'])){
+				if($this->deleteStudent($sid)){
+					$this->addNotification(
+						'notice',
+						__('The student was successfully deleted.')
+					);
+				}
+				else{
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+				}
+				$this->departmentSelector();
+			}else if(!empty($_REQUEST['studentDetails'])){
+				$this->displayStudentDetails($sid, $did, $cid);
+			}else if(!empty($_REQUEST['create'])){
+				if($this->validateForm(true, $sid, $fname, $lname, $username, $email, $pass, $varpass, $hasGrant, $grantOwed)
+				 && $this->createStudent($fname, $lname, $username, $email, $pass, $cid, $hasGrant, $grantOwed))
+				{
+					$this->addNotification(
+						'notice',
+						__('The student was successfully created.')
+					);
+					$this->departmentSelector();
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->departmentSelector();
+				}
+			}else if(!empty($_REQUEST['edit'])) { 
+				if($this->validateForm(false, $sid, $fname, $lname, $username, $email, $pass, $varpass, $hasGrant, $grantOwed)
+				 && $this->editStudent($sid, $fname, $lname, $username, $email, $hasGrant, $grantOwed))
+				{
+					$this->addNotification(
+						'notice',
+						__('The student was edited successfully.')
+					);
+					$this->departmentSelector();
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->departmentSelector();
+				}
+			}else if(!empty($_REQUEST['editForm'])){
+				if((empty($cName) && $cid > 0)) {
+					$this->addNotification(
+						'error',
+						__('Invalid class selected.')
+					);
+					$this->displayClasses($did);
+				}
+				else {
+					if(empty($details['fname']) && $sid > 0) {
+						$this->addNotification(
+						'error',
+						__('Invalid student selected.')
+					);
+						$this->displayStudents($cid, $did);
+					}
+					else {
+						$this->editForm($sid,$cid,$did);
+					}
+					
+				}
+			}else {
 				$this->displayClasses($did);
 			}
-		}else if(!empty($_REQUEST['delete'])){
-			if($this->deleteStudent($sid)){
-				$this->addNotification(
-					'notice',
-					__('The student was successfully deleted.')
-				);
-			}
-			else{
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-			}
-			$this->departmentSelector();
-		}else if(!empty($_REQUEST['studentDetails'])){
-			$this->displayStudentDetails($sid, $did);
-		}else if(!empty($_REQUEST['create'])){
-			if($this->validateForm(true, $sid, $fname, $lname, $username, $email, $pass, $varpass, $hasGrant, $grantOwed)
-			 && $this->createStudent($fname, $lname, $username, $email, $pass, $cid, $hasGrant, $grantOwed))
-			{
-				$this->addNotification(
-					'notice',
-					__('The student was successfully created.')
-				);
-				$this->departmentSelector();
-			}
-			else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-				$this->departmentSelector();
-			}
-		}else if(!empty($_REQUEST['edit'])) { 
-			if($this->validateForm(false, $sid, $fname, $lname, $username, $email, $pass, $varpass, $hasGrant, $grantOwed)
-			 && $this->editStudent($sid, $fname, $lname, $username, $email, $hasGrant, $grantOwed))
-			{
-				$this->addNotification(
-					'notice',
-					__('The student was edited successfully.')
-				);
-				$this->departmentSelector();
-			}
-			else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-				$this->departmentSelector();
-			}
-		}else if(!empty($_REQUEST['editForm'])){
-			$this->editForm($sid, $cid, $did);
-		}else {
-			$this->displayClasses($did);
+				
+			
 		}
-		
+		else {
+			$this->addNotification(
+						'error',
+						__('Invalid department.')
+					);
+			$this->departmentSelector();		
+		}
 	}
 	/**
 	 * Displays a list of classes
@@ -219,7 +250,7 @@ class Page_manageStudents extends Page_selectDepartment {
 	private function displayStudents($cid,$did)
 	{
 		$students = $this->getStudents($cid);
-		$html = $this->printStudentsListHeader($cid);
+		$html = $this->printStudentsListHeader($cid, $did);
 		foreach($students as $key => $value) {
 			$html .= $this->printStudentsListItem($key,$cid,$did, $value);
 		}
@@ -254,10 +285,10 @@ class Page_manageStudents extends Page_selectDepartment {
 	 *
 	 * @return void
 	 */
-	private function printStudentsListHeader($cid)
+	private function printStudentsListHeader($cid, $did)
 	{
 		$html = '';
-		$html .= '<a href="?action=manageStudents&editForm=1&cid=' . $cid . '"';
+		$html .= '<a href="?action=manageStudents&editForm=1&cid=' . $cid . '&did='.$did.'"';
         $html .= ' data-role="button" data-theme="b">';
         $html .= __('Create Student') . '</a>';
     	$html .= '<ul data-role="listview" data-divider-theme="b" ';
@@ -299,7 +330,7 @@ class Page_manageStudents extends Page_selectDepartment {
 	 *
 	 * @return void
 	 */
-	private function displayStudentDetails($sid,$did) {
+	private function displayStudentDetails($sid,$did,$cid) {
 		$details = $this->getStudentDetails($sid);
 		if (isset($details['sid'])) {
 			$html  = '<h3>' . $details['fname'] . ' ' . $details['lname'] . '</h3>';
@@ -309,7 +340,7 @@ class Page_manageStudents extends Page_selectDepartment {
 			$html .= __('Class: ');
 			$html.= $this->getClassName($details['cid']);	
 			$html .= '<br/><br/>';
-			$html .= '<a href="?action=manageStudents&editForm=1&sid='.$sid.'&did='.$did.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
+			$html .= '<a href="?action=manageStudents&editForm=1&sid='.$sid.'&did='.$did.'&cid='.$cid.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
 
 			$html .= sprintf(
 				'<a onclick="return confirm(\'%s\');" href="?action=manageStudents&delete=1&did=%d&sid=%d" data-role="button" data-theme="b">%s</a>',
@@ -589,5 +620,22 @@ class Page_manageStudents extends Page_selectDepartment {
 		$success = $stmt->execute();
 		$stmt->close();
 		return $success;
+	}
+	/**
+	 * Returns department name
+	 *
+	 * @return string
+	 */
+	private function getDepartmentName($did) {
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `name` FROM `department` WHERE `id` = ?"
+		);
+		$stmt->bind_param('i', $did);
+		$stmt->execute();
+		$stmt->bind_result($name);
+		$stmt->fetch();
+		$stmt->close();
+		return $name;
 	}
 }

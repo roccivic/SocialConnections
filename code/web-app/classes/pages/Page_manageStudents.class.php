@@ -89,6 +89,7 @@ class Page_manageStudents extends Page_selectDepartment {
 						'notice',
 						__('The student was successfully deleted.')
 					);
+					
 				}
 				else{
 					$this->addNotification(
@@ -96,7 +97,7 @@ class Page_manageStudents extends Page_selectDepartment {
 						__('An error occured while processing your request.')
 					);
 				}
-				$this->departmentSelector();
+				$this->displayStudents($cid, $did);
 			}else if(!empty($_REQUEST['studentDetails'])){
 				$this->displayStudentDetails($sid, $did, $cid);
 			}else if(!empty($_REQUEST['create'])){
@@ -107,7 +108,7 @@ class Page_manageStudents extends Page_selectDepartment {
 						'notice',
 						__('The student was successfully created.')
 					);
-					$this->departmentSelector();
+					$this->displayStudents($cid, $did);
 				}
 				else {
 					$this->addNotification(
@@ -124,15 +125,15 @@ class Page_manageStudents extends Page_selectDepartment {
 						'notice',
 						__('The student was edited successfully.')
 					);
-					$this->departmentSelector();
+					
 				}
 				else {
 					$this->addNotification(
 						'error',
 						__('An error occured while processing your request.')
 					);
-					$this->departmentSelector();
 				}
+				$this->displayStudentDetails($sid, $did, $cid);
 			}else if(!empty($_REQUEST['editForm'])){
 				if((empty($cName) && $cid > 0)) {
 					$this->addNotification(
@@ -343,10 +344,11 @@ class Page_manageStudents extends Page_selectDepartment {
 			$html .= '<a href="?action=manageStudents&editForm=1&sid='.$sid.'&did='.$did.'&cid='.$cid.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
 
 			$html .= sprintf(
-				'<a onclick="return confirm(\'%s\');" href="?action=manageStudents&delete=1&did=%d&sid=%d" data-role="button" data-theme="b">%s</a>',
+				'<a onclick="return confirm(\'%s\');" href="?action=manageStudents&delete=1&did=%d&sid=%d&cid=%d" data-role="button" data-theme="b">%s</a>',
 				__('Are you sure you want to delete this student?'),
 				$did,
 				$sid,
+				$cid,
 				__('Delete')
 			);
 			$this->addHtml($html);
@@ -471,14 +473,22 @@ class Page_manageStudents extends Page_selectDepartment {
 		$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
 		$html .= '<legend>' . __('Grant aided') . ': </legend>';
 		$html .= '<label for="hasGrant1">' . __('Yes') . '</label>';
-		$html .= '<input id="hasGrant1" type="radio" name="hasGrant" value="1" />';
+		$html .= '<input id="hasGrant1" type="radio" name="hasGrant" value="1" ';
+		if($details['hasGrant']) {
+			$html .= 'checked="checked"';
+		}
+		$html .= '/>';
 		$html .= '<label for="hasGrant0">' . __('No') . '</label>';
-		$html .= '<input id="hasGrant0" type="radio" name="hasGrant" value="0" />';
+		$html .= '<input id="hasGrant0" type="radio" name="hasGrant" value="0" ';
+		if(!$details['hasGrant'] || empty($details['hasGrant'])) {
+			$html .= 'checked="checked"';
+		}
+		$html .= '/>';
 		$html .= '</fieldset>';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="grantOwed">' . __('Grant amount') . ': </label>';
-		$html .= '<input type="text" name="grantOwed" id="grantOwed" ';
+		$html .= '<input type="text" name="grantOwed" id="grantOwed" value="'.$details['grantOwed'].'"" ';
 		$html .= '</div>';
 		$html .= '<input data-theme="b" type="submit" value="' . __('Save') . '" />';
 		$html .= '</form>';

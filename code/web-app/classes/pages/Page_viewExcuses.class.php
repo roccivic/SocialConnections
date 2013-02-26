@@ -92,7 +92,7 @@ class Page_viewExcuses extends Page {
 		$arr = array();
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			'SELECT `excuse`,`excuse_viewed`,`fname`,`lname`,`name`,`timestamp`
+			'SELECT `sid`,`aid`,`excuse`,`excuse_viewed`,`fname`,`lname`,`name`,`timestamp`
 			FROM `student_attendance`
 			INNER JOIN `attendance`
 			ON `attendance`.`id` = `student_attendance`.`aid`
@@ -111,7 +111,7 @@ class Page_viewExcuses extends Page {
 		);
 		$stmt->bind_param('iii', $_SESSION['uid'], $pos, $limit);
 		$stmt->execute();
-		$stmt->bind_result($excuse, $excuse_viewed, $fname, $lname, $group, $timestamp);
+		$stmt->bind_result($sid, $aid, $excuse, $excuse_viewed, $fname, $lname, $group, $timestamp);
 		while ($stmt->fetch()) { 
 			$arr[date("j F Y", strtotime($timestamp))][] = array(
 				'excuse' => $excuse,
@@ -120,27 +120,32 @@ class Page_viewExcuses extends Page {
 				'timestamp' => $timestamp,
 				'excuse_viewed' => $excuse_viewed
 			);
+			if (! $excuse_viewed) {
+				$this->saveMarkAsViewed($aid, $sid);
+			}
 		}
 		$stmt->close();
+		$this->markAsViewed();
+		return $arr;
+	}
 
-		// Mark all excuses viewed
+	private $toMark = array();
+	private function saveMarkAsViewed($aid, $sid)
+	{
+		$this->toMark[] = array($aid, $sid);
+	}
+	private function markAsViewed()
+	{
+		$db = Db::getLink();
 		$stmt = $db->prepare(
 			'UPDATE `student_attendance`
-			INNER JOIN `attendance`
-			ON `attendance`.`id` = `student_attendance`.`aid`
-			INNER JOIN `group`
-			ON `attendance`.`gid` = `group`.`id`
-			INNER JOIN `moduleoffering`
-			ON `moduleoffering`.`id` = `group`.`moid`
-			INNER JOIN `moduleoffering_lecturer`
-			ON `moduleoffering_lecturer`.`moid` = `moduleoffering`.`id`
 			SET `excuse_viewed` = 1
-			WHERE `moduleoffering_lecturer`.`lid` = ?;'
+			WHERE `aid` = ? AND `sid` = ?;'
 		);
-		$stmt->bind_param('i', $_SESSION['uid']);
-		$stmt->execute();
+		foreach ($this->toMark as $value) {
+			$stmt->bind_param('ii', $value[0], $value[1]);
+			$stmt->execute();
+		}
 		$stmt->close();
-
-		return $arr;
 	}
 }

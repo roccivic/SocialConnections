@@ -56,6 +56,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$sid = $_REQUEST['sid'];
 		}
 		$gname = $this->getGroupName($gid);
+		$dname = $this->getDepartmentName($did);
 		if(!empty($gname) || !empty($_REQUEST['editForm'])) {
 			if (! empty($_REQUEST['delete'])) 
 			{
@@ -126,7 +127,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			}else if(!empty($_REQUEST['addStudent'])){
 				$this->departmentSelector($gid);
 			}else if(!empty($_REQUEST['addStudentForm'])){
-				if($did > 0){
+				if(!empty($dname)){
 					$this->addStudentForm($gid,$did);
 				}
 				else {
@@ -151,7 +152,15 @@ class Page_manageGroups extends Page_selectLecturerGroup
 				}
 				$this->removeStudentForm($gid, $did);
 			}else if(!empty($_REQUEST['removeStudent'])){
-				$this->removeStudentForm($gid, $did);
+				if(!empty($dname)) {
+					$this->removeStudentForm($gid, $did);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('The selected department does not exist.')
+					);
+				}
 			}else {
 				$this->displayGroupDetails($gid);
 			}
@@ -159,7 +168,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		else {
 			$this->addNotification(
 						'error',
-						__('The group does not exist!.')
+						__('The selected group does not exist!.')
 					);
 			$this->groupSelector(true);
 		}
@@ -786,6 +795,24 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			"SELECT `name` FROM `group` WHERE `id` = ?;"
 		);
 		$stmt->bind_param('i', $gid);
+		$stmt->execute();
+		$stmt->bind_result($name);
+		$stmt->fetch();
+		$stmt->close();
+		return $name;
+	}
+	/**
+	 * Returns the name of a department given its id
+	 *
+	 * @return string
+	 */
+	private function getDepartmentName($did)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `name` FROM `department` WHERE `id` = ?;"
+		);
+		$stmt->bind_param('i', $did);
 		$stmt->execute();
 		$stmt->bind_result($name);
 		$stmt->fetch();

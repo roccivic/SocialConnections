@@ -10,9 +10,8 @@ if (! defined('SOCIALCONNECTIONS')) {
 abstract class Config {
 	// Base url for the web app
 	// MUST END WITH A FORWARD SLASH!
-	//const URL = 'http://109.255.78.105/socialconnections/';
+	const URL = 'http://109.255.78.105/socialconnections/';
 	//const URL = 'http://socialconnections.placella.com/';
-	const URL = 'http://localhost:8080/SocialConnections/code/web-app/';
 
 	// 'Country/City'
 	const TIMEZONE = 'GB-Eire';
@@ -20,7 +19,7 @@ abstract class Config {
 	// Database access parameters
 	const DB_HOST   = 'localhost';
 	const DB_USER   = 'root';
-	const DB_PWD    = '';
+	const DB_PWD    = '123456';
 	const DB_DBNAME = 'socialconnections';
 
 	// Set to "true" in development environment

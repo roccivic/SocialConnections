@@ -11,7 +11,7 @@ if (! defined('SOCIALCONNECTIONS')) {
 abstract class TidyHtml {
     public static function process($html)
     {
-       /* // Specify configuration
+        // Specify configuration
         $config = array(
             'hide-comments'       => true,
             'indent'              => true,
@@ -43,8 +43,6 @@ abstract class TidyHtml {
             '<html xmlns="http://www.w3.org/1999/xhtml">',
             "<!DOCTYPE html>\n<html>",
             $output
-        );*/
-
-        return $html;
+        );
     }
 }

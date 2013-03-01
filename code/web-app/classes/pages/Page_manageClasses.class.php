@@ -39,7 +39,21 @@ class Page_manageClasses extends Page_selectDepartment {
 		if (!empty($_REQUEST['view']) ) 
 		{			
 			$did = $_REQUEST['did'];
+			$dname = $this->getDepartmentName($did);
+			if(empty($dname)){
+				$this->addNotification(
+					'warning',
+					__('Department does not exist.')
+				);
+			}
 			$cid = $_REQUEST['cid'];
+			$cname = $this->getClassName($cid);
+			if(empty($cname)){
+				$this->addNotification(
+					'warning',
+					__('Class does not exist.')
+				);
+			}
 			$this->viewClass($did,$cid);			
 		}else if (! empty($_REQUEST['delete'])) 
 		{
@@ -106,8 +120,10 @@ class Page_manageClasses extends Page_selectDepartment {
 					__('The selected class does not exist')
 				);
 			}				
+		}else{
+			$this->displayClasses($did);
 		}			
-		$this->displayClasses($did);
+		
 	}
 	/**
 	 * Calls print functions for classes
@@ -154,7 +170,7 @@ class Page_manageClasses extends Page_selectDepartment {
 	private function printClassesListHeader($did)
 	{
 		$html = '';
-    	$html .= '<a href="?action=manageClasses&did='.$did.'&create=1"';
+    	$html .= '<a href="?action=manageClasses&did='.$did.'&editForm=1"';
     	$html .= ' data-role="button" data-theme="b">';
     	$html .= __('Create Class') . '</a>';
         $html .= '<ul data-role="listview" data-divider-theme="b" ';
@@ -247,6 +263,24 @@ class Page_manageClasses extends Page_selectDepartment {
 			"SELECT `name` FROM `department` WHERE `id` = ?;"
 		);
 		$stmt->bind_param('i', $did);
+		$stmt->execute();
+		$stmt->bind_result($name);
+		$stmt->fetch();
+		$stmt->close();
+		return $name;
+	}
+	/**
+	 * Returns the name of a class given its id
+	 *
+	 * @return string
+	 */
+	private function getClassName($cid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `name` FROM `class` WHERE `id` = ?;"
+		);
+		$stmt->bind_param('i', $cid);
 		$stmt->execute();
 		$stmt->bind_result($name);
 		$stmt->fetch();

@@ -1,7 +1,7 @@
 <?php
 
 if (! defined('SOCIALCONNECTIONS')) {
-  die();
+	die();
 }
 require_once 'classes/pages/abstract/Page_selectDepartment.class.php';
 /**
@@ -27,110 +27,142 @@ class Page_manageLecturers extends Page_selectDepartment {
 	public function display($did) 
 	{
 		$did = intval($did);
-		$name = '';
-		if (! empty($_REQUEST['name'])) {
-			$name = $_REQUEST['name'];
+
+		$lid = '';
+		if(!empty($_REQUEST['lid'])) {
+			$lid = $_REQUEST['lid'];
 		}
+
+		$fname = '';
+		if(!empty($_REQUEST['fname'])){
+			$fname = $_REQUEST['fname'];
+		}
+		$lname = '';
+		if(!empty($_REQUEST['lname'])){
+			$lname = $_REQUEST['lname'];
+		}
+		$username = '';
+		if(!empty($_REQUEST['username']))
+		{
+			$username = $_REQUEST['username'];
+		}
+		$email = '';
+		if(!empty($_REQUEST['email'])){
+			$email = $_REQUEST['email'];
+		}
+		$password = '';
+		if(!empty($_REQUEST['password'])){
+			$password = $_REQUEST['password'];
+		}
+		$varpass = '';
+		if(!empty($_REQUEST['varpass'])){
+			$varpass = $_REQUEST['varpass'];
+		}
+		/*$lname = $this->getLecturerName($lid);
+			if(empty($lname)){
+				$this->addNotification(
+					'warning',
+					__('Lecturer does not exist.')
+				);
+			}
+		$did = $_REQUEST['did'];
+			$dname = $this->getDepartmentName($did);
+			if(empty($dname)){
+				$this->addNotification(
+					'warning',
+					__('Department does not exist.')
+				);
+			}*/
 		
 
-		if (! empty($_REQUEST['delete'])) {
-			$details = $this->getLecturersDetails($did, $lid);
-			if (empty($details['name'])) {
-				$this->addNotification(
-					'error',
-					__('The selected department does not exist')
-				);
-			} else {
-				$this->deleteLecturer($did, $lid);
-			}
-			$this->departmentSelector(false);
-		} else if (! empty($_REQUEST['editForm'])) {
-			$details = $this->getLecturersDetails($did, $lid);
-			if (empty($details['name'])) {
-				$this->addNotification(
-					'error',
-					__('The selected Lecturer does not exist')
-				);
-				$this->departmentSelector(false);
-			} else {
-				if ($this->validateForm(false, $did,$lid,$fname, $lname, $username, $email)
-					&& $this->updateLecturer($did, $lid,$fname, $lname, $username, $email)
-				) {
+		if(!empty($_REQUEST['view'])) {
+				if(!empty($lid)){
+				$this->viewLecturer($did,$lid);	
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('Invalid lecturer selected')
+					);
+					$this->displayLecturers($did);
+				}
+		}else if(!empty($_REQUEST['create'])){
+				if($this->validateForm(true, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
+				 && $this->createLecturer($did, $fname, $lname, $username, $email, $password))
+				{
 					$this->addNotification(
 						'notice',
-						__('The department details were successfully updated.')
+						__('The lecturer was successfully created.')
 					);
-					$this->departmentSelector(false);
-				} else {
+					$this->displayLecturers($did);
+				}
+				else {
 					$this->addNotification(
 						'error',
 						__('An error occured while processing your request.')
 					);
-					$details = $this->getDepartmentDetails($did);
-					$name = $details['name'];
-					$this->updateLecturer($did, $lid,$fname, $lname, $username, $email);
-			//Where do i send it to $this->editLecturerForm($lid, $did)
+					$this->departmentSelector();
 				}
-			}
-		} else if (! empty($_REQUEST['create'])) {
-			if ($this->validateForm(true, $did, $name, $head)
-				&& $this->createLecturer($name, $head)
-			) {
-				$this->addNotification(
-					'notice',
-					__('The department was successfully created.')
-				);
-				$this->departmentSelector(true);
-			} else {
-				$this->addNotification(
-					'error',
-					__('An error occured while processing your request.')
-				);
-				$this->editDepartmentForm($did, $name);
-			}
-		} else if (! empty($_REQUEST['editForm'])) {
-			$details = $this->getDepartmentDetails($did);
-			$name = $details['dname'];
-			if ($did > 0 && empty($name)) {
-				$this->addNotification(
-					'error',
-					__('The selected department does not exist')
-				);
-				$this->departmentSelector(true);
-			} else {
-				$this->editDepartmentForm($did, $name);
-			}
-		} else {
-			$details = $this->getDepartmentDetails($did);
-			if (empty($details['dname'])) {
-				$this->addNotification(
-					'error',
-					__('The selected department does not exist')
-				);
-				$this->departmentSelector(true);
-			} else {
-				$this->displayDepartmentDetails($did, $details);
-			}
-		}
+			}else if(!empty($_REQUEST['edit'])) { 
+				if($this->validateForm(false, $lid, $fname, $lname, $username, $email, $password)
+				 && $this->updateLecturer($did, $lid, $fname, $lname, $username, $email, $password))
+				{
+					$this->addNotification(
+						'notice',
+						__('The lecturer was edited successfully.')
+					);
+					
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+				}
+				$this->viewLecturer($lid, $did);
+			}else if(!empty($_REQUEST['editForm'])){
+				$details=$this->getLecturersDetails($did,$lid);
+					if(empty($details['fname']) && $lid > 0) {
+						$this->addNotification(
+						'error',
+						__('Invalid lecturer selected.')
+					);
+						$this->displayLecturers($lid, $did);
+					}
+					else {
+						$this->editLecturerForm($lid, $did);
+					}
+				
+			}else if (! empty($_REQUEST['delete'])) 
+			{
+			$this->deleteLecturer($did,$lid);
+			
+		} 
+						
+		$this->displayLecturers($did);
 	}
-	}
-
+	/**
+	 * Calls print functions for classes
+	 *
+	 * @return void
+	 */
 	private function displayLecturers($did)
 	{
-		$classes = $this->getLecturers($did);
-		$html = $this->printLecturersListHeader($did);
-		foreach($classes as $key => $value) {
-			$html .= $this->printLecturersListItem($key, $did, $value);
+		$lecturers = $this->getlecturers($did);
+		$html = $this->printlecturersListHeader($did);
+		foreach($lecturers as $key => $value) {
+			$html .= $this->printlecturersListItem($key, $did, $value);
 		}
-		$html .= $this->printLecturersListFooter();
+		$html .= $this->printlecturersListFooter();
 		$this->addHtml($html);
 	}
-		/**
-	 * Returns an array of classes details
+
+	/**
+	 * Returns an array of a classes details
 	 *
 	 * @return array
 	 */
-	private function getLecturers($did)
+	private function getlecturers($did)
 	{
 		$arr = array();
 		$db = Db::getLink();
@@ -145,50 +177,50 @@ class Page_manageLecturers extends Page_selectDepartment {
 		}
 		return $arr;
 	}
+
 	/**
-	 * Prints the header for the list of lecturers
+	 * Prints the header for the list of classes
 	 *
 	 * @return void
 	 */
-	private function printLecturersListHeader($did)
+	private function printlecturersListHeader($did)
 	{
 		$html = '';
     	$html .= '<a href="?action=manageLecturers&did='.$did.'&editForm=1"';
     	$html .= ' data-role="button" data-theme="b">';
-    	$html .= __('Create Lecturer') . '</a>';
+    	$html .= __('Create lecturer') . '</a>';
         $html .= '<ul data-role="listview" data-divider-theme="b" ';
         $html .= 'data-inset="true">';
         $html .= '<li data-role="list-divider" role="heading">';
-        $html .= __('Select Lecturer');
+        $html .= __('Select lecturer');
         $html .= '</li>';
         $this->addHtml($html);
 	}
 	/**
-	 * Prints a single item for the list of lecturers
+	 * Prints a single item for the list of classes
 	 *
 	 * @return void
 	 */
-	private function printLecturersListItem($lid, $did, $name)
+	private function printlecturersListItem($did, $lid, $name)
 	{
         $this->addHtml(
 	        sprintf(
-	        	'<li><a href="?action=manageLecturers&did=%d&lid=%d&view=1">%s</a></li>',
-	        	$did,
+	        	'<li><a href="?action=managelecturers&did=%d&lid=%d&view=1">%s</a></li>',
 	        	$lid,
+	        	$did,
 	        	$name
 	        )
         );
 	}
 	/**
-	 * Prints the footer for the list of lecturers
+	 * Prints the footer for the list of classes
 	 *
 	 * @return void
 	 */
-	private function printLecturersListFooter()
+	private function printlecturersListFooter()
 	{
         $this->addHtml('</ul>');
 	}
-	
 	/**
 	 * Prints the details of a lecturer
 	 *
@@ -196,21 +228,23 @@ class Page_manageLecturers extends Page_selectDepartment {
 	 */
 	private function viewLecturer($did,$lid)
 	{
-		$details = $this->getLecturersDetails($lid);
+		$details = $this->getLecturersDetails($did, $lid);
 		if (isset($details['lid']));
 		$html = '';
-		$html .= '<h2>' . $details['name'] . '</h2>';
-		$html .= '<h3>' __('Username: ') . $details['username'] . '</h3>';
-		$html .= '<h3>' __('Email: ') . $details['email'] . '</h3>';
+		$html .= '<h3>' . $details['fname'] . ' ' . $details['lname'] . '</h3>';
+		$html .=  __('Username: ') ;
+		$html .= $details['username'];
+		$html .= '<br/>';
+		$html .= __('Email: ') ;
+		$html .= $details['email'] ;
+		$html .= '<br/><br/>';
 		$html .= '<a href="?action=manageLecturers&did='.$did.'&lid='.$lid.'&editForm=1"';
     	$html .= ' data-role="button" data-theme="b">';
     	$html .= __('Edit') . '</a>';
     	$html .= '<a href="?action=manageLecturers&did='.$did.'&lid='.$lid.'&delete=1"';
     	$html .= ' data-role="button" data-theme="b">';
     	$html .= __('Delete') . '</a>';
-    	$html .= '<a href="?action=manageLecturers&lid='.$lid'&did='.$did.'&view=1&delete=1"';
-    	$html .= ' data-role="button" data-theme="e">';
-    	$html .= __('Back') . '</a>';
+    	$this->addHtml($html);
 	}
 		/**
 	 * Returns an array of classes details
@@ -231,7 +265,8 @@ class Page_manageLecturers extends Page_selectDepartment {
 		$stmt->close();
 		return array(
 			'lid' => $id,
-			'name' => $fname . ' ' . $lname,
+			'fname' => $fname,
+			'lname' => $lname,
 			'username' => $username,
 			'email' => $email,
 			'did' => $did
@@ -265,13 +300,30 @@ class Page_manageLecturers extends Page_selectDepartment {
 	private function createLecturer($did,$fname, $lname, $username, $email, $password) {
 		
 		$salt = $this->generateRandomString();
-    	$password = md5($pass.$salt);
+    	$password = md5($password.$salt);
     	   	
 		$db = Db::getLink();
 		$stmt = $db->prepare(
 			"INSERT INTO `lecturer` (`fname`, `lname`,`username`,`email`,`password`,`salt`,`did` ) VALUES(?, ?, ?, ?, ?, ?, ?);"
 		);
 		$stmt->bind_param('sssssss', $fname, $lname, $username, $email, $password, $salt, $did);
+		$success = $stmt->execute();
+		$stmt->close();
+		return $success;
+	}
+	/**
+	 * Updates the Lecturer details
+	 *
+	 * @return bool success
+	 */
+	private function updateLecturer($did, $lid, $fname, $lname, $username, $email) {
+		
+		   	   	
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"UPDATE `lecturer` (`fname`, `lname`,`username`,`email`) VALUES(?, ?, ?, ?) WHERE `id`=?;"
+		);
+		$stmt->bind_param('ssssi', $fname, $lname, $username, $email, $lid);
 		$success = $stmt->execute();
 		$stmt->close();
 		return $success;
@@ -296,7 +348,7 @@ class Page_manageLecturers extends Page_selectDepartment {
 	 */
 	private function editLecturerForm($lid, $did)
 	{
-		$details = $this->getLecturersDetails($lid);
+		$details = $this->getLecturersDetails($did,$lid);
 		$html = '<form method="post" action="">';
 		if($lid == 0) {
 			$html .= '<h3>' . __('Create Lecturer') . '</h3>';
@@ -342,23 +394,132 @@ class Page_manageLecturers extends Page_selectDepartment {
 		$html .= '</form>';
 		$this->addHtml($html);
 	}
+	
 	/**
-	 * Updates the Lecturer details
+	 * Checks if the form details for editing/creating
+	 * a lecturer are valid
 	 *
-	 * @return bool success
+	 * @return bool
 	 */
-	private function updateLecturer($did, $lid, $fname, $lname, $username, $email) {
+	private function validateForm($isCreate, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
+	{
+		$success = true;
+		if (! $isCreate && $did < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Invalid department selected')
+			);
+		}else if (! $isCreate && $lid < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Invalid Lecturer selected')
+			);
+		} else if (strlen($fname) > 32) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s first name must be 32 characters long or less.')
+			);
+		} else if (strlen($fname) < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s first name must be at least 1 character long.')
+			);
+		} else if (strlen($lname) > 32) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s last name must be 32 characters long or less.')
+			);
+		} else if (strlen($lname) < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s last name must be at least 1 character long.')
+			);
+		} else if (strlen($username) > 64) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s username must be 64 characters long or less.')
+			);
+		} else if (strlen($username) < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s username must be at least 1 character long.')
+			);
+		} else if (strlen($email) > 64) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s email must be 64 characters long or less.')
+			);
+		} else if (strlen($email) < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s email must be at least 1 character long.')
+			);
+		}else if (! preg_match('/.+@.+/', $email)) {
+    		$success = false;
+    		$this->addNotification(
+				'warning',
+				__('Invalid e-mail address.')
+			);
+		} else if ($isCreate && strlen($password) < 6) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s password must be at least 6 characters long.')
+			);
+		} else if($isCreate && $password != $varpass) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s varification password and password must match.')
+			);
+		}
 		
-		   	   	
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"UPDATE `lecturer` (`fname`, `lname`,`username`,`email`) VALUES(?, ?, ?, ?) WHERE `id`=?;"
-		);
-		$stmt->bind_param('ssssi', $fname, $lname, $username, $email, $lid);
-		$success = $stmt->execute();
-		$stmt->close();
 		return $success;
 	}
-
+	/**
+	 * Returns the name of a lecturer given its id
+	 *
+	 * @return string
+	 */
+	private function getLecturerName($lid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `fname` FROM `lecturer` WHERE `id` = ?;"
+		);
+		$stmt->bind_param('i', $cid);
+		$stmt->execute();
+		$stmt->bind_result($name);
+		$stmt->fetch();
+		$stmt->close();
+		return $name;
+	}
+		/**
+	 * Returns the name of a department given its id
+	 *
+	 * @return string
+	 */
+	private function getDepartmentName($did)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `name` FROM `department` WHERE `id` = ?;"
+		);
+		$stmt->bind_param('i', $did);
+		$stmt->execute();
+		$stmt->bind_result($name);
+		$stmt->fetch();
+		$stmt->close();
+		return $name;
+	}
 }
-?>

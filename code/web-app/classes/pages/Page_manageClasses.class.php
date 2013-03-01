@@ -59,7 +59,7 @@ class Page_manageClasses extends Page_selectDepartment {
 					'error',
 					__('An error occured while processing your request.')
 				);
-				$details = $this->getClasses($did);
+				$details= $this->getClassDetails($did, $cid);
 				$name = $details['name'];
 				$this->editClassForm($did,$cid, $name);
 			}
@@ -105,18 +105,15 @@ class Page_manageClasses extends Page_selectDepartment {
 					'error',
 					__('The selected class does not exist')
 				);
-			}
-			
-			
-			
-		}
-
-		
-	
-		
+			}				
+		}			
 		$this->displayClasses($did);
 	}
-	
+	/**
+	 * Calls print functions for classes
+	 *
+	 * @return void
+	 */
 	private function displayClasses($did)
 	{
 		$classes = $this->getClasses($did);
@@ -129,7 +126,7 @@ class Page_manageClasses extends Page_selectDepartment {
 	}
 
 	/**
-	 * Returns an array of lecturer's details
+	 * Returns an array of a classes details
 	 *
 	 * @return array
 	 */
@@ -184,7 +181,7 @@ class Page_manageClasses extends Page_selectDepartment {
         );
 	}
 	/**
-	 * Prints the footer for the list of groups
+	 * Prints the footer for the list of classes
 	 *
 	 * @return void
 	 */
@@ -341,7 +338,7 @@ class Page_manageClasses extends Page_selectDepartment {
 	}
 	/**
 	 * Checks if the form details for editing/creating
-	 * a group are valid
+	 * a class are valid
 	 *
 	 * @return bool
 	 */

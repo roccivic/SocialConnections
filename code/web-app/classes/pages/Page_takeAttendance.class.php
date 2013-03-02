@@ -64,7 +64,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 		$arr = array();
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT `username`, `fname`, `lname` FROM `student` INNER JOIN `group_student` ON `sid` = `id` WHERE `gid` = ? ORDER BY `lname`, `fname`"
+			"SELECT `id`, `fname`, `lname` FROM `student` INNER JOIN `group_student` ON `sid` = `id` WHERE `gid` = ? ORDER BY `lname`, `fname`"
 		);
 		$stmt->bind_param('i', $gid);
 		$stmt->execute();
@@ -228,31 +228,13 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 					(`aid`, `sid`, `present`)
 					VALUES (?,?,?);"
 				);
-				$stmt->bind_param('iii', $aid, $this->getStudentId($key), $present);
+				$stmt->bind_param('iii', $aid, $key, $present);
 				;
 				$stmt->execute();
 				$stmt->close();
 			}
 		}
 		return $success;
-	}
-	/**
-	 * Returns a student id given a student's username
-	 *
-	 * @return int
-	 */
-	private function getStudentId($username)
-	{
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `id` FROM `student` WHERE `username` = ?;"
-		);
-		$stmt->bind_param('s', $username);
-		$stmt->execute();
-		$stmt->bind_result($id);
-		$stmt->fetch();
-		$stmt->close();
-		return $id;
 	}
 	/**
 	 * Returns the name of a group given its id

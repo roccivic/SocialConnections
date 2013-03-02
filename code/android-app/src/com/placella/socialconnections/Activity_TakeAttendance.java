@@ -76,6 +76,8 @@ public class Activity_TakeAttendance extends CallbackActivity {
 		
 		SecureRandom random = new SecureRandom();
 		session = new BigInteger(130, random).toString(32);
+		
+	    setResult(0);
 	}
 	/**
 	 * Called when an activity you launched exits, giving you the requestCode you
@@ -87,6 +89,11 @@ public class Activity_TakeAttendance extends CallbackActivity {
     {  
     	if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
     		detectFaces();
+    	} else if (requestCode == Activity_LecturerMenu.WEB_REQUEST) {
+    		if (resultCode == 0) {
+			    setResult(1);
+    		}
+    		finish();
     	}
     }
     /**

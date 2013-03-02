@@ -25,7 +25,7 @@ public class Activity_LecturerMenu extends Activity {
 			public void onClick(View arg0) {
 				Intent i = new Intent(self, Activity_TakeAttendance.class);
 				i.putExtra("token", token);
-	    		startActivity(i);
+	    		startActivityForResult(i, 99);
 			}	
 		});
         button = (Button) findViewById(R.id.manageAssessmentsBtn);
@@ -91,6 +91,8 @@ public class Activity_LecturerMenu extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
     {  
     	if (requestCode == WEB_REQUEST && resultCode == 0) {
+    		finish();
+    	} else if (requestCode == 99 && resultCode == 1) {
     		finish();
     	}
     }

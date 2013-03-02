@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2013 at 08:41 PM
+-- Generation Time: Mar 02, 2013 at 05:33 PM
 -- Server version: 5.5.29-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.5
 
@@ -323,6 +323,18 @@ CREATE TABLE IF NOT EXISTS `token` (
   `ip` varchar(64) NOT NULL,
   KEY `expires` (`expires`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Remote Authentication Tokens';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `twitter`
+--
+
+CREATE TABLE IF NOT EXISTS `twitter` (
+  `uid` mediumint(9) NOT NULL,
+  `token` varchar(256) NOT NULL,
+  `token_secret` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

@@ -39,11 +39,7 @@ $data = array(
 curl_setopt($ch, CURLOPT_URL, Config::FACE_REC_URL . 'upload.php');
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-if (! curl_exec($ch)) {
-    header("HTTP/1.0 500 Internal Server Error");
-    echo '<h1>Error 500: Internal Server Error</h1>'
-    . 'facial recognition server seems to be offline';
-    die();
-}
+curl_exec($ch);
+curl_close($ch);
 
 ?>

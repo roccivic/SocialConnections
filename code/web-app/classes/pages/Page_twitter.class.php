@@ -61,7 +61,7 @@ class Page_twitter extends Page_twitterAuth {
 				$stmt->execute();
 				$stmt->store_result();
 				if ($stmt->num_rows) {
-					$this->printListHeader(null, $value['year'], $value['term']);
+					$this->printListHeader($value['year'], $value['term']);
 					$stmt->bind_result($gid, $name);
 					while ($stmt->fetch()) {
 				        $this->printListItem($gid, $name);
@@ -88,7 +88,7 @@ class Page_twitter extends Page_twitterAuth {
 	 *
 	 * @return void
 	 */
-	private function printListHeader($haveCreateBtn, $year, $term)
+	private function printListHeader($year, $term)
 	{
 		$html='';
 		$html .= '<ul data-role="listview" data-divider-theme="b" ';

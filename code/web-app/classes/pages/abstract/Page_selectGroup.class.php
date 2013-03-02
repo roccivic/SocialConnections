@@ -124,9 +124,10 @@ abstract class Page_selectGroup extends Page {
 	 */
 	private function printListItem($gid, $name)
 	{
+		$args = $this->getArgs();
         $this->addHtml(
 	        sprintf(
-	        	'<li><a href="?action=%s&gid=%d">%s</a></li>',
+	        	'<li><a href="?action=%s&gid=%d' . $args . '">%s</a></li>',
 	        	urlencode(htmlspecialchars($_REQUEST['action'])),
 	        	$gid,
 	        	$name
@@ -158,5 +159,9 @@ abstract class Page_selectGroup extends Page {
 	protected function getExtraFooter($sid)
 	{
         return '';
+	}
+
+	protected function getArgs() {
+		return '';
 	}
 }

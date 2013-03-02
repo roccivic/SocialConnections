@@ -296,6 +296,8 @@ abstract class Page {
 			return __('Main Page');
 		} else if (isset($pages[$action])) {
 			return $pages[$action];
+		} else if ($action === 'facialRec') {
+			return __('Take Student Attendance');
 		} else {
 			return '';
 		}

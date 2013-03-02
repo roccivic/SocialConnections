@@ -18,10 +18,7 @@ public abstract class CallbackActivity extends Activity {
 	 * @param messages A list of messages. In case of an error there will
 	 *                 be only one message, the reason of the failure.
 	 *                 In case of a success, there may be no messages at all,
-	 *                 if the request was for uploading a picture. If, however,
-	 *                 the request was for recognising the faces in an image, the
-	 *                 messages will contain a list of reference IDs of the faces
-	 *                 that were recognised
+	 *                 if the request was for uploading a picture.
 	 */
 	public abstract void callback(boolean success, String[] messages);
 	/**

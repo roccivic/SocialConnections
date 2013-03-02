@@ -29,6 +29,18 @@ public class Activity_Web extends Activity {
         Bundle b = new Bundle();
         b.putString("token", token);
         b.putString("page", page);
+        b.putString("session", "");
+        Intent intent = new Intent(activity, Activity_Web.class);
+        intent.putExtras(b);
+        activity.startActivityForResult(intent, Activity_LecturerMenu.WEB_REQUEST);
+	}
+	
+	public static void launch(Activity activity, String page, String token, String session)
+	{
+        Bundle b = new Bundle();
+        b.putString("token", token);
+        b.putString("page", page);
+        b.putString("session", session);
         Intent intent = new Intent(activity, Activity_Web.class);
         intent.putExtras(b);
         activity.startActivityForResult(intent, Activity_LecturerMenu.WEB_REQUEST);
@@ -42,6 +54,7 @@ public class Activity_Web extends Activity {
 		Intent intent = getIntent();
 		String token = intent.getStringExtra("token");
 		String page = intent.getStringExtra("page");
+		String session = intent.getStringExtra("session");
 		
 		WebView window = (WebView) findViewById(R.id.webView);
 		window.getSettings().setJavaScriptEnabled(true);
@@ -59,6 +72,7 @@ public class Activity_Web extends Activity {
 			VARS.webUrl
 			+ "?action=" + page
 			+ "&token=" + token
+			+ "&session=" + session
 			+ "&mobile=true"
 			+ "&lang=" + Locale.getDefault().getLanguage()
 		);

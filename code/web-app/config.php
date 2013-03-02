@@ -12,6 +12,7 @@ abstract class Config {
 	// MUST END WITH A FORWARD SLASH!
 	const URL = 'http://109.255.78.105/socialconnections/';
 	//const URL = 'http://socialconnections.placella.com/';
+	const FACE_REC_URL = 'http://109.255.78.105/facerec/';
 
 	// 'Country/City'
 	const TIMEZONE = 'GB-Eire';

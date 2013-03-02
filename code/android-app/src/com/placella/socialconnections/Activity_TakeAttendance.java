@@ -1,16 +1,20 @@
 package com.placella.socialconnections;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * This is activity is used by the lecurer
@@ -27,7 +31,8 @@ public class Activity_TakeAttendance extends CallbackActivity {
 	private int detectedFaces = 0;
 	private int numFaces = 0;
 	private int pictures = 0;
-	private ArrayList<String> student_ids = new ArrayList<String>();
+	private String session;
+	private String token;
 
 	/**
 	 * Called when the activity is starting.
@@ -37,6 +42,8 @@ public class Activity_TakeAttendance extends CallbackActivity {
 	{
 	    super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_take_attendance);
+		
+		token = getIntent().getStringExtra("token");
 
 		Button button = (Button) findViewById(R.id.back);
 		button.setOnClickListener(new View.OnClickListener() {
@@ -61,13 +68,14 @@ public class Activity_TakeAttendance extends CallbackActivity {
 			public void onClick(View v) {
 				if (pictures == 0) {
 					new Dialog(self, R.string.noPicture).show();
-				} else if (student_ids.size() < 1) {
-					new Dialog(self, R.string.noValidFaces).show();
 				} else {
-					new Dialog(self, "FIXME: FUNCTIONALITY NOT IMPLEMENTED\nshould show the fallback list with checkboxes now").show();
+					Activity_Web.launch(self, "facialRec", token, session);
 				}
 			}
 		});
+		
+		SecureRandom random = new SecureRandom();
+		session = new BigInteger(130, random).toString(32);
 	}
 	/**
 	 * Called when an activity you launched exits, giving you the requestCode you
@@ -82,7 +90,7 @@ public class Activity_TakeAttendance extends CallbackActivity {
     	}
     }
     /**
-     * Detects and recognises the faces in a picture thaken with the camera
+     * Detects and recognises the faces in a picture taken with the camera
      */
     private void detectFaces()
     {
@@ -94,7 +102,7 @@ public class Activity_TakeAttendance extends CallbackActivity {
 			pictures++;
 			self.showOverlay();
 			System.out.println("Query: " + numFaces + "," + detectedFaces);
-			f.query(facePath, numFaces, detectedFaces);
+			f.upload(session, facePath, numFaces, detectedFaces);
 			detectedFaces += numFaces;
     	}
     }
@@ -106,29 +114,20 @@ public class Activity_TakeAttendance extends CallbackActivity {
 	 * @param messages A list of messages. In case of an error there will
 	 *                 be only one message, the reason of the failure.
 	 *                 In case of a success, there may be no messages at all,
-	 *                 if the request was for uploading a picture. If, however,
-	 *                 the request was for recognising the faces in an image, the
-	 *                 messages will contain a list of reference IDs of the faces
-	 *                 that were recognised
+	 *                 if the request was for uploading a picture.
 	 */
-    public void callback(boolean success, String[] messages) {
+	public void callback(boolean success, String[] messages) {
 		self.hideOverlay();
     	if (success) {
-			TextView tv = (TextView) findViewById(R.id.status);
-			String prefix = "";
-			if (detectedFaces > numFaces) {
-				prefix = tv.getText().toString() + "\n";
-			}
-			tv.setText(
-				prefix + String.format(
-					getString(R.string.status),
-					messages.length,
-					numFaces,
-					pictures
-				)
-			);
-			for (String s : messages) {
-				student_ids.add(s);
+			for (int i = detectedFaces - numFaces; i<detectedFaces; i++) {
+				//BitmapFactory.Options options = new BitmapFactory.Options();
+				//options.inSampleSize = 2;
+				Bitmap bm = BitmapFactory.decodeFile(facePath + "face" + i + ".jpg");//, options);
+				ImageView iv = new ImageView(self);
+				iv.setImageBitmap(bm);
+				iv.setPadding(5, 5, 5, 5);
+				LinearLayout rl = (LinearLayout) findViewById(R.id.faces);
+				rl.addView(iv);
 			}
     	} else {
 			new Dialog(self, messages[0]).show();

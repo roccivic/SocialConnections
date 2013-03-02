@@ -24,16 +24,9 @@ public class Activity_LecturerMenu extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				Intent i = new Intent(self, Activity_TakeAttendance.class);
+				i.putExtra("token", token);
 	    		startActivity(i);
 			}	
-		});
-        button = (Button) this.findViewById(R.id.uploadPicBtn);
-        button.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(self, Activity_PicUpload.class);
-	    		startActivity(i);
-			}
 		});
         button = (Button) findViewById(R.id.manageAssessmentsBtn);
         button.setOnClickListener(new Button.OnClickListener () {

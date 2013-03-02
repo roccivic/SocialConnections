@@ -318,6 +318,7 @@ CREATE TABLE IF NOT EXISTS `threshold` (
 
 CREATE TABLE IF NOT EXISTS `token` (
   `uid` mediumint(9) NOT NULL,
+  `accesslevel` tinyint(4),
   `token` char(64) NOT NULL,
   `expires` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `ip` varchar(64) NOT NULL,

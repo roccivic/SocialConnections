@@ -29,13 +29,13 @@ if (! is_readable($image_path)) {
 }
 
 echo intval(
-	trim(
-		shell_exec(
-			escapeshellcmd(
-				'./facerec faces ' . $image_path
-			)
-		)
-	)
+    trim(
+        shell_exec(
+            escapeshellcmd(
+                './face-rec faces ' . $image_path
+            )
+        )
+    )
 );
 
 ?>

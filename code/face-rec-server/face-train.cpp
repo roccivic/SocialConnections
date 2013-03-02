@@ -115,19 +115,15 @@ int main(int argc, const char *argv[])
 {
     // Check for valid command line arguments, print usage
     // if no arguments were given.
-    if (argc != 3) {
-        cout << "usage: " << argv[0] << " /path/to/images image.png" << endl;
+    if (argc != 2) {
+        cout << "usage: " << argv[0] << " /path/to/images" << endl;
         exit(1);
     }
     string images_folder = string(argv[1]);
-    string image_file = string(argv[2]);
     // These vectors hold the images and corresponding labels.
     vector<Mat> images;
     vector<int> labels;
     vector<int> dirs = getDirs(images_folder);
-
-    Mat testSample;
-    testSample = imread(image_file, CV_LOAD_IMAGE_GRAYSCALE);
 
     for (std::vector<int>::iterator it = dirs.begin(); it != dirs.end(); ++it) {
         vector<string> files = getFiles(images_folder + "/" + NumberToString(*it));
@@ -146,9 +142,8 @@ int main(int argc, const char *argv[])
 
     Ptr<FaceRecognizer> model = createEigenFaceRecognizer();
     model->train(images, labels);
-    //int predictedLabel = model->predict(testSample);
-    //model->set("threshold", 0.0);
-    cout << model->predict(testSample) << endl;
+
+    model->save("models/model.xml");
 
     return 0;
 }

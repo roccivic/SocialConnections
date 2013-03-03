@@ -32,7 +32,7 @@ echo intval(
     trim(
         shell_exec(
             escapeshellcmd(
-                './face-rec faces ' . $image_path
+                './face-rec ' . $gid . ' ' . $image_path
             )
         )
     )

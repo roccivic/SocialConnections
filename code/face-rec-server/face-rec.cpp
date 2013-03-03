@@ -38,18 +38,19 @@ int main(int argc, const char *argv[])
 {
     // Check for valid command line arguments, print usage
     // if no arguments were given.
-    if (argc != 2) {
-        cout << "usage: " << argv[0] << " image.png" << endl;
+    if (argc != 3) {
+        cout << "usage: " << argv[0] << " gid image.jpg" << endl;
         exit(1);
     }
-    string image_file = string(argv[1]);
+    string gid = string(argv[1]);
+    string image_file = string(argv[2]);
 
     Mat testSample;
     testSample = imread(image_file, CV_LOAD_IMAGE_GRAYSCALE);
 
     Ptr<FaceRecognizer> model = createEigenFaceRecognizer();
-    model->load("models/model.xml");
-    cout << model->predict(testSample) << endl;
+    model->load("models/" + gid + ".xml");
+    cout << model->predict(testSample);
 
     return 0;
 }

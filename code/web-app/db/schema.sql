@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 02, 2013 at 05:33 PM
+-- Generation Time: Mar 03, 2013 at 05:12 PM
 -- Server version: 5.5.29-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.5
 
@@ -97,6 +97,17 @@ CREATE TABLE IF NOT EXISTS `department` (
   `headId` mediumint(9) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dropbox`
+--
+
+CREATE TABLE IF NOT EXISTS `dropbox` (
+  `uid` mediumint(9) NOT NULL,
+  `access_token` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

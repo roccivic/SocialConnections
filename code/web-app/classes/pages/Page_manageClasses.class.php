@@ -55,19 +55,16 @@ class Page_manageClasses extends Page_selectDepartment {
 				);
 			}
 			$this->viewClass($did,$cid);			
-		}else if (! empty($_REQUEST['delete'])) 
-		{
-			$this->deleteClass($cid);
-			
-		} else if (! empty($_REQUEST['edit'])) {
+		}else  if (! empty($_REQUEST['edit'])) {
 			if ($this->validateForm(false, $cid, $name, $did )
 				&& $this->updateClass($name, $cid)
 			) {
 				$this->addNotification(
 					'notice',
 					__('The class details were successfully updated.')
+					
 				);
-				
+				$this->viewClass($did,$cid);
 			} else {
 				$this->addNotification(
 					'error',
@@ -84,9 +81,9 @@ class Page_manageClasses extends Page_selectDepartment {
 			{
 				$this->addNotification(
 					'notice',
-					__('The Group was successfully created.')
+					__('The class was successfully created.')
 				);
-				
+				$this->displayClasses($did);
 			} else {
 				$this->addNotification(
 					'error',
@@ -96,11 +93,19 @@ class Page_manageClasses extends Page_selectDepartment {
 			}
 		}else if (! empty($_REQUEST['editForm'])) {
 			$details = $this->getClassDetails($did, $cid);
-			$name = $details['name'];
-			if ($cid > 0 && empty($name)) {
+			$cname = $details['name'];
+			if ($cid > 0 && empty($cname)) {
 				$this->addNotification(
 					'error',
 					__('The selected class does not exist')
+				);
+				
+			}
+			$dname = $this->getDepartmentName($did);			 
+			if ($did > 0 && empty($dname)) {
+				$this->addNotification(
+					'error',
+					__('The selected departmment does not exist')
 				);
 				
 			} else {
@@ -110,18 +115,19 @@ class Page_manageClasses extends Page_selectDepartment {
 		{
 			$cid = $_REQUEST['cid'];
 			if($this->deleteClass($cid)){
+				
+				$this->displayClasses($did);
+			}else{
 				$this->addNotification(
 					'notice',
 					__('The selected class does not exist')
 				);
-			}else{
-				$this->addNotification(
-					'error',
-					__('The selected class does not exist')
-				);
-			}				
-		}else{
-			$this->displayClasses($did);
+				$this->displayClasses($did);
+			}	
+			//$this->displayClasses($did);
+		}			
+		 else{
+		 	$this->displayClasses($did);
 		}			
 		
 	}

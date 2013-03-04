@@ -104,7 +104,7 @@ class Page_manageLecturers extends Page_selectDepartment {
 					$this->departmentSelector();
 				}
 			}else if(!empty($_REQUEST['edit'])) { 
-				if($this->validateForm(false, $lid, $fname, $lname, $username, $email, $password)
+				if($this->validateForm(false, $did, $lid, $fname, $lname, $username, $email, $password)
 				 && $this->updateLecturer($did, $lid, $fname, $lname, $username, $email, $password))
 				{
 					$this->addNotification(

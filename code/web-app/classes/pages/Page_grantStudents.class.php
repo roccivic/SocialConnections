@@ -28,7 +28,7 @@ class Page_grantStudents extends Page_selectDepartment {
 	{
 		$did = intval($did);
 
-		$this->displayGrantStudents($did);
+		$this->displayGrantStudents();
 		
 	}
 	
@@ -38,24 +38,25 @@ class Page_grantStudents extends Page_selectDepartment {
 	 *
 	 * @return void
 	 */
-	private function displayGrantStudents($did)
+	private function displayGrantStudents()
 	{
-		$students = $this->getGrantStudentsDetails($did);
+		$students = $this->getGrantStudentsDetails();
 		$html ='';
 		foreach($students as $item) {
 			$html .= $students['name'];
-			//$html .= $students['grantOwed'];
+			$html .= $students['grantOwed'];
 		}
 		
 		$this->addHtml($html);
 	}
 
+	
 		/**
 	 * Returns an array of classes details
 	 *
 	 * @return array
 	 */
-	private function getGrantStudentsDetails($did)
+	private function getGrantStudentsDetails()
 	{
 		$arr = array();
 		$db = Db::getLink();
@@ -73,6 +74,26 @@ class Page_grantStudents extends Page_selectDepartment {
 			'grantOwed' => $grantOwed
 			
 		);
+	}
+		/**
+	 * Returns an array of classes details
+	 *
+	 * @return array
+	 */
+	private function countGrantStudents()
+	{
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT COUNT('hasGrant') FROM `student` WHERE `hasGrant` = 1;"
+		);
+		
+		//$stmt->bind_param('i', $did);
+		$stmt->execute();
+		$stmt->bind_result($grantStudent);
+		$stmt->fetch();
+		$stmt->close();
+		return $grantStudent;
 	}
 	
 }

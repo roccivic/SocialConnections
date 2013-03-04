@@ -152,7 +152,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 				}
 				$this->removeStudentForm($gid, $did);
 			}else if(!empty($_REQUEST['removeStudent'])){
-				if(!empty($dname)) {
+				if(!empty($gname)) {
 					$this->removeStudentForm($gid, $did);
 				}
 				else {

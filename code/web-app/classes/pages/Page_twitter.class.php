@@ -24,7 +24,7 @@ class Page_twitter extends Page_twitterAuth {
 	public function display() 
 	{	
 		$access_token = $_SESSION['access_tokenTwitter'];
-		$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+		$connection = new TwitterOAuth(CONFIG::TWITTER_CONSUMER_KEY, CONFIG::TWITTER_CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 		$user = $connection->get('account/verify_credentials');
 		$gid = 0;
 		if(!empty($_REQUEST['gid'])) {

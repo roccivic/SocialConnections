@@ -3,7 +3,6 @@
 if (! defined('SOCIALCONNECTIONS')) {
 	die();
 }
-require_once 'libs/dropbox/config.php';
 require_once "libs/dropbox/rest.php";
 require_once "libs/dropbox/session.php";
 require_once "libs/dropbox/client.php";
@@ -17,9 +16,9 @@ abstract class Page_dropboxAuth extends Page {
 	{
 		parent::__construct();
 		$config = array();
-		$config["dropbox"]["app_key"] = APP_KEY;
-		$config["dropbox"]["app_secret"] = APP_SECRET;
-		$config["dropbox"]["access_type"] = ACCESS_TYPE;
+		$config["dropbox"]["app_key"] = CONFIG::DROPBOX_APP_KEY;
+		$config["dropbox"]["app_secret"] = CONFIG::DROPBOX_APP_SECRET;
+		$config["dropbox"]["access_type"] = CONFIG::DROPBOX_ACCESS_TYPE;
 		$config["app"]["root"] = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . "/socialconnections/?action=postNotes";
 		$session = new DropboxSession(
 	    $config["dropbox"]["app_key"],

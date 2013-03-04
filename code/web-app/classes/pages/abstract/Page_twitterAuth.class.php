@@ -3,7 +3,6 @@ if (! defined('SOCIALCONNECTIONS')) {
 	die();
 }
 require_once('libs/twitter/twitteroauth.php');
-require_once('libs/twitter/config.php');
 /**
  * Abstract class that implements connecting to twitter
  */
@@ -16,14 +15,16 @@ abstract class Page_twitterAuth extends Page {
 				 	 $_SESSION['oauth_status'] = 'oldtoken';
 				  	 $this->connect();
 			}
-			$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+			$connection = new TwitterOAuth(CONFIG::TWITTER_CONSUMER_KEY,CONFIG::TWITTER_CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
 			$access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
 			$_SESSION['access_tokenTwitter'] = $access_token;
 			unset($_SESSION['oauth_token']);
 			unset($_SESSION['oauth_token_secret']);
 			if (200 == $connection->http_code) {
 			 $_SESSION['status'] = 'verified';
-		} else {
+			} 
+			else 
+			{
 			 $this->connect();
 			}
 		}
@@ -50,12 +51,13 @@ abstract class Page_twitterAuth extends Page {
 	 * @return void
 	 */
 	private function connect() {
-		if (CONSUMER_KEY === '' || CONSUMER_SECRET === '') {
+		if (CONFIG::TWITTER_CONSUMER_KEY === '' || CONFIG::TWITTER_CONSUMER_SECRET === '') {
   			echo 'You need a consumer key and secret!';
   			exit;
   		}
-  		$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-		$request_token = $connection->getRequestToken(OAUTH_CALLBACK);
+  		$connection = new TwitterOAuth(CONFIG::TWITTER_CONSUMER_KEY, CONFIG::TWITTER_CONSUMER_SECRET);
+  		$callbackTwitter = CONFIG::URL . CONFIG::TWITTER_CALLBACK;
+		$request_token = $connection->getRequestToken($callbackTwitter);
 		$_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
 		$_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
 		switch ($connection->http_code) {

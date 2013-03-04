@@ -29,6 +29,16 @@ abstract class Config {
 
 	// Web app version
 	const VERSION = '1.0';
+
+	//Twitter access parameters
+	const TWITTER_CONSUMER_KEY = 'oBYtTlMTy6ChzMBz7WFVA';
+	const TWITTER_CONSUMER_SECRET = 'EF442Jzj2sn8EZe0tjZBD4lsHuL8ucxtt6IaQKyAiw';
+	const TWITTER_CALLBACK = '?action=twitter&callback=1';
+
+	//Dropbox access parameters
+	const DROPBOX_APP_KEY = 'htitu3nxdpjvl00';
+	const DROPBOX_APP_SECRET = 'mlzzjt6j70lauw8';
+	const DROPBOX_ACCESS_TYPE = 'app_folder';
 }
 
 ?>

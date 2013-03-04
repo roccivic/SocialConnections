@@ -2,8 +2,8 @@
 if (! defined('SOCIALCONNECTIONS')) {
 	die();
 }
-require_once('scripts/twitter/twitteroauth.php');
-require_once('scripts/twitter/config.php');
+require_once('libs/twitter/twitteroauth.php');
+require_once('libs/twitter/config.php');
 /**
  * Abstract class that implements connecting to twitter
  */
@@ -18,24 +18,22 @@ abstract class Page_twitterAuth extends Page {
 			}
 			$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
 			$access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
-			$_SESSION['access_token'] = $access_token;
-			$this->writeKeys($access_token);
+			$_SESSION['access_tokenTwitter'] = $access_token;
 			unset($_SESSION['oauth_token']);
 			unset($_SESSION['oauth_token_secret']);
 			if (200 == $connection->http_code) {
 			 $_SESSION['status'] = 'verified';
-			  $this->display();
-			} else {
+		} else {
 			 $this->connect();
 			}
 		}
-		$access_token = $this->readKeys();
+		$access_token = $_SESSION['access_tokenTwitter'];
 		if(!empty($access_token['oauth_token'])) 
 		{
-			$_SESSION['access_token'] = $access_token;
+			$_SESSION['access_tokenTwitter'] = $access_token;
 			$this->display();
 		}
-		else if(empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) 
+		else if(empty($_SESSION['access_tokenTwitter']) || empty($_SESSION['access_tokenTwitter']['oauth_token']) || empty($_SESSION['access_tokenTwitter']['oauth_token_secret'])) 
 		{
     		$this->connect();
 		}
@@ -67,43 +65,6 @@ abstract class Page_twitterAuth extends Page {
 		    break;
 		  	default: echo 'Could not connect to Twitter. Refresh the page or try again later.';
 		}
-	}
-	/**
-	 * This function gets the keys from the db
-	 * and returns them
-	 * @return array
-	 */
-	private function readKeys() {
-		$uid = $_SESSION['uid'];
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `token`, `token_secret` FROM `twitter` WHERE `uid` = ?"
-				);
-		$stmt->bind_param('i', $uid);
-		$stmt->execute();
-		$stmt->bind_result($token , $token_secret);
-		$stmt->fetch();
-		$stmt->close();
-		return array(
-			'oauth_token' => $token,
-			'oauth_token_secret' => $token_secret
-			);
-	}
-	/**
-	 * This function writes the keys to the db
-	 * 
-	 * @return void
-	 */
-	private function writeKeys($token) {
-		$uid = $_SESSION['uid'];
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"INSERT INTO `twitter` (`uid`, `token`, `token_secret`) VALUES (?, ?, ?)"
-				);
-		$stmt->bind_param('iss', $uid, $token['oauth_token'], $token['oauth_token_secret']);
-		$stmt->execute();
-		$stmt->fetch();
-		$stmt->close();
 	}
 }
 ?>

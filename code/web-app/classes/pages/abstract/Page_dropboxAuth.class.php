@@ -3,10 +3,10 @@
 if (! defined('SOCIALCONNECTIONS')) {
 	die();
 }
-require_once 'scripts/dropbox/config.php';
-require_once "scripts/dropbox/rest.php";
-require_once "scripts/dropbox/session.php";
-require_once "scripts/dropbox/client.php";
+require_once 'libs/dropbox/config.php';
+require_once "libs/dropbox/rest.php";
+require_once "libs/dropbox/session.php";
+require_once "libs/dropbox/client.php";
 /**
  * Abstract class that implements generic
  * selection of groups. A subclass must provide a query
@@ -26,8 +26,8 @@ abstract class Page_dropboxAuth extends Page {
 	    $config["dropbox"]["app_secret"],
 	    $config["dropbox"]["access_type"]
 	    );
-		$access_token = $this->readToken();
-		if(empty($access_token)) {
+	    $access_token = $_SESSION['access_tokenDropbox'];
+	    if(empty($access_token)) {
 			if (!empty($_REQUEST["oauth_token"]) && !empty($_REQUEST["uid"])) {
 					$token = array(
 		            "oauth_token" => $_REQUEST["oauth_token"],
@@ -37,8 +37,8 @@ abstract class Page_dropboxAuth extends Page {
 		            $token["oauth_token_secret"] = $_SESSION["request_token"]["oauth_token_secret"];
 		        }
 		       	$access_token = $session->obtainAccessToken($token);
-		   		$this->writeToken($access_token);
-		   		$this->display();
+		       	$_SESSION['access_tokenDropbox'] = $access_token;
+		   		$this->display($access_token);
 		    }
 			else {
 				if ($request_token = $session->obtainRequestToken()) {
@@ -53,7 +53,7 @@ abstract class Page_dropboxAuth extends Page {
 	     	}
 	    }
 	    else {
-	    	$this->display();
+	    	$this->display($access_token);
 	    }
 	}
 	/**
@@ -63,40 +63,7 @@ abstract class Page_dropboxAuth extends Page {
 	 * @return void
 	 */
 
-	protected abstract function display();
-	/**
-	 * This function writes the keys to the db
-	 * 
-	 * @return void
-	 */
-	private function writeToken($access_token) {
-		$uid = $_SESSION['uid'];
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"INSERT INTO `dropbox` (`uid`, `access_token`) VALUES (?, ?)"
-				);
-		$stmt->bind_param('is', $uid, $access_token);
-		$stmt->execute();
-		$stmt->fetch();
-		$stmt->close();
-	}
-	/**
-	 * This function gets the keys from the db
-	 * and returns them
-	 * @return array
-	 */
-	private function readToken() {
-		$uid = $_SESSION['uid'];
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `access_token` FROM `dropbox` WHERE `uid` = ?"
-				);
-		$stmt->bind_param('i', $uid);
-		$stmt->execute();
-		$stmt->bind_result($access_token);
-		$stmt->fetch();
-		$stmt->close();
-		return $access_token;
-	}
+	protected abstract function display($access_token);
+
 	
 }

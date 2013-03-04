@@ -21,14 +21,56 @@ class Page_postNotes extends Page_dropboxAuth {
 	 *
 	 * @return void
 	 */
-	public function display() 
+	public function display($access_token) 
 	{	
+		$config = array();
+		$config["dropbox"]["app_key"] = APP_KEY;
+		$config["dropbox"]["app_secret"] = APP_SECRET;
+		$config["dropbox"]["access_type"] = ACCESS_TYPE;
+		$config["app"]["root"] = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . "/socialconnections/?action=postNotes";
+		$session = new DropboxSession(
+	    $config["dropbox"]["app_key"],
+	    $config["dropbox"]["app_secret"],
+	    $config["dropbox"]["access_type"]
+	    );
 		$gid = 0;
 		if(!empty($_REQUEST['gid'])) {
 			$gid = $_REQUEST['gid'];
 		}
+		$file = $_REQUEST['file'];
 		$gname = $this->getGroupName($gid);
 		if(!empty($gname)) {
+			if(!empty($file)) {
+					$this->addNotification(
+						'notice',
+						__($file)
+					);
+				$session = new DropboxSession(
+		        $config["dropbox"]["app_key"], 
+		        $config["dropbox"]["app_secret"], 
+		        $config["dropbox"]["access_type"], 
+		        $access_token
+    			);
+				$client = new DropboxClient($session);
+				//if ($response = $client->putFile($file, '/')) {
+				//	$this->addNotification(
+				//		'notice',
+				//		__('The file was uploaded successfully.')
+				//	);
+        		//	$this->uploadForm($gid);
+    			//}
+    			//else {
+    				
+				//	$this->addNotification(
+				//		'error',
+				//		__('The file was not uploaded successfully.')
+				//	);
+    			//	$this->uploadForm($gid);
+    			//}
+			}
+			else {
+				$this->uploadForm($gid);
+			}
 			
 		}
 		else {
@@ -206,5 +248,21 @@ class Page_postNotes extends Page_dropboxAuth {
 		$stmt->close();
 		return $name;
 	}
+	/**
+	 * Displays a form for uploading a file
+	 *
+	 * @return string
+	 */
+	private function uploadForm($gid)
+	{
+		$html = '';
+		$html .= '<form method="POST" action="">';
+		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
+		$html .= '<label for="file">File</label>';
+		$html .= '<input data-clear-btn="false" name="file" id="file" value="" type="file">';
+		$html .= '<input data-theme="b" type="submit" value="' . __('Upload') . '" />';
+		$this->addHtml($html);
+	}
+
 }
 ?>

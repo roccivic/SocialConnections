@@ -106,7 +106,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 					$this->editForm($aid, $gid);
 				}
 			}else if(!empty($_REQUEST['edit'])){
-				if($this->validateForm(false,$aid, $gid, $name, $weight) &&
+				if($this->validateForm(false,$aid, $gid, $name, $weight, $details) &&
 					$this->editAssessment($aid, $name, $weight)){
 					$this->addNotification(
 						'notice',
@@ -372,9 +372,8 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	 *
 	 * @return bool
 	 */
-	private function validateForm($isCreate,$aid, $gid, $name, $weight)
+	private function validateForm($isCreate,$aid, $gid, $name, $weight, $details)
 	{
-		$details = $this->getAssessmentDetails($aid);
 		$success = true;
 		if (!$isCreate && $aid < 1) {
 			$success = false;

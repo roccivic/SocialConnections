@@ -90,7 +90,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 					$this->displayAssessmentDetails($aid, $gid);
 				}
 			}else if(!empty($_REQUEST['create'])){
-				if($this->validateForm(true,$aid, $gid, $name, $weight) &&
+				if($this->validateForm(true,$aid, $gid, $name, $weight, $details) &&
 					$this->createAssessment($gid, $name, $weight)){
 					$this->addNotification(
 						'notice',

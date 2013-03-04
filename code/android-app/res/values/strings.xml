@@ -23,7 +23,6 @@
  	<string name="title_activity_web">Web</string>
     <string name="menu">Menu</string>
     <string name="ok">OK</string>
-    <string name="formError">Form fields may not be empty</string>
     <string name="take_attendance">Take Attendance</string>
         
     <!-- For remote authentication -->
@@ -38,23 +37,17 @@
     <string name="title_activity_pic_upload">PicUpload</string>
     <string name="details">Enter details below:</string>
     <string name="student_id">Student ID:</string>
-    <string name="upload">Upload Picture</string>
     <string name="uploadOk">The picture was successfully uploaded</string>
     <string name="add_picture">Add/Change Picture</string>
     <string name="picturePreview">Picture Preview</string>
     <string name="noPicture">Error: Please add a picture before uploading</string>
-    <string name="noValidFaces">Error: Not even one face was recognised. Is there no one in the classroom?</string>
     <string name="noFaces">Error: No faces found in picture, please try again</string>
-    <string name="tooManyFaces">Error: Found more than one face, but there must be exactly one face in the picture. Please try again.</string>
     <string name="add_attendance_picture">Add picture</string>
     <string name="take_attendance_hint">Add a picture to begin</string>
-    <string name="status">Recognised %1$d out of %2$d faces in picture %3$d</string>
-    <string name="malformed_json">Could not decode the server response (malformed JSON)</string>
     <string name="malformed_response">Could not decode the server response (malformed response)</string>
     <string name="loading">Loading&#8230;</string>
 
 <!-- Other -->
-    <string name="save">Save</string>
     <string name="notes">Notes</string>
     <string name="twitter">Twitter</string>
     <string name="manageAssessments">Manage Assessments</string>

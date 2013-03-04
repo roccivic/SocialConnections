@@ -54,4 +54,5 @@
     <string name="manageStudents">Manage Students</string>
     <string name="manageGroups">Manage Groups</string>
     <string name="viewExcuses">View Student Excuses</string>
+    <string name="menu_openbrowser">Open in Browser</string>
 </resources>

@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -139,5 +141,27 @@ public class Activity_TakeAttendance extends CallbackActivity {
     	} else {
 			new Dialog(self, messages[0]).show();
     	}
+    }
+
+    /**
+     * Creates the menu from XML file
+     */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu, menu);
+		return true;
+	}
+	
+    /**
+	 * Called whenever an item in the options menu is selected.
+     *
+	 * @param item The menu item that was selected
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.menu_openbrowser) {
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(VARS.webUrl)));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

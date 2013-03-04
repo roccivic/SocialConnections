@@ -374,6 +374,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	 */
 	private function validateForm($isCreate,$aid, $gid, $name, $weight)
 	{
+		$details = $this->getAssessmentDetails($aid);
 		$success = true;
 		if (!$isCreate && $aid < 1) {
 			$success = false;
@@ -393,13 +394,22 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 				'warning',
 				__('Assessment\'s name must be at least 1 character long.')
 			);
-		}else if (($weight+$this->findOverallWeight($gid)) > 100  || intval($weight) < 1) {
+		}else if (($isCreate && ($weight+$this->findOverallWeight($gid)) > 100  || intval($weight) < 1)) {
 			$success = false;
 			$this->addNotification(
 				'warning',
 				__('Weight should be more than 1 and overall weight of all assessments in a group should be 100 or less.')
 			);
 		}
+		else if(!$isCreate && ($weight+($this->findOverallWeight($gid)-$details['weight']) > 100 || intval($weight) < 1)) {
+			$success=false;
+			$this->addNotification(
+				'warning',
+				__('Weight should be more than 1 and overall weight of all assessments in a group should be 100 or less.')
+			);
+
+		}
+
 		
 		return $success;
 	}

@@ -115,7 +115,7 @@ public class Activity_LecturerMenu extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.menu_openbrowser) {
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(VARS.webUrl)));
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(CONFIG.webUrl)));
         }
         return super.onOptionsItemSelected(item);
     }

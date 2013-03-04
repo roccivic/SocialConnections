@@ -28,7 +28,7 @@ public class Activity_Main extends Activity {
 						    EditText password = (EditText) findViewById(R.id.passET);
 						    final boolean success = RemoteAuth.login(
 						    	self,
-						    	VARS.webUrl + "remote.php",
+						    	CONFIG.webUrl + "remote.php",
 						    	username.getText().toString(),
 						    	password.getText().toString()
 						    );
@@ -82,7 +82,7 @@ public class Activity_Main extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.menu_openbrowser) {
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(VARS.webUrl)));
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(CONFIG.webUrl)));
         }
         return super.onOptionsItemSelected(item);
     }

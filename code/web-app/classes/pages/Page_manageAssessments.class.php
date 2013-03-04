@@ -103,7 +103,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 						'error',
 						__('An error occured while processing your request.')
 					);
-					$this->groupSelector();
+					$this->editForm($aid, $gid);
 				}
 			}else if(!empty($_REQUEST['edit'])){
 				if($this->validateForm(false,$aid, $gid, $name, $weight) &&
@@ -119,7 +119,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 						'error',
 						__('An error occured while processing your request.')
 					);
-					$this->groupSelector();
+					$this->editForm($aid, $gid);
 				}
 			}else if(!empty($_REQUEST['editForm'])){
 					if(empty($details['name']) && $aid > 0) {
@@ -340,6 +340,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	private function editForm($aid, $gid)
 	{
 		$details = $this->getAssessmentDetails($aid);
+		$max = 100 - $this->findOverallWeight($gid);
 		$html = '<form method="post" action="">';
 		$html .= '<input name="aid" value="'.$aid.'" type="hidden" />';
 		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
@@ -349,6 +350,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		} else {
 			$html .= '<h3>' . __('Edit Assessment') . '</h3>';
 			$html .= '<input name="edit" value="1" type="hidden" />';
+			$max += $details['weight'];
 		}
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="name">' . __('Name') . ': </label>';
@@ -357,8 +359,8 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="weight">' . __('Weight') . ': </label>';
-		$html .= '<input type="text" name="weight" id="weight" ';
-		$html .= 'value="' . htmlspecialchars($details['weight']) . '" />';
+		$html .= '<input name="weight" id="weight" data-highlight="true" min="0" max="'.$max.'"';
+		$html .= 'value="' . htmlspecialchars($details['weight']) . '"type="range" />';
 		$html .= '</div>';
 		$html .= '<input data-theme="b" type="submit" value="' . __('Save') . '" />';
 		$html .= '</form>';

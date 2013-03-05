@@ -1,5 +1,6 @@
 package com.placella.socialconnections;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.*;
@@ -66,12 +67,6 @@ public class Activity_StudentMenu extends Activity {
         });
         
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_student_menu, menu);
-        return true;
-    }
     
     /**
      * Called when a launched activity exits, giving the requestCode we started it with,
@@ -82,5 +77,27 @@ public class Activity_StudentMenu extends Activity {
     	if (resultCode == 0) {
     		finish();
     	}
+    }
+
+    /**
+     * Creates the menu from XML file
+     */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu, menu);
+		return true;
+	}
+	
+    /**
+	 * Called whenever an item in the options menu is selected.
+     *
+	 * @param item The menu item that was selected
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.menu_openbrowser) {
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(CONFIG.webUrl)));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

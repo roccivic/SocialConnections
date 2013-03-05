@@ -47,10 +47,6 @@
             android:name="com.placella.socialconnections.Activity_Web"
             android:label="@string/title_activity_web" >
         </activity>
-        <activity
-            android:name="com.placella.socialconnections.Activity_PicUpload"
-            android:label="@string/title_activity_pic_upload" >
-        </activity>
         <activity android:name="com.placella.socialconnections.Activity_TakeAttendance"></activity>
     </application>
 

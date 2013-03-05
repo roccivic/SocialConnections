@@ -75,12 +75,6 @@
                 android:text="@string/manageGroups" />
 
             <Button
-                android:id="@+id/uploadPicBtn"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/upload" />
-
-            <Button
                 android:id="@+id/logOutBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

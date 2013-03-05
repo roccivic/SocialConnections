@@ -58,45 +58,36 @@ class Page_manageLecturers extends Page_selectDepartment {
 		if(!empty($_REQUEST['varpass'])){
 			$varpass = $_REQUEST['varpass'];
 		}
-		/*$lname = $this->getLecturerName($lid);
-			if(empty($lname)){
-				$this->addNotification(
-					'warning',
-					__('Lecturer does not exist.')
-				);
-			}
-		$did = $_REQUEST['did'];
-			$dname = $this->getDepartmentName($did);
-			if(empty($dname)){
-				$this->addNotification(
-					'warning',
-					__('Department does not exist.')
-				);
-			}*/
 		
+		$did = $_REQUEST['did'];
+		$dname = $this->getDepartmentName($did);
+		if(!empty($dname))
+			
+		{	
 
 		if(!empty($_REQUEST['view'])) {
-				if(!empty($lid)){
-				$this->viewLecturer($did,$lid);	
-				}
-				else {
-					$this->addNotification(
+				$lid = $_REQUEST['lid'];
+				$Lname = $this->getLecturerName($lid);
+				if(!empty($Lname)){
+			$this->addNotification(
 						'error',
 						__('Invalid lecturer selected')
 					);
-					$this->displayLecturers($did);
+					
+				}else{
+						
+						$this->viewLecturer($did,$lid);
 				}
 		}else if(!empty($_REQUEST['create'])){
-				if($this->validateForm(true, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
+				if($this->validateCreateForm(true, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
 				 && $this->createLecturer($did, $fname, $lname, $username, $email, $password))
 				{
 					$this->addNotification(
 						'notice',
 						__('The lecturer was successfully created.')
 					);
-					$this->displayLecturers($did);
-				}
-				else {
+					
+				}else{
 					$this->addNotification(
 						'error',
 						__('An error occured while processing your request.')
@@ -104,8 +95,8 @@ class Page_manageLecturers extends Page_selectDepartment {
 					$this->departmentSelector();
 				}
 			}else if(!empty($_REQUEST['edit'])) { 
-				if($this->validateForm(false, $did, $lid, $fname, $lname, $username, $email, $password)
-				 && $this->updateLecturer($did, $lid, $fname, $lname, $username, $email, $password))
+				if($this->validateEditForm(false, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
+				 && $this->updateLecturer($fname, $lname, $username, $email, $lid))
 				{
 					$this->addNotification(
 						'notice',
@@ -127,7 +118,7 @@ class Page_manageLecturers extends Page_selectDepartment {
 						'error',
 						__('Invalid lecturer selected.')
 					);
-						$this->displayLecturers($lid, $did);
+						
 					}
 					else {
 						$this->editLecturerForm($lid, $did);
@@ -137,9 +128,17 @@ class Page_manageLecturers extends Page_selectDepartment {
 			{
 			$this->deleteLecturer($did,$lid);
 			
-		} 
-						
+			}	 
 		$this->displayLecturers($did);
+		}else
+		{
+			$this->addNotification(
+					'warning',
+					__('Department does not exist.')
+				);
+			$this->departmentSelector();
+		}				
+		
 	}
 	/**
 	 * Calls print functions for classes
@@ -316,18 +315,27 @@ class Page_manageLecturers extends Page_selectDepartment {
 	 *
 	 * @return bool success
 	 */
-	private function updateLecturer($did, $lid, $fname, $lname, $username, $email) {
+	private function updateLecturer($fname, $lname, $username, $email, $lid) {
 		
 		   	   	
 		$db = Db::getLink();
+		$db->query("SET AUTOCOMMIT=0");
+		$db->query("START TRANSACTION");
 		$stmt = $db->prepare(
-			"UPDATE `lecturer` (`fname`, `lname`,`username`,`email`) VALUES(?, ?, ?, ?) WHERE `id`=?;"
+			"UPDATE `lecturer` SET `fname` = ?, `lname` = ?, `username` = ?, `email` = ? WHERE `id` = ?;"
 		);
 		$stmt->bind_param('ssssi', $fname, $lname, $username, $email, $lid);
 		$success = $stmt->execute();
 		$stmt->close();
+		if($success) {
+			$db->query("COMMIT");
+		}else {
+			$db->query("ROLLBACK");
+		}
 		return $success;
 	}
+
+
 	/**
 	*Generate a random string
 	*
@@ -396,12 +404,12 @@ class Page_manageLecturers extends Page_selectDepartment {
 	}
 	
 	/**
-	 * Checks if the form details for editing/creating
+	 * Checks if the form details for creating
 	 * a lecturer are valid
 	 *
 	 * @return bool
 	 */
-	private function validateForm($isCreate, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
+	private function validateCreateForm($isCreate, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
 	{
 		$success = true;
 		if (! $isCreate && $did < 1) {
@@ -481,6 +489,85 @@ class Page_manageLecturers extends Page_selectDepartment {
 			$this->addNotification(
 				'warning',
 				__('Lecturer\'s varification password and password must match.')
+			);
+		}
+		
+		return $success;
+	}
+	/**
+	 * Checks if the form details for editing
+	 * a lecturer are valid
+	 *
+	 * @return bool
+	 */
+	private function validateEditForm($isCreate, $did, $lid, $fname, $lname, $username, $email)
+	{
+		$success = true;
+		if (! $isCreate && $did < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Invalid department selected')
+			);
+		}else if (! $isCreate && $lid < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Invalid Lecturer selected')
+			);
+		} else if (strlen($fname) > 32) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s first name must be 32 characters long or less.')
+			);
+		} else if (strlen($fname) < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s first name must be at least 1 character long.')
+			);
+		} else if (strlen($lname) > 32) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s last name must be 32 characters long or less.')
+			);
+		} else if (strlen($lname) < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s last name must be at least 1 character long.')
+			);
+		} else if (strlen($username) > 64) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s username must be 64 characters long or less.')
+			);
+		} else if (strlen($username) < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s username must be at least 1 character long.')
+			);
+		} else if (strlen($email) > 64) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s email must be 64 characters long or less.')
+			);
+		} else if (strlen($email) < 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Lecturer\'s email must be at least 1 character long.')
+			);
+		}else if (! preg_match('/.+@.+/', $email)) {
+    		$success = false;
+    		$this->addNotification(
+				'warning',
+				__('Invalid e-mail address.')
 			);
 		}
 		

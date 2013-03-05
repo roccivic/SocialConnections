@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -88,7 +90,16 @@ public class Activity_TakeAttendance extends CallbackActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
     {  
     	if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-    		detectFaces();
+    		showOverlay();
+    		setOverlay(getString(R.string.detecting));
+    		new Thread(
+				new Runnable() {
+					@Override
+					public void run() {
+			    		detectFaces();
+					}
+				}
+    		).start();
     	} else if (requestCode == Activity_LecturerMenu.WEB_REQUEST) {
     		if (resultCode == 0) {
 			    setResult(1);
@@ -104,11 +115,19 @@ public class Activity_TakeAttendance extends CallbackActivity {
     	FacialRecognition f = new FacialRecognition(self);
     	numFaces = f.detect(path, detectedFaces);
     	if (numFaces < 1) {
-    		new Dialog(this, R.string.noFaces).show();
+			runOnUiThread(new Runnable() {
+				public void run() {
+		    		self.hideOverlay();
+		    		new Dialog(self, R.string.noFaces).show();
+				}
+			});
     	} else {
+			runOnUiThread(new Runnable() {
+				public void run() {
+		    		self.setOverlay(self.getString(R.string.uploading));
+				}
+			});
 			pictures++;
-			self.showOverlay();
-			System.out.println("Query: " + numFaces + "," + detectedFaces);
 			f.upload(session, facePath, numFaces, detectedFaces);
 			detectedFaces += numFaces;
     	}
@@ -139,5 +158,27 @@ public class Activity_TakeAttendance extends CallbackActivity {
     	} else {
 			new Dialog(self, messages[0]).show();
     	}
+    }
+
+    /**
+     * Creates the menu from XML file
+     */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu, menu);
+		return true;
+	}
+	
+    /**
+	 * Called whenever an item in the options menu is selected.
+     *
+	 * @param item The menu item that was selected
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.menu_openbrowser) {
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(CONFIG.webUrl)));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -318,16 +318,23 @@ class Page_manageModules extends Page_selectDepartment {
 	 *
 	 * @return bool success
 	 */
+
 	private function updateModule($mid, $name, $crn, $credits) {
-		
-		   	   	
 		$db = Db::getLink();
+		$db->query("SET AUTOCOMMIT=0");
+		$db->query("START TRANSACTION");
 		$stmt = $db->prepare(
-			"UPDATE `module` (`name`, `credits`,`CRN`) VALUES(?, ?, ?) WHERE `id`=?;"
+			"UPDATE `module` SET `name` = ?, `credits` = ?, `CRN` = ? WHERE `id`=?;"
 		);
 		$stmt->bind_param('siii', $name, $credits, $crn, $mid);
 		$success = $stmt->execute();
 		$stmt->close();
+		
+		if($success) {
+			$db->query("COMMIT");
+		}else {
+			$db->query("ROLLBACK");
+		}
 		return $success;
 	}
 	
@@ -358,11 +365,17 @@ class Page_manageModules extends Page_selectDepartment {
 				'warning',
 				__('Module\'s name must be at least 1 character long.')
 			);
-		} else if (is_int($crn)) {
+		} else if (strlen($crn)< 1) {
 			$success = false;
 			$this->addNotification(
 				'warning',
-				__('Module CRN must be a number')
+				__('Module CRN must be greater than 1 character')
+			);
+		}else if (strlen($crn)> 30) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Module CRN must be less than 30 characters')
 			);
 		} else if (is_int($credits)) {
 			$success = false;

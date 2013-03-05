@@ -2,6 +2,7 @@ package com.placella.socialconnections;
 
 import java.util.Locale;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -69,7 +70,7 @@ public class Activity_Web extends Activity {
 			}
 		});
 		window.loadUrl(
-			VARS.webUrl
+			CONFIG.webUrl
 			+ "?action=" + page
 			+ "&token=" + token
 			+ "&session=" + session
@@ -103,9 +104,25 @@ public class Activity_Web extends Activity {
 		setResult(1);
 	}
 
+    /**
+     * Creates the menu from XML file
+     */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_web, menu);
+		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
+	
+    /**
+	 * Called whenever an item in the options menu is selected.
+     *
+	 * @param item The menu item that was selected
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.menu_openbrowser) {
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(CONFIG.webUrl)));
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

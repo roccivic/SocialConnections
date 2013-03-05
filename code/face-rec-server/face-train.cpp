@@ -28,8 +28,6 @@
 #include <algorithm>
 #include <string>
 
-#define DEBUG 1;
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -84,7 +82,6 @@ vector<string> getFiles(string path)
             if (status < 0) {
                 sprintf(msg, "Cannot stat file '%s'", newPath.c_str());
                 perror(msg);
-                exit(1);
             } else {
                 if (! S_ISDIR(fileInfo.st_mode)) {
                     retval.push_back(direntp->d_name);

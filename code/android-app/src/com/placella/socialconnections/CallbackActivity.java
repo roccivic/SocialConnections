@@ -39,4 +39,11 @@ public abstract class CallbackActivity extends Activity {
 	{
 		pd.dismiss();
 	}
+	/**
+	 * Changes the message in the progress dialog
+	 */
+	public void setOverlay(String msg)
+	{
+		pd.setMessage(msg);
+	}
 }

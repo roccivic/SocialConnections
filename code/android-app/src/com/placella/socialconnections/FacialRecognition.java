@@ -66,7 +66,7 @@ public class FacialRecognition {
 		boolean success = false;
 		String message = "";
 		try {
-			URI url = new URI(VARS.webUrl + "upload.php?session=" + session);
+			URI url = new URI(CONFIG.webUrl + "upload.php?session=" + session);
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(url);
 			File file = new File(filename);

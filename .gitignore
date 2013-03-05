@@ -1,3 +1,7 @@
 /code/android-app/bin/*
 /code/android-app/gen/*
 *~
+/code/face-rec-server/faces/*
+/code/face-rec-server/face_cache/*
+/code/face-rec-server/models/*
+/code/web-app/face_cache/*

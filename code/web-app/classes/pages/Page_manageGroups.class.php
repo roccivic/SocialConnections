@@ -666,11 +666,11 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	{
 		$students = $this->getStudentsNotInGroup($did, $gid);
 		$this->addHtml("<h3>" . __('Select Student') . "</h3>");
-		$html = $this->printStudentListHeader($gid);
+		$html = $this->displayListHeader($gid);
 		foreach ($students as $key => $value) {
 			$html .= $this->printAddStudentListItem($key, $gid, $value, $did);
 		}
-		$html .= $this->printStudentListFooter();
+		$html .= $this->displayListFooter();
 		$this->addHtml($html);
 	}
 	/**
@@ -678,7 +678,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		 *
 		 * @return void
 		 */
-		private function printStudentListHeader($gid)
+		private function displayListHeader($gid)
 		{
 			$html  = '<ul data-role="listview" data-divider-theme="b" ';
 	          $html .= 'data-filter-placeholder="' . __('Search...') . '" ';
@@ -710,7 +710,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		 *
 		 * @return void
 		 */
-		private function printStudentListFooter()
+		private function displayListFooter()
 		{
 	        $this->addHtml(
 	        	'</ul>'
@@ -766,11 +766,11 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	{
 		$students = $this->getStudentsInGroup($gid);
 		$this->addHtml("<h3>" . __('Select Student') . "</h3>");
-		$html = $this->printStudentListHeader($gid);
+		$html = $this->displayListHeader($gid);
 		foreach ($students as $key => $value) {
 			$html .= $this->printRemoveStudentListItem($key, $gid, $value, $did);
 		}
-		$html .= $this->printStudentListFooter();
+		$html .= $this->displayListFooter();
 		$this->addHtml($html);
 	}
 	/**
@@ -912,11 +912,11 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	{
 		$students = $this->getLecturersNotInGroup($did, $gid);
 		$this->addHtml("<h3>" . __('Select Lecturer') . "</h3>");
-		$html = $this->printStudentListHeader($gid);
+		$html = $this->displayListHeader($gid);
 		foreach ($students as $key => $value) {
 			$html .= $this->printAddLecturerListItem($key, $gid, $value, $did);
 		}
-		$html .= $this->printStudentListFooter();
+		$html .= $this->displayListFooter();
 		$this->addHtml($html);
 	}
 		/**
@@ -1038,11 +1038,11 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	{
 		$lecturers = $this->getLecturersInGroup($gid);
 		$this->addHtml("<h3>" . __('Select Lecturer') . "</h3>");
-		$html = $this->printStudentListHeader($gid);
+		$html = $this->displayListHeader($gid);
 		foreach ($lecturers as $key => $value) {
 			$html .= $this->printRemoveLecturerListItem($key, $gid, $value);
 		}
-		$html .= $this->printStudentListFooter();
+		$html .= $this->displayListFooter();
 		$this->addHtml($html);
 	}
 	/**

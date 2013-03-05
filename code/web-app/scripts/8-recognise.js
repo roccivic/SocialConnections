@@ -3,6 +3,10 @@ var results = [];
 
 $(document).bind('pageinit', function () {
 	if ($('#recognise').length) {
+		$('#recognise').remove();
+		setTimeout(function () {
+			$.mobile.showPageLoadingMsg();
+		});
 		var gid = parseInt($('#gid').text(), 10) || 0;
 		var session = $('#session').text().replace(/\s*/g, "");
 		$('#studentlist').find('img:not(.avatar)').each(function () {
@@ -32,6 +36,7 @@ function recognise(gid, session) {
 		);
 	} else {
 		finish();
+		$.mobile.hidePageLoadingMsg();
 	}
 }
 

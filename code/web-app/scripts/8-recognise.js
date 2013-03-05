@@ -9,46 +9,8 @@ $(document).bind('pageinit', function () {
 			images.push($(this).attr('src'));
 		});
 		recognise(gid, session);
-
-		$('form').submit(function (e) {
+		$('form').bind('submit', function (e) {
 			e.preventDefault();
-
-			var params = '';
-			params += 'gid=' + gid;
-			params += '&session=' + session;
-			params += '&date=' + $('#date').val();
-			params += '&time=' + $('#time').val();
-			params += '&isLecture=' + $(this).find('[name=isLecture]:checked').val();			
-			$('#studentlist').find('li').each(function () {
-				var $select = $(this).find('select');
-				if ($select.val() > 0) {
-					params += '&students[]=' + $select.val();
-					var $img = $(this).find('img:not(.avatar)');
-					if ($img.length) {
-						params += '&images[]=' + $img.attr('src');
-					} else {
-						params += '&images[]=0';
-					}
-				}
-			});
-			$.post(
-				'ajax-take-attendance.php',
-				params,
-				function (data) {
-					var $popup = $('<div></div>').hide().addClass('notification');
-					if (data.success) {
-						$popup.addClass('notice');
-						$('form').hide();
-					} else {
-						$popup.addClass('error');
-					}
-					$popup
-						.append(data.message)
-						.prependTo('.content-primary')
-						.show();
-					$('body').trigger('create');
-				}
-			);
 		});
 	}
 });
@@ -88,6 +50,50 @@ function finish() {
 		.bind('change', function () {
 			update();
 		});
+
+
+
+	$('form').unbind('submit').bind('submit', function (e) {
+		e.preventDefault();
+
+		var params = '';
+		params += 'gid=' + gid;
+		params += '&session=' + session;
+		params += '&date=' + $('#date').val();
+		params += '&time=' + $('#time').val();
+		params += '&isLecture=' + $(this).find('[name=isLecture]:checked').val();			
+		$('#studentlist').find('li').each(function () {
+			var $select = $(this).find('select');
+			if ($select.val() > 0) {
+				params += '&students[]=' + $select.val();
+				var $img = $(this).find('img:not(.avatar)');
+				if ($img.length) {
+					params += '&images[]=' + $img.attr('src');
+				} else {
+					params += '&images[]=0';
+				}
+			}
+		});
+		$.post(
+			'ajax-take-attendance.php',
+			params,
+			function (data) {
+				var $popup = $('<div></div>').hide().addClass('notification');
+				if (data.success) {
+					$popup.addClass('notice');
+					$('form').hide();
+				} else {
+					$popup.addClass('error');
+				}
+				$popup
+					.append(data.message)
+					.prependTo('.content-primary')
+					.show();
+				$('body').trigger('create');
+			}
+		);
+	});
+
 	console.log('done');
 }
 

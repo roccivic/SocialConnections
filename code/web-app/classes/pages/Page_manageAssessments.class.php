@@ -140,7 +140,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 							'notice',
 							__('The assessment was deleted successfully.')
 						);
-						$this->groupSelector();
+						$this->displayAssessments($gid);
 					}
 				}
 				else {

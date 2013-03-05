@@ -90,7 +90,16 @@ public class Activity_TakeAttendance extends CallbackActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
     {  
     	if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-    		detectFaces();
+    		showOverlay();
+    		setOverlay(getString(R.string.detecting));
+    		new Thread(
+				new Runnable() {
+					@Override
+					public void run() {
+			    		detectFaces();
+					}
+				}
+    		).start();
     	} else if (requestCode == Activity_LecturerMenu.WEB_REQUEST) {
     		if (resultCode == 0) {
 			    setResult(1);
@@ -106,11 +115,19 @@ public class Activity_TakeAttendance extends CallbackActivity {
     	FacialRecognition f = new FacialRecognition(self);
     	numFaces = f.detect(path, detectedFaces);
     	if (numFaces < 1) {
-    		new Dialog(this, R.string.noFaces).show();
+			runOnUiThread(new Runnable() {
+				public void run() {
+		    		self.hideOverlay();
+		    		new Dialog(self, R.string.noFaces).show();
+				}
+			});
     	} else {
+			runOnUiThread(new Runnable() {
+				public void run() {
+		    		self.setOverlay(self.getString(R.string.uploading));
+				}
+			});
 			pictures++;
-			self.showOverlay();
-			System.out.println("Query: " + numFaces + "," + detectedFaces);
 			f.upload(session, facePath, numFaces, detectedFaces);
 			detectedFaces += numFaces;
     	}

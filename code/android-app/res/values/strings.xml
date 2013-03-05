@@ -40,6 +40,8 @@
     <string name="take_attendance_hint">Add a picture to begin</string>
     <string name="malformed_response">Could not decode the server response (malformed response)</string>
     <string name="loading">Loading&#8230;</string>
+    <string name="detecting">Detecting&#8230;</string>
+    <string name="uploading">Uploading&#8230;</string>
 
 <!-- Other -->
     <string name="notes">Notes</string>

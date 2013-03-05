@@ -55,6 +55,10 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		if(!empty($_REQUEST['sid'])){
 			$sid = $_REQUEST['sid'];
 		}
+		$lid = 0;
+		if(!empty($_REQUEST['lid'])){
+			$lid = $_REQUEST['lid'];
+		}
 		$gname = $this->getGroupName($gid);
 		$dname = $this->getDepartmentName($did);
 		if(!empty($gname) || !empty($_REQUEST['editForm'])) {
@@ -125,7 +129,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 				}
 				$this->addStudentForm($gid, $did);
 			}else if(!empty($_REQUEST['addStudent'])){
-				$this->departmentSelector($gid);
+				$this->departmentSelector(true, $gid);
 			}else if(!empty($_REQUEST['addStudentForm'])){
 				if(!empty($dname)){
 					$this->addStudentForm($gid,$did);
@@ -151,21 +155,91 @@ class Page_manageGroups extends Page_selectLecturerGroup
 					);
 				}
 				$this->removeStudentForm($gid, $did);
-			}else if(!empty($_REQUEST['removeStudent'])){
+			}
+			else if(!empty($_REQUEST['removeStudent']))
+			{
 				if(!empty($gname)) {
 					$this->removeStudentForm($gid, $did);
 				}
 				else {
 					$this->addNotification(
 						'error',
-						__('The selected department does not exist.')
+						__('The selected group does not exist.')
 					);
 				}
-			}else {
+			}
+			else if(!empty($_REQUEST['addLecturer'])) 
+			{
+				$this->departmentSelector(false, $gid);
+			}
+			else if(! empty($_REQUEST['addingLecturer']))
+			{
+				if($this->addLecturerToGroup($gid, $lid))
+				{
+					$this->addNotification(
+						'notice',
+						__('The Lecturer was successfully added to teach group.')
+					);
+					$this->addLecturerForm($gid, $did);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->addLecturerForm($gid, $did);
+				}
+			}
+			else if(!empty($_REQUEST['removingLecturerFromGroup']))
+			{
+				if($this->removeLecturerFromGroup($gid, $lid)){
+					$this->addNotification(
+						'notice',
+						__('The Lecturer was successfully removed from the group.')
+					);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+				}
+				$this->removeLecturerForm($gid);
+			}
+			else if(!empty($_REQUEST['removeLecturer']))
+			{
+				if(!empty($gname)) {
+					$this->removeLecturerForm($gid);
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('The selected group does not exist.')
+					);
+				}
+			}
+			else if(!empty($_REQUEST['addLecturerForm'])) 
+			{
+				if(!empty($dname))
+				{
+					$this->addLecturerForm($gid, $did);
+				}
+				else 
+				{
+					$this->addNotification(
+						'error',
+						__('The selected department does not exist.')
+					);
+					$this->departmentSelector(false, $gid);
+				}
+			}
+			else 
+			{
 				$this->displayGroupDetails($gid);
 			}
 		}
-		else {
+		else 
+		{
 			$this->addNotification(
 						'error',
 						__('The selected group does not exist!.')
@@ -197,6 +271,8 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$html .= '<a href="?action=manageGroups&editForm=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
 			$html .= '<a href="?action=manageGroups&addStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Student').'</a>';
 			$html .= '<a href="?action=manageGroups&removeStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Student').'</a>';
+			$html .= '<a href="?action=manageGroups&addLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Lecturer').'</a>';
+			$html .= '<a href="?action=manageGroups&removeLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Lecturer').'</a>';
 			$html .= sprintf(
 				'<a onclick="return confirm(\'%s\');" href="?action=manageGroups&delete=1&gid=%d" data-role="button" data-theme="b">%s</a>',
 				__('Are you sure you want to delete this group?'),
@@ -508,7 +584,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 *
 	 * @return void
 	 */
-	private function departmentSelector($gid)
+	private function departmentSelector($isStudent, $gid)
 	{
 		$db = Db::getLink();
 		$stmt = $db->prepare(
@@ -520,7 +596,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$this->printListHeaderDept();
 			$stmt->bind_result($did, $name);
 			while ($stmt->fetch()) {
-		        $this->printListItemDept($did, $name,$gid);
+		        $this->printListItemDept($isStudent, $did, $name,$gid);
 		    }
 		    $this->printListFooterDept();
 		} else {
@@ -552,11 +628,19 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 *
 	 * @return void
 	 */
-	private function printListItemDept($did, $name,$gid)
+	private function printListItemDept($isStudent, $did, $name,$gid)
 	{
+		if($isStudent)
+		{
+			$param = 'addStudentForm';
+		}
+		else 
+		{
+			$param = 'addLecturerForm';
+		}
         $this->addHtml(
 	        sprintf(
-	        	'<li><a href="?action=%s&did=%d&gid=%d&addStudentForm=1">%s</a></li>',
+	        	'<li><a href="?action=%s&did=%d&gid=%d&'.$param.'=1">%s</a></li>',
 	        	urlencode(htmlspecialchars($_REQUEST['action'])),
 	        	$did,
 	        	$gid,
@@ -818,6 +902,199 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$stmt->fetch();
 		$stmt->close();
 		return $name;
+	}
+	/**
+	 * A form for adding lecturers
+	 *
+	 * @return void
+	 */
+	private function addLecturerForm($gid, $did)
+	{
+		$students = $this->getLecturersNotInGroup($did, $gid);
+		$this->addHtml("<h3>" . __('Select Lecturer') . "</h3>");
+		$html = $this->printStudentListHeader($gid);
+		foreach ($students as $key => $value) {
+			$html .= $this->printAddLecturerListItem($key, $gid, $value, $did);
+		}
+		$html .= $this->printStudentListFooter();
+		$this->addHtml($html);
+	}
+		/**
+		 * Prints a single item for the list of students
+		 *
+		 * @return void
+		 */
+		private function printAddLecturerListItem($lid, $gid, $name, $did)
+		{
+	        $this->addHtml(
+		        sprintf(
+		        	'<li><a href="?action=manageGroups&addingLecturer=1&gid=%d&lid=%d&did=%d">%s</a></li>',
+		        	$gid,
+		        	$lid,
+		        	$did,
+		        	$name
+		        	
+		        )
+	        );
+		}
+		/**
+	 * Returns an array of lecturers that are not teaching the group
+	 *
+	 * @return array
+	 */
+	private function getLecturersNotInGroup($did,$gid)
+	{
+		$sArray = $this->getLecturersInGroup($gid);
+		$success = true;
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `id`, `fname`, `lname`
+			FROM `lecturer`
+			WHERE `did` = ?
+			ORDER BY `fname` ASC, `lname` ASC;"
+		);
+		$stmt->bind_param("i",$did);
+		$stmt->execute();
+		$stmt->bind_result($id, $fname,$lname);
+		while ($stmt->fetch()) {
+			foreach($sArray as $key => $value) {
+				if($key == $id) {
+					$success = false;
+				}
+			}
+			if($success == true) {
+				$arr[$id] = $fname . ' ' . $lname;
+			}
+			$success = true;
+		}
+		return $arr;
+	}
+	/**
+	 * Returns an array of  lecturers teaching the group
+	 *
+	 * @return array
+	 */
+	private function getLecturersInGroup($gid)
+	{
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `id`, `fname`, `lname`
+			FROM `lecturer`
+			WHERE `id` IN (
+				SELECT `lid` FROM `moduleoffering_lecturer` WHERE `moid` IN
+				(SELECT `group`.`moid` FROM `group` WHERE `group`.`id` = ?)
+			)
+			ORDER BY `fname` ASC, `lname` ASC;"
+		);
+		$stmt->bind_param("i",$gid);
+		$stmt->execute();
+		$stmt->bind_result($id, $fname,$lname);
+		while ($stmt->fetch()) {
+			$arr[$id] = $fname . ' ' . $lname;
+		}
+		return $arr;
+	}
+	/**
+	 * links a lecturer to a group
+	 *
+	 * @return bool success
+	 */
+	private function addLecturerToGroup($gid, $lid) 
+	{
+		$db = Db::getLink();
+		$db->query("SET AUTOCOMMIT=0");
+		$db->query("START TRANSACTION");
+		$stmt = $db->prepare(
+			"SELECT `moid` FROM `group` WHERE `id` = ?;"
+		);
+		$stmt->bind_param("i", $gid);
+		$success = $stmt->execute();
+		$stmt->bind_result($moid);
+		$stmt->fetch();
+		$stmt->close();
+		if($success){
+			$stmt = $db->prepare(
+			"INSERT INTO moduleoffering_lecturer (moid, lid) VALUES(?, ?);"
+			);
+			$stmt->bind_param('ii', $moid, $lid);
+			$success = $stmt->execute();
+			$stmt->close();
+		}
+		if($success) {
+			$db->query("COMMIT");
+		}else {
+			$db->query("ROLLBACK");
+		}
+		return $success;
+	}
+	/**
+	 * Displays a form for removing a lecturer
+	 *
+	 * @return void
+	 */
+	private function removeLecturerForm($gid)
+	{
+		$lecturers = $this->getLecturersInGroup($gid);
+		$this->addHtml("<h3>" . __('Select Lecturer') . "</h3>");
+		$html = $this->printStudentListHeader($gid);
+		foreach ($lecturers as $key => $value) {
+			$html .= $this->printRemoveLecturerListItem($key, $gid, $value);
+		}
+		$html .= $this->printStudentListFooter();
+		$this->addHtml($html);
+	}
+	/**
+	 * Prints a single item for the list of students
+	 *
+	 * @return void
+	 */
+	private function printRemoveLecturerListItem($lid, $gid, $name)
+	{
+        $this->addHtml(
+	        sprintf(
+	        	'<li><a href="?action=manageGroups&removingLecturerFromGroup=1&gid=%d&lid=%d">%s</a></li>',
+	        	$gid,
+	        	$lid,
+	        	$name
+	        	
+	        )
+        );
+	}
+	/**
+	 * Removes a lecturer from a group
+	 *
+	 * @return bool success
+	 */
+	private function removeLecturerFromGroup($gid, $lid) 
+	{
+		$db = Db::getLink();
+		$db->query("SET AUTOCOMMIT=0");
+		$db->query("START TRANSACTION");
+		$stmt = $db->prepare(
+			"SELECT `moid` FROM `group` WHERE `id` = ?;"
+		);
+		$stmt->bind_param("i", $gid);
+		$success = $stmt->execute();
+		$stmt->bind_result($moid);
+		$stmt->fetch();
+		$stmt->close();
+		if($success){
+			$stmt = $db->prepare(
+			"DELETE FROM `moduleoffering_lecturer` WHERE `moid` = ? AND `lid` = ?;"
+			);
+			$stmt->bind_param('ii', $moid, $lid);
+			$success = $stmt->execute();
+			$stmt->fetch();
+			$stmt->close();
+		}
+		if($success) {
+			$db->query("COMMIT");
+		}else {
+			$db->query("ROLLBACK");
+		}
+		return $success;
 	}
 
 }

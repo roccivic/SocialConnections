@@ -6,66 +6,45 @@ import android.app.Activity;
 import android.content.*;
 import android.view.*;
 import android.webkit.*;
-import android.widget.Button;
+import android.widget.*;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class Activity_StudentMenu extends Activity {
 	Activity self = this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_menu);
+        setContentView(R.layout.activity_menu);
         Intent incoming = getIntent();
         final String token = incoming.getStringExtra("token");
-        
-        Button button;
-        
-        button = (Button) findViewById(R.id.makeExcuseBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
+
+        final ListMenuItem[] menu = new ListMenuItem[] {
+    		new ListMenuItem(self, R.string.checkAttendance, "checkAttendance"),
+    		new ListMenuItem(self, R.string.makeExcuse, "makeExcuse"),
+    		new ListMenuItem(self, R.string.notes, "notes"),
+    		new ListMenuItem(self, R.string.twitter, "twitter"),
+    		new ListMenuItem(self, R.string.viewResults, "viewResults"),
+    		new ListMenuItem(self, R.string.logOut, "")
+        };
+        ArrayAdapter<ListMenuItem> adapter = new ArrayAdapter<ListMenuItem>(
+    		this,
+    		android.R.layout.simple_list_item_1,
+    		menu
+        );
+        ListView list = (ListView) findViewById(R.id.menuList);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "makeExcuse", token);
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (! menu[position].getLink().equals("")) {
+					Activity_Web.launch(self, menu[position].getLink(), token);
+				} else {
+				    CookieSyncManager.createInstance(self);
+				    CookieManager.getInstance().removeAllCookie();
+				    finish();
+				}
 			}
-        });
-        button = (Button) findViewById(R.id.viewResultsBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "viewResults", token);
-			}
-        });
-        button = (Button) findViewById(R.id.checkAttendanceBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "checkAttendance", token);
-			}
-        });
-        
-        button = (Button) findViewById(R.id.logOutBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-			    CookieSyncManager.createInstance(self);
-			    CookieManager.getInstance().removeAllCookie();
-			    finish();
-			}
-        });
-        
-        button = (Button) findViewById(R.id.notesBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "notes", token);
-			}
-        });
-        button = (Button) findViewById(R.id.twitterBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "twitter", token);
-			}
-        });
-        
+		});
     }
     
     /**

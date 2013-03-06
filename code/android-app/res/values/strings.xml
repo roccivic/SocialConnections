@@ -4,18 +4,17 @@
     <string name="app_name">Social Connections</string>
     
     <string name="back">Back</string>
-    <string name="username">username</string>
-    <string name="password">password</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
     <string name="LogIn">Log In</string>
     <string name="loginInfo">Please, enter your login details below:</string>
     <string name="title_activity_student_menu">StudentMenu</string>
-    <string name="studentMenu">Student Menu:</string>
     <string name="checkAttendance">Check Attendance</string>
     <string name="viewResults">View Your Results</string>
     <string name="makeExcuse">Excuse Yourself for Missing Class</string>
     <string name="logOut">Log Out</string>
     <string name="title_activity_lecturer_menu">LecturerMenu</string>
-    <string name="lecturerMenu">Lecturer Menu:</string>
+    <string name="mainmenu">Main Menu</string>
     <string name="takeAttendance">Take Attendance</string>
     <string name="postNotes">Post Notes on Dropbox</string>
     <string name="viewStudentAttendance">View Student Attendance</string>

@@ -6,7 +6,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.*;
 import android.webkit.*;
-import android.widget.Button;
+import android.widget.*;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class Activity_LecturerMenu extends Activity {
 	private Activity self = this;
@@ -15,78 +16,43 @@ public class Activity_LecturerMenu extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lecturer_menu);
+        setContentView(R.layout.activity_menu);
         
         final String token = getIntent().getStringExtra("token");
-        Button button;
-
-        button = (Button) this.findViewById(R.id.takeAttendanceBtn);
-        button.setOnClickListener(new View.OnClickListener() {
+        final ListMenuItem[] menu = new ListMenuItem[] {
+        	new ListMenuItem(self, R.string.manageAssessments, "manageAssessments"),
+        	new ListMenuItem(self, R.string.manageGroups, "manageGroups"),
+        	new ListMenuItem(self, R.string.manageStudents, "manageStudents"),
+        	new ListMenuItem(self, R.string.postNotes, "postNotes"),
+        	new ListMenuItem(self, R.string.twitter, "twitter"),
+        	new ListMenuItem(self, R.string.takeAttendance, ""),
+        	new ListMenuItem(self, R.string.viewExcuses, "viewExcuses"),
+        	new ListMenuItem(self, R.string.viewStudentAttendance, "viewStudentAttendance"),
+        	new ListMenuItem(self, R.string.logOut, "")
+        };
+        ArrayAdapter<ListMenuItem> adapter = new ArrayAdapter<ListMenuItem>(
+    		this,
+    		android.R.layout.simple_list_item_1,
+    		menu
+        );
+        ListView list = (ListView) findViewById(R.id.menuList);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onClick(View arg0) {
-				Intent i = new Intent(self, Activity_TakeAttendance.class);
-				i.putExtra("token", token);
-	    		startActivityForResult(i, 99);
-			}	
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (! menu[position].getLink().equals("")) {
+					Activity_Web.launch(self, menu[position].getLink(), token);
+				} else if (position == 5) {
+					Intent i = new Intent(self, Activity_TakeAttendance.class);
+					i.putExtra("token", token);
+		    		startActivityForResult(i, 99);
+				} else {
+				    CookieSyncManager.createInstance(self);
+				    CookieManager.getInstance().removeAllCookie();
+				    finish();
+				}
+			}
 		});
-        button = (Button) findViewById(R.id.manageAssessmentsBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "manageAssessment", token);
-			}
-        });
-        button = (Button) findViewById(R.id.twitterBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "twitter", token);
-			}
-        });
-        button = (Button) findViewById(R.id.viewStudentAttendanceBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "viewStudentAttendance", token);
-			}
-        });
-        button = (Button) findViewById(R.id.postNotesBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "postNotes", token);
-			}
-        });
-        button = (Button) findViewById(R.id.logOutBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-			    CookieSyncManager.createInstance(self);
-			    CookieManager.getInstance().removeAllCookie();
-			    finish();
-			}
-        });
-        button = (Button) findViewById(R.id.manageStudentsBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "manageStudents", token);
-			}
-        });
-        button = (Button) findViewById(R.id.manageGroupsBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "manageGroups", token);
-			}
-        });
-        button = (Button) findViewById(R.id.viewExcusesBtn);
-        button.setOnClickListener(new Button.OnClickListener () {
-			@Override
-			public void onClick(View arg0) {
-				Activity_Web.launch(self, "viewExcuses", token);
-			}
-        });
     }
     
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 

@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 /**
- * This is activity is used by the lecurer
+ * This is activity is used by the lecturer
  * to take the attendance of a group by
  * using facial recognition, and by using
  * a fallback method if the facial recognition

@@ -115,17 +115,41 @@ class Page_manageGroups extends Page_selectLecturerGroup
 				}
 			}else if(! empty($_REQUEST['addingStudent'])){
 				if($this->addStudentToGroup($gid, $sid)){
-					$this->addNotification(
-						'notice',
-						__('The Student was successfully added to the group.')
-					);
-					
-				}
-				else {
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
+					$message = __('The student was successfully added to the group.');
+					if (! empty($_REQUEST['ajax'])) {
+						header("Content-Type: application/json; charset=UTF-8");
+						exit(
+							json_encode(
+								array(
+									'success' => true,
+									'message' => $message
+								)
+							)
+						);
+					} else {
+						$this->addNotification(
+							'notice',
+							$message
+						);
+					}
+				} else {
+					$message = __('An error occured while processing your request.');
+					if (! empty($_REQUEST['ajax'])) {
+						header("Content-Type: application/json; charset=UTF-8");
+						exit(
+							json_encode(
+								array(
+									'success' => false,
+									'message' => $message
+								)
+							)
+						);
+					} else {
+						$this->addNotification(
+							'error',
+							$message
+						);
+					}
 				}
 				$this->addStudentForm($gid, $did);
 			}else if(!empty($_REQUEST['addStudent'])){
@@ -141,18 +165,43 @@ class Page_manageGroups extends Page_selectLecturerGroup
 					);
 					$this->groupSelector(true);
 				}
-			}else if(!empty($_REQUEST['removingStudentFromGroup'])){
-				if($this->removeStudentFromGroup($gid, $sid)){
-					$this->addNotification(
-						'notice',
-						__('The Student was successfully removed from the group.')
-					);
-				}
-				else {
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
+			} else if(!empty($_REQUEST['removingStudentFromGroup'])){
+				if ($this->removeStudentFromGroup($gid, $sid)){
+					$message = __('The student was successfully removed from the group.');
+					if (! empty($_REQUEST['ajax'])) {
+						header("Content-Type: application/json; charset=UTF-8");
+						exit(
+							json_encode(
+								array(
+									'success' => true,
+									'message' => $message
+								)
+							)
+						);
+					} else {
+						$this->addNotification(
+							'notice',
+							$message
+						);
+					}
+				} else {
+					$message = __('An error occured while processing your request.');
+					if (! empty($_REQUEST['ajax'])) {
+						header("Content-Type: application/json; charset=UTF-8");
+						exit(
+							json_encode(
+								array(
+									'success' => false,
+									'message' => $message
+								)
+							)
+						);
+					} else {
+						$this->addNotification(
+							'error',
+							$message
+						);
+					}
 				}
 				$this->removeStudentForm($gid, $did);
 			}
@@ -687,8 +736,8 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		 */
 		private function displayListHeader($gid)
 		{
-			$html  = '<ul data-role="listview" data-divider-theme="b" ';
-	          $html .= 'data-filter-placeholder="' . __('Search...') . '" ';
+			$html  = '<ul id="manageStudentList" data-role="listview" data-divider-theme="b" ';
+	        $html .= 'data-filter-placeholder="' . __('Search...') . '" ';
 	        $html .= 'data-filter="true" data-inset="true">';
 	        $html .= '<li data-role="list-divider" role="heading">';
 	        $html .= '</li>';

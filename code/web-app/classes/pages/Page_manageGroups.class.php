@@ -857,7 +857,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 */
 	private function addStudentToGroup($gid, $sid) 
 	{
-		if (! $this->isStudentIngroup($sid, $gid)) {
+		if ($this->isStudentIngroup($sid, $gid)) {
 			return false;
 		}
 		$db = Db::getLink();

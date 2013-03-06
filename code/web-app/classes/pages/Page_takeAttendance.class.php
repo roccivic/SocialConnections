@@ -216,13 +216,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 
 		if ($success) {
 			foreach ($dbStudents as $key => $value) {
-				$present = 0;
-				foreach ($students as $stid) {
-					if ($stid === $key) {
-						$present = 1;
-						break;
-					}
-				}
+				$present = in_array($key, $students);
 				$stmt = $db->prepare(
 					"INSERT INTO `student_attendance`
 					(`aid`, `sid`, `present`)

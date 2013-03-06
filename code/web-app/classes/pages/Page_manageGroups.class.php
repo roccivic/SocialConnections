@@ -665,7 +665,14 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	private function addStudentForm($gid, $did)
 	{
 		$students = $this->getStudentsNotInGroup($did, $gid);
-		$this->addHtml("<h3>" . __('Select Student') . "</h3>");
+		$this->addHtml(
+			"<h3>"
+			. sprintf(
+				__('Select student to add to group `%s`'),
+				$this->getGroupName($gid)
+			)
+			. "</h3>"
+		);
 		$html = $this->displayListHeader($gid);
 		foreach ($students as $key => $value) {
 			$html .= $this->printAddStudentListItem($key, $gid, $value, $did);
@@ -768,7 +775,14 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	private function removeStudentForm($gid,$did)
 	{
 		$students = $this->getStudentsInGroup($gid);
-		$this->addHtml("<h3>" . __('Select Student') . "</h3>");
+		$this->addHtml(
+			"<h3>"
+			. sprintf(
+				__('Select student to remove from group `%s`'),
+				$this->getGroupName($gid)
+			)
+			. "</h3>"
+		);
 		$html = $this->displayListHeader($gid);
 		foreach ($students as $key => $value) {
 			$html .= $this->printRemoveStudentListItem($key, $gid, $value, $did);

@@ -211,7 +211,8 @@ function forward($gid, $students, $images, $session)
 		'gid' => $gid,
 	    'students' => json_encode($students),
 	    'images' => json_encode($images),
-	    'session' => $session
+	    'session' => $session,
+    	'access_token' => Config::FACE_REC_SECRET
 	);
 	curl_setopt($ch, CURLOPT_URL, Config::FACE_REC_URL . 'save.php');
 	curl_setopt($ch, CURLOPT_POST, 1);

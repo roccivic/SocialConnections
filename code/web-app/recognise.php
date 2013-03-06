@@ -63,7 +63,8 @@ $ch = curl_init();
 $data = array(
 	'session' => $session,
 	'gid' => $gid,
-	'image' => $image
+	'image' => $image,
+    'access_token' => Config::FACE_REC_SECRET
 );
 curl_setopt($ch, CURLOPT_URL, Config::FACE_REC_URL . 'recognise.php');
 curl_setopt($ch, CURLOPT_POST, 1);

@@ -13,6 +13,7 @@ abstract class Config {
 	const URL = 'http://109.255.78.105/socialconnections/';
 	//const URL = 'http://socialconnections.placella.com/';
 	const FACE_REC_URL = 'http://109.255.78.105/facerec/';
+	const FACE_REC_SECRET = 'orgL2CDpbVL3Rrec5BUn0X0FAle4F1DE505Cv7SV';
 
 	// 'Country/City'
 	const TIMEZONE = 'GB-Eire';

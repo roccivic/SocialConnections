@@ -4,6 +4,16 @@
 define("SOCIALCONNECTIONS", 1);
 // Include configuration file
 require_once 'config.php';
+
+/*
+if (empty($_REQUEST['access_token'])
+    || $_REQUEST['access_token'] !== Config::FACE_REC_SECRET
+) {
+    header("HTTP/1.0 401 Unauthorized");
+    die();
+}
+*/
+
 // Include all other necessary libraries
 require_once 'classes/Db.class.php';
 

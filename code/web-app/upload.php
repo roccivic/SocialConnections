@@ -34,7 +34,8 @@ move_uploaded_file($tmp_name, "face_cache/$session/$name");
 $ch = curl_init();
 $data = array(
     'session' => $session,
-    'image' => "@face_cache/$session/$name"
+    'image' => "@face_cache/$session/$name",
+    'access_token' => Config::FACE_REC_SECRET
 );
 curl_setopt($ch, CURLOPT_URL, Config::FACE_REC_URL . 'upload.php');
 curl_setopt($ch, CURLOPT_POST, 1);

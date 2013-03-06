@@ -1,5 +1,15 @@
 <?php
 
+require_once 'config.php';
+
+if (empty($_REQUEST['access_token'])
+    || $_REQUEST['access_token'] !== Config::FACE_REC_SECRET
+) {
+    header("HTTP/1.0 401 Unauthorized");
+    echo '<h1>Error 401: Unauthorized</h1>';
+    die();
+}
+
 $data = array();
 if (strtolower($_SERVER['REQUEST_METHOD']) !== 'post') {
     header("HTTP/1.0 400 Bad Request");

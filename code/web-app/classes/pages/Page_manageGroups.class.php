@@ -748,6 +748,9 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 */
 	private function addStudentToGroup($gid, $sid) 
 	{
+		if (! $this->isStudentIngroup($sid, $gid)) {
+			return false;
+		}
 		$db = Db::getLink();
 		$stmt = $db->prepare(
 			"INSERT INTO `group_student` (`gid`, `sid`) VALUES(?, ?);"
@@ -823,6 +826,9 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 */
 	private function removeStudentFromGroup($gid, $sid) 
 	{
+		if (! $this->isStudentIngroup($sid, $gid)) {
+			return false;
+		}
 		$db = Db::getLink();
 		$stmt = $db->prepare(
 			"DELETE FROM `group_student` WHERE `gid`=? AND `sid`=?;"
@@ -1097,5 +1103,21 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		return $success;
 	}
 
+	private function isStudentIngroup($sid, $gid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT COUNT(*)
+			FROM `group_student`
+			WHERE `gid` = ?
+			AND `sid` = ?;"
+		);
+		$stmt->bind_param('ii', $gid, $sid);
+		$stmt->execute();
+		$stmt->bind_result($result);
+		$stmt->fetch();
+		$stmt->close();
+		return $result;
+	}
 }
 ?>

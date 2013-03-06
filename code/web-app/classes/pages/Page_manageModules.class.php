@@ -32,86 +32,106 @@ class Page_manageModules extends Page_selectDepartment {
 		if(!empty($_REQUEST['mid'])) {
 			$mid = $_REQUEST['mid'];
 		}
+		$name = '';
+		if(!empty($_REQUEST['name'])){
+			$name = $_REQUEST['name'];
+		}
 		$crn = '';
-		if(!empty($_REQUEST['crn'])) {
+		if(!empty($_REQUEST['crn'])){
 			$crn = $_REQUEST['crn'];
 		}
 		$credits = '';
-		if(!empty($_REQUEST['credits'])) {
+		if(!empty($_REQUEST['credits'])){
 			$credits = $_REQUEST['credits'];
 		}
-		$name = '';
-		if(!empty($_REQUEST['name'])) {
-			$name = $_REQUEST['name'];
-		}
-		if (!empty($_REQUEST['view']) ) 
-		{			
-			$did = $_REQUEST['did'];
-			$dname = $this->getDepartmentName($did);
-			if(empty($dname)){
-				$this->addNotification(
+
+		$did = $_REQUEST['did'];
+		$dname = $this->getDepartmentName($did);
+		if(!empty($dname))
+			
+		{	
+
+			if(!empty($_REQUEST['view'])) {
+					$mid = $_REQUEST['mid'];
+					$mname = $this->getModuleName($mid);
+					if(empty($mname)){
+					$this->addNotification(
+							'error',
+							__('Invalid module selected')
+						);
+						$this->displayModules($did);
+					}else{
+							
+							$this->viewModule($did,$mid);
+					}
+			}else if(!empty($_REQUEST['create'])){
+					if($this->validateForm(true, $mid, $name, $crn, $credits)
+				 && $this->createModule($name, $crn, $credits, $did))
+					{
+						$this->addNotification(
+							'notice',
+							__('The module was successfully created.')
+						);
+						$this->displayModules($did);
+					}else{
+						$this->addNotification(
+							'error',
+							__('An Error occured while processing your request.')
+						);
+						$this->editModuleForm($did, $mid);
+					}
+			}else if(!empty($_REQUEST['edit'])) { 
+					if($this->validateForm(false,  $mid, $name, $crn, $credits)
+				 && $this->updateModule($mid, $name, $crn, $credits))
+					{
+						$this->addNotification(
+							'notice',
+							__('The module was edited successfully.')
+						);
+						
+						$this->viewModule($did, $mid);
+					}
+					else {
+						$this->addNotification(
+							'error',
+							__('An error occured while processing your request.')
+						);
+						$this->editModuleForm($did, $mid);
+					}
+					
+			}else if(!empty($_REQUEST['editForm'])){
+					$details=$this->getModuleDetails($did,$mid);
+						if(empty($details['name']) && $mid > 0) {
+							$this->addNotification(
+							'error',
+							__('Invalid module selected.')
+						);
+							$this->displayModules($did);
+						}
+						else {
+							$mid = $_REQUEST['mid'];
+							$this->editModuleForm($did, $mid);
+						}
+					
+			}else if (! empty($_REQUEST['delete'])) {
+				if(!$this->deleteModule($did,$mid)){
+					$this->displayModules($did);
+				}else{
+					$this->viewModule($did, $mid);
+				}
+				
+			} else {
+				$this->displayModules($did);
+			}
+		}else
+		{
+			$this->addNotification(
 					'warning',
 					__('Department does not exist.')
 				);
-			}
-			$mid = $_REQUEST['mid'];
-			$mname = $this->getModuleName($mid);
-			if(empty($mname)){
-				$this->addNotification(
-					'warning',
-					__('Module does not exist.')
-				);
-			}
-					$this->viewModule($did,$mid);	
-		}
-		else if(!empty($_REQUEST['create'])){
-				//$crn = '';
-				if($this->validateForm(true, $mid, $name, $crn, $credits)
-				 && $this->createModule($name, $crn, $credits, $did))
-				{
-					$this->addNotification(
-						'notice',
-						__('The module was successfully created.')
-					);
-					$this->displayModules($did);
-				}
-				else {
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
-					$this->departmentSelector();
-				}
-			}else if(!empty($_REQUEST['edit'])) {
-				$mid = $_REQUEST['mid']; 
-				if($this->validateForm(false, $mid, $name, $crn, $credits)
-				 && $this->updateModule($mid, $name, $crn, $credits))
-				{
-					$this->addNotification(
-						'notice',
-						__('The module was edited successfully.')
-					);
-					
-				}
-				else {
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
-				}
-				$this->viewModule($did, $mid);
-			}else if(!empty($_REQUEST['editForm'])){
-				$details=$this->getModuleDetails($did,$mid);
-					$this->editModuleForm($did, $mid);
-				
-			}else if (! empty($_REQUEST['delete'])) 
-			{
-				$this->deleteModule($did,$mid);
-				$this->displayModules($did);
-			
-		} 
-						
-		$this->displayModules($did);
+			$this->departmentSelector();
+		}				
+		
 	}
 	private function displayModules($did)
 	{
@@ -195,11 +215,12 @@ class Page_manageModules extends Page_selectDepartment {
 	private function viewModule($did,$mid)
 	{
 		$details = $this->getModuleDetails($did, $mid);
-		if (isset($details['mid']));
+		
+		
 		$html = '';
 		$html .= '<h3>' . $details['name'] . '</h3>';
 		$html .=  __('Department: ');
-		$html .= $did ;
+		$html .= $this->getDepartmentName($did);
 		$html .= '<br/><br/>';
 		$html .=  __('CRN: ');
 		$html .= $details['crn'];
@@ -210,9 +231,13 @@ class Page_manageModules extends Page_selectDepartment {
 		$html .= '<a href="?action=manageModules&did='.$did.'&mid='.$mid.'&editForm=1"';
     	$html .= ' data-role="button" data-theme="b">';
     	$html .= __('Edit') . '</a>';
-    	$html .= '<a href="?action=manageModules&did='.$did.'&mid='.$mid.'&delete=1"';
-    	$html .= ' data-role="button" data-theme="b">';
-    	$html .= __('Delete') . '</a>';
+    	$html .= sprintf(
+				'<a onclick="return confirm(\'%s\');" href="?action=manageModules&delete=1&did=%d&mid=%d" data-role="button" data-theme="b">%s</a>',
+				__('Are you sure you want to delete this module?'),
+				$did,
+				$mid,
+				__('Delete')
+			);
     	$this->addHtml($html);
 	}
 		/**
@@ -283,7 +308,7 @@ class Page_manageModules extends Page_selectDepartment {
 	 */
 	private function editModuleForm($did, $mid)
 	{
-		$details = $this->getModuleDetails($did,$mid);
+		$mdetails = $this->getModuleDetails($did, $mid);
 		$html = '<form method="post" action="">';
 		if($mid == 0) {
 			$html .= '<h3>' . __('Create Module') . '</h3>';
@@ -297,17 +322,17 @@ class Page_manageModules extends Page_selectDepartment {
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="name">' . __('Name') . ': </label>';
 		$html .= '<input type="text" name="name" id="name" ';
-		$html .= 'value="' . htmlspecialchars($details['name']) . '" />';
+		$html .= 'value="' . htmlspecialchars($mdetails['name']) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="crn">' . __('CRN') . ': </label>';
 		$html .= '<input type="text" name="crn" id="crn" ';
-		$html .= 'value="' . htmlspecialchars($details['crn']) . '" />';
+		$html .= 'value="' . htmlspecialchars($mdetails['crn']) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="credits">' . __('Credits') . ': </label>';
 		$html .= '<input type="text" name="credits" id="credits" ';
-		$html .= 'value="' . htmlspecialchars($details['credits']) . '" />';
+		$html .= 'value="' . htmlspecialchars($mdetails['credits']) . '" />';
 		$html .= '</div>';	
 		$html .= '<input data-theme="b" type="submit" value="' . __('Save') . '" />';
 		$html .= '</form>';
@@ -381,7 +406,19 @@ class Page_manageModules extends Page_selectDepartment {
 			$success = false;
 			$this->addNotification(
 				'warning',
-				__('Module credits must be a number')
+				__('Module credits must be a number ')
+			);
+		}else if (($credits)< 1) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Module credits must be greater than 1 ')
+			);
+		}else if (($credits)> 60) {
+			$success = false;
+			$this->addNotification(
+				'warning',
+				__('Module credits must be less than 60')
 			);
 		}
 		

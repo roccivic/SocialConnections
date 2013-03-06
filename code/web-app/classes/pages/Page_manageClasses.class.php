@@ -36,7 +36,8 @@ class Page_manageClasses extends Page_selectDepartment {
 		if(!empty($_REQUEST['name'])){
 			$name = $_REQUEST['name'];
 		}
-		if (!empty($_REQUEST['view']) ) 
+		
+		 if (!empty($_REQUEST['view']) ) 
 		{			
 			$did = $_REQUEST['did'];
 			$dname = $this->getDepartmentName($did);
@@ -45,16 +46,20 @@ class Page_manageClasses extends Page_selectDepartment {
 					'warning',
 					__('Department does not exist.')
 				);
-			}
-			$cid = $_REQUEST['cid'];
-			$cname = $this->getClassName($cid);
-			if(empty($cname)){
+				$this->departmentSelector();
+			}else{
+				$cid = $_REQUEST['cid'];
+				$cname = $this->getClassName($cid);
+				if(empty($cname)){
 				$this->addNotification(
 					'warning',
 					__('Class does not exist.')
 				);
-			}
-			$this->viewClass($did,$cid);			
+					$this->displayClasses($did);
+				}else{
+					$this->viewClass($did,$cid);
+				}
+			}		
 		}else  if (! empty($_REQUEST['edit'])) {
 			if ($this->validateForm(false, $cid, $name, $did )
 				&& $this->updateClass($name, $cid)
@@ -70,9 +75,8 @@ class Page_manageClasses extends Page_selectDepartment {
 					'error',
 					__('An error occured while processing your request.')
 				);
-				$details= $this->getClassDetails($did, $cid);
-				$name = $details['name'];
-				$this->editClassForm($did,$cid, $name);
+				
+				$this->editClassForm($did,$cid);
 			}
 		}else if (! empty($_REQUEST['create'])) 
 			{
@@ -89,37 +93,40 @@ class Page_manageClasses extends Page_selectDepartment {
 					'error',
 					__('An error occured while processing your request.')
 				);
-				$this->editClassForm($did,$cid, $name);
+				$this->editClassForm($did,$cid);
 			}
 		}else if (! empty($_REQUEST['editForm'])) {
 			$details = $this->getClassDetails($did, $cid);
 			$cname = $details['name'];
+			$dname = $this->getDepartmentName($did);
 			if ($cid > 0 && empty($cname)) {
 				$this->addNotification(
 					'error',
 					__('The selected class does not exist')
 				);
-				
-			}
-			$dname = $this->getDepartmentName($did);			 
-			if ($did > 0 && empty($dname)) {
+				$this->displayClasses($did);
+			}else if ($did > 0 && empty($dname)) {
 				$this->addNotification(
 					'error',
 					__('The selected departmment does not exist')
 				);
-				
-			} else {
-				$this->editClassForm($did,$cid, $name);
+				$this->departmentSelector();
+			}else{
+				$this->editClassForm($did,$cid);
 			}
 		}else if (! empty($_REQUEST['delete'])) 
 		{
 			$cid = $_REQUEST['cid'];
 			if($this->deleteClass($cid)){
-				
-				$this->displayClasses($did);
-			}else{
 				$this->addNotification(
 					'notice',
+					__('The class was successfully deleted')
+				);
+				$this->displayClasses($did);
+				
+			}else{
+				$this->addNotification(
+					'warning',
 					__('The selected class does not exist')
 				);
 				$this->displayClasses($did);
@@ -219,7 +226,7 @@ class Page_manageClasses extends Page_selectDepartment {
 	private function viewClass($did,$cid)
 	{
 		$details = $this->getClassDetails($did, $cid);
-		if (isset($details['cid']));
+		
 		$html = '';
 		$html .= '<h2>' . $details['name'] . '</h2>';
 		$html .=  __('Department: ');
@@ -228,9 +235,14 @@ class Page_manageClasses extends Page_selectDepartment {
 		$html .= '<a href="?action=manageClasses&did='.$did.'&cid='.$cid.'&editForm=1"';
     	$html .= ' data-role="button" data-theme="b">';
     	$html .= __('Edit') . '</a>';
-    	$html .= '<a href="?action=manageClasses&did='.$did.'&cid='.$cid.'&delete=1"';
-    	$html .= ' data-role="button" data-theme="b">';
-    	$html .= __('Delete') . '</a>';
+    	$html .= sprintf(
+				'<a onclick="return confirm(\'%s\');" href="?action=manageClasses&delete=1&did=%d&cid=%d" data-role="button" data-theme="b">%s</a>',
+				__('Are you sure you want to delete this class?'),
+				$did,
+				$cid,
+				__('Delete')
+			);
+			
     	$this->addHtml($html);
     	
 	}
@@ -300,14 +312,15 @@ class Page_manageClasses extends Page_selectDepartment {
 	 */
 
 	
-	private function editClassForm($did, $cid, $name)
+	private function editClassForm($did, $cid)
 	{
+		$cname = $this->getClassName($cid);
 		$html = '<form method="post" action="">';
 		if($cid == 0) {
 			$html .= '<h3>' . __('Create Class') . '</h3>';
 			$html .= '<input name="create" value="1" type="hidden" />';
 		} else {
-			$html .= '<h3>' . __('Edit Group') . '</h3>';
+			$html .= '<h3>' . __('Edit Class') . '</h3>';
 			$html .= '<input name="edit" value="1" type="hidden" />';
 			$html .= '<input name="cid" value="'.$cid.'" type="hidden" />';
 		}
@@ -315,7 +328,7 @@ class Page_manageClasses extends Page_selectDepartment {
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="name">' . __('Name') . ': </label>';
 		$html .= '<input type="text" name="name" id="name" ';
-		$html .= 'value="' . htmlspecialchars($name) . '" />';
+		$html .= 'value="' . htmlspecialchars($cname) . '" />';
 		$html .= '</div>';
 		$html .= '<input data-theme="b" type="submit" value="' . __('Save') . '" />';
 		$html .= '</form>';

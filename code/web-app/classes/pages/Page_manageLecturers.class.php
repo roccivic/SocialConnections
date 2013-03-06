@@ -65,71 +65,73 @@ class Page_manageLecturers extends Page_selectDepartment {
 			
 		{	
 
-		if(!empty($_REQUEST['view'])) {
-				$lid = $_REQUEST['lid'];
-				$Lname = $this->getLecturerName($lid);
-				if(!empty($Lname)){
-			$this->addNotification(
-						'error',
-						__('Invalid lecturer selected')
-					);
-					
-				}else{
-						
-						$this->viewLecturer($did,$lid);
-				}
-		}else if(!empty($_REQUEST['create'])){
-				if($this->validateCreateForm(true, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
-				 && $this->createLecturer($did, $fname, $lname, $username, $email, $password))
-				{
+			if(!empty($_REQUEST['view'])) {
+					$lid = $_REQUEST['lid'];
+					$Lname = $this->getLecturerName($lid);
+					if(empty($Lname)){
 					$this->addNotification(
-						'notice',
-						__('The lecturer was successfully created.')
-					);
-					
-				}else{
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
-					$this->departmentSelector();
-				}
-			}else if(!empty($_REQUEST['edit'])) { 
-				if($this->validateEditForm(false, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
-				 && $this->updateLecturer($fname, $lname, $username, $email, $lid))
-				{
-					$this->addNotification(
-						'notice',
-						__('The lecturer was edited successfully.')
-					);
-					
-				}
-				else {
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
-				}
-				$this->viewLecturer($lid, $did);
-			}else if(!empty($_REQUEST['editForm'])){
-				$details=$this->getLecturersDetails($did,$lid);
-					if(empty($details['fname']) && $lid > 0) {
-						$this->addNotification(
-						'error',
-						__('Invalid lecturer selected.')
-					);
-						
+							'error',
+							__('Invalid lecturer selected')
+						);
+						$this->displayLecturers($did);
+					}else{
+							
+							$this->viewLecturer($did,$lid);
 					}
-					else {
+			}else if(!empty($_REQUEST['create'])){
+					if($this->validateCreateForm(true, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
+					 && $this->createLecturer($did, $fname, $lname, $username, $email, $password))
+					{
+						$this->addNotification(
+							'notice',
+							__('The lecturer was successfully created.')
+						);
+						$this->displayLecturers($did);
+					}else{
+						$this->addNotification(
+							'error',
+							__('An error occured while processing your request.')
+						);
 						$this->editLecturerForm($lid, $did);
 					}
+			}else if(!empty($_REQUEST['edit'])) { 
+					if($this->validateEditForm(false, $did, $lid, $fname, $lname, $username, $email, $password, $varpass)
+					 && $this->updateLecturer($fname, $lname, $username, $email, $lid))
+					{
+						$this->addNotification(
+							'notice',
+							__('The lecturer was edited successfully.')
+						);
+						
+						$this->viewLecturer($did, $lid);
+					}
+					else {
+						$this->addNotification(
+							'error',
+							__('An error occured while processing your request.')
+						);
+						$this->editLecturerForm($lid, $did);
+					}
+					
+			}else if(!empty($_REQUEST['editForm'])){
+					$details=$this->getLecturersDetails($did,$lid);
+						if(empty($details['fname']) && $lid > 0) {
+							$this->addNotification(
+							'error',
+							__('Invalid lecturer selected.')
+						);
+							$this->displayLecturers($did);
+						}
+						else {
+							$this->editLecturerForm($lid, $did);
+						}
+					
+			}else if (! empty($_REQUEST['delete'])) {
+				$this->deleteLecturer($did,$lid);
 				
-			}else if (! empty($_REQUEST['delete'])) 
-			{
-			$this->deleteLecturer($did,$lid);
-			
-			}	 
-		$this->displayLecturers($did);
+			} else {
+				$this->displayLecturers($did);
+			}
 		}else
 		{
 			$this->addNotification(
@@ -240,9 +242,13 @@ class Page_manageLecturers extends Page_selectDepartment {
 		$html .= '<a href="?action=manageLecturers&did='.$did.'&lid='.$lid.'&editForm=1"';
     	$html .= ' data-role="button" data-theme="b">';
     	$html .= __('Edit') . '</a>';
-    	$html .= '<a href="?action=manageLecturers&did='.$did.'&lid='.$lid.'&delete=1"';
-    	$html .= ' data-role="button" data-theme="b">';
-    	$html .= __('Delete') . '</a>';
+    	$html .= sprintf(
+				'<a onclick="return confirm(\'%s\');" href="?action=manageClasses&delete=1&did=%d&lid=%d" data-role="button" data-theme="b">%s</a>',
+				__('Are you sure you want to delete this lecturer?'),
+				$did,
+				$lid,
+				__('Delete')
+			);
     	$this->addHtml($html);
 	}
 		/**
@@ -389,12 +395,12 @@ class Page_manageLecturers extends Page_selectDepartment {
 		$html .= '</div>';
 		if($lid < 1){
 			$html .= '<div data-role="fieldcontain">';
-			$html .= '<label for="pass">' . __('Password') . ': </label>';
-			$html .= '<input type="password" name="password" id="password" ';
+			$html .= '<label for="pass1">' . __('Password') . ': </label>';
+			$html .= '<input type="password" name="password" id="pass1" />';
 			$html .= '</div>';
 			$html .= '<div data-role="fieldcontain">';
-			$html .= '<label for="varpass">' . __('Verify password') . ': </label>';
-			$html .= '<input type="password" name="varpass" id="varpass" ';
+			$html .= '<label for="pass2">' . __('Verify password') . ': </label>';
+			$html .= '<input type="password" name="varpass" id="pass2" />';
 			$html .= '</div>';
 		}
 		
@@ -584,7 +590,7 @@ class Page_manageLecturers extends Page_selectDepartment {
 		$stmt = $db->prepare(
 			"SELECT `fname` FROM `lecturer` WHERE `id` = ?;"
 		);
-		$stmt->bind_param('i', $cid);
+		$stmt->bind_param('i', $lid);
 		$stmt->execute();
 		$stmt->bind_result($name);
 		$stmt->fetch();

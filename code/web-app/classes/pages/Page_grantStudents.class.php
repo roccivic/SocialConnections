@@ -165,7 +165,7 @@ class Page_grantStudents extends Page_selectDepartment {
 	{
 		$grantDetails = $this->getGrantsStudent($sid);
 		$percent = $this->getAttendance($sid);
-		$payable = ($pertage/($grantDetails['grantOwed']))*100;
+		$payable = $percent*$grantDetails['grantOwed'];
 		$html = '';
 		$html .= '<h3>' . $grantDetails['name']. '</h3>';
 		$html .=  __('Total grant: ') ;

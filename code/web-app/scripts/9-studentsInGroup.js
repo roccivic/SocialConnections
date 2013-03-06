@@ -1,6 +1,6 @@
 $(document).bind('pageinit', function () {
-	if ($('#manageStudentList').length) {
-		$('#manageStudentList').find('a').click(function (e) {
+	if ($('#ajaxlist').length) {
+		$('#ajaxlist').find('a').click(function (e) {
 			e.preventDefault();
 			$.mobile.showPageLoadingMsg();
 			var $link = $(this);

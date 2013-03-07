@@ -5,26 +5,26 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.*;
 import android.view.*;
-import android.webkit.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Activity_StudentMenu extends Activity {
 	Activity self = this;
+	private String token;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Intent incoming = getIntent();
-        final String token = incoming.getStringExtra("token");
+        token = incoming.getStringExtra("token");
 
         final ListMenuItem[] menu = new ListMenuItem[] {
+            new ListMenuItem(self, R.string.home, ""),
     		new ListMenuItem(self, R.string.checkAttendance, "checkAttendance"),
     		new ListMenuItem(self, R.string.makeExcuse, "makeExcuse"),
     		new ListMenuItem(self, R.string.notes, "notes"),
     		new ListMenuItem(self, R.string.twitter, "twitter"),
-    		new ListMenuItem(self, R.string.viewResults, "viewResults"),
-    		new ListMenuItem(self, R.string.logOut, "")
+    		new ListMenuItem(self, R.string.viewResults, "viewResults")
         };
         ArrayAdapter<ListMenuItem> adapter = new ArrayAdapter<ListMenuItem>(
     		this,
@@ -39,12 +39,11 @@ public class Activity_StudentMenu extends Activity {
 				if (! menu[position].getLink().equals("")) {
 					Activity_Web.launch(self, menu[position].getLink(), token);
 				} else {
-				    CookieSyncManager.createInstance(self);
-				    CookieManager.getInstance().removeAllCookie();
 				    finish();
 				}
 			}
 		});
+        setResult(1);
     }
     
     /**
@@ -54,6 +53,7 @@ public class Activity_StudentMenu extends Activity {
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	if (resultCode == 0) {
+    		setResult(0);
     		finish();
     	}
     }

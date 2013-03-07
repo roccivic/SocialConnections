@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.*;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -37,19 +38,20 @@ public class Activity_Login extends Activity {
 								    if (! success) {
 								    	new Dialog(self, RemoteAuth.getResponse()).show();
 								    } else {
+								    	int accessLevel = RemoteAuth.getAccessLevel();
 								        Bundle b = new Bundle();
 								    	String token = RemoteAuth.getToken();
 								        b.putString("token", token);
+								        b.putInt("accesslevel", accessLevel);
 								        Intent intent;
-								    	int accessLevel = RemoteAuth.getAccessLevel();
 								    	if (accessLevel == ACCESSLEVEL.STUDENT) {
-									        intent = new Intent(self, Activity_StudentMenu.class);
+									        intent = new Intent(self, Activity_Main.class);
 									        intent.putExtras(b);
-								    		startActivity(intent);
+								    		startActivityForResult(intent, 999);
 								    	} else if (accessLevel == ACCESSLEVEL.LECTURER) {
-									        intent = new Intent(self, Activity_LecturerMenu.class);
+									        intent = new Intent(self, Activity_Main.class);
 									        intent.putExtras(b);
-								    		startActivity(intent);
+								    		startActivityForResult(intent, 999);
 								    	} else if (accessLevel == ACCESSLEVEL.ADMIN) {
 									    	new Dialog(self, R.string.noAdminAccess).show();
 								    	} else {
@@ -74,6 +76,11 @@ public class Activity_Login extends Activity {
 		return true;
 	}
 	
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		CookieSyncManager.createInstance(self);
+		CookieManager.getInstance().removeAllCookie();
+    }
     /**
 	 * Called whenever an item in the options menu is selected.
      *

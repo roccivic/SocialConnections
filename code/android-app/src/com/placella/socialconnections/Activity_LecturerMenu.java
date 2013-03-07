@@ -5,21 +5,22 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.*;
-import android.webkit.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Activity_LecturerMenu extends Activity {
 	private Activity self = this;
 	public static final int WEB_REQUEST = 0;
+	private String token;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         
-        final String token = getIntent().getStringExtra("token");
+        token = getIntent().getStringExtra("token");
         final ListMenuItem[] menu = new ListMenuItem[] {
+        	new ListMenuItem(self, R.string.home, ""),
         	new ListMenuItem(self, R.string.manageAssessments, "manageAssessments"),
         	new ListMenuItem(self, R.string.manageGroups, "manageGroups"),
         	new ListMenuItem(self, R.string.manageStudents, "manageStudents"),
@@ -27,8 +28,7 @@ public class Activity_LecturerMenu extends Activity {
         	new ListMenuItem(self, R.string.twitter, "twitter"),
         	new ListMenuItem(self, R.string.takeAttendance, ""),
         	new ListMenuItem(self, R.string.viewExcuses, "viewExcuses"),
-        	new ListMenuItem(self, R.string.viewStudentAttendance, "viewStudentAttendance"),
-        	new ListMenuItem(self, R.string.logOut, "")
+        	new ListMenuItem(self, R.string.viewStudentAttendance, "viewStudentAttendance")
         };
         ArrayAdapter<ListMenuItem> adapter = new ArrayAdapter<ListMenuItem>(
     		this,
@@ -42,24 +42,25 @@ public class Activity_LecturerMenu extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (! menu[position].getLink().equals("")) {
 					Activity_Web.launch(self, menu[position].getLink(), token);
-				} else if (position == 5) {
+				} else if (position == 6) {
 					Intent i = new Intent(self, Activity_TakeAttendance.class);
 					i.putExtra("token", token);
 		    		startActivityForResult(i, 99);
 				} else {
-				    CookieSyncManager.createInstance(self);
-				    CookieManager.getInstance().removeAllCookie();
 				    finish();
 				}
 			}
 		});
+        setResult(1);
     }
     
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
     {  
     	if (requestCode == WEB_REQUEST && resultCode == 0) {
+    		setResult(0);
     		finish();
-    	} else if (requestCode == 99 && resultCode == 1) {
+    	} else if (requestCode == 99 && resultCode == 0) {
+    		setResult(0);
     		finish();
     	}
     }

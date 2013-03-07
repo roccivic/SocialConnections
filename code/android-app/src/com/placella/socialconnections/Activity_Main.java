@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.*;
 import android.widget.Button;
 
 public class Activity_Main extends Activity_Web {
 	private Activity self = this;
+	private String token;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -17,7 +17,7 @@ public class Activity_Main extends Activity_Web {
 		setContentView(R.layout.activity_web);
 
 		Intent intent = getIntent();
-		String token = intent.getStringExtra("token");
+		token = intent.getStringExtra("token");
 		final int accesslevel = intent.getIntExtra("accesslevel", ACCESSLEVEL.ANONYMOUS);
 		
 		init("main", token, "");
@@ -26,10 +26,7 @@ public class Activity_Main extends Activity_Web {
 		logOutBtn.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
-				// Destroys user's session
-			    CookieSyncManager.createInstance(self);
-			    CookieManager.getInstance().removeAllCookie();
-			    // Go back to MainActivity
+			    // Go back to login
 			    setResult(0);
 			    finish();
 			}

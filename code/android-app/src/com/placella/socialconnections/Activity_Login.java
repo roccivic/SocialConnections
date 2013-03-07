@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.*;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -47,11 +46,11 @@ public class Activity_Login extends Activity {
 								    	if (accessLevel == ACCESSLEVEL.STUDENT) {
 									        intent = new Intent(self, Activity_Main.class);
 									        intent.putExtras(b);
-								    		startActivityForResult(intent, 999);
+								    		startActivity(intent);
 								    	} else if (accessLevel == ACCESSLEVEL.LECTURER) {
 									        intent = new Intent(self, Activity_Main.class);
 									        intent.putExtras(b);
-								    		startActivityForResult(intent, 999);
+								    		startActivity(intent);
 								    	} else if (accessLevel == ACCESSLEVEL.ADMIN) {
 									    	new Dialog(self, R.string.noAdminAccess).show();
 								    	} else {
@@ -75,13 +74,8 @@ public class Activity_Login extends Activity {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
-	
-	@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		CookieSyncManager.createInstance(self);
-		CookieManager.getInstance().removeAllCookie();
-    }
-    /**
+
+	/**
 	 * Called whenever an item in the options menu is selected.
      *
 	 * @param item The menu item that was selected

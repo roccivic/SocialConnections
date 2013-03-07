@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Activity_Main extends Activity {
+public class Activity_Login extends Activity {
 	Activity self = this;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class Activity_Main extends Activity {
 								    if (! success) {
 								    	new Dialog(self, RemoteAuth.getResponse()).show();
 								    } else {
-								    	String token = RemoteAuth.getToken();
 								        Bundle b = new Bundle();
+								    	String token = RemoteAuth.getToken();
 								        b.putString("token", token);
 								        Intent intent;
 								    	int accessLevel = RemoteAuth.getAccessLevel();

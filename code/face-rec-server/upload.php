@@ -25,7 +25,7 @@ if (! strlen($session)) {
     die();
 }
 
-if ($_FILES["image"]["error"] !== 0) {
+if (empty($_FILES["image"]) || ! is_array($_FILES["image"])) {
     header("HTTP/1.0 400 Bad Request");
     echo '<h1>Error 400: Bad Request</h1>no image found';
     die();
@@ -33,9 +33,12 @@ if ($_FILES["image"]["error"] !== 0) {
 
 @mkdir("face_cache/$session");
 @chmod("face_cache/$session", 0777);
-$tmp_name = $_FILES["image"]["tmp_name"];
-$name = $_FILES["image"]["name"];
-shell_exec("convert $tmp_name -resize 92x112\! -colorspace Gray face_cache/$session/$name");
-chmod("face_cache/$session/$name", 0777);
+
+foreach ($_FILES["image"]["name"] as $key => $value) {
+    $tmp_name = $_FILES["image"]["tmp_name"][$key];
+    $name = $_FILES["image"]["name"][$key];
+    shell_exec("convert $tmp_name -resize 92x112\! -colorspace Gray face_cache/$session/$name");
+    chmod("face_cache/$session/$name", 0777);
+}
 
 ?>

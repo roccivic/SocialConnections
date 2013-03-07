@@ -135,10 +135,6 @@ Lecturers of students - Other lecturers of students may want to see what a stude
 	internet connection will be required to use the system.
 </p>
 <p>
-	The kooaba third party service must be up and running for the
-	facial recognition to work.
-</p>
-<p>
 	The Android smartphone/tablet must be equipped with a
 	camera in order to be able to install the mobile app.
 </p>
@@ -294,8 +290,26 @@ The web app shall be compatible with any browser that supports html 5 and javasc
 	<li>Opera 10+</li>
 	<li>Internet Explorer 8+</li>
 </ul>
-<p>The web app shall be able to run on a web server with Linux kernal 2.6+ that is running Apache 2.2+.</p>
-
+<p>The web server shall fulfill the following requirements:</p>
+<ul>
+	<li>Linux kernel 2.6+</li>
+	<li>Apache 2.2+</li>
+	<li>Apache modules: deflate, expires</li>
+	<li>Mysql 5.1+</li>
+	<li>PHP 5.2+</li>
+	<li>PHP modules: curl, json</li>
+	<li>Cron</li>
+</ul>
+<p>The facial recognition server shall fulfill the following requirements:</p>
+<ul>
+	<li>Linux kernel 2.6+</li>
+	<li>OpenCV 2.4+</li>
+	<li>Apache 2.2+</li>
+	<li>PHP 5.2+</li>
+	<li>PHP modules: curl, json</li>
+	<li>ImageMagick 6+</li>
+	<li>Cron</li>
+</ul>
 <h4>Mobile app</h4>
 <p>
 The mobile app shall be compatibile with devices running Android 2.2+ (API level 8+).
@@ -2215,65 +2229,6 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr >
 		<td>Use Case Name:</td>
-		<td>Add picture to a student's profile</td>
-	</tr>
-	<tr>
-		<td>Date Created:</td>
-		<td>10/02/2013</td>
-	</tr>
-	<tr>
-		<td>Date Last Updated:</td>
-		<td>10/02/2013</td>
-	</tr>
-	<tr>
-		<td>Actors:</td>
-		<td>Lecturer, system</td>
-	</tr>
-	<tr>
-		<td>Description:</td>
-		<td>This use case describes how a lecturer can add a picture to a student's profile</td>
-	</tr>
-	<tr>
-		<td>Preconditions:</td>
-		<td>The lecturer is logged into the system<br />
-			The lecturer is connected to the internet<br />
-			The lecturer has the android application installed on their smart phone<br />
-			The student exists on the system
-		</td>
-	</tr>
-	<tr>
-		<td>Postconditions:</td>
-		<td>The lecturer has added a picture of a student to the system</td>
-	</tr>
-	<tr>
-		<td>Normal Flow:</td>
-		<td>
-				<li>The lecturer clicks "Upload picture" from the main menu</li>
-				<li>The lecturer is shown a form by the system</li>
-				<li>The lecturer enters the ID of the student</li>
-				<li>The lecturer clicks "Add picture"</li>
-				<li>The lecturer takes a picture of the student</li>
-				<li>the lecturer submits the form</li>
-				<li>The system processes the form</li>
-				<li>The picture is added to the system</li>
-				<li>The system returns a confirmation message to the lecturer</li>
-		</td>
-	</tr>
-	<tr>
-		<td>Priority:</td>
-		<td>High</td>
-	</tr>
-</table>
-
-<h1>&nbsp;</h1>
-
-<table border="1" width="100%" cellpadding="4">
-	<tr>
-		<td width="20%">Use case ID:</td>
-		<td width="80%"></td>
-	</tr>
-	<tr >
-		<td>Use Case Name:</td>
 		<td>Take attendance</td>
 	</tr>
 	<tr>
@@ -2309,14 +2264,14 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer clicks "Take attendance" from the main menu</li>
+				<li>The lecturer clicks "Take attendance" in the main menu</li>
 				<li>The lecturer is shown a page where he clicks the "Add picture" button</li>
 				<li>The lecturer takes a picture of the group</li>
 				<li>The system processes the image</li>
 				<li>The lecturer clicks "Ok"</li>
 				<li>The lecturer is shown a list of groups</li>
 				<li>The lecturer clicks on the group for which to take attendance</li>
-				<li>The system displays a list of students with checked boxes for recognised students</li>
+				<li>The system displays a list of students, composed of pictures with the names of the recognised students near them</li>
 				<li>The lecturer clicks "Ok"</li>
 				<li>The system records the attendance</li>
 				<li>The system returns a confirmation message to the lecturer</li>
@@ -2375,7 +2330,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 				<li>The lecturer clicks "Take attendance" from the main menu</li>
 				<li>The lecturer is shown a list of groups</li>
 				<li>The lecturer clicks on the group for which to take attendance</li>
-				<li>The system displays a list of students with checked boxes</li>
+				<li>The system displays a list of students with checkboxes</li>
 				<li>The lecturer checks the boxes near the names of the students that are in the class</li>
 				<li>The lecturer clicks "Ok"</li>
 				<li>The system records the attendance</li>

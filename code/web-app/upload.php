@@ -27,9 +27,11 @@ if ($_FILES["image"]["error"] !== 0) {
 }
 
 @mkdir("face_cache/$session");
+@chmod("face_cache/$session", 0777);
 $tmp_name = $_FILES["image"]["tmp_name"];
 $name = $_FILES["image"]["name"];
 move_uploaded_file($tmp_name, "face_cache/$session/$name");
+chmod("face_cache/$session/$name", 0777);
 
 $ch = curl_init();
 $data = array(

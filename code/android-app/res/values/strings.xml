@@ -5,7 +5,7 @@
     
     <string name="back">Back</string>
     <string name="home">Home Page</string>
-    <string name="username">Username</string>
+    <string name="username">Email or College ID</string>
     <string name="password">Password</string>
     <string name="LogIn">Log In</string>
     <string name="loginInfo">Please, enter your login details below:</string>
@@ -48,4 +48,5 @@
     <string name="manageGroups">Manage Groups</string>
     <string name="viewExcuses">View Student Excuses</string>
     <string name="menu_openbrowser">Open in Browser</string>
+    <string name="loginform">Login Form</string>
 </resources>

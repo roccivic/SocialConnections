@@ -3,6 +3,7 @@ package com.placella.socialconnections;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,8 @@ import android.widget.EditText;
 
 public class Activity_Login extends Activity {
 	Activity self = this;
+	private ProgressDialog pd;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,6 +24,7 @@ public class Activity_Login extends Activity {
 		logInBtn.setOnClickListener(new Button.OnClickListener () {
 			@Override
 			public void onClick(View arg0) {
+				pd = ProgressDialog.show(self, "", getString(R.string.loading), true);
 				new Thread(
 					new Runnable() {
 						public void run() {
@@ -34,6 +38,7 @@ public class Activity_Login extends Activity {
 						    );
 							self.runOnUiThread(new Runnable() {
 								public void run() {
+									pd.dismiss();
 								    if (! success) {
 								    	new Dialog(self, RemoteAuth.getResponse()).show();
 								    } else {

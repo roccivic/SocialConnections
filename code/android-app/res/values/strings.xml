@@ -35,6 +35,7 @@
     <string name="noFaces">Error: No faces found in picture, please try again</string>
     <string name="add_attendance_picture">Add picture</string>
     <string name="take_attendance_hint">Add a picture to begin</string>
+    <string name="take_attendance_hint2">Click "OK" to proceed. Alternatively, you may add more pictures.</string>
     <string name="malformed_response">Could not decode the server response (malformed response)</string>
     <string name="loading">Loading&#8230;</string>
     <string name="detecting">Detecting&#8230;</string>

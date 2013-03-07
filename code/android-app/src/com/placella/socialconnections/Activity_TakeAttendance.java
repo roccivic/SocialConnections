@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * This is activity is used by the lecturer
@@ -145,10 +146,10 @@ public class Activity_TakeAttendance extends CallbackActivity {
 	public void callback(boolean success, String[] messages) {
 		self.hideOverlay();
     	if (success) {
+    		TextView status = (TextView) findViewById(R.id.status);
+    		status.setText(R.string.take_attendance_hint2);
 			for (int i = detectedFaces - numFaces; i<detectedFaces; i++) {
-				//BitmapFactory.Options options = new BitmapFactory.Options();
-				//options.inSampleSize = 2;
-				Bitmap bm = BitmapFactory.decodeFile(facePath + "face" + i + ".jpg");//, options);
+				Bitmap bm = BitmapFactory.decodeFile(facePath + "face" + i + ".jpg");
 				ImageView iv = new ImageView(self);
 				iv.setImageBitmap(bm);
 				iv.setPadding(5, 5, 5, 5);

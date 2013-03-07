@@ -1,5 +1,8 @@
 package com.placella.socialconnections;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
@@ -19,18 +22,18 @@ public class Activity_LecturerMenu extends Activity {
         setContentView(R.layout.activity_menu);
         
         token = getIntent().getStringExtra("token");
-        final ListMenuItem[] menu = new ListMenuItem[] {
-        	new ListMenuItem(self, R.string.home, ""),
-        	new ListMenuItem(self, R.string.manageAssessments, "manageAssessments"),
-        	new ListMenuItem(self, R.string.manageGroups, "manageGroups"),
-        	new ListMenuItem(self, R.string.manageStudents, "manageStudents"),
-        	new ListMenuItem(self, R.string.postNotes, "postNotes"),
-        	new ListMenuItem(self, R.string.twitter, "twitter"),
-        	new ListMenuItem(self, R.string.takeAttendance, ""),
-        	new ListMenuItem(self, R.string.viewExcuses, "viewExcuses"),
-        	new ListMenuItem(self, R.string.viewStudentAttendance, "viewStudentAttendance")
-        };
-        ArrayAdapter<ListMenuItem> adapter = new ArrayAdapter<ListMenuItem>(
+        final List<ListMenuItem> menu = new ArrayList<ListMenuItem>();
+        menu.add(new ListMenuItem(self, R.string.home, "", R.drawable.ic_home));
+        menu.add(new ListMenuItem(self, R.string.manageAssessments, "manageAssessments", R.drawable.ic_assessments));
+		menu.add(new ListMenuItem(self, R.string.manageGroups, "manageGroups", R.drawable.ic_groups));
+		menu.add(new ListMenuItem(self, R.string.manageStudents, "manageStudents", R.drawable.ic_students));
+		menu.add(new ListMenuItem(self, R.string.postNotes, "postNotes", R.drawable.ic_dropbox));
+		menu.add(new ListMenuItem(self, R.string.twitter, "twitter", R.drawable.ic_twitter));
+		menu.add(new ListMenuItem(self, R.string.takeAttendance, "", R.drawable.ic_attendance));
+		menu.add(new ListMenuItem(self, R.string.viewExcuses, "viewExcuses", R.drawable.ic_excuses));
+		menu.add(new ListMenuItem(self, R.string.viewStudentAttendance, "viewStudentAttendance", R.drawable.ic_attendance));
+		
+        MenuArrayAdapter adapter = new MenuArrayAdapter(
     		this,
     		android.R.layout.simple_list_item_1,
     		menu
@@ -40,8 +43,8 @@ public class Activity_LecturerMenu extends Activity {
         list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if (! menu[position].getLink().equals("")) {
-					Activity_Web.launch(self, menu[position].getLink(), token);
+				if (! menu.get(position).getLink().equals("")) {
+					Activity_Web.launch(self, menu.get(position).getLink(), token);
 				} else if (position == 6) {
 					Intent i = new Intent(self, Activity_TakeAttendance.class);
 					i.putExtra("token", token);

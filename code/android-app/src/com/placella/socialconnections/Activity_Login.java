@@ -38,7 +38,6 @@ public class Activity_Login extends Activity {
 						    );
 							self.runOnUiThread(new Runnable() {
 								public void run() {
-									pd.dismiss();
 								    if (! success) {
 								    	new Dialog(self, RemoteAuth.getResponse()).show();
 								    } else {
@@ -62,6 +61,7 @@ public class Activity_Login extends Activity {
 									    	new Dialog(self, R.string.unknowAuthError).show();
 								    	}
 								    }
+									pd.dismiss();
 								}
 							});
 						}

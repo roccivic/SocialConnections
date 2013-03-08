@@ -3,8 +3,8 @@
 // Include configuration file
 require_once 'config.php';
 
-if (empty($argv[1])) {
-	die("Usage: {$argv[0]} path");
+if (empty($argv) || empty($argv[1])) {
+	die("Usage: php train.php path");
 }
 $path = $argv[1] . '/';
 

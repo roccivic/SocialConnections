@@ -30,22 +30,48 @@ if (! $gid) {
     die();
 }
 
-$image = ! empty($_REQUEST["image"]) ? $_REQUEST["image"] : '';
-$image_path = 'face_cache/' . $session . '/' . $image;
-if (! is_readable($image_path)) {
-    header("HTTP/1.0 400 Bad Request");
-    echo '<h1>Error 400: Bad Request</h1>invalid image selected';
-    die();
+$image_path = scandir("face_cache/$session/");
+
+array_shift($image_path); // .
+array_shift($image_path); // ..
+
+foreach ($image_path as $key => $value) {
+    $image_path[$key] = "'face_cache/$session/$value'";
 }
 
-echo intval(
-    trim(
-        shell_exec(
-            escapeshellcmd(
-                './face-rec ' . $gid . ' ' . $image_path
-            )
+$output = trim(
+    shell_exec(
+        escapeshellcmd(
+            "./face-rec-parent $gid " . implode(' ', $image_path)
         )
     )
 );
+
+$parsed = explode("\n", $output);
+foreach ($parsed as $key => $line) {
+    $parsed[$key] = explode(",", $line);
+}
+
+$fixed = array();
+foreach ($parsed as $key => $value) {
+    if (empty($fixed[$value[1]])
+        || $fixed[$value[1]]["confidence"] > $value[2]
+    ) {
+        $fixed[$value[1]] = array(
+            "file" => $value[0],
+            "confidence" => $value[2]
+        );
+    }
+}
+
+$output = array();
+foreach ($fixed as $key => $value) {
+    $output[$value["file"]] = array(
+        "sid" => $key,
+        "confidence" => intval($value["confidence"])
+    ); 
+}
+
+exit(json_encode($output));
 
 ?>

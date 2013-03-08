@@ -1,6 +1,3 @@
-var images = [];
-var results = [];
-
 $(document).bind('pageinit', function () {
 	if ($('#recognise').length) {
 		$('#recognise').remove();
@@ -9,9 +6,6 @@ $(document).bind('pageinit', function () {
 		});
 		var gid = parseInt($('#gid').text(), 10) || 0;
 		var session = $('#session').text().replace(/\s*/g, "");
-		$('#studentlist').find('img:not(.avatar)').each(function () {
-			images.push($(this).attr('src'));
-		});
 		recognise(gid, session);
 		$('form').bind('submit', function (e) {
 			e.preventDefault();
@@ -20,46 +14,60 @@ $(document).bind('pageinit', function () {
 });
 
 function recognise(gid, session) {
-	var image = images.shift();
-	if (image) {
-		$.post(
-			'recognise.php',
-			{
-				'gid': gid,
-				'session': session,
-				'image': image
-			},
-			function (data) {
-				results.push(parseInt(data));
-				recognise(gid, session);
-			}
-		);
-	} else {
-		finish();
-		$.mobile.hidePageLoadingMsg();
-	}
+	$.post(
+		'recognise.php',
+		{
+			'gid': gid,
+			'session': session
+		},
+		function (data) {
+			$.mobile.hidePageLoadingMsg();
+			finish(data);
+		}
+	);
 }
 
-function finish() {
+
+function finish(results) {
 	$('#studentlist').find('li h3').each(function () {
 		var $students = $('select.students:first');
 		$(this).replaceWith($students.clone());
 	});
-	for (var i in results) {
-		$('#studentlist').find('li select').eq(i).val(results[i]);
-	}
+
+	$('#studentlist').find('img:not(.avatar)').each(function () {
+		var url = $(this).attr('src');
+		var filename = url.substring(url.lastIndexOf('/') + 1);
+		if (typeof results[filename] !== 'undefined') {
+			$(this).closest('li').find('select').val(
+				results[filename]['sid']
+			);
+			$(this).closest('li').append(
+				$('<p />').addClass('confidence')
+					.css({
+						clear: "both",
+						margin: 0,
+						padding: "10px 10px 0px 0px",
+						'font-weight': 'normal'
+					})
+					.text('Confidence: ' + results[filename]['confidence'] + ' (lower is better)')
+			);
+		}
+	});
+
 	update();
 	$('#studentlist')
 		.trigger("create")
 		.find('select')
 		.bind('change', function () {
+			$(this).closest('li').find('p.confidence').remove();
 			update();
 		});
 
-
-
 	$('form').unbind('submit').bind('submit', function (e) {
 		e.preventDefault();
+
+		var gid = parseInt($('#gid')[0].innerHTML, 10) || 0;
+		var session = $('#session')[0].innerHTML.replace(/\s*/g, "");
 
 		var params = '';
 		params += 'gid=' + gid;
@@ -98,8 +106,6 @@ function finish() {
 			}
 		);
 	});
-
-	console.log('done');
 }
 
 function update() {

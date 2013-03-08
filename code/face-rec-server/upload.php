@@ -37,7 +37,8 @@ if (empty($_FILES["image"]) || ! is_array($_FILES["image"])) {
 foreach ($_FILES["image"]["name"] as $key => $value) {
     $tmp_name = $_FILES["image"]["tmp_name"][$key];
     $name = $_FILES["image"]["name"][$key];
-    shell_exec("convert $tmp_name -resize 92x112\! -colorspace Gray face_cache/$session/$name");
+    //shell_exec("convert $tmp_name -resize 92x112\! -colorspace Gray face_cache/$session/$name");
+    shell_exec("convert $tmp_name -resize 92x112\! face_cache/$session/$name");
     chmod("face_cache/$session/$name", 0777);
 }
 

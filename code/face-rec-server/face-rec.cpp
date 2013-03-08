@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <libgen.h>
 
 using namespace cv;
 using namespace std;
@@ -48,7 +49,11 @@ int main(int argc, const char *argv[])
 
     Ptr<FaceRecognizer> model = createEigenFaceRecognizer();
     model->load("models/" + gid + ".xml");
-    cout << model->predict(testSample);
 
+    int label;
+    double confidence;
+    char *filename = basename(image_file.c_str());
+    model->predict(testSample, label, confidence);
+    printf("%s,%d,%0.2f\n", filename, label, confidence);
     return 0;
 }

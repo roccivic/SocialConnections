@@ -3,21 +3,18 @@ package com.placella.socialconnections;
 import java.io.File;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.*;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
+import android.os.*;
 import android.provider.MediaStore;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.*;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.*;
 
 /**
  * This is activity is used by the lecturer
@@ -34,6 +31,7 @@ public class Activity_TakeAttendance extends CallbackActivity {
 	private int detectedFaces = 0;
 	private int numFaces = 0;
 	private int pictures = 0;
+	private List<Integer> ignored = new ArrayList<Integer>();
 	private String session;
 	private String token;
 
@@ -75,7 +73,7 @@ public class Activity_TakeAttendance extends CallbackActivity {
 		    		showOverlay();
 		    		setOverlay(getString(R.string.uploading));
 		        	FacialRecognition f = new FacialRecognition(self);
-		    		f.upload(session, facePath, detectedFaces, 0);
+		    		f.upload(session, facePath, detectedFaces, ignored);
 				}
 			}
 		});
@@ -131,13 +129,43 @@ public class Activity_TakeAttendance extends CallbackActivity {
 		    		self.hideOverlay();
 		    		TextView status = (TextView) findViewById(R.id.status);
 		    		status.setText(R.string.take_attendance_hint2);
+					final LinearLayout rl = (LinearLayout) findViewById(R.id.faces);
 					for (int i = detectedFaces - numFaces; i<detectedFaces; i++) {
+						LinearLayout l = new LinearLayout(self);
+				        l.setOrientation(LinearLayout.HORIZONTAL);
+						l.setLayoutParams(
+				        	new LayoutParams(
+				        		LayoutParams.MATCH_PARENT,
+				        		LayoutParams.WRAP_CONTENT
+				        	)
+				        );
+				        
 						Bitmap bm = BitmapFactory.decodeFile(facePath + "face" + i + ".jpg");
 						ImageView iv = new ImageView(self);
 						iv.setImageBitmap(bm);
 						iv.setPadding(5, 5, 5, 5);
-						LinearLayout rl = (LinearLayout) findViewById(R.id.faces);
-						rl.addView(iv);
+						l.addView(iv);
+						
+						Button b = new Button(self);
+						b.setText("Remove");
+						b.setLayoutParams(
+				        	new LayoutParams(
+				        		LayoutParams.MATCH_PARENT,
+				        		LayoutParams.WRAP_CONTENT
+				        	)
+				        );
+						b.setTag(i);
+						b.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View button) {
+								int index = (Integer) button.getTag();
+								rl.getChildAt(index).setVisibility(View.GONE);
+								ignored.add(index);
+							}
+						});
+						l.addView(b);
+						
+						rl.addView(l);
 					}
 				}
 			});

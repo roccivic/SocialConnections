@@ -72,7 +72,10 @@ public class Activity_TakeAttendance extends CallbackActivity {
 				if (pictures == 0) {
 					new Dialog(self, R.string.noPicture).show();
 				} else {
-					Activity_Web.launch(self, "facialRec", token, session);
+		    		showOverlay();
+		    		setOverlay(getString(R.string.uploading));
+		        	FacialRecognition f = new FacialRecognition(self);
+		    		f.upload(session, facePath, detectedFaces, 0);
 				}
 			}
 		});
@@ -125,11 +128,20 @@ public class Activity_TakeAttendance extends CallbackActivity {
     	} else {
 			runOnUiThread(new Runnable() {
 				public void run() {
-		    		self.setOverlay(self.getString(R.string.uploading));
+		    		self.hideOverlay();
+		    		TextView status = (TextView) findViewById(R.id.status);
+		    		status.setText(R.string.take_attendance_hint2);
+					for (int i = detectedFaces - numFaces; i<detectedFaces; i++) {
+						Bitmap bm = BitmapFactory.decodeFile(facePath + "face" + i + ".jpg");
+						ImageView iv = new ImageView(self);
+						iv.setImageBitmap(bm);
+						iv.setPadding(5, 5, 5, 5);
+						LinearLayout rl = (LinearLayout) findViewById(R.id.faces);
+						rl.addView(iv);
+					}
 				}
 			});
 			pictures++;
-			f.upload(session, facePath, numFaces, detectedFaces);
 			detectedFaces += numFaces;
     	}
     }
@@ -146,16 +158,7 @@ public class Activity_TakeAttendance extends CallbackActivity {
 	public void callback(boolean success, String[] messages) {
 		self.hideOverlay();
     	if (success) {
-    		TextView status = (TextView) findViewById(R.id.status);
-    		status.setText(R.string.take_attendance_hint2);
-			for (int i = detectedFaces - numFaces; i<detectedFaces; i++) {
-				Bitmap bm = BitmapFactory.decodeFile(facePath + "face" + i + ".jpg");
-				ImageView iv = new ImageView(self);
-				iv.setImageBitmap(bm);
-				iv.setPadding(5, 5, 5, 5);
-				LinearLayout rl = (LinearLayout) findViewById(R.id.faces);
-				rl.addView(iv);
-			}
+    		Activity_Web.launch(self, "facialRec", token, session);
     	} else {
 			new Dialog(self, messages[0]).show();
     	}

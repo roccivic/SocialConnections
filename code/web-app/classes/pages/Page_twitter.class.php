@@ -29,6 +29,11 @@ class Page_twitter extends Page_twitterAuth {
 		$user = $connection->get('account/verify_credentials');
 		$gid = intval($gid);
 		$gName = $this->getGroupName($gid);
+		$id = '';
+		if(!empty($_REQUEST['id']))
+		{
+			$id = $_REQUEST['id'];
+		}
 		if(!empty($gName))
 		{
 			if(!empty($_REQUEST['userTweet']))
@@ -40,8 +45,6 @@ class Page_twitter extends Page_twitterAuth {
 						'notice',
 						__('You have tweeted successfully!')
 					);
-					//$tweetsMan = $connection->get('statuses/home_timeline');
-					//$this->addNotification('notice', "<pre>" . print_r($tweetsMan, true)  . "</pre>");
 					$this->tweetForm($gid);
 				}
 				else
@@ -52,6 +55,10 @@ class Page_twitter extends Page_twitterAuth {
 					);
 					$this->tweetForm($gid);
 				}
+			}
+			if(!empty($_REQUEST['viewReplies']))
+			{	
+				$this->displayTweetReplies($gid, $connection, $id);
 			}
 			else if(!empty($_REQUEST['viewTweets']))
 			{
@@ -186,7 +193,7 @@ class Page_twitter extends Page_twitterAuth {
 	{
 		$this->addHtml(
 	        sprintf(
-	        	'<li><a href="?action=%s&gid=%d&id=%s">%s
+	        	'<li><a href="?action=%s&viewReplies=1&gid=%d&id=%s">%s
 	        	 <span class="ui-li-count">
                   %s
                  </span></a></li>',
@@ -206,6 +213,34 @@ class Page_twitter extends Page_twitterAuth {
 	private function printListFooterTweets()
 	{
         $this->addHtml('</ul>');
+	}
+	/**
+	 * Retweet
+	 *
+	 * @return void
+	 */
+	private function retweet($gid, $connection, $id, $tweet)
+	{
+		$success = $connection->post('statuses/retweet/',array('id' => $id), array('status' => $tweet));
+		return $success;
+	}
+	/**
+	 * Display tweets for group
+	 *
+	 * @return void
+	 */
+	private function displayTweetReplies($gid, $connection, $id)
+	{
+		$this->printListHeaderTweets();
+		$tweets = $this->getTweets($gid, $connection);
+		foreach($tweets as $key)
+		{
+			if (intval($key->in_reply_to_status_id) == intval($id)) 
+			{
+				$this->printListItemTweets($gid, $key->id, $key->text, $key->user->name);
+			}
+		}
+		$this->printListFooterTweets();
 	}
 }
 ?>

@@ -124,6 +124,9 @@ class Page_notes extends Page_selectStudentGroup {
 		if (count($notes) > 0) {
 			$html = $this->printListHeaderNotes($gid);
 			foreach($notes as $key => $value) {
+				$array = explode("/", $value);
+				end($array);
+				$value = current($array);
 				$html .= $this->printListItemNotes($value);
 			}
 			$html .= $this->printListFooterNotes();

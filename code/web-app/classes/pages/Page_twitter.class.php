@@ -40,6 +40,8 @@ class Page_twitter extends Page_twitterAuth {
 						'notice',
 						__('You have tweeted successfully!')
 					);
+					//$tweetsMan = $connection->get('statuses/home_timeline');
+					//$this->addNotification('notice', "<pre>" . print_r($tweetsMan, true)  . "</pre>");
 					$this->tweetForm($gid);
 				}
 				else
@@ -50,6 +52,10 @@ class Page_twitter extends Page_twitterAuth {
 					);
 					$this->tweetForm($gid);
 				}
+			}
+			else if(!empty($_REQUEST['viewTweets']))
+			{
+				$this->displayTweets($gid, $connection);
 			}
 			else if(!empty($_REQUEST['tweetForm']))
 			{
@@ -127,6 +133,79 @@ class Page_twitter extends Page_twitterAuth {
 		$tweet .= $hashtag;
 		$success = $connection->post('statuses/update', array('status' => $tweet));
 		return $success;
+	}
+	/**
+	 * Display tweets for group
+	 *
+	 * @return void
+	 */
+	private function displayTweets($gid, $connection)
+	{
+		$this->printListHeaderTweets();
+		$tweets = $this->getTweets($gid, $connection);
+		foreach($tweets as $key)
+		{
+			if (strpos($key->text,' #aStrInGthAtNoOneIsSupPosEdtOuSe'.$gid) !== false) 
+			{
+				$this->printListItemTweets($gid, $key->id, $key->text, $key->user->name);
+			}
+		}
+		$this->printListFooterTweets();
+	}
+	/**
+	 * get tweets for group
+	 *
+	 * @return void
+	 */
+	private function getTweets($gid, $connection)
+	{
+		$tweets = $connection->get('statuses/home_timeline');
+		return $tweets;
+	}
+	/**
+	 * Prints the header for the list of groups
+	 *
+	 * @return void
+	 */
+	private function printListHeaderTweets()
+	{
+		$html='';
+		$html .= '<ul data-role="listview" data-divider-theme="b" ';
+        $html .= 'data-inset="true">';
+        $html .= '<li data-role="list-divider" role="heading">';
+        $html .= 'Tweets';
+        $html .= '</li>';
+        $this->addHtml($html);
+	}
+	/**
+	 * Prints a single item for the list of groups
+	 *
+	 * @return void
+	 */
+	private function printListItemTweets($gid, $id, $text, $author)
+	{
+		$this->addHtml(
+	        sprintf(
+	        	'<li><a href="?action=%s&gid=%d&id=%s">%s
+	        	 <span class="ui-li-count">
+                  %s
+                 </span></a></li>',
+	        	urlencode(htmlspecialchars($_REQUEST['action'])),
+	        	$gid,
+	        	$id, 
+	        	$text,
+	        	$author
+	        )
+        );
+	}
+	/**
+	 * Prints the footer for the list of groups
+	 *
+	 * @return void
+	 */
+	private function printListFooterTweets()
+	{
+        $this->addHtml('</ul>');
 	}
 }
 ?>

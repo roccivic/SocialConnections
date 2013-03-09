@@ -76,6 +76,25 @@ class DropboxClient
         $response = $this->Session->fetch("GET", $this->dropboxAPIURL, "/metadata/" . $path, $args);
         return $response["body"];
     }
+    /**
+    * Returns a link directly to a file.
+    *
+    * @param string $path The path to the file.
+    * @param string[optional] $locale The metadata returned will have its size field translated based on the given locale.
+    * @param bool[optional] $sandbox The root relative to which path is specified. Valid values are sandbox and dropbox.
+    * @return array
+    */
+    public function media($path, $locale = null, $sandbox = false)
+    {
+        // build parameters
+        $parameters = null;
+        if($locale !== null) $parameters['locale'] = (string) $locale;
+
+        // make the call
+        //return (array) $this->doCall($url, $parameters, 'POST');
+        $response = $this->Session->fetch("POST", $this->dropboxAPIURL, "/shares/sandbox/" . $path);
+        return $response;
+    }
 
     /**
      * Downloads a file from the user's Dropbox

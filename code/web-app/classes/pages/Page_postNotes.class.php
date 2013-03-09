@@ -21,232 +21,35 @@ class Page_postNotes extends Page_dropboxAuth {
 	 *
 	 * @return void
 	 */
-	public function display($access_token) 
+	public function display2($access_token, $gid, $config) 
 	{	
-		$config = array();
-		$config["dropbox"]["app_key"] = CONFIG::DROPBOX_APP_KEY;
-		$config["dropbox"]["app_secret"] = CONFIG::DROPBOX_APP_SECRET;
-		$config["dropbox"]["access_type"] = CONFIG::DROPBOX_ACCESS_TYPE;
-		$config["app"]["root"] = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . "/socialconnections/?action=postNotes";
-		$session = new DropboxSession(
-	    $config["dropbox"]["app_key"],
-	    $config["dropbox"]["app_secret"],
-	    $config["dropbox"]["access_type"]
-	    );
-		$gid = 0;
-		if(!empty($_REQUEST['gid'])) {
-			$gid = $_REQUEST['gid'];
-		}
-		$file = $_REQUEST['file'];
-		$gname = $this->getGroupName($gid);
-		if(!empty($gname)) {
-			if(!empty($file)) {
-					$this->addNotification(
-						'notice',
-						__($file)
-					);
-				$session = new DropboxSession(
-		        $config["dropbox"]["app_key"], 
-		        $config["dropbox"]["app_secret"], 
-		        $config["dropbox"]["access_type"], 
-		        $access_token
-    			);
-				$client = new DropboxClient($session);
-				//if ($response = $client->putFile($file, '/')) {
-				//	$this->addNotification(
-				//		'notice',
-				//		__('The file was uploaded successfully.')
-				//	);
-        		//	$this->uploadForm($gid);
-    			//}
-    			//else {
-    				
-				//	$this->addNotification(
-				//		'error',
-				//		__('The file was not uploaded successfully.')
-				//	);
-    			//	$this->uploadForm($gid);
-    			//}
+		$_SESSION['gid'] = NULL;
+
+		if(isset($_FILES['dropboxFile']))
+		{ 
+			$tmp_name = $_FILES['dropboxFile']['tmp_name'];
+			$name = $_FILES['dropboxFile']['name'];
+			if($this->upload($tmp_name, $name, $config) && $this->uploadDropbox($gid, $name, $config, $access_token) && $this->rmvFile($config, $name) && $this->getLink($gid, $config, $access_token, $name))
+			{
+				$this->addNotification(
+							'notice',
+							__('The file was uploaded successfully.')
+						);
 			}
-			else {
-				$this->uploadForm($gid);
+			else
+			{
+				$this->addNotification(
+							'error',
+							__('An error occured while processing your request.')
+						);
 			}
+			$this->uploadForm($gid);
 			
 		}
-		else {
-			$this->groupSelector();
+		else 
+		{
+			$this->uploadForm($gid);
 		}
-		
-	}
-	/**
-	 * Displays the list of groups
-	 *
-	 * @return void
-	 */
-	protected function groupSelector()
-	{
-		
-		$db = Db::getLink();
-		$terms = $this->getTerms($_SESSION['uid']);
-		if (count($terms) > 0) {
-			$this->addHtml(
-				'<h3>' . __('Select Group') . '</h3>'
-			);
-			foreach ($terms as $value) {
-				$stmt = $db->prepare(
-					$this->getQuery($value['year'], $value['term'])
-				);
-				$stmt->bind_param('iii', $_SESSION['uid'], $value['year'], $value['term']);
-				$stmt->execute();
-				$stmt->store_result();
-				if ($stmt->num_rows) {
-					$this->printListHeader($value['year'], $value['term']);
-					$stmt->bind_result($gid, $name);
-					while ($stmt->fetch()) {
-				        $this->printListItem($gid, $name);
-				    }
-				    $this->printListFooter();
-				}
-				$stmt->close();
-			}
-			$this->addHtml(
-				$this->getExtraFooter($_SESSION['uid'])
-			);
-		} else {
-			$this->addNotification(
-				'warning',
-				__('You are not assigned to any groups')
-			);
-			if (isset($haveCreateBtn)) {
-				$this->addHtml($this->getCreateGroupBtn());
-			}
-		}
-	}
-	/**
-	 * Prints the header for the list of groups
-	 *
-	 * @return void
-	 */
-	private function printListHeader($year, $term)
-	{
-		$html='';
-		$html .= '<ul data-role="listview" data-divider-theme="b" ';
-        $html .= 'data-inset="true">';
-        $html .= '<li data-role="list-divider" role="heading">';
-        $html .= sprintf(
-        	__('Year %d, Semester %d'),
-        	$year,
-        	$term
-        );
-        $html .= '</li>';
-        $this->addHtml($html);
-	}
-	/**
-	 * Prints a single item for the list of groups
-	 *
-	 * @return void
-	 */
-	private function printListItem($gid, $name)
-	{
-        $this->addHtml(
-	        sprintf(
-	        	'<li><a href="?action=%s&gid=%d">%s</a></li>',
-	        	urlencode(htmlspecialchars($_REQUEST['action'])),
-	        	$gid,
-	        	$name
-	        )
-        );
-	}
-	/**
-	 * Prints the footer for the list of groups
-	 *
-	 * @return void
-	 */
-	private function printListFooter()
-	{
-        $this->addHtml('</ul>');
-	}
-	
-	/**
-	 * Puts some HTML code into the footer of the page,
-	 * override in a subclass
-	 *
-	 * @return @string
-	 */
-	protected function getExtraFooter($sid)
-	{
-        return '';
-	}
-	/**
-	 * This function must be implemented in a subclass
-	 * Returns an SQL query for getting the groups
-	 *
-	 * @return string
-	 */
-	protected function getQuery()
-	{
-        return "SELECT `group`.`id`, `group`.`name`
-				FROM `group`
-				INNER JOIN `moduleoffering_lecturer`
-				ON `group`.`moid` = `moduleoffering_lecturer`.`moid`
-				INNER JOIN `moduleoffering`
-				ON `moduleoffering_lecturer`.`moid` = `moduleoffering`.`id`
-				WHERE `lid` = ?
-				AND `moduleoffering`.`year` = ?
-				AND `moduleoffering`.`term` = ?";
-	}
-	/**
-	 * Retrieves a list of terms that
-	 * the user is registered for
-	 *
-	 * @return @array
-	 */
-    protected function getTerms($lid)
-    {
-        $arr = array();
-        $db = Db::getLink();
-        $stmt = $db->prepare(
-            'SELECT `year`, `term`
-            FROM `moduleoffering`
-            INNER JOIN `group`
-            ON `group`.`moid` = `moduleoffering`.`id`
-            INNER JOIN `moduleoffering_lecturer`
-            ON `moduleoffering_lecturer`.`moid` = `moduleoffering`.`id`
-			INNER JOIN `lecturer`
-            ON `moduleoffering_lecturer`.`lid` = `lecturer`.`id`
-            WHERE `moduleoffering_lecturer`.`lid` = ?
-            GROUP BY `year`,`term`
-            ORDER BY `year` DESC, `term` DESC;'
-        );
-        $stmt->bind_param('i', $lid);
-        $stmt->execute();
-        $stmt->bind_result($year, $term);
-        while ($stmt->fetch()) {
-            $arr[] = array(
-                'year' => $year,
-                'term' => $term
-            );
-        }
-        $stmt->close();
-        return $arr;
-   }
-   /**
-	 * Returns the name of a group given its id
-	 *
-	 * @return string
-	 */
-	private function getGroupName($gid)
-	{
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `name` FROM `group` WHERE `id` = ?;"
-		);
-		$stmt->bind_param('i', $gid);
-		$stmt->execute();
-		$stmt->bind_result($name);
-		$stmt->fetch();
-		$stmt->close();
-		return $name;
 	}
 	/**
 	 * Displays a form for uploading a file
@@ -256,12 +59,116 @@ class Page_postNotes extends Page_dropboxAuth {
 	private function uploadForm($gid)
 	{
 		$html = '';
-		$html .= '<form method="POST" action="">';
+		$html .= '<form method="POST" enctype="multipart/form-data" action="">';
 		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
 		$html .= '<label for="file">File</label>';
-		$html .= '<input data-clear-btn="false" name="file" id="file" value="" type="file">';
+		$html .= '<input type="file" data-clear-btn="false" name="dropboxFile" id="dropboxFile" value="" />';
 		$html .= '<input data-theme="b" type="submit" value="' . __('Upload') . '" />';
+		$html .= '</form>';
 		$this->addHtml($html);
+	}
+
+	/**
+	 * Uploads a file to dropbox
+	 *
+	 * @return bool
+	 */
+	private function uploadDropbox($gid, $name, $config, $access_token)
+	{
+		$success = true;
+		try 
+		{
+			$session = new DropboxSession(
+				$config["dropbox"]["app_key"],
+				$config["dropbox"]["app_secret"],
+				$config["dropbox"]["access_type"],
+				$access_token
+		    );
+		  	$client = new DropboxClient($session);
+		  	$src = $config["app"]["datadir"] . $name;
+    		$dest = "/";
+		  	if ($response = $client->putFile($src, $dest)) {}
+		   	else
+		   	{
+		   		$success = false;
+		   	}
+	   	}
+	   	catch (Exception $e) 
+	   	{
+		   $success = false;
+		}
+		return $success;
+	}
+	/**
+	 * Uploads a file to the server
+	 *
+	 * @return bool
+	 */
+	private function upload($tmp_name, $name, $config)
+	{
+		$success = move_uploaded_file($tmp_name,  $config["app"]["datadir"].$name);
+		return $success;
+	}
+	/**
+	 * deletes uploaded file from the server
+	 *
+	 * @return bool
+	 */
+	private function rmvFile($config, $name)
+	{
+		$success = unlink($config["app"]["datadir"].$name);
+		return $success;
+	}
+	/**
+	 * Gets the link of a file for download
+	 *
+	 * @return bool
+	 */
+	private function getLink($gid, $config, $access_token, $name)
+	{
+		$response = true;
+		try 
+		{
+			$session = new DropboxSession(
+				$config["dropbox"]["app_key"],
+				$config["dropbox"]["app_secret"],
+				$config["dropbox"]["access_type"],
+				$access_token
+		    );
+		  	$client = new DropboxClient($session);
+		  	$response = $client->media($name);
+		  	
+		  	if($response['code'] == 200)
+		  	{
+		  		$success = $this->saveLink($gid, $response);
+		  	}
+		  	else {
+		  		$success = false;
+		  	}
+		  	
+		}
+	   	catch (Exception $e) 
+	   	{
+	   		$success = false;
+	   	}
+	   	return $response;
+	}
+	/**
+	 * Saves link to file
+	 *
+	 * @return bool success
+	 */
+	private function saveLink($gid, $response) 
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+		"INSERT INTO `notes` (`gid`, `url`) VALUES (?, ?);"
+		);
+		$stmt->bind_param('is', $gid, $response['body']['url']);
+		$success = $stmt->execute();
+		$stmt->fetch();
+		$stmt->close();
+		return $success;
 	}
 
 }

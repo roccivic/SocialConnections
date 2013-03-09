@@ -24,11 +24,12 @@ class Page_postNotes extends Page_dropboxAuth {
 	public function display2($access_token, $gid, $config) 
 	{	
 		$_SESSION['gid'] = NULL;
+
 		if(isset($_FILES['dropboxFile']))
 		{ 
 			$tmp_name = $_FILES['dropboxFile']['tmp_name'];
 			$name = $_FILES['dropboxFile']['name'];
-			if($this->upload($tmp_name, $name, $config) && $this->uploadDropbox($gid, $name, $config, $access_token) && $this->rmvFile($config, $name))
+			if($this->upload($tmp_name, $name, $config) && $this->uploadDropbox($gid, $name, $config, $access_token) && $this->rmvFile($config, $name) && $this->getLink($gid, $config, $access_token, $name))
 			{
 				$this->addNotification(
 							'notice',
@@ -118,8 +119,57 @@ class Page_postNotes extends Page_dropboxAuth {
 		$success = unlink($config["app"]["datadir"].$name);
 		return $success;
 	}
-
-
+	/**
+	 * Gets the link of a file for download
+	 *
+	 * @return bool
+	 */
+	private function getLink($gid, $config, $access_token, $name)
+	{
+		$response = true;
+		try 
+		{
+			$session = new DropboxSession(
+				$config["dropbox"]["app_key"],
+				$config["dropbox"]["app_secret"],
+				$config["dropbox"]["access_type"],
+				$access_token
+		    );
+		  	$client = new DropboxClient($session);
+		  	$response = $client->media($name);
+		  	
+		  	if($response['code'] == 200)
+		  	{
+		  		$success = $this->saveLink($gid, $response);
+		  	}
+		  	else {
+		  		$success = false;
+		  	}
+		  	
+		}
+	   	catch (Exception $e) 
+	   	{
+	   		$success = false;
+	   	}
+	   	return $response;
+	}
+	/**
+	 * Saves link to file
+	 *
+	 * @return bool success
+	 */
+	private function saveLink($gid, $response) 
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+		"INSERT INTO `notes` (`gid`, `url`) VALUES (?, ?);"
+		);
+		$stmt->bind_param('is', $gid, $response['body']['url']);
+		$success = $stmt->execute();
+		$stmt->fetch();
+		$stmt->close();
+		return $success;
+	}
 
 }
 ?>

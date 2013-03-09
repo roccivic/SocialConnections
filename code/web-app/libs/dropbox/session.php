@@ -212,7 +212,7 @@ class DropboxSession extends DropboxRESTClient
         );
         //ksort($params);
 
-        $oauthSig = $this->getSignature("POST", $requestTokenUrl, $params);
+        $oauthSig = $this->getSignature("POST", $requestTokenUrl, $params, $sigKey);
 
         $params["oauth_signature"] = $oauthSig;
 

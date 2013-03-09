@@ -21,21 +21,34 @@ class Page_postNotes extends Page_dropboxAuth {
 	 *
 	 * @return void
 	 */
-	public function display2($access_token, $gid) 
+	public function display2($access_token, $gid, $config) 
 	{	
 		$_SESSION['gid'] = NULL;
-		$config = array();
-		$config["dropbox"]["app_key"] = CONFIG::DROPBOX_APP_KEY;
-		$config["dropbox"]["app_secret"] = CONFIG::DROPBOX_APP_SECRET;
-		$config["dropbox"]["access_type"] = CONFIG::DROPBOX_ACCESS_TYPE;
-		$config["app"]["root"] = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . "/socialconnections/?action=postNotes";
-		$session = new DropboxSession(
-	    $config["dropbox"]["app_key"],
-	    $config["dropbox"]["app_secret"],
-	    $config["dropbox"]["access_type"]
-	    );
-		$this->uploadForm($gid);
-		
+		if(isset($_FILES['dropboxFile']))
+		{ 
+			$tmp_name = $_FILES['dropboxFile']['tmp_name'];
+			$name = $_FILES['dropboxFile']['name'];
+			if($this->upload($tmp_name, $name, $config) && $this->uploadDropbox($gid, $name, $config, $access_token))
+			{
+				$this->addNotification(
+							'notice',
+							__('The file was uploaded successfully.')
+						);
+			}
+			else
+			{
+				$this->addNotification(
+							'error',
+							__('An error occured while processing your request.')
+						);
+			}
+			$this->uploadForm($gid);
+			
+		}
+		else 
+		{
+			$this->uploadForm($gid);
+		}
 	}
 	/**
 	 * Displays a form for uploading a file
@@ -45,13 +58,60 @@ class Page_postNotes extends Page_dropboxAuth {
 	private function uploadForm($gid)
 	{
 		$html = '';
-		$html .= '<form method="POST" action="">';
+		$html .= '<form method="POST" enctype="multipart/form-data" action="">';
 		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
 		$html .= '<label for="file">File</label>';
-		$html .= '<input data-clear-btn="false" name="file" id="file" value="" type="file">';
+		$html .= '<input type="file" data-clear-btn="false" name="dropboxFile" id="dropboxFile" value="" />';
 		$html .= '<input data-theme="b" type="submit" value="' . __('Upload') . '" />';
+		$html .= '</form>';
 		$this->addHtml($html);
 	}
+
+	/**
+	 * Uploads a file to dropbox
+	 *
+	 * @return bool
+	 */
+	private function uploadDropbox($gid, $name, $config, $access_token)
+	{
+		$success = true;
+		try 
+		{
+			$session = new DropboxSession(
+				$config["dropbox"]["app_key"],
+				$config["dropbox"]["app_secret"],
+				$config["dropbox"]["access_type"],
+				$access_token
+		    );
+		  	$client = new DropboxClient($session);
+		  	$src = $config["app"]["datadir"] . $name;
+    		$dest = "/";
+		  	if ($response = $client->putFile($src, $dest)) {
+
+    		}
+		   	else
+		   	{
+		   		$success = false;
+		   	}
+	   	}
+	   	catch (Exception $e) 
+	   	{
+		   $success = false;
+		}
+		return $success;
+	}
+	/**
+	 * Uploads a file to the server
+	 *
+	 * @return bool
+	 */
+	private function upload($tmp_name, $name, $config)
+	{
+		$success = move_uploaded_file($tmp_name,  $config["app"]["datadir"].$name);
+		return $success;
+	}
+
+
 
 }
 ?>

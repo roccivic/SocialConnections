@@ -18,8 +18,8 @@ abstract class Page_dropboxAuth extends Page_selectLecturerGroup {
 		parent::__construct();
 	}
 	/**
-	 * Called from the Page_twitterAuth superclass
-	 * when access to twitter is granted
+	 * Called from the Page_selectLecturer_Group superclass
+	 * when a group is picked
 	 *
 	 * @return void
 	 */
@@ -33,24 +33,28 @@ abstract class Page_dropboxAuth extends Page_selectLecturerGroup {
 			$config["dropbox"]["app_secret"] = CONFIG::DROPBOX_APP_SECRET;
 			$config["dropbox"]["access_type"] = CONFIG::DROPBOX_ACCESS_TYPE;
 			$config["app"]["root"] = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . "/socialconnections/?action=postNotes";
+			$config["app"]["datadir"] = "dropbox_files/";
 			$session = new DropboxSession(
 		    $config["dropbox"]["app_key"],
 		    $config["dropbox"]["app_secret"],
 		    $config["dropbox"]["access_type"]
 		    );
+
 		   	if(empty($_SESSION['access_tokenDropbox']))
 		   	{
 		   		if (!empty($_REQUEST["oauth_token"]) && !empty($_REQUEST["uid"])) {
 						$token = array(
-			            "oauth_token" => $_REQUEST["oauth_token"],
-			            "oauth_token_secret" => ""
+						"oauth_token_secret" => "",
+			            "oauth_token" => $_REQUEST["oauth_token"]
 			        );
 					if (!empty($_SESSION["request_token"])) {
 			            $token["oauth_token_secret"] = $_SESSION["request_token"]["oauth_token_secret"];
 			        }
 			       	$access_token = $session->obtainAccessToken($token);
+			       	parse_str($access_token, $token);
+            		$access_token = $token;
 			       	$_SESSION['access_tokenDropbox'] = $access_token;
-			   		$this->display2($access_token, $gid);
+			       	$this->display2($access_token, $gid, $config);
 			    }
 				else {
 					if ($request_token = $session->obtainRequestToken()) {
@@ -65,7 +69,7 @@ abstract class Page_dropboxAuth extends Page_selectLecturerGroup {
 		     	}
 		    }
 		   	else {
-		    	$this->display2($_SESSION['access_tokenDropbox'], $gid);
+		    	$this->display2($_SESSION['access_tokenDropbox'], $gid, $config);
 		    }
 		 }
 	    else 
@@ -76,12 +80,12 @@ abstract class Page_dropboxAuth extends Page_selectLecturerGroup {
 
 	/**
 	 * This function must be implemented in a subclass
-	 * Shows a page after a group has been selected
+	 * Shows a page after the user has been authorized to use dropbox
 	 *
 	 * @return void
 	 */
 
-	protected abstract function display2($access_token, $gid);	
+	protected abstract function display2($access_token, $gid, $config);	
 
 	/**
 	 * Returns group name

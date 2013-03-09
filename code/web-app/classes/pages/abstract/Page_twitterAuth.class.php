@@ -2,14 +2,21 @@
 if (! defined('SOCIALCONNECTIONS')) {
 	die();
 }
+require_once 'classes/pages/abstract/Page_selectLecturerGroup.class.php';
 require_once('libs/twitter/twitteroauth.php');
 /**
  * Abstract class that implements connecting to twitter
  */
-abstract class Page_twitterAuth extends Page {
+abstract class Page_twitterAuth extends Page_selectLecturerGroup {
 	public function __construct()
 	{
 		parent::__construct();
+		
+	}
+	public function display($gid) 
+	{	
+		$gid = intval($gid);
+		$_SESSION['gid'] = $gid;
 		if(!empty($_REQUEST['callback'])) {
 			if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['oauth_token']) {
 				 	 $_SESSION['oauth_status'] = 'oldtoken';
@@ -32,10 +39,11 @@ abstract class Page_twitterAuth extends Page {
 		if(!empty($access_token['oauth_token'])) 
 		{
 			$_SESSION['access_tokenTwitter'] = $access_token;
-			$this->display();
+			$this->display2($gid);
 		}
 		else if(empty($_SESSION['access_tokenTwitter']) || empty($_SESSION['access_tokenTwitter']['oauth_token']) || empty($_SESSION['access_tokenTwitter']['oauth_token_secret'])) 
 		{
+
     		$this->connect();
 		}
 	}
@@ -45,7 +53,7 @@ abstract class Page_twitterAuth extends Page {
 	 *
 	 * @return void
 	 */
-	protected abstract function display();
+	protected abstract function display2($gid);
 	/**
 	 * This function connects to twitter
 	 * @return void

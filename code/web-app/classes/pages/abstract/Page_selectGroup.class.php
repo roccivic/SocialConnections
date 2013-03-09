@@ -16,6 +16,7 @@ abstract class Page_selectGroup extends Page {
 		$gid = 0;
 		if(!empty($_SESSION['gid'])) {
 			$gid = $_SESSION['gid'];
+			$_SESSION['gid'] = NULL;
 		}
 		if (! empty($_REQUEST['gid'])) {
 			$gid = intval($_REQUEST['gid']);

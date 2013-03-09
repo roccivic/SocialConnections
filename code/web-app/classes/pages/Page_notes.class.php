@@ -122,11 +122,11 @@ class Page_notes extends Page_selectStudentGroup {
 	{
 		$notes = $this->getUrls($gid);
 		if (count($notes) > 0) {
-			$html = $this->printListHeader($gid);
+			$html = $this->printListHeaderNotes($gid);
 			foreach($notes as $key => $value) {
-				$html .= $this->printListItem($value);
+				$html .= $this->printListItemNotes($value);
 			}
-			$html .= $this->printListFooter();
+			$html .= $this->printListFooterNotes();
 			$this->addHtml($html);
 		} else {
 			$this->addNotification(
@@ -140,8 +140,9 @@ class Page_notes extends Page_selectStudentGroup {
 	 *
 	 * @return void
 	 */
-	private function printListHeader($gid)
+	private function printListHeaderNotes($gid)
 	{
+		$html = '';
 		$html .= '<ul data-role="listview" data-divider-theme="b" ';
         $html .= 'data-inset="true">';
         $html .= '<li data-role="list-divider" role="heading">';
@@ -154,7 +155,7 @@ class Page_notes extends Page_selectStudentGroup {
 	 *
 	 * @return void
 	 */
-	private function printListItem($url)
+	private function printListItemNotes($url)
 	{
         $this->addHtml(
 	        sprintf(
@@ -169,7 +170,7 @@ class Page_notes extends Page_selectStudentGroup {
 	 *
 	 * @return void
 	 */
-	private function printListFooter()
+	private function printListFooterNotes()
 	{
         $this->addHtml('</ul>');
 	}

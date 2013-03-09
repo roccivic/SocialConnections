@@ -28,7 +28,7 @@ class Page_postNotes extends Page_dropboxAuth {
 		{ 
 			$tmp_name = $_FILES['dropboxFile']['tmp_name'];
 			$name = $_FILES['dropboxFile']['name'];
-			if($this->upload($tmp_name, $name, $config) && $this->uploadDropbox($gid, $name, $config, $access_token))
+			if($this->upload($tmp_name, $name, $config) && $this->uploadDropbox($gid, $name, $config, $access_token) && $this->rmvFile($config, $name))
 			{
 				$this->addNotification(
 							'notice',
@@ -86,9 +86,7 @@ class Page_postNotes extends Page_dropboxAuth {
 		  	$client = new DropboxClient($session);
 		  	$src = $config["app"]["datadir"] . $name;
     		$dest = "/";
-		  	if ($response = $client->putFile($src, $dest)) {
-
-    		}
+		  	if ($response = $client->putFile($src, $dest)) {}
 		   	else
 		   	{
 		   		$success = false;
@@ -108,6 +106,16 @@ class Page_postNotes extends Page_dropboxAuth {
 	private function upload($tmp_name, $name, $config)
 	{
 		$success = move_uploaded_file($tmp_name,  $config["app"]["datadir"].$name);
+		return $success;
+	}
+	/**
+	 * deletes uploaded file from the server
+	 *
+	 * @return bool
+	 */
+	private function rmvFile($config, $name)
+	{
+		$success = unlink($config["app"]["datadir"].$name);
 		return $success;
 	}
 

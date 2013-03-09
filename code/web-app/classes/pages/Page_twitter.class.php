@@ -31,7 +31,33 @@ class Page_twitter extends Page_twitterAuth {
 		$gName = $this->getGroupName($gid);
 		if(!empty($gName))
 		{
-			$this->displayMenu($gid);
+			if(!empty($_REQUEST['userTweet']))
+			{
+				$tweet = $_REQUEST['userTweet'];
+				if(strlen($tweet) > 0 && $this->tweet($gid, $connection, $tweet))
+				{
+					$this->addNotification(
+						'notice',
+						__('You have tweeted successfully!')
+					);
+					$this->tweetForm($gid);
+				}
+				else
+				{
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
+					$this->tweetForm($gid);
+				}
+			}
+			else if(!empty($_REQUEST['tweetForm']))
+			{
+				$this->tweetForm($gid);
+			}
+			else{
+				$this->displayMenu($gid);
+			}
 		}
 		else
 		{
@@ -69,9 +95,38 @@ class Page_twitter extends Page_twitterAuth {
 	private function displayMenu($gid)
 	{
 		$html = '';
-		$html .= '<a href="?action=twitter&tweet=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Tweet').'</a>';
+		$html .= '<a href="?action=twitter&tweetForm=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Tweet').'</a>';
 		$html .= '<a href="?action=twitter&viewTweets=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('View Tweets').'</a>';
 		$this->addHtml($html);
+	}
+	/**
+	 * display tweeting form
+	 *
+	 * @return void
+	 */
+	private function tweetForm($gid)
+	{
+		$html = '<form method="post" action="">';
+		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
+		$html .= '<div data-role="fieldcontain">';
+		$html .= '<label for="userTweet">' . __('Enter Text') . ': </label>';
+		$html .= '<input type="text" name="userTweet" id="userTweet" ';
+		$html .= '</div>';
+		$html .= '<input data-theme="b" type="submit" value="' . __('Tweet') . '" />';
+		$html .= '</form>';
+		$this->addHtml($html);
+	}
+	/**
+	 * Tweet
+	 *
+	 * @return void
+	 */
+	private function tweet($gid, $connection, $tweet)
+	{
+		$hashtag = ' #aStrInGthAtNoOneIsSupPosEdtOuSe' . $gid;
+		$tweet .= $hashtag;
+		$success = $connection->post('statuses/update', array('status' => $tweet));
+		return $success;
 	}
 }
 ?>

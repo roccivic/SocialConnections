@@ -1,32 +1,35 @@
 package com.placella.socialconnections;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.*;
 import android.view.*;
-import android.webkit.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Activity_StudentMenu extends Activity {
 	Activity self = this;
+	private String token;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Intent incoming = getIntent();
-        final String token = incoming.getStringExtra("token");
+        token = incoming.getStringExtra("token");
 
-        final ListMenuItem[] menu = new ListMenuItem[] {
-    		new ListMenuItem(self, R.string.checkAttendance, "checkAttendance"),
-    		new ListMenuItem(self, R.string.makeExcuse, "makeExcuse"),
-    		new ListMenuItem(self, R.string.notes, "notes"),
-    		new ListMenuItem(self, R.string.twitter, "twitter"),
-    		new ListMenuItem(self, R.string.viewResults, "viewResults"),
-    		new ListMenuItem(self, R.string.logOut, "")
-        };
-        ArrayAdapter<ListMenuItem> adapter = new ArrayAdapter<ListMenuItem>(
+        final List<ListMenuItem> menu = new ArrayList<ListMenuItem>();
+        menu.add(new ListMenuItem(self, R.string.home, "", R.drawable.ic_home));
+        menu.add(new ListMenuItem(self, R.string.checkAttendance, "checkAttendance", R.drawable.ic_attendance));
+        menu.add(new ListMenuItem(self, R.string.makeExcuse, "makeExcuse", R.drawable.ic_excuse));
+        menu.add(new ListMenuItem(self, R.string.notes, "notes", R.drawable.ic_dropbox));
+        menu.add(new ListMenuItem(self, R.string.twitter, "twitter", R.drawable.ic_twitter));
+        menu.add(new ListMenuItem(self, R.string.viewResults, "viewResults", R.drawable.ic_assessments));
+    		
+        MenuArrayAdapter adapter = new MenuArrayAdapter(
     		this,
     		android.R.layout.simple_list_item_1,
     		menu
@@ -36,15 +39,14 @@ public class Activity_StudentMenu extends Activity {
         list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if (! menu[position].getLink().equals("")) {
-					Activity_Web.launch(self, menu[position].getLink(), token);
+				if (! menu.get(position).getLink().equals("")) {
+					Activity_Web.launch(self, menu.get(position).getLink(), token);
 				} else {
-				    CookieSyncManager.createInstance(self);
-				    CookieManager.getInstance().removeAllCookie();
 				    finish();
 				}
 			}
 		});
+        setResult(1);
     }
     
     /**
@@ -54,6 +56,7 @@ public class Activity_StudentMenu extends Activity {
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	if (resultCode == 0) {
+    		setResult(0);
     		finish();
     	}
     }

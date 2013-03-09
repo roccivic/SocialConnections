@@ -52,18 +52,10 @@ if (! strlen(getGroupName($gid))) {
     die();
 }
 
-$image = ! empty($_REQUEST["image"]) ? basename($_REQUEST["image"]) : '';
-if (empty($image) || ! is_readable('face_cache/' . $session . '/' . $image)) {
-    header("HTTP/1.0 400 Bad Request");
-    echo '<h1>Error 400: Bad Request</h1>invalid image selected';
-    die();
-}
-
 $ch = curl_init();
 $data = array(
 	'session' => $session,
 	'gid' => $gid,
-	'image' => $image,
     'access_token' => Config::FACE_REC_SECRET
 );
 curl_setopt($ch, CURLOPT_URL, Config::FACE_REC_URL . 'recognise.php');
@@ -73,6 +65,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $response = curl_exec($ch);
 $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 if ($code === 200) {
+	header("Content-Type: application/json; charset=UTF-8");
 	echo $response;
 } else {
 	header("HTTP/1.0 500 Internal Server Error");

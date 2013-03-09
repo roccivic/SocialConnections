@@ -3,9 +3,14 @@
 // Include configuration file
 require_once 'config.php';
 
-if (empty($argv[1])) {
-	die("Usage: {$argv[0]} path");
+if (empty($argv) || empty($argv[1])) {
+	die("Usage: php train.php path");
 }
+$path = $argv[1] . '/';
+
+// maintainance
+shell_exec("find {$path}face_cache -depth -empty -delete -type d");
+shell_exec("find {$path}face_cache -depth -mtime +1 -delete -type d");
 
 $ch = curl_init();
 $data = array(
@@ -21,7 +26,6 @@ $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 if ($code == 200) {
 	trim($response);
 	$lines = split("\n", $response);
-	$path = $argv[1];
 	foreach ($lines as $line) {
 		preg_replace('@\s*@', '', $line);
 		if (! empty($line)) {

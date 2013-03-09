@@ -4,21 +4,19 @@
     <string name="app_name">Social Connections</string>
     
     <string name="back">Back</string>
-    <string name="username">Username</string>
+    <string name="home">Home Page</string>
+    <string name="username">Email or College ID</string>
     <string name="password">Password</string>
     <string name="LogIn">Log In</string>
     <string name="loginInfo">Please, enter your login details below:</string>
-    <string name="title_activity_student_menu">StudentMenu</string>
     <string name="checkAttendance">Check Attendance</string>
     <string name="viewResults">View Your Results</string>
     <string name="makeExcuse">Excuse Yourself for Missing Class</string>
     <string name="logOut">Log Out</string>
-    <string name="title_activity_lecturer_menu">LecturerMenu</string>
     <string name="mainmenu">Main Menu</string>
     <string name="takeAttendance">Take Attendance</string>
     <string name="postNotes">Post Notes on Dropbox</string>
     <string name="viewStudentAttendance">View Student Attendance</string>
- 	<string name="title_activity_web">Web</string>
     <string name="menu">Menu</string>
     <string name="ok">OK</string>
     <string name="take_attendance">Take Attendance</string>
@@ -37,12 +35,13 @@
     <string name="noFaces">Error: No faces found in picture, please try again</string>
     <string name="add_attendance_picture">Add picture</string>
     <string name="take_attendance_hint">Add a picture to begin</string>
+    <string name="take_attendance_hint2">Click "OK" to proceed. Alternatively, you may add more pictures.</string>
     <string name="malformed_response">Could not decode the server response (malformed response)</string>
     <string name="loading">Loading&#8230;</string>
     <string name="detecting">Detecting&#8230;</string>
     <string name="uploading">Uploading&#8230;</string>
 
-<!-- Other -->
+	<!-- Other -->
     <string name="notes">Notes</string>
     <string name="twitter">Twitter</string>
     <string name="manageAssessments">Manage Assessments</string>
@@ -50,4 +49,5 @@
     <string name="manageGroups">Manage Groups</string>
     <string name="viewExcuses">View Student Excuses</string>
     <string name="menu_openbrowser">Open in Browser</string>
+    <string name="loginform">Login Form</string>
 </resources>

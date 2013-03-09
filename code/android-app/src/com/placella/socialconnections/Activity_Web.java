@@ -57,26 +57,7 @@ public class Activity_Web extends Activity {
 		String page = intent.getStringExtra("page");
 		String session = intent.getStringExtra("session");
 		
-		WebView window = (WebView) findViewById(R.id.webView);
-		window.getSettings().setJavaScriptEnabled(true);
-		window.getSettings().setSavePassword(false);
-		window.setWebViewClient(new WebViewClient() {
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url)
-			{
-				// Prevent clicks on links inside the WebView
-				// from opening in an external; browser
-				return false;
-			}
-		});
-		window.loadUrl(
-			CONFIG.webUrl
-			+ "?action=" + page
-			+ "&token=" + token
-			+ "&session=" + session
-			+ "&mobile=true"
-			+ "&lang=" + Locale.getDefault().getLanguage()
-		);
+		init(page, token, session);
 		
 		Button logOutBtn = (Button) findViewById(R.id.logOutBtn);
 		logOutBtn.setOnClickListener(new Button.OnClickListener () {
@@ -102,6 +83,29 @@ public class Activity_Web extends Activity {
 		// By default, we don't want to go back
 		// to MainActivity when the activity dies
 		setResult(1);
+	}
+	
+	protected void init(String page, String token, String session) {
+		WebView window = (WebView) findViewById(R.id.webView);
+		window.getSettings().setJavaScriptEnabled(true);
+		window.getSettings().setSavePassword(false);
+		window.setWebViewClient(new WebViewClient() {
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url)
+			{
+				// Prevent clicks on links inside the WebView
+				// from opening in an external; browser
+				return false;
+			}
+		});
+		window.loadUrl(
+			CONFIG.webUrl
+			+ "?action=" + page
+			+ "&token=" + token
+			+ "&session=" + session
+			+ "&mobile=true"
+			+ "&lang=" + Locale.getDefault().getLanguage()
+		);
 	}
 
     /**

@@ -3,18 +3,9 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".MainActivity" >
-    
-    <TextView
-        android:id="@+id/userTV"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="104dp"
-        android:text="@string/username"
-        android:top="50dip" />
-    
+
     <EditText
         android:id="@+id/userET"
         android:layout_width="fill_parent"
@@ -23,7 +14,8 @@
         android:layout_below="@+id/userTV"
         android:ems="10"
         android:inputType="text" >
-		<requestFocus />
+
+        <requestFocus />
     </EditText>
 
     <TextView
@@ -32,7 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/userET"
-        android:text="@string/password" />
+        android:layout_marginTop="10dp"
+        android:text="@string/password"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/passET"
@@ -43,15 +37,6 @@
         android:ems="10"
         android:inputType="textPassword" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/userTV"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="27dp"
-        android:text="@string/loginInfo"
-        android:textSize="18sp" />
-
     <Button
         android:id="@+id/LogInBtn"
         android:layout_width="fill_parent"
@@ -59,4 +44,36 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/passET"
         android:text="@string/LogIn" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:gravity="center|center_vertical"
+        android:text="@string/loginform"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:text="@string/loginInfo"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/userTV"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="10dp"
+        android:text="@string/username"
+        android:textSize="16sp"
+        android:top="50dip" />
+
 </RelativeLayout>

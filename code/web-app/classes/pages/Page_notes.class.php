@@ -126,8 +126,8 @@ class Page_notes extends Page_selectStudentGroup {
 			foreach($notes as $key => $value) {
 				$array = explode("/", $value);
 				end($array);
-				$value = current($array);
-				$html .= $this->printListItemNotes($value);
+				$fname = current($array);
+				$html .= $this->printListItemNotes($value, $fname);
 			}
 			$html .= $this->printListFooterNotes();
 			$this->addHtml($html);
@@ -158,13 +158,13 @@ class Page_notes extends Page_selectStudentGroup {
 	 *
 	 * @return void
 	 */
-	private function printListItemNotes($url)
+	private function printListItemNotes($url, $name)
 	{
         $this->addHtml(
 	        sprintf(
 	        	'<li><a href="%s">%s</a></li>',
 	        	$url,
-	        	$url
+	        	$name
 	        )
         );
 	}

@@ -31,7 +31,7 @@ class Page_twitter extends Page_twitterAuth {
 		$gName = $this->getGroupName($gid);
 		if(!empty($gName))
 		{
-			
+			$this->displayMenu($gid);
 		}
 		else
 		{
@@ -60,6 +60,18 @@ class Page_twitter extends Page_twitterAuth {
 		$stmt->fetch();
 		$stmt->close();
 		return $name;
+	}
+	/**
+	 * Displays menu to user
+	 *
+	 * @return void
+	 */
+	private function displayMenu($gid)
+	{
+		$html = '';
+		$html .= '<a href="?action=twitter&tweet=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Tweet').'</a>';
+		$html .= '<a href="?action=twitter&viewTweets=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('View Tweets').'</a>';
+		$this->addHtml($html);
 	}
 }
 ?>

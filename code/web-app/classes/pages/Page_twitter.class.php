@@ -28,6 +28,11 @@ class Page_twitter extends Page_twitterAuth {
 		$connection = new TwitterOAuth(CONFIG::TWITTER_CONSUMER_KEY, CONFIG::TWITTER_CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 		$user = $connection->get('account/verify_credentials');
 		$gid = intval($gid);
+		$tweet = '';
+		if(!empty($_REQUEST['userTweet']))
+		{
+			$tweet = $_REQUEST['userTweet'];
+		}
 		$gName = $this->getGroupName($gid);
 		$id = '';
 		if(!empty($_REQUEST['id']))
@@ -36,16 +41,14 @@ class Page_twitter extends Page_twitterAuth {
 		}
 		if(!empty($gName))
 		{
-			if(!empty($_REQUEST['userTweet']))
+			if(!empty($_REQUEST['tweeting']))
 			{
-				$tweet = $_REQUEST['userTweet'];
 				if(strlen($tweet) > 0 && $this->tweet($gid, $connection, $tweet))
 				{
 					$this->addNotification(
 						'notice',
 						__('You have tweeted successfully!')
 					);
-					$this->tweetForm($gid);
 				}
 				else
 				{
@@ -54,6 +57,23 @@ class Page_twitter extends Page_twitterAuth {
 						__('An error occured while processing your request.')
 					);
 					$this->tweetForm($gid);
+				}
+			}
+			if(!empty($_REQUEST['replyTweet']))
+			{
+				if(strlen($tweet) > 0 && $this->retweet($gid, $connection, $id, $tweet))
+				{
+					$this->addNotification(
+						'notice',
+						__('You have replied successfully!')
+					);	
+				}
+				else
+				{
+					$this->addNotification(
+						'error',
+						__('An error occured while processing your request.')
+					);
 				}
 			}
 			if(!empty($_REQUEST['viewReplies']))
@@ -121,6 +141,7 @@ class Page_twitter extends Page_twitterAuth {
 	{
 		$html = '<form method="post" action="">';
 		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
+		$html .= '<input name="tweeting" value="1" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="userTweet">' . __('Enter Text') . ': </label>';
 		$html .= '<input type="text" name="userTweet" id="userTweet" ';
@@ -221,7 +242,8 @@ class Page_twitter extends Page_twitterAuth {
 	 */
 	private function retweet($gid, $connection, $id, $tweet)
 	{
-		$success = $connection->post('statuses/retweet/',array('id' => $id), array('status' => $tweet));
+		$tweet = '@SampleDataCIT ' . $tweet;
+		$success = $connection->post('statuses/update', array('status' => $tweet, 'in_reply_to_status_id' => $id));
 		return $success;
 	}
 	/**
@@ -241,6 +263,17 @@ class Page_twitter extends Page_twitterAuth {
 			}
 		}
 		$this->printListFooterTweets();
+		$html = '<form method="post" action="">';
+		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
+		$html .= '<input name="id" value="'.$id.'" type="hidden" />';
+		$html .= '<input name="replyTweet" value="1" type="hidden" />';
+		$html .= '<div data-role="fieldcontain">';
+		$html .= '<label for="userTweet">' . __('Enter Text') . ': </label>';
+		$html .= '<input type="text" name="userTweet" id="userTweet" ';
+		$html .= '</div>';
+		$html .= '<input data-theme="b" type="submit" value="' . __('Reply') . '" />';
+		$html .= '</form>';
+		$this->addHtml($html);
 	}
 }
 ?>

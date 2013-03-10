@@ -267,7 +267,8 @@ class Page_twitter extends Page_twitterAuth {
 		{
 			if (intval($key->in_reply_to_status_id) == intval($id)) 
 			{
-				$this->printListItemTweets($gid, $key->id, $key->text, $key->user->name);
+				$username = $connection->get('users/show', array('id' => $key->user->id));
+				$this->printListItemTweets($gid, $key->id, $key->text, $key->user->name, $username->screen_name);
 			}
 		}
 		$this->printListFooterTweets();

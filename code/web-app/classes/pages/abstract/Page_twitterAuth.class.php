@@ -35,7 +35,10 @@ abstract class Page_twitterAuth extends Page_selectLecturerGroup {
 			 $this->connect();
 			}
 		}
-		$access_token = $_SESSION['access_tokenTwitter'];
+		if(!empty($_SESSION['access_tokenTwitter']))
+		{
+			$access_token = $_SESSION['access_tokenTwitter'];
+		}
 		if(!empty($access_token['oauth_token'])) 
 		{
 			$_SESSION['access_tokenTwitter'] = $access_token;

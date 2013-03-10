@@ -39,6 +39,11 @@ class Page_twitter extends Page_twitterAuth {
 		{
 			$id = $_REQUEST['id'];
 		}
+		$username = '';
+		if(!empty($_REQUEST['username']))
+		{
+			$username = $_REQUEST['username'];
+		}
 		if(!empty($gName))
 		{
 			if(!empty($_REQUEST['tweeting']))
@@ -61,7 +66,7 @@ class Page_twitter extends Page_twitterAuth {
 			}
 			if(!empty($_REQUEST['replyTweet']))
 			{
-				if(strlen($tweet) > 0 && $this->retweet($gid, $connection, $id, $tweet))
+				if(strlen($tweet) > 0 && $this->retweet($gid, $connection, $id, $tweet,$username))
 				{
 					$this->addNotification(
 						'notice',
@@ -171,11 +176,13 @@ class Page_twitter extends Page_twitterAuth {
 	{
 		$this->printListHeaderTweets();
 		$tweets = $this->getTweets($gid, $connection);
+
 		foreach($tweets as $key)
 		{
+			$username = $connection->get('users/show', array('id' => $key->user->id));
 			if (strpos($key->text,' #aStrInGthAtNoOneIsSupPosEdtOuSe'.$gid) !== false) 
 			{
-				$this->printListItemTweets($gid, $key->id, $key->text, $key->user->name);
+				$this->printListItemTweets($gid, $key->id, $key->text, $key->user->name, $username->screen_name);
 			}
 		}
 		$this->printListFooterTweets();
@@ -210,17 +217,18 @@ class Page_twitter extends Page_twitterAuth {
 	 *
 	 * @return void
 	 */
-	private function printListItemTweets($gid, $id, $text, $author)
+	private function printListItemTweets($gid, $id, $text, $author, $username)
 	{
 		$this->addHtml(
 	        sprintf(
-	        	'<li><a href="?action=%s&viewReplies=1&gid=%d&id=%s">%s
+	        	'<li><a href="?action=%s&viewReplies=1&gid=%d&id=%s&username=%s">%s
 	        	 <span class="ui-li-count">
                   %s
                  </span></a></li>',
 	        	urlencode(htmlspecialchars($_REQUEST['action'])),
 	        	$gid,
-	        	$id, 
+	        	$id,
+	        	$username, 
 	        	$text,
 	        	$author
 	        )
@@ -240,9 +248,9 @@ class Page_twitter extends Page_twitterAuth {
 	 *
 	 * @return void
 	 */
-	private function retweet($gid, $connection, $id, $tweet)
+	private function retweet($gid, $connection, $id, $tweet, $username)
 	{
-		$tweet = '@SampleDataCIT ' . $tweet;
+		$tweet = '@'.$username. ' ' . $tweet;
 		$success = $connection->post('statuses/update', array('status' => $tweet, 'in_reply_to_status_id' => $id));
 		return $success;
 	}

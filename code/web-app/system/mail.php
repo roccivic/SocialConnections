@@ -28,7 +28,7 @@ foreach ($attendance as $value) {
 		$labsBelow = false;
 		$body = '';
 		$subject ='';
-		$email = 'hraad3@hotmail.com';
+		
 		$to = $deptDetails['email'];
 		$headers = "From: postmaster@localhost";
 		if(($value['overall']*100)<$thresholdDetails['overall']){
@@ -144,8 +144,8 @@ foreach ($attendance as $value) {
 	}
 
 	/**
-	 * Returns the decimal fraction and department ID of the lab
-	 * attendance of a students in a department
+	 * Returns the decimal fraction of the lab attendance of students
+	 * in a department selected by its ID
 	 * @return double
 	 */
 	 function deptLabAttendance($did){

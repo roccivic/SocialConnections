@@ -63,8 +63,9 @@ abstract class Page_twitterAuth extends Page_selectLecturerGroup {
 	 */
 	private function connect() {
 		if (CONFIG::TWITTER_CONSUMER_KEY === '' || CONFIG::TWITTER_CONSUMER_SECRET === '') {
-  			echo 'You need a consumer key and secret!';
-  			exit;
+  			$this->addNotification('error',
+  								__('Twitter does not work at the moment. Please, contact administrator.')
+			);
   		}
   		$connection = new TwitterOAuth(CONFIG::TWITTER_CONSUMER_KEY, CONFIG::TWITTER_CONSUMER_SECRET);
   		$callbackTwitter = CONFIG::URL . CONFIG::TWITTER_CALLBACK;
@@ -76,7 +77,10 @@ abstract class Page_twitterAuth extends Page_selectLecturerGroup {
 		  $url = $connection->getAuthorizeURL($token);
 		    header('Location: ' . $url); 
 		    break;
-		  	default: echo 'Could not connect to Twitter. Refresh the page or try again later.';
+		   
+		  	default:  $this->addNotification('error',
+  								__('Could not connect to Twitter. Refresh the page or try again later.')
+			);
 		}
 	}
 }

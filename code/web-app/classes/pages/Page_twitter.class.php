@@ -54,6 +54,7 @@ class Page_twitter extends Page_twitterAuth {
 						'notice',
 						__('You have tweeted successfully!')
 					);
+					$this->displayMenu($gid);
 				}
 				else
 				{
@@ -64,7 +65,7 @@ class Page_twitter extends Page_twitterAuth {
 					$this->tweetForm($gid);
 				}
 			}
-			if(!empty($_REQUEST['replyTweet']))
+			else if(!empty($_REQUEST['replyTweet']))
 			{
 				if(strlen($tweet) > 0 && $this->retweet($gid, $connection, $id, $tweet,$username))
 				{
@@ -81,7 +82,7 @@ class Page_twitter extends Page_twitterAuth {
 					);
 				}
 			}
-			if(!empty($_REQUEST['viewReplies']))
+			else if(!empty($_REQUEST['viewReplies']))
 			{	
 				$this->displayTweetReplies($gid, $connection, $id);
 			}

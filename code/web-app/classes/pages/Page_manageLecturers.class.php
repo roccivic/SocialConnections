@@ -206,7 +206,7 @@ class Page_manageLecturers extends Page_selectDepartment {
 	{
         $this->addHtml(
 	        sprintf(
-	        	'<li><a href="?action=managelecturers&did=%d&lid=%d&view=1">%s</a></li>',
+	        	'<li><a href="?action=manageLecturers&did=%d&lid=%d&view=1">%s</a></li>',
 	        	$lid,
 	        	$did,
 	        	$name

@@ -176,14 +176,19 @@ class Page_twitter extends Page_twitterAuth {
 	{
 		$this->printListHeaderTweets();
 		$tweets = $this->getTweets($gid, $connection);
-
+		$count = 0;
 		foreach($tweets as $key)
 		{
 			$username = $connection->get('users/show', array('id' => $key->user->id));
 			if (strpos($key->text,' #aStrInGthAtNoOneIsSupPosEdtOuSe'.$gid) !== false) 
 			{
+				$count++;
 				$this->printListItemTweets($gid, $key->id, $key->text, $key->user->name, $username->screen_name);
 			}
+		}
+		if($count == 0)
+		{
+			$this->addNotification('notice',__('No tweets to display'));
 		}
 		$this->printListFooterTweets();
 	}
@@ -263,15 +268,21 @@ class Page_twitter extends Page_twitterAuth {
 	{
 		$this->printListHeaderTweets();
 		$tweets = $this->getTweets($gid, $connection);
+		$count = 0;
 		foreach($tweets as $key)
 		{
 			if (intval($key->in_reply_to_status_id) == intval($id)) 
 			{
+				$count++;
 				$username = $connection->get('users/show', array('id' => $key->user->id));
 				$this->printListItemTweets($gid, $key->id, $key->text, $key->user->name, $username->screen_name);
 			}
 		}
 		$this->printListFooterTweets();
+		if($count == 0)
+		{
+			$this->addNotification('notice',__('No tweets to display'));
+		}
 		$html = '<form method="post" action="">';
 		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
 		$html .= '<input name="id" value="'.$id.'" type="hidden" />';

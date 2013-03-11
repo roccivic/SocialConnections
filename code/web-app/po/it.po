@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: socialconnections \n"
 "Report-Msgid-Bugs-To: socialconnections@placella.com\n"
-"POT-Creation-Date: 2013-03-04 22:07+0000\n"
+"POT-Creation-Date: 2013-03-11 12:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,8 +34,8 @@ msgstr ""
 #: ajax-take-attendance.php:61 classes/pages/Page_checkAttendance.class.php:28
 #: classes/pages/Page_facialRec.class.php:27
 #: classes/pages/Page_makeExcuse.class.php:83
-#: classes/pages/Page_manageClasses.class.php:392
-#: classes/pages/Page_manageGroups.class.php:366
+#: classes/pages/Page_manageClasses.class.php:405
+#: classes/pages/Page_manageGroups.class.php:544
 #: classes/pages/Page_takeAttendance.class.php:167
 #: classes/pages/Page_viewStudentAttendance.class.php:540
 msgid "Invalid group selected"
@@ -226,10 +226,8 @@ msgid "Attendance data empty"
 msgstr ""
 
 #: classes/pages/Page_adminCheckAttendance.class.php:64
-#: classes/pages/Page_postNotes.class.php:137
-#: classes/pages/Page_twitter.class.php:98
 #: classes/pages/Page_viewStudentAttendance.class.php:325
-#: classes/pages/abstract/Page_selectGroup.class.php:113
+#: classes/pages/abstract/Page_selectGroup.class.php:117
 #, php-format
 msgid "Year %d, Semester %d"
 msgstr ""
@@ -245,21 +243,25 @@ msgstr ""
 #: classes/pages/Page_manageAssessments.class.php:104
 #: classes/pages/Page_manageAssessments.class.php:120
 #: classes/pages/Page_manageAssessments.class.php:149
-#: classes/pages/Page_manageClasses.class.php:71
-#: classes/pages/Page_manageClasses.class.php:90
+#: classes/pages/Page_manageClasses.class.php:76
+#: classes/pages/Page_manageClasses.class.php:94
 #: classes/pages/Page_manageDepartments.class.php:70
 #: classes/pages/Page_manageDepartments.class.php:89
-#: classes/pages/Page_manageGroups.class.php:77
-#: classes/pages/Page_manageGroups.class.php:96
-#: classes/pages/Page_manageGroups.class.php:123
-#: classes/pages/Page_manageGroups.class.php:150
-#: classes/pages/Page_manageLecturers.class.php:102
-#: classes/pages/Page_manageLecturers.class.php:119
-#: classes/pages/Page_manageModules.class.php:81
-#: classes/pages/Page_manageModules.class.php:99
+#: classes/pages/Page_manageGroups.class.php:81
+#: classes/pages/Page_manageGroups.class.php:100
+#: classes/pages/Page_manageGroups.class.php:136
+#: classes/pages/Page_manageGroups.class.php:188
+#: classes/pages/Page_manageGroups.class.php:247
+#: classes/pages/Page_manageGroups.class.php:290
+#: classes/pages/Page_manageLecturers.class.php:93
+#: classes/pages/Page_manageLecturers.class.php:111
+#: classes/pages/Page_manageModules.class.php:97
 #: classes/pages/Page_manageStudents.class.php:97
 #: classes/pages/Page_manageStudents.class.php:116
 #: classes/pages/Page_manageStudents.class.php:133
+#: classes/pages/Page_postNotes.class.php:43
+#: classes/pages/Page_twitter.class.php:62
+#: classes/pages/Page_twitter.class.php:80
 msgid "An error occured while processing your request."
 msgstr ""
 
@@ -285,11 +287,11 @@ msgstr ""
 #: classes/pages/Page_facialRec.class.php:185
 #: classes/pages/Page_makeExcuse.class.php:192
 #: classes/pages/Page_manageAssessments.class.php:365
-#: classes/pages/Page_manageClasses.class.php:320
+#: classes/pages/Page_manageClasses.class.php:333
 #: classes/pages/Page_manageDepartments.class.php:207
-#: classes/pages/Page_manageGroups.class.php:330
-#: classes/pages/Page_manageLecturers.class.php:393
-#: classes/pages/Page_manageModules.class.php:312
+#: classes/pages/Page_manageGroups.class.php:508
+#: classes/pages/Page_manageLecturers.class.php:407
+#: classes/pages/Page_manageModules.class.php:337
 #: classes/pages/Page_manageStudents.class.php:493
 #: classes/pages/Page_takeAttendance.class.php:154
 msgid "Save"
@@ -386,6 +388,36 @@ msgstr ""
 msgid "Processing..."
 msgstr ""
 
+#: classes/pages/Page_grantStudents.class.php:68
+#, fuzzy
+#| msgid "The requested page does not exist"
+msgid "Student does not exist."
+msgstr "La pagina selezionata non esiste"
+
+#: classes/pages/Page_grantStudents.class.php:77
+#: classes/pages/Page_manageClasses.class.php:47
+#: classes/pages/Page_manageLecturers.class.php:139
+#: classes/pages/Page_manageModules.class.php:130
+#, fuzzy
+#| msgid "The requested page does not exist"
+msgid "Department does not exist."
+msgstr "La pagina selezionata non esiste"
+
+#: classes/pages/Page_grantStudents.class.php:96
+#: classes/pages/Page_manageStudents.class.php:298
+#: classes/pages/Page_viewStudentAttendance.class.php:261
+#: classes/pages/Page_viewStudentAttendance.class.php:546
+msgid "Select Student"
+msgstr ""
+
+#: classes/pages/Page_grantStudents.class.php:171
+msgid "Total grant: "
+msgstr ""
+
+#: classes/pages/Page_grantStudents.class.php:174
+msgid "Grant payable: "
+msgstr ""
+
 #: classes/pages/Page_login.class.php:24
 #, php-format
 msgid ""
@@ -402,13 +434,13 @@ msgid "Your session has expired, please log in again"
 msgstr ""
 
 #: classes/pages/Page_login.class.php:68
-#: classes/pages/Page_manageLecturers.class.php:373
+#: classes/pages/Page_manageLecturers.class.php:387
 #: classes/pages/Page_manageStudents.class.php:453
 msgid "Username"
 msgstr "Nome Utente"
 
 #: classes/pages/Page_login.class.php:78
-#: classes/pages/Page_manageLecturers.class.php:384
+#: classes/pages/Page_manageLecturers.class.php:398
 #: classes/pages/Page_manageStudents.class.php:464
 msgid "Password"
 msgstr ""
@@ -506,6 +538,8 @@ msgid "The assessment was deleted successfully."
 msgstr ""
 
 #: classes/pages/Page_manageAssessments.class.php:171
+#: classes/pages/Page_notes.class.php:49
+#: classes/pages/Page_twitter.class.php:104
 msgid "Invalid group selected."
 msgstr ""
 
@@ -541,11 +575,11 @@ msgid "No"
 msgstr ""
 
 #: classes/pages/Page_manageAssessments.class.php:293
-#: classes/pages/Page_manageClasses.class.php:230
+#: classes/pages/Page_manageClasses.class.php:237
 #: classes/pages/Page_manageDepartments.class.php:154
-#: classes/pages/Page_manageGroups.class.php:197
-#: classes/pages/Page_manageLecturers.class.php:243
-#: classes/pages/Page_manageModules.class.php:212
+#: classes/pages/Page_manageGroups.class.php:373
+#: classes/pages/Page_manageLecturers.class.php:244
+#: classes/pages/Page_manageModules.class.php:233
 #: classes/pages/Page_manageStudents.class.php:344
 msgid "Edit"
 msgstr ""
@@ -559,11 +593,11 @@ msgid "Are you sure you want to delete this assessment?"
 msgstr ""
 
 #: classes/pages/Page_manageAssessments.class.php:300
-#: classes/pages/Page_manageClasses.class.php:233
+#: classes/pages/Page_manageClasses.class.php:243
 #: classes/pages/Page_manageDepartments.class.php:160
-#: classes/pages/Page_manageGroups.class.php:204
-#: classes/pages/Page_manageLecturers.class.php:246
-#: classes/pages/Page_manageModules.class.php:215
+#: classes/pages/Page_manageGroups.class.php:382
+#: classes/pages/Page_manageLecturers.class.php:250
+#: classes/pages/Page_manageModules.class.php:239
 #: classes/pages/Page_manageStudents.class.php:352
 msgid "Delete"
 msgstr ""
@@ -579,10 +613,10 @@ msgid "Edit Assessment"
 msgstr ""
 
 #: classes/pages/Page_manageAssessments.class.php:356
-#: classes/pages/Page_manageClasses.class.php:316
+#: classes/pages/Page_manageClasses.class.php:329
 #: classes/pages/Page_manageDepartments.class.php:188
-#: classes/pages/Page_manageGroups.class.php:284
-#: classes/pages/Page_manageModules.class.php:298
+#: classes/pages/Page_manageGroups.class.php:462
+#: classes/pages/Page_manageModules.class.php:323
 msgid "Name"
 msgstr ""
 
@@ -625,70 +659,71 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:46
-#: classes/pages/Page_manageModules.class.php:54
-#, fuzzy
-#| msgid "The requested page does not exist"
-msgid "Department does not exist."
-msgstr "La pagina selezionata non esiste"
-
-#: classes/pages/Page_manageClasses.class.php:54
+#: classes/pages/Page_manageClasses.class.php:56
 msgid "Class does not exist."
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:64
+#: classes/pages/Page_manageClasses.class.php:69
 msgid "The class details were successfully updated."
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:84
+#: classes/pages/Page_manageClasses.class.php:88
 msgid "The class was successfully created."
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:100
-#: classes/pages/Page_manageClasses.class.php:123
+#: classes/pages/Page_manageClasses.class.php:105
+#: classes/pages/Page_manageClasses.class.php:130
 #, fuzzy
 #| msgid "The requested page does not exist"
 msgid "The selected class does not exist"
 msgstr "La pagina selezionata non esiste"
 
-#: classes/pages/Page_manageClasses.class.php:108
+#: classes/pages/Page_manageClasses.class.php:111
 #, fuzzy
 #| msgid "The requested page does not exist"
 msgid "The selected departmment does not exist"
 msgstr "La pagina selezionata non esiste"
 
-#: classes/pages/Page_manageClasses.class.php:181
-#: classes/pages/Page_manageClasses.class.php:307
+#: classes/pages/Page_manageClasses.class.php:123
+msgid "The class was successfully deleted"
+msgstr ""
+
+#: classes/pages/Page_manageClasses.class.php:188
+#: classes/pages/Page_manageClasses.class.php:320
 msgid "Create Class"
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:185
+#: classes/pages/Page_manageClasses.class.php:192
 #: classes/pages/Page_manageStudents.class.php:221
 msgid "Select Class"
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:225
-#: classes/pages/Page_manageModules.class.php:201
+#: classes/pages/Page_manageClasses.class.php:232
+#: classes/pages/Page_manageModules.class.php:222
 msgid "Department: "
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:310
-#: classes/pages/Page_manageGroups.class.php:279
-msgid "Edit Group"
+#: classes/pages/Page_manageClasses.class.php:240
+msgid "Are you sure you want to delete this class?"
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:398
+#: classes/pages/Page_manageClasses.class.php:323
+msgid "Edit Class"
+msgstr ""
+
+#: classes/pages/Page_manageClasses.class.php:411
 #: classes/pages/Page_manageDepartments.class.php:306
-#: classes/pages/Page_manageLecturers.class.php:411
+#: classes/pages/Page_manageLecturers.class.php:425
+#: classes/pages/Page_manageLecturers.class.php:516
 #: classes/pages/Page_viewStudentAttendance.class.php:255
 msgid "Invalid department selected"
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:404
+#: classes/pages/Page_manageClasses.class.php:417
 msgid "Class name must be 64 characters long or less."
 msgstr ""
 
-#: classes/pages/Page_manageClasses.class.php:410
+#: classes/pages/Page_manageClasses.class.php:423
 msgid "Class name must be at least 1 character long."
 msgstr ""
 
@@ -697,7 +732,7 @@ msgstr ""
 #: classes/pages/Page_manageDepartments.class.php:99
 #: classes/pages/Page_manageDepartments.class.php:110
 #: classes/pages/Page_manageDepartments.class.php:166
-#: classes/pages/Page_manageGroups.class.php:136
+#: classes/pages/Page_manageGroups.class.php:164
 #, fuzzy
 #| msgid "The requested page does not exist"
 msgid "The selected department does not exist"
@@ -749,300 +784,364 @@ msgstr ""
 msgid "Invalid lecturer selected as head of department."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:71
+#: classes/pages/Page_manageGroups.class.php:75
 msgid "The group details were successfully updated."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:90
+#: classes/pages/Page_manageGroups.class.php:94
 msgid "The Group was successfully created."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:106
-#: classes/pages/Page_manageGroups.class.php:210
+#: classes/pages/Page_manageGroups.class.php:110
+#: classes/pages/Page_manageGroups.class.php:388
 #: classes/pages/Page_viewResults.class.php:37
 #, fuzzy
 #| msgid "The requested page does not exist"
 msgid "The selected group does not exist"
 msgstr "La pagina selezionata non esiste"
 
-#: classes/pages/Page_manageGroups.class.php:116
-msgid "The Student was successfully added to the group."
+#: classes/pages/Page_manageGroups.class.php:118
+msgid "The student was successfully added to the group."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:144
-msgid "The Student was successfully removed from the group."
+#: classes/pages/Page_manageGroups.class.php:170
+msgid "The student was successfully removed from the group."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:161
+#: classes/pages/Page_manageGroups.class.php:216
+#: classes/pages/Page_manageGroups.class.php:319
+#, fuzzy
+#| msgid "The requested page does not exist"
+msgid "The selected group does not exist."
+msgstr "La pagina selezionata non esiste"
+
+#: classes/pages/Page_manageGroups.class.php:228
+msgid "The Lecturer was successfully added to teach group."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:271
+msgid "The Lecturer was successfully removed from the group."
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:333
 #, fuzzy
 #| msgid "The requested page does not exist"
 msgid "The selected department does not exist."
 msgstr "La pagina selezionata non esiste"
 
-#: classes/pages/Page_manageGroups.class.php:171
+#: classes/pages/Page_manageGroups.class.php:347
 #, fuzzy
 #| msgid "The requested page does not exist"
 msgid "The selected group does not exist!."
 msgstr "La pagina selezionata non esiste"
 
-#: classes/pages/Page_manageGroups.class.php:186
+#: classes/pages/Page_manageGroups.class.php:362
 msgid "Module: "
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:191
+#: classes/pages/Page_manageGroups.class.php:367
 msgid "Year: "
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:194
+#: classes/pages/Page_manageGroups.class.php:370
 msgid "Semester: "
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:198
+#: classes/pages/Page_manageGroups.class.php:374
 msgid "Add Student"
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:199
+#: classes/pages/Page_manageGroups.class.php:375
 msgid "Remove Student"
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:202
+#: classes/pages/Page_manageGroups.class.php:376
+msgid "Add Lecturer"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:377
+msgid "Remove Lecturer"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:380
 msgid "Are you sure you want to delete this group?"
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:276
-#: classes/pages/abstract/Page_selectGroup.class.php:95
+#: classes/pages/Page_manageGroups.class.php:454
+#: classes/pages/abstract/Page_selectGroup.class.php:99
 msgid "Create Group"
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:289
+#: classes/pages/Page_manageGroups.class.php:457
+msgid "Edit Group"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:467
 msgid "Module"
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:309
+#: classes/pages/Page_manageGroups.class.php:487
 msgid "Year"
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:315
+#: classes/pages/Page_manageGroups.class.php:493
 msgid "Semester"
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:372
+#: classes/pages/Page_manageGroups.class.php:550
 msgid "Group name must be 64 characters long or less."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:378
+#: classes/pages/Page_manageGroups.class.php:556
 msgid "Group name must be at least 1 character long."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:394
-#: classes/pages/Page_manageGroups.class.php:401
+#: classes/pages/Page_manageGroups.class.php:572
+#: classes/pages/Page_manageGroups.class.php:579
+#: classes/pages/Page_manageModules.class.php:107
 msgid "Invalid module selected."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:407
+#: classes/pages/Page_manageGroups.class.php:585
 msgid "Invalid year selected."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:422
+#: classes/pages/Page_manageGroups.class.php:600
 msgid "Invalid semester selected."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:529
+#: classes/pages/Page_manageGroups.class.php:707
 #: classes/pages/abstract/Page_selectDepartment.class.php:59
 msgid "There are no departments in the system."
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:546
+#: classes/pages/Page_manageGroups.class.php:724
 #: classes/pages/abstract/Page_selectDepartment.class.php:49
 msgid "Select Department"
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:584
-#: classes/pages/Page_manageGroups.class.php:684
-#: classes/pages/Page_manageStudents.class.php:298
-#: classes/pages/Page_viewStudentAttendance.class.php:261
-#: classes/pages/Page_viewStudentAttendance.class.php:546
-msgid "Select Student"
+#: classes/pages/Page_manageGroups.class.php:773
+#, php-format
+msgid "Select student to add to group `%s`"
 msgstr ""
 
-#: classes/pages/Page_manageGroups.class.php:600
+#: classes/pages/Page_manageGroups.class.php:793
 #: classes/pages/Page_viewStudentAttendance.class.php:208
 msgid "Search..."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:85
+#: classes/pages/Page_manageGroups.class.php:883
+#, php-format
+msgid "Select student to remove from group `%s`"
+msgstr ""
+
+#: classes/pages/Page_manageGroups.class.php:1036
+#: classes/pages/Page_manageGroups.class.php:1162
+msgid "Select Lecturer"
+msgstr ""
+
+#: classes/pages/Page_manageLecturers.class.php:74
 msgid "Invalid lecturer selected"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:95
+#: classes/pages/Page_manageLecturers.class.php:87
 msgid "The lecturer was successfully created."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:112
+#: classes/pages/Page_manageLecturers.class.php:103
 msgid "The lecturer was edited successfully."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:128
+#: classes/pages/Page_manageLecturers.class.php:121
 msgid "Invalid lecturer selected."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:191
+#: classes/pages/Page_manageLecturers.class.php:192
 msgid "Create lecturer"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:195
+#: classes/pages/Page_manageLecturers.class.php:196
 msgid "Select lecturer"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:235
+#: classes/pages/Page_manageLecturers.class.php:236
 #: classes/pages/Page_manageStudents.class.php:338
 #, fuzzy
 #| msgid "Username"
 msgid "Username: "
 msgstr "Nome Utente"
 
-#: classes/pages/Page_manageLecturers.class.php:238
+#: classes/pages/Page_manageLecturers.class.php:239
 msgid "Email: "
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:354
+#: classes/pages/Page_manageLecturers.class.php:247
+msgid "Are you sure you want to delete this lecturer?"
+msgstr ""
+
+#: classes/pages/Page_manageLecturers.class.php:368
 msgid "Create Lecturer"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:357
+#: classes/pages/Page_manageLecturers.class.php:371
 msgid "Edit Lecturer"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:363
+#: classes/pages/Page_manageLecturers.class.php:377
 #: classes/pages/Page_manageStudents.class.php:443
 msgid "First name"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:368
+#: classes/pages/Page_manageLecturers.class.php:382
 #: classes/pages/Page_manageStudents.class.php:448
 msgid "Last name"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:378
+#: classes/pages/Page_manageLecturers.class.php:392
 #: classes/pages/Page_manageStudents.class.php:458
 msgid "E-mail"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:388
+#: classes/pages/Page_manageLecturers.class.php:402
 #: classes/pages/Page_manageStudents.class.php:468
 msgid "Verify password"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:417
+#: classes/pages/Page_manageLecturers.class.php:431
+#: classes/pages/Page_manageLecturers.class.php:522
 msgid "Invalid Lecturer selected"
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:423
+#: classes/pages/Page_manageLecturers.class.php:437
+#: classes/pages/Page_manageLecturers.class.php:528
 msgid "Lecturer's first name must be 32 characters long or less."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:429
+#: classes/pages/Page_manageLecturers.class.php:443
+#: classes/pages/Page_manageLecturers.class.php:534
 msgid "Lecturer's first name must be at least 1 character long."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:435
+#: classes/pages/Page_manageLecturers.class.php:449
+#: classes/pages/Page_manageLecturers.class.php:540
 msgid "Lecturer's last name must be 32 characters long or less."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:441
+#: classes/pages/Page_manageLecturers.class.php:455
+#: classes/pages/Page_manageLecturers.class.php:546
 msgid "Lecturer's last name must be at least 1 character long."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:447
+#: classes/pages/Page_manageLecturers.class.php:461
+#: classes/pages/Page_manageLecturers.class.php:552
 msgid "Lecturer's username must be 64 characters long or less."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:453
+#: classes/pages/Page_manageLecturers.class.php:467
+#: classes/pages/Page_manageLecturers.class.php:558
 msgid "Lecturer's username must be at least 1 character long."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:459
+#: classes/pages/Page_manageLecturers.class.php:473
+#: classes/pages/Page_manageLecturers.class.php:564
 msgid "Lecturer's email must be 64 characters long or less."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:465
+#: classes/pages/Page_manageLecturers.class.php:479
+#: classes/pages/Page_manageLecturers.class.php:570
 msgid "Lecturer's email must be at least 1 character long."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:471
+#: classes/pages/Page_manageLecturers.class.php:485
+#: classes/pages/Page_manageLecturers.class.php:576
 #: classes/pages/Page_manageStudents.class.php:564
 msgid "Invalid e-mail address."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:477
+#: classes/pages/Page_manageLecturers.class.php:491
 msgid "Lecturer's password must be at least 6 characters long."
 msgstr ""
 
-#: classes/pages/Page_manageLecturers.class.php:483
+#: classes/pages/Page_manageLecturers.class.php:497
 msgid "Lecturer's varification password and password must match."
 msgstr ""
 
-#: classes/pages/Page_manageModules.class.php:62
-#, fuzzy
-#| msgid "The requested page does not exist"
-msgid "Module does not exist."
-msgstr "La pagina selezionata non esiste"
-
-#: classes/pages/Page_manageModules.class.php:74
-msgid "The module was successfully created."
-msgstr ""
-
-#: classes/pages/Page_manageModules.class.php:92
-msgid "The module was edited successfully."
-msgstr ""
-
-#: classes/pages/Page_manageModules.class.php:156
-#: classes/pages/Page_manageModules.class.php:289
-msgid "Create Module"
-msgstr ""
-
-#: classes/pages/Page_manageModules.class.php:160
-msgid "Select Module"
-msgstr ""
-
-#: classes/pages/Page_manageModules.class.php:204
-msgid "CRN: "
-msgstr ""
-
-#: classes/pages/Page_manageModules.class.php:207
-msgid "Credits: "
-msgstr ""
-
-#: classes/pages/Page_manageModules.class.php:292
-msgid "Edit Module"
-msgstr ""
-
-#: classes/pages/Page_manageModules.class.php:303
-msgid "CRN"
-msgstr ""
-
-#: classes/pages/Page_manageModules.class.php:308
-msgid "Credits"
-msgstr ""
-
-#: classes/pages/Page_manageModules.class.php:347
+#: classes/pages/Page_manageModules.class.php:60
+#: classes/pages/Page_manageModules.class.php:379
 msgid "Invalid module selected"
 msgstr ""
 
-#: classes/pages/Page_manageModules.class.php:353
+#: classes/pages/Page_manageModules.class.php:73
+msgid "The module was successfully created."
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:79
+msgid "An Error occured while processing your request."
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:89
+msgid "The module was edited successfully."
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:176
+#: classes/pages/Page_manageModules.class.php:314
+msgid "Create Module"
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:180
+msgid "Select Module"
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:225
+msgid "CRN: "
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:228
+msgid "Credits: "
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:236
+msgid "Are you sure you want to delete this module?"
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:317
+msgid "Edit Module"
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:328
+msgid "CRN"
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:333
+msgid "Credits"
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:385
 msgid "Module's name must be 32 characters long or less."
 msgstr ""
 
-#: classes/pages/Page_manageModules.class.php:359
+#: classes/pages/Page_manageModules.class.php:391
 msgid "Module's name must be at least 1 character long."
 msgstr ""
 
-#: classes/pages/Page_manageModules.class.php:365
-msgid "Module CRN must be a number"
+#: classes/pages/Page_manageModules.class.php:397
+msgid "Module CRN must be greater than 1 character"
 msgstr ""
 
-#: classes/pages/Page_manageModules.class.php:371
-msgid "Module credits must be a number"
+#: classes/pages/Page_manageModules.class.php:403
+msgid "Module CRN must be less than 30 characters"
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:409
+msgid "Module credits must be a number "
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:415
+msgid "Module credits must be greater than 1 "
+msgstr ""
+
+#: classes/pages/Page_manageModules.class.php:421
+msgid "Module credits must be less than 60"
 msgstr ""
 
 #: classes/pages/Page_manageStudents.class.php:90
@@ -1153,19 +1252,23 @@ msgstr ""
 msgid "Invalid amount of money for grant aided student."
 msgstr ""
 
-#: classes/pages/Page_postNotes.class.php:93
-#: classes/pages/Page_twitter.class.php:54
-#: classes/pages/abstract/Page_selectGroup.class.php:52
-msgid "Select Group"
+#: classes/pages/Page_notes.class.php:40
+msgid "You are not a student in that group!"
 msgstr ""
 
-#: classes/pages/Page_postNotes.class.php:118
-#: classes/pages/Page_twitter.class.php:79
-#: classes/pages/abstract/Page_selectGroup.class.php:84
-msgid "You are not assigned to any groups"
+#: classes/pages/Page_notes.class.php:137
+msgid "The are no notes to display"
 msgstr ""
 
-#: classes/pages/Page_postNotes.class.php:263
+#: classes/pages/Page_notes.class.php:152
+msgid "Select notes"
+msgstr ""
+
+#: classes/pages/Page_postNotes.class.php:36
+msgid "The file was uploaded successfully."
+msgstr ""
+
+#: classes/pages/Page_postNotes.class.php:66
 msgid "Upload"
 msgstr ""
 
@@ -1175,6 +1278,32 @@ msgstr ""
 
 #: classes/pages/Page_takeAttendance.class.php:132
 msgid "Uncheck All"
+msgstr ""
+
+#: classes/pages/Page_twitter.class.php:55
+msgid "You have tweeted successfully!"
+msgstr ""
+
+#: classes/pages/Page_twitter.class.php:73
+msgid "You have replied successfully!"
+msgstr ""
+
+#: classes/pages/Page_twitter.class.php:136
+#: classes/pages/Page_twitter.class.php:154
+msgid "Tweet"
+msgstr ""
+
+#: classes/pages/Page_twitter.class.php:137
+msgid "View Tweets"
+msgstr ""
+
+#: classes/pages/Page_twitter.class.php:151
+#: classes/pages/Page_twitter.class.php:280
+msgid "Enter Text"
+msgstr ""
+
+#: classes/pages/Page_twitter.class.php:283
+msgid "Reply"
 msgstr ""
 
 #: classes/pages/Page_viewExcuses.class.php:57
@@ -1217,6 +1346,19 @@ msgstr ""
 #: classes/pages/abstract/Page_selectDepartment.class.php:80
 msgid "Departments"
 msgstr ""
+
+#: classes/pages/abstract/Page_selectGroup.class.php:56
+msgid "Select Group"
+msgstr ""
+
+#: classes/pages/abstract/Page_selectGroup.class.php:88
+msgid "You are not assigned to any groups"
+msgstr ""
+
+#, fuzzy
+#~| msgid "The requested page does not exist"
+#~ msgid "Module does not exist."
+#~ msgstr "La pagina selezionata non esiste"
 
 #, fuzzy
 #~| msgid "The requested page does not exist"

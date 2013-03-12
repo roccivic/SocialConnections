@@ -3,7 +3,7 @@
 // Prevents unplanned execution paths
 define("SOCIALCONNECTIONS", 1);
 // Include configuration file
-require_once 'config.php';
+require_once '../config.php';
 // Error reporting is set in configuration
 // if (Config::DISPLAY_ERRORS) {
 // 	error_reporting(E_ALL | E_STRICT);
@@ -11,7 +11,7 @@ require_once 'config.php';
 // 	error_reporting(0);
 // }
 // Fix timezone
-//date_default_timezone_set(Config::TIMEZONE);
+date_default_timezone_set(Config::TIMEZONE);
 // Include all other necessary libraries
 require_once '../classes/Db.class.php';
 require_once '../libs/gettext/gettext.inc';
@@ -19,88 +19,194 @@ require_once '../classes/Lang.class.php';
 // Initialise i18n
 Lang::setLang();
 
-$thresholdDetails = getAttendanceThreshold(); 
+$debug = true;
 
-$attendance = $this->deptOverallAttendance();
-foreach ($attendance as $value) {
-	$deptDetails= $this->getDepartmentDetails($value['did']);
-	if(!empty($deptDetails['fname'])){
-		$labsBelow = false;
+
+students();
+headOfDepartments();
+echo "here we are";
+
+$thresholdOverall = getOverallThreshold();
+$thresholdLabs = getOverallThreshold();
+echo $thresholdDetails['overall'];
+
+echo $thresholdDetails['labs'];
+function students(){
+	global $thresholdDetails;
+	$students = getStudents();
+	
+	foreach ($students as $value) {
+
+
 		$body = '';
 		$subject ='';
 		
-		$to = $deptDetails['email'];
-		$headers = "From: postmaster@localhost";
-		if(($value['overall']*100)<$thresholdDetails['overall']){
-			
-			
-			if (($this->deptLabAttendance($value['did'])*100)<$thresholdDetails['labs']) {
-				$labsBelow = true;
-				//set to true if poor lab attendance in teh module
-			}
+		$to = $value['email'];
+		$headers = __('From: postmaster@localhost');
+
 				
-			$body .= 'Dear '.$deptDetails['fname'].' '. $deptDetails['lname']. ', \n' ;
-			$body .= 'This is an automated e-mail regarding poor attendance in the ';
-			$body .= $deptDetails['name'].' department\n';
-			$body .='The current threshold for overall attendance is : '. $thresholdDetails['overall'] .'%\n';
-			$body .='The current overall attendance for your department is ';
-			$body .= ($value['overall']*100). '% \n \n';
-			$subject .='Low overall attendance '; 
-			if($labsBelow){
-				$body .='The current threshold for labs is : '. $thresholdDetails['labs'] .'%\n';
-				$body .='The current attendance for labs for your department is ';
-				$body .= ($this->deptLabAttendance($value['did'])*100). '% \n\n';
-				$subject .='and low lab attendance ';
+		$body .= __('Dear ').$value['fname'].__(' '). $value['lname']. __(', \n') ;
+		$body .= __('This is an automated e-mail regarding attendance \n');
+		$body .= __('The current threshold for overall attendance is : '). $thresholdDetails['overall'] .__('%\n');
+		$body .=__('Your current overall attendance: ');
+		$body .= ($value['overall']*100). __('% \n \n');		
+		
+		
+		$subject .=__('Weekly attendance notification');
+		 if (mymail($to,$subject,$body,$headers)) {
+				echo("<p>Message successfully sent about overall!</p>");
+			} else {
+				echo("<p>Message delivery failed for overall...</p>");
 			}
-			
-			$subject .=' in the '.$deptDetails['name'].' department\n';
-			 if (mail($to,$subject,$message,$headers)) {
-   				echo("<p>Message successfully sent about overall!</p>");
-  			} else {
-   				echo("<p>Message delivery failed for overall...</p>");
-  			}
-		}elseif (($this->deptLabAttendance($value['did'])*100)<$thresholdDetails['labs']) {
-			$body .= 'Dear '.$deptDetails['fname'].' '. $deptDetails['lname']. ', \n' ;
-			$body .= 'This is an automated e-mail regarding poor attendance in the ';
-			$body .= $deptDetails['name'].' department\n';
-			$body .='The current threshold for labs is : '. $thresholdDetails['labs'] .'%\n';
-			$body .='The current attendance for labs for your department is ';
-			$body .= ($this->deptLabAttendance($value['did'])*100). '% \n\n';
-			 
-			$subject .='Low attendance for labs in the '.$deptDetails['name'].' department\n';
-			 if (mail($to,$subject,$message,$headers)) {
-   				echo("<p>Message successfully sent about labs!</p>");
-  			} else {
-   				echo("<p>Message delivery failed...labs</p>");
-  			}
-		}
-	
 	}
+}
+function headOfDepartments(){
+		global $thresholdDetails;
+
+	$attendance = deptOverallAttendance();
+	//var_dump($attendance);
+	foreach ($attendance as $value) {
+		$deptDetails= getDepartmentDetails($value['did']);
+		if(!empty($deptDetails['fname'])){
+			$labsBelow = false;
+			$body = '';
+			$subject ='';
+			
+			$to = $deptDetails['email'];
+			$headers = __('From: postmaster@localhost');
+			if(($value['deptOverall']*100)<$thresholdDetails['overall']){
+				
+				
+				if ((deptLabAttendance($value['did'])*100)>$thresholdDetails['labs']) {
+					$labsBelow = true;
+					//set to true if poor lab attendance in teh module
+				}
+					
+				$body .= __('Dear ').$deptDetails['fname'].' '. $deptDetails['lname']. __(', \n') ;
+				$body .= __('This is an automated e-mail regarding poor attendance in the ');
+				$body .= $deptDetails['name'].__(' department\n');
+				$body .= __('The current threshold for overall attendance is : '). $thresholdDetails['overall'] .__('%\n');
+				$body .= __('The current overall attendance for your department is ');
+				$body .= ($value['overall']*100). __('% \n \n');
+				$subject .=__('Low overall attendance '); 
+				if($labsBelow){
+					$body .=__('The current threshold for labs is : '). $thresholdDetails['labs'] .__('%\n');
+					$body .=__('The current attendance for labs for your department is ');
+					$body .= (deptLabAttendance($value['did'])*100). __('% \n\n');
+					$subject .=__('and low lab attendance ');
+				}
+				
+				$subject .=__(' in the ').$deptDetails['name'].__(' department\n');
+				 if (mymail($to,$subject,$body,$headers)) {
+	   				echo("<p>Message successfully sent about overall!</p>");
+	  			} else {
+	   				echo("<p>Message delivery failed for overall...</p>");
+	  			}
+			}elseif ((deptLabAttendance($value['did'])*100)<$thresholdDetails['labs']) {
+				$body .= __('Dear ').$deptDetails['fname'].__(' '). $deptDetails['lname']. __(', \n') ;
+				$body .= __('This is an automated e-mail regarding poor attendance in the ');
+				$body .= $deptDetails['name'].__(' department\n');
+				$body .=__('The current threshold for labs is : '). $thresholdDetails['labs'] .__('%\n');
+				$body .=__('The current attendance for labs for your department is ');
+				$body .= (deptLabAttendance($value['did'])*100). __('% \n\n');
+				 
+				$subject .=__('Low attendance for labs in the ').$deptDetails['name'].__(' department\n');
+				 if (mymail($to,$subject,$body,$headers)) {
+	   				echo("<p>Message successfully sent about labs!</p>");
+	  			} else {
+	   				echo("<p>Message delivery failed...labs</p>");
+	  			}
+			}
+		
+		}
+
+	}
+}
+
+function myMail($to,$subject,$message,$headers){
+	global $debug;
+	if ($debug) {
+		var_dump($to,$subject,$message,$headers);
+		return true;
+	} else {
+		return mail($to,$subject,$message,$headers);
+	}
+}
+
+	/**
+	 * Returns the decimal fraction of the total
+	 * attendance of a student given their ID
+	 * @return double
+	 */
+	 function getStudents()
+	{
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT SUM(`present`) / COUNT(*), fname, lname, email
+					FROM `student_attendance`
+					INNER JOIN `attendance` 
+					ON `attendance`.`id` = `student_attendance`.`aid`
+					INNER JOIN `student`
+					ON `student`.`id` = `sid`"
+		);
+		
+		$stmt->execute();
+		$stmt->bind_result($overall, $fname, $lname, $email);
+		while ($stmt->fetch()) {
+			$arr[] = array(
+				'overall' => $overall,
+				'fname' => $fname,
+				'lname' => $lname,
+				'email'=> $email
+			);
+		}
+		$stmt->close();
+		return $arr;
+	}
+function getStudentsDetails(){
 
 }
 
 
 		/**
-	 * Returns the threshold for attendance
+	 * Returns the threshold for overall attendance
 	 *
-	 * @return array
+	 * @return int
 	 */
-	 function getAttendanceThreshold(){
+	 function getOverallThreshold(){
 
 		$arr = array();
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT `overall`,`labs` FROM `threshold` WHERE `id` = 0;"
+			"SELECT `overall` FROM `threshold` WHERE `id` = 0;"
 		);
 		$stmt->execute();
-		$stmt->bind_result($overall, $labs);
+		$stmt->bind_result($overall);
 		$stmt->fetch();
 		$stmt->close();
-		$arr[] = array(
-				'overall' => $overall,
-				'labs' => $labs
-			);
-		return $arr;
+		
+		return $overall;
+	
+	}
+	/**
+	 * Returns the threshold for lab attendance
+	 *
+	 * @return int
+	 */
+	 function getlabThreshold(){
+
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `labs` FROM `threshold` WHERE `id` = 0;"
+		);
+		$stmt->execute();
+		$stmt->bind_result($labs);
+		$stmt->fetch();
+		$stmt->close();
+		
+		return $labs;
 	
 	}
 	/**
@@ -152,7 +258,7 @@ foreach ($attendance as $value) {
 		$arr = array();
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-				"SELECT `department`.`id`, SUM(`present`) / COUNT(*)
+				"SELECT SUM(`present`) / COUNT(*)
 				FROM `student_attendance`
 				INNER JOIN `attendance` 
 				ON `attendance`.`id` = `student_attendance`.`aid`
@@ -167,22 +273,16 @@ foreach ($attendance as $value) {
 				INNER JOIN `department` 
 				ON `department`.`id` = `class`.`did`
 				WHERE `isLecture` = 0
-				AND WHERE `department`.`id` = ?
+				AND `department`.`id` = ?
 				"
 				
 		);
 		$stmt->bind_param('i', $did);
 		$stmt->execute();
-		$stmt->bind_result($did, $deptLab);
-		while ($stmt->fetch()) {
-				$arr[] = array(
-				'did' => $did,
-				'deptLab' => $deptLab
-			);
-		}
+		$stmt->bind_result($deptLab);
 		$stmt->close();
 		
-		return $arr;
+		return $deptLab;
 		
 	}
 /**

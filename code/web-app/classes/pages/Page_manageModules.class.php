@@ -28,9 +28,9 @@ class Page_manageModules extends Page_selectDepartment {
 	{
 		$did = intval($did);
 
-		$mid = '';
+		$mid = 0;
 		if(!empty($_REQUEST['mid'])) {
-			$mid = $_REQUEST['mid'];
+			$mid = intval($_REQUEST['mid']);
 		}
 		$name = '';
 		if(!empty($_REQUEST['name'])){
@@ -45,14 +45,12 @@ class Page_manageModules extends Page_selectDepartment {
 			$credits = $_REQUEST['credits'];
 		}
 
-		$did = $_REQUEST['did'];
 		$dname = $this->getDepartmentName($did);
 		if(!empty($dname))
 			
 		{	
 
 			if(!empty($_REQUEST['view'])) {
-					$mid = $_REQUEST['mid'];
 					$mname = $this->getModuleName($mid);
 					if(empty($mname)){
 					$this->addNotification(
@@ -109,7 +107,6 @@ class Page_manageModules extends Page_selectDepartment {
 							$this->displayModules($did);
 						}
 						else {
-							$mid = $_REQUEST['mid'];
 							$this->editModuleForm($did, $mid);
 						}
 					
@@ -240,7 +237,7 @@ class Page_manageModules extends Page_selectDepartment {
 			);
     	$this->addHtml($html);
 	}
-		/**
+	/**
 	 * Returns an array of module details
 	 *
 	 * @return array

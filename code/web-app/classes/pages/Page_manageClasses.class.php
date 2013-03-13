@@ -39,7 +39,6 @@ class Page_manageClasses extends Page_selectDepartment {
 		
 		 if (!empty($_REQUEST['view']) ) 
 		{			
-			$did = $_REQUEST['did'];
 			$dname = $this->getDepartmentName($did);
 			if(empty($dname)){
 				$this->addNotification(
@@ -116,7 +115,6 @@ class Page_manageClasses extends Page_selectDepartment {
 			}
 		}else if (! empty($_REQUEST['delete'])) 
 		{
-			$cid = $_REQUEST['cid'];
 			if($this->deleteClass($cid)){
 				$this->addNotification(
 					'notice',

@@ -1,0 +1,1511 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \Page_manageGroups</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu"></ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">546</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: Instanciates the class"><span class="description">Instanciates the class</span><pre>__construct()</pre></a></li>
+<li class="method public inherited"><a href="#method_addNotification" title="addNotification :: Adds a notification to the top of the page"><span class="description">Adds a notification to the top of the page</span><pre>addNotification()</pre></a></li>
+<li class="method public "><a href="#method_display" title="display :: Called from the Page_selectGroup superclass
+when the user has selected a group"><span class="description">Called from the Page_selectGroup superclass
+when the user has selected a group</span><pre>display()</pre></a></li>
+<li class="method public inherited"><a href="#method_displayPage" title="displayPage :: Generates the page and sends it to the browser"><span class="description">Generates the page and sends it to the browser</span><pre>displayPage()</pre></a></li>
+<li class="method public "><a href="#method_getAccessLevel" title="getAccessLevel :: A user must be at least a student to view this page"><span class="description">A user must be at least a student to view this page</span><pre>getAccessLevel()</pre></a></li>
+<li class="method public inherited"><a href="#method_getGroupNameStatic" title="getGroupNameStatic :: Returns the name of a group given its id"><span class="description">Returns the name of a group given its id</span><pre>getGroupNameStatic()</pre></a></li>
+<li class="method public inherited"><a href="#method_getRequiredParams" title="getRequiredParams :: Override this method to specify what parameters
+must be passed to the page, so that it is correctly displayed."><span class="description">Override this method to specify what parameters
+must be passed to the page, so that it is correctly displayed.</span><pre>getRequiredParams()</pre></a></li>
+<li class="method public inherited"><a href="#method_getStudentsInGroupStatic" title="getStudentsInGroupStatic :: Returns an array of students in a group"><span class="description">Returns an array of students in a group</span><pre>getStudentsInGroupStatic()</pre></a></li>
+<li class="method public inherited"><a href="#method_isMobile" title="isMobile :: Used to check whether the page request is coming
+from the android app or an arbitrary web browser"><span class="description">Used to check whether the page request is coming
+from the android app or an arbitrary web browser</span><pre>isMobile()</pre></a></li>
+<li class="method public inherited"><a href="#method_sendHttpHeaders" title="sendHttpHeaders :: Sends HTTP headers, if not already done"><span class="description">Sends HTTP headers, if not already done</span><pre>sendHttpHeaders()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected inherited"><a href="#method_addHtml" title="addHtml :: Adds an html string to the main content of the page"><span class="description">Adds an html string to the main content of the page</span><pre>addHtml()</pre></a></li>
+<li class="method protected inherited"><a href="#method_addText" title="addText :: Adds an text string to the main content of the page
+The string will be sanitised to avoid XSS"><span class="description">Adds an text string to the main content of the page
+The string will be sanitised to avoid XSS</span><pre>addText()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getArgs" title="getArgs :: "><span class="description">getArgs()
+        </span><pre>getArgs()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getExtraFooter" title="getExtraFooter :: Puts some HTML code into the footer of the page,
+override in a subclass"><span class="description">Puts some HTML code into the footer of the page,
+override in a subclass</span><pre>getExtraFooter()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getGroupName" title="getGroupName :: Returns the name of a group given its id"><span class="description">Returns the name of a group given its id</span><pre>getGroupName()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getHeading" title="getHeading :: Returns the name of the current page"><span class="description">Returns the name of the current page</span><pre>getHeading()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getQuery" title="getQuery :: This function must be implemented in a subclass
+Returns an SQL query for getting the groups"><span class="description">This function must be implemented in a subclass
+Returns an SQL query for getting the groups</span><pre>getQuery()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getStudentName" title="getStudentName :: Returns the full name of a student given his id"><span class="description">Returns the full name of a student given his id</span><pre>getStudentName()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getStudentsInClass" title="getStudentsInClass :: Returns an array of students's details"><span class="description">Returns an array of students's details</span><pre>getStudentsInClass()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getStudentsInDepartment" title="getStudentsInDepartment :: Returns an array of students for a given department"><span class="description">Returns an array of students for a given department</span><pre>getStudentsInDepartment()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getStudentsInGroup" title="getStudentsInGroup :: Returns an array of students in a group"><span class="description">Returns an array of students in a group</span><pre>getStudentsInGroup()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getStudentsNotInGroup" title="getStudentsNotInGroup :: Returns an array of students that are not in the group"><span class="description">Returns an array of students that are not in the group</span><pre>getStudentsNotInGroup()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getTerms" title="getTerms :: Retrieves a list of terms that
+the user is registered for"><span class="description">Retrieves a list of terms that
+the user is registered for</span><pre>getTerms()</pre></a></li>
+<li class="method protected inherited"><a href="#method_groupSelector" title="groupSelector :: Displays the list of groups"><span class="description">Displays the list of groups</span><pre>groupSelector()</pre></a></li>
+<li class="method protected inherited"><a href="#method_isStudentIngroup" title="isStudentIngroup :: Checks if a student belongs to a group"><span class="description">Checks if a student belongs to a group</span><pre>isStudentIngroup()</pre></a></li>
+<li class="method protected inherited"><a href="#method_redirect" title="redirect :: Sends an HTTP Redirect to the browser
+Used in login form, other than that, avoid this at all costs"><span class="description">Sends an HTTP Redirect to the browser
+Used in login form, other than that, avoid this at all costs</span><pre>redirect()</pre></a></li>
+<li class="method protected inherited"><a href="#method_setType" title="setType :: Sets the page type"><span class="description">Sets the page type</span><pre>setType()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="method private "><a href="#method_addLecturerForm" title="addLecturerForm :: A form for adding lecturers"><span class="description">A form for adding lecturers</span><pre>addLecturerForm()</pre></a></li>
+<li class="method private "><a href="#method_addLecturerToGroup" title="addLecturerToGroup :: links a lecturer to a group"><span class="description">links a lecturer to a group</span><pre>addLecturerToGroup()</pre></a></li>
+<li class="method private "><a href="#method_addStudentForm" title="addStudentForm :: Displays a form for adding a student"><span class="description">Displays a form for adding a student</span><pre>addStudentForm()</pre></a></li>
+<li class="method private "><a href="#method_addStudentToGroup" title="addStudentToGroup :: Adds a student to a group"><span class="description">Adds a student to a group</span><pre>addStudentToGroup()</pre></a></li>
+<li class="method private inherited"><a href="#method_checkIfReady" title="checkIfReady :: Fail miserably if a sublass has not called it's
+parent's constructor"><span class="description">Fail miserably if a sublass has not called it's
+parent's constructor</span><pre>checkIfReady()</pre></a></li>
+<li class="method private "><a href="#method_createGroup" title="createGroup :: Creates a new group"><span class="description">Creates a new group</span><pre>createGroup()</pre></a></li>
+<li class="method private "><a href="#method_deleteGroup" title="deleteGroup :: Deletes a group"><span class="description">Deletes a group</span><pre>deleteGroup()</pre></a></li>
+<li class="method private "><a href="#method_departmentSelector" title="departmentSelector :: Displays the list of department"><span class="description">Displays the list of department</span><pre>departmentSelector()</pre></a></li>
+<li class="method private "><a href="#method_displayGroupDetails" title="displayGroupDetails :: Displays the details of a group
+and links to edit and delete it"><span class="description">Displays the details of a group
+and links to edit and delete it</span><pre>displayGroupDetails()</pre></a></li>
+<li class="method private "><a href="#method_displayListFooter" title="displayListFooter :: Prints the footer for the list of students"><span class="description">Prints the footer for the list of students</span><pre>displayListFooter()</pre></a></li>
+<li class="method private "><a href="#method_displayListHeader" title="displayListHeader :: Prints the header for the list of students"><span class="description">Prints the header for the list of students</span><pre>displayListHeader()</pre></a></li>
+<li class="method private "><a href="#method_editGroupForm" title="editGroupForm :: Displays a form for editing a group"><span class="description">Displays a form for editing a group</span><pre>editGroupForm()</pre></a></li>
+<li class="method private inherited"><a href="#method_getCreateGroupBtn" title="getCreateGroupBtn :: "><span class="description">getCreateGroupBtn()
+        </span><pre>getCreateGroupBtn()</pre></a></li>
+<li class="method private "><a href="#method_getDepartmentName" title="getDepartmentName :: Returns the name of a department given its id"><span class="description">Returns the name of a department given its id</span><pre>getDepartmentName()</pre></a></li>
+<li class="method private inherited"><a href="#method_getFooter" title="getFooter :: Generates the HTML footer for the page"><span class="description">Generates the HTML footer for the page</span><pre>getFooter()</pre></a></li>
+<li class="method private "><a href="#method_getGroupDetails" title="getGroupDetails :: Returns an array of group's details"><span class="description">Returns an array of group's details</span><pre>getGroupDetails()</pre></a></li>
+<li class="method private inherited"><a href="#method_getHeader" title="getHeader :: Generates the HTML header for the page"><span class="description">Generates the HTML header for the page</span><pre>getHeader()</pre></a></li>
+<li class="method private "><a href="#method_getLecturersInGroup" title="getLecturersInGroup :: Returns an array of  lecturers teaching the group"><span class="description">Returns an array of  lecturers teaching the group</span><pre>getLecturersInGroup()</pre></a></li>
+<li class="method private "><a href="#method_getLecturersNotInGroup" title="getLecturersNotInGroup :: Returns an array of lecturers that are not teaching the group"><span class="description">Returns an array of lecturers that are not teaching the group</span><pre>getLecturersNotInGroup()</pre></a></li>
+<li class="method private inherited"><a href="#method_getMenu" title="getMenu :: Generates the appropriate menu for the page"><span class="description">Generates the appropriate menu for the page</span><pre>getMenu()</pre></a></li>
+<li class="method private "><a href="#method_getModules" title="getModules :: Returns an array of module's details"><span class="description">Returns an array of module's details</span><pre>getModules()</pre></a></li>
+<li class="method private "><a href="#method_printAddLecturerListItem" title="printAddLecturerListItem :: Prints a single item for the list of students"><span class="description">Prints a single item for the list of students</span><pre>printAddLecturerListItem()</pre></a></li>
+<li class="method private "><a href="#method_printAddStudentListItem" title="printAddStudentListItem :: Prints a single item for the list of students"><span class="description">Prints a single item for the list of students</span><pre>printAddStudentListItem()</pre></a></li>
+<li class="method private inherited"><a href="#method_printListFooter" title="printListFooter :: Prints the footer for the list of groups"><span class="description">Prints the footer for the list of groups</span><pre>printListFooter()</pre></a></li>
+<li class="method private "><a href="#method_printListFooterDept" title="printListFooterDept :: Prints the footer for the list of departments"><span class="description">Prints the footer for the list of departments</span><pre>printListFooterDept()</pre></a></li>
+<li class="method private inherited"><a href="#method_printListHeader" title="printListHeader :: Prints the header for the list of groups"><span class="description">Prints the header for the list of groups</span><pre>printListHeader()</pre></a></li>
+<li class="method private "><a href="#method_printListHeaderDept" title="printListHeaderDept :: Prints the header for the list of departments"><span class="description">Prints the header for the list of departments</span><pre>printListHeaderDept()</pre></a></li>
+<li class="method private inherited"><a href="#method_printListItem" title="printListItem :: Prints a single item for the list of groups"><span class="description">Prints a single item for the list of groups</span><pre>printListItem()</pre></a></li>
+<li class="method private "><a href="#method_printListItemDept" title="printListItemDept :: Prints a single item for the list of departments"><span class="description">Prints a single item for the list of departments</span><pre>printListItemDept()</pre></a></li>
+<li class="method private "><a href="#method_printRemoveLecturerListItem" title="printRemoveLecturerListItem :: Prints a single item for the list of students"><span class="description">Prints a single item for the list of students</span><pre>printRemoveLecturerListItem()</pre></a></li>
+<li class="method private "><a href="#method_printRemoveStudentListItem" title="printRemoveStudentListItem :: Prints a single item for the list of students"><span class="description">Prints a single item for the list of students</span><pre>printRemoveStudentListItem()</pre></a></li>
+<li class="method private "><a href="#method_removeLecturerForm" title="removeLecturerForm :: Displays a form for removing a lecturer"><span class="description">Displays a form for removing a lecturer</span><pre>removeLecturerForm()</pre></a></li>
+<li class="method private "><a href="#method_removeLecturerFromGroup" title="removeLecturerFromGroup :: Removes a lecturer from a group"><span class="description">Removes a lecturer from a group</span><pre>removeLecturerFromGroup()</pre></a></li>
+<li class="method private "><a href="#method_removeStudentForm" title="removeStudentForm :: Displays a form for removing a student"><span class="description">Displays a form for removing a student</span><pre>removeStudentForm()</pre></a></li>
+<li class="method private "><a href="#method_removeStudentFromGroup" title="removeStudentFromGroup :: Removes a student from a group"><span class="description">Removes a student from a group</span><pre>removeStudentFromGroup()</pre></a></li>
+<li class="method private "><a href="#method_updateGroup" title="updateGroup :: Updates the group details"><span class="description">Updates the group details</span><pre>updateGroup()</pre></a></li>
+<li class="method private "><a href="#method_validateForm" title="validateForm :: Checks if the form details for editing/creating
+a group are valid"><span class="description">Checks if the form details for editing/creating
+a group are valid</span><pre>validateForm()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul><li class="property protected inherited"><a href="#property_db" title="$db :: A db link, here just for convenience so that subclasses
+don't have to retrive the link themselves"><span class="description"></span><pre>$db</pre></a></li></ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="property private inherited"><a href="#property_html" title="$html :: Output buffer"><span class="description"></span><pre>$html</pre></a></li>
+<li class="property private inherited"><a href="#property_isMobile" title="$isMobile :: Whether the page request is coming from
+the android app or an arbitrary web browser"><span class="description"></span><pre>$isMobile</pre></a></li>
+<li class="property private inherited"><a href="#property_notifications" title="$notifications :: A list of notification to include on the page
+when it displayed."><span class="description"></span><pre>$notifications</pre></a></li>
+<li class="property private inherited"><a href="#property_ready" title="$ready :: Whether the construct was called"><span class="description"></span><pre>$ready</pre></a></li>
+<li class="property private inherited"><a href="#property_type" title="$type :: Type of page, can be one of: 'normal' or 'nomenu'"><span class="description"></span><pre>$type</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\Page_manageGroups"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Page_manageGroups.html">Page_manageGroups</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">This page is used by lecturers to manage the
+groups</p>
+<div class="details">
+<div class="long_description"><p>Extend this class if your page must
+show a list of groups before doing something else.</p></div>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Instanciates the class</h2>
+<pre>__construct() : \new</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\new</code>Page</div>
+</div></div>
+</div>
+<a id="method_addNotification"></a><div class="element clickable method public method_addNotification" data-toggle="collapse" data-target=".method_addNotification .collapse">
+<h2>Adds a notification to the top of the page</h2>
+<pre>addNotification($type, $html) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::addNotification()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::addNotification()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::addNotification()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$type</h4></div>
+<div class="subelement argument"><h4>$html</h4></div>
+</div></div>
+</div>
+<a id="method_display"></a><div class="element clickable method public method_display" data-toggle="collapse" data-target=".method_display .collapse">
+<h2>Called from the Page_selectGroup superclass
+when the user has selected a group</h2>
+<pre>display($gid) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+</div></div>
+</div>
+<a id="method_displayPage"></a><div class="element clickable method public method_displayPage" data-toggle="collapse" data-target=".method_displayPage .collapse">
+<h2>Generates the page and sends it to the browser</h2>
+<pre>displayPage() : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::displayPage()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::displayPage()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::displayPage()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_getAccessLevel"></a><div class="element clickable method public method_getAccessLevel" data-toggle="collapse" data-target=".method_getAccessLevel .collapse">
+<h2>A user must be at least a student to view this page</h2>
+<pre>getAccessLevel() : int</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>See the User class for details</div>
+</div></div>
+</div>
+<a id="method_getGroupNameStatic"></a><div class="element clickable method public method_getGroupNameStatic" data-toggle="collapse" data-target=".method_getGroupNameStatic .collapse">
+<h2>Returns the name of a group given its id</h2>
+<pre>getGroupNameStatic($gid) : string</pre>
+<div class="labels">
+<span class="label">Inherited</span><span class="label">Static</span>
+</div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Data::getGroupNameStatic()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page::getGroupNameStatic()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getGroupNameStatic()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getGroupNameStatic()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getRequiredParams"></a><div class="element clickable method public method_getRequiredParams" data-toggle="collapse" data-target=".method_getRequiredParams .collapse">
+<h2>Override this method to specify what parameters
+must be passed to the page, so that it is correctly displayed.</h2>
+<pre>getRequiredParams() : \array()</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>E.g.: array('groupid', 'userid')</p></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::getRequiredParams()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getRequiredParams()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getRequiredParams()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>\array()</code></div>
+</div></div>
+</div>
+<a id="method_getStudentsInGroupStatic"></a><div class="element clickable method public method_getStudentsInGroupStatic" data-toggle="collapse" data-target=".method_getStudentsInGroupStatic .collapse">
+<h2>Returns an array of students in a group</h2>
+<pre>getStudentsInGroupStatic($gid) : array</pre>
+<div class="labels">
+<span class="label">Inherited</span><span class="label">Static</span>
+</div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Data::getStudentsInGroupStatic()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page::getStudentsInGroupStatic()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getStudentsInGroupStatic()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getStudentsInGroupStatic()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_isMobile"></a><div class="element clickable method public method_isMobile" data-toggle="collapse" data-target=".method_isMobile .collapse">
+<h2>Used to check whether the page request is coming
+from the android app or an arbitrary web browser</h2>
+<pre>isMobile() : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::isMobile()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::isMobile()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::isMobile()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a id="method_sendHttpHeaders"></a><div class="element clickable method public method_sendHttpHeaders" data-toggle="collapse" data-target=".method_sendHttpHeaders .collapse">
+<h2>Sends HTTP headers, if not already done</h2>
+<pre>sendHttpHeaders() : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::sendHttpHeaders()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::sendHttpHeaders()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::sendHttpHeaders()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_addHtml"></a><div class="element clickable method protected method_addHtml" data-toggle="collapse" data-target=".method_addHtml .collapse">
+<h2>Adds an html string to the main content of the page</h2>
+<pre>addHtml($string) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::addHtml()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::addHtml()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::addHtml()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$string</h4></div>
+</div></div>
+</div>
+<a id="method_addText"></a><div class="element clickable method protected method_addText" data-toggle="collapse" data-target=".method_addText .collapse">
+<h2>Adds an text string to the main content of the page
+The string will be sanitised to avoid XSS</h2>
+<pre>addText($string) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::addText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::addText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::addText()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$string</h4></div>
+</div></div>
+</div>
+<a id="method_getArgs"></a><div class="element clickable method protected method_getArgs" data-toggle="collapse" data-target=".method_getArgs .collapse">
+<h2>getArgs()
+        </h2>
+<pre>getArgs() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getArgs()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getArgs()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_getExtraFooter"></a><div class="element clickable method protected method_getExtraFooter" data-toggle="collapse" data-target=".method_getExtraFooter .collapse">
+<h2>Puts some HTML code into the footer of the page,
+override in a subclass</h2>
+<pre>getExtraFooter($sid) : \@string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getExtraFooter()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getExtraFooter()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$sid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\@string</code></div>
+</div></div>
+</div>
+<a id="method_getGroupName"></a><div class="element clickable method protected method_getGroupName" data-toggle="collapse" data-target=".method_getGroupName .collapse">
+<h2>Returns the name of a group given its id</h2>
+<pre>getGroupName($gid) : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Data::getGroupName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page::getGroupName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getGroupName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getGroupName()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getHeading"></a><div class="element clickable method protected method_getHeading" data-toggle="collapse" data-target=".method_getHeading .collapse">
+<h2>Returns the name of the current page</h2>
+<pre>getHeading() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::getHeading()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getHeading()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getHeading()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getQuery"></a><div class="element clickable method protected method_getQuery" data-toggle="collapse" data-target=".method_getQuery .collapse">
+<h2>This function must be implemented in a subclass
+Returns an SQL query for getting the groups</h2>
+<pre>getQuery() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getQuery()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getStudentName"></a><div class="element clickable method protected method_getStudentName" data-toggle="collapse" data-target=".method_getStudentName .collapse">
+<h2>Returns the full name of a student given his id</h2>
+<pre>getStudentName($sid) : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Data::getStudentName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page::getStudentName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getStudentName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getStudentName()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$sid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getStudentsInClass"></a><div class="element clickable method protected method_getStudentsInClass" data-toggle="collapse" data-target=".method_getStudentsInClass .collapse">
+<h2>Returns an array of students's details</h2>
+<pre>getStudentsInClass($cid) : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Data::getStudentsInClass()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page::getStudentsInClass()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getStudentsInClass()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getStudentsInClass()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$cid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getStudentsInDepartment"></a><div class="element clickable method protected method_getStudentsInDepartment" data-toggle="collapse" data-target=".method_getStudentsInDepartment .collapse">
+<h2>Returns an array of students for a given department</h2>
+<pre>getStudentsInDepartment($did) : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Data::getStudentsInDepartment()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page::getStudentsInDepartment()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getStudentsInDepartment()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getStudentsInDepartment()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$did</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getStudentsInGroup"></a><div class="element clickable method protected method_getStudentsInGroup" data-toggle="collapse" data-target=".method_getStudentsInGroup .collapse">
+<h2>Returns an array of students in a group</h2>
+<pre>getStudentsInGroup($gid) : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Data::getStudentsInGroup()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page::getStudentsInGroup()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getStudentsInGroup()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getStudentsInGroup()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getStudentsNotInGroup"></a><div class="element clickable method protected method_getStudentsNotInGroup" data-toggle="collapse" data-target=".method_getStudentsNotInGroup .collapse">
+<h2>Returns an array of students that are not in the group</h2>
+<pre>getStudentsNotInGroup($did, $gid) : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Data::getStudentsNotInGroup()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page::getStudentsNotInGroup()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getStudentsNotInGroup()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getStudentsNotInGroup()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$did</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getTerms"></a><div class="element clickable method protected method_getTerms" data-toggle="collapse" data-target=".method_getTerms .collapse">
+<h2>Retrieves a list of terms that
+the user is registered for</h2>
+<pre>getTerms($lid) : \@array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getTerms()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$lid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\@array</code></div>
+</div></div>
+</div>
+<a id="method_groupSelector"></a><div class="element clickable method protected method_groupSelector" data-toggle="collapse" data-target=".method_groupSelector .collapse">
+<h2>Displays the list of groups</h2>
+<pre>groupSelector($haveCreateBtn) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::groupSelector()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::groupSelector()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$haveCreateBtn</h4></div>
+</div></div>
+</div>
+<a id="method_isStudentIngroup"></a><div class="element clickable method protected method_isStudentIngroup" data-toggle="collapse" data-target=".method_isStudentIngroup .collapse">
+<h2>Checks if a student belongs to a group</h2>
+<pre>isStudentIngroup($sid, $gid) : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Data::isStudentIngroup()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page::isStudentIngroup()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::isStudentIngroup()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::isStudentIngroup()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$sid</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_redirect"></a><div class="element clickable method protected method_redirect" data-toggle="collapse" data-target=".method_redirect .collapse">
+<h2>Sends an HTTP Redirect to the browser
+Used in login form, other than that, avoid this at all costs</h2>
+<pre>redirect($page) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::redirect()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::redirect()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::redirect()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$page</h4></div>
+</div></div>
+</div>
+<a id="method_setType"></a><div class="element clickable method protected method_setType" data-toggle="collapse" data-target=".method_setType .collapse">
+<h2>Sets the page type</h2>
+<pre>setType($type) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::setType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::setType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::setType()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$type</h4></div>
+</div></div>
+</div>
+<a id="method_addLecturerForm"></a><div class="element clickable method private method_addLecturerForm" data-toggle="collapse" data-target=".method_addLecturerForm .collapse">
+<h2>A form for adding lecturers</h2>
+<pre>addLecturerForm($gid, $did) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$did</h4></div>
+</div></div>
+</div>
+<a id="method_addLecturerToGroup"></a><div class="element clickable method private method_addLecturerToGroup" data-toggle="collapse" data-target=".method_addLecturerToGroup .collapse">
+<h2>links a lecturer to a group</h2>
+<pre>addLecturerToGroup($gid, $lid) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$lid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>success</div>
+</div></div>
+</div>
+<a id="method_addStudentForm"></a><div class="element clickable method private method_addStudentForm" data-toggle="collapse" data-target=".method_addStudentForm .collapse">
+<h2>Displays a form for adding a student</h2>
+<pre>addStudentForm($gid, $did) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$did</h4></div>
+</div></div>
+</div>
+<a id="method_addStudentToGroup"></a><div class="element clickable method private method_addStudentToGroup" data-toggle="collapse" data-target=".method_addStudentToGroup .collapse">
+<h2>Adds a student to a group</h2>
+<pre>addStudentToGroup($gid, $sid) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$sid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>success</div>
+</div></div>
+</div>
+<a id="method_checkIfReady"></a><div class="element clickable method private method_checkIfReady" data-toggle="collapse" data-target=".method_checkIfReady .collapse">
+<h2>Fail miserably if a sublass has not called it's
+parent's constructor</h2>
+<pre>checkIfReady() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::checkIfReady()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::checkIfReady()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::checkIfReady()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_createGroup"></a><div class="element clickable method private method_createGroup" data-toggle="collapse" data-target=".method_createGroup .collapse">
+<h2>Creates a new group</h2>
+<pre>createGroup($name, $module, $year, $term) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$name</h4></div>
+<div class="subelement argument"><h4>$module</h4></div>
+<div class="subelement argument"><h4>$year</h4></div>
+<div class="subelement argument"><h4>$term</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>success</div>
+</div></div>
+</div>
+<a id="method_deleteGroup"></a><div class="element clickable method private method_deleteGroup" data-toggle="collapse" data-target=".method_deleteGroup .collapse">
+<h2>Deletes a group</h2>
+<pre>deleteGroup($gid) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+</div></div>
+</div>
+<a id="method_departmentSelector"></a><div class="element clickable method private method_departmentSelector" data-toggle="collapse" data-target=".method_departmentSelector .collapse">
+<h2>Displays the list of department</h2>
+<pre>departmentSelector($isStudent, $gid) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$isStudent</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+</div></div>
+</div>
+<a id="method_displayGroupDetails"></a><div class="element clickable method private method_displayGroupDetails" data-toggle="collapse" data-target=".method_displayGroupDetails .collapse">
+<h2>Displays the details of a group
+and links to edit and delete it</h2>
+<pre>displayGroupDetails($gid) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+</div></div>
+</div>
+<a id="method_displayListFooter"></a><div class="element clickable method private method_displayListFooter" data-toggle="collapse" data-target=".method_displayListFooter .collapse">
+<h2>Prints the footer for the list of students</h2>
+<pre>displayListFooter() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_displayListHeader"></a><div class="element clickable method private method_displayListHeader" data-toggle="collapse" data-target=".method_displayListHeader .collapse">
+<h2>Prints the header for the list of students</h2>
+<pre>displayListHeader($gid) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+</div></div>
+</div>
+<a id="method_editGroupForm"></a><div class="element clickable method private method_editGroupForm" data-toggle="collapse" data-target=".method_editGroupForm .collapse">
+<h2>Displays a form for editing a group</h2>
+<pre>editGroupForm($gid, $name) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$name</h4></div>
+</div></div>
+</div>
+<a id="method_getCreateGroupBtn"></a><div class="element clickable method private method_getCreateGroupBtn" data-toggle="collapse" data-target=".method_getCreateGroupBtn .collapse">
+<h2>getCreateGroupBtn()
+        </h2>
+<pre>getCreateGroupBtn() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getCreateGroupBtn()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getCreateGroupBtn()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_getDepartmentName"></a><div class="element clickable method private method_getDepartmentName" data-toggle="collapse" data-target=".method_getDepartmentName .collapse">
+<h2>Returns the name of a department given its id</h2>
+<pre>getDepartmentName($did) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$did</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getFooter"></a><div class="element clickable method private method_getFooter" data-toggle="collapse" data-target=".method_getFooter .collapse">
+<h2>Generates the HTML footer for the page</h2>
+<pre>getFooter() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::getFooter()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getFooter()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getFooter()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>HTML</div>
+</div></div>
+</div>
+<a id="method_getGroupDetails"></a><div class="element clickable method private method_getGroupDetails" data-toggle="collapse" data-target=".method_getGroupDetails .collapse">
+<h2>Returns an array of group's details</h2>
+<pre>getGroupDetails($gid) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getHeader"></a><div class="element clickable method private method_getHeader" data-toggle="collapse" data-target=".method_getHeader .collapse">
+<h2>Generates the HTML header for the page</h2>
+<pre>getHeader() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::getHeader()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getHeader()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getHeader()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>HTML</div>
+</div></div>
+</div>
+<a id="method_getLecturersInGroup"></a><div class="element clickable method private method_getLecturersInGroup" data-toggle="collapse" data-target=".method_getLecturersInGroup .collapse">
+<h2>Returns an array of  lecturers teaching the group</h2>
+<pre>getLecturersInGroup($gid) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getLecturersNotInGroup"></a><div class="element clickable method private method_getLecturersNotInGroup" data-toggle="collapse" data-target=".method_getLecturersNotInGroup .collapse">
+<h2>Returns an array of lecturers that are not teaching the group</h2>
+<pre>getLecturersNotInGroup($did, $gid) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$did</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getMenu"></a><div class="element clickable method private method_getMenu" data-toggle="collapse" data-target=".method_getMenu .collapse">
+<h2>Generates the appropriate menu for the page</h2>
+<pre>getMenu() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::getMenu()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::getMenu()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::getMenu()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>HTML</div>
+</div></div>
+</div>
+<a id="method_getModules"></a><div class="element clickable method private method_getModules" data-toggle="collapse" data-target=".method_getModules .collapse">
+<h2>Returns an array of module's details</h2>
+<pre>getModules() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_printAddLecturerListItem"></a><div class="element clickable method private method_printAddLecturerListItem" data-toggle="collapse" data-target=".method_printAddLecturerListItem .collapse">
+<h2>Prints a single item for the list of students</h2>
+<pre>printAddLecturerListItem($lid, $gid, $name, $did) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$lid</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$name</h4></div>
+<div class="subelement argument"><h4>$did</h4></div>
+</div></div>
+</div>
+<a id="method_printAddStudentListItem"></a><div class="element clickable method private method_printAddStudentListItem" data-toggle="collapse" data-target=".method_printAddStudentListItem .collapse">
+<h2>Prints a single item for the list of students</h2>
+<pre>printAddStudentListItem($sid, $gid, $name, $did) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$sid</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$name</h4></div>
+<div class="subelement argument"><h4>$did</h4></div>
+</div></div>
+</div>
+<a id="method_printListFooter"></a><div class="element clickable method private method_printListFooter" data-toggle="collapse" data-target=".method_printListFooter .collapse">
+<h2>Prints the footer for the list of groups</h2>
+<pre>printListFooter() : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::printListFooter()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::printListFooter()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_printListFooterDept"></a><div class="element clickable method private method_printListFooterDept" data-toggle="collapse" data-target=".method_printListFooterDept .collapse">
+<h2>Prints the footer for the list of departments</h2>
+<pre>printListFooterDept() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_printListHeader"></a><div class="element clickable method private method_printListHeader" data-toggle="collapse" data-target=".method_printListHeader .collapse">
+<h2>Prints the header for the list of groups</h2>
+<pre>printListHeader($haveCreateBtn, $year, $term) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::printListHeader()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::printListHeader()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$haveCreateBtn</h4></div>
+<div class="subelement argument"><h4>$year</h4></div>
+<div class="subelement argument"><h4>$term</h4></div>
+</div></div>
+</div>
+<a id="method_printListHeaderDept"></a><div class="element clickable method private method_printListHeaderDept" data-toggle="collapse" data-target=".method_printListHeaderDept .collapse">
+<h2>Prints the header for the list of departments</h2>
+<pre>printListHeaderDept() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_printListItem"></a><div class="element clickable method private method_printListItem" data-toggle="collapse" data-target=".method_printListItem .collapse">
+<h2>Prints a single item for the list of groups</h2>
+<pre>printListItem($gid, $name) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::printListItem()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::printListItem()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$name</h4></div>
+</div></div>
+</div>
+<a id="method_printListItemDept"></a><div class="element clickable method private method_printListItemDept" data-toggle="collapse" data-target=".method_printListItemDept .collapse">
+<h2>Prints a single item for the list of departments</h2>
+<pre>printListItemDept($isStudent, $did, $name, $gid) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$isStudent</h4></div>
+<div class="subelement argument"><h4>$did</h4></div>
+<div class="subelement argument"><h4>$name</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+</div></div>
+</div>
+<a id="method_printRemoveLecturerListItem"></a><div class="element clickable method private method_printRemoveLecturerListItem" data-toggle="collapse" data-target=".method_printRemoveLecturerListItem .collapse">
+<h2>Prints a single item for the list of students</h2>
+<pre>printRemoveLecturerListItem($lid, $gid, $name) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$lid</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$name</h4></div>
+</div></div>
+</div>
+<a id="method_printRemoveStudentListItem"></a><div class="element clickable method private method_printRemoveStudentListItem" data-toggle="collapse" data-target=".method_printRemoveStudentListItem .collapse">
+<h2>Prints a single item for the list of students</h2>
+<pre>printRemoveStudentListItem($sid, $gid, $name, $did) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$sid</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$name</h4></div>
+<div class="subelement argument"><h4>$did</h4></div>
+</div></div>
+</div>
+<a id="method_removeLecturerForm"></a><div class="element clickable method private method_removeLecturerForm" data-toggle="collapse" data-target=".method_removeLecturerForm .collapse">
+<h2>Displays a form for removing a lecturer</h2>
+<pre>removeLecturerForm($gid) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+</div></div>
+</div>
+<a id="method_removeLecturerFromGroup"></a><div class="element clickable method private method_removeLecturerFromGroup" data-toggle="collapse" data-target=".method_removeLecturerFromGroup .collapse">
+<h2>Removes a lecturer from a group</h2>
+<pre>removeLecturerFromGroup($gid, $lid) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$lid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>success</div>
+</div></div>
+</div>
+<a id="method_removeStudentForm"></a><div class="element clickable method private method_removeStudentForm" data-toggle="collapse" data-target=".method_removeStudentForm .collapse">
+<h2>Displays a form for removing a student</h2>
+<pre>removeStudentForm($gid, $did) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$did</h4></div>
+</div></div>
+</div>
+<a id="method_removeStudentFromGroup"></a><div class="element clickable method private method_removeStudentFromGroup" data-toggle="collapse" data-target=".method_removeStudentFromGroup .collapse">
+<h2>Removes a student from a group</h2>
+<pre>removeStudentFromGroup($gid, $sid) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$sid</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>success</div>
+</div></div>
+</div>
+<a id="method_updateGroup"></a><div class="element clickable method private method_updateGroup" data-toggle="collapse" data-target=".method_updateGroup .collapse">
+<h2>Updates the group details</h2>
+<pre>updateGroup($gid, $name, $module, $year, $term) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$name</h4></div>
+<div class="subelement argument"><h4>$module</h4></div>
+<div class="subelement argument"><h4>$year</h4></div>
+<div class="subelement argument"><h4>$term</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>success</div>
+</div></div>
+</div>
+<a id="method_validateForm"></a><div class="element clickable method private method_validateForm" data-toggle="collapse" data-target=".method_validateForm .collapse">
+<h2>Checks if the form details for editing/creating
+a group are valid</h2>
+<pre>validateForm($isCreate, $gid, $name, $module, $year, $term) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$isCreate</h4></div>
+<div class="subelement argument"><h4>$gid</h4></div>
+<div class="subelement argument"><h4>$name</h4></div>
+<div class="subelement argument"><h4>$module</h4></div>
+<div class="subelement argument"><h4>$year</h4></div>
+<div class="subelement argument"><h4>$term</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_db"> </a><div class="element clickable property protected property_db" data-toggle="collapse" data-target=".property_db .collapse">
+<h2></h2>
+<pre>$db </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::$$db</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::$$db</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::$$db</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_html"> </a><div class="element clickable property private property_html" data-toggle="collapse" data-target=".property_html .collapse">
+<h2></h2>
+<pre>$html </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::$$html</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::$$html</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::$$html</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_isMobile"> </a><div class="element clickable property private property_isMobile" data-toggle="collapse" data-target=".property_isMobile .collapse">
+<h2></h2>
+<pre>$isMobile </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::$$isMobile</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::$$isMobile</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::$$isMobile</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_notifications"> </a><div class="element clickable property private property_notifications" data-toggle="collapse" data-target=".property_notifications .collapse">
+<h2></h2>
+<pre>$notifications </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>See also: addNotification()</p></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::$$notifications</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::$$notifications</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::$$notifications</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_ready"> </a><div class="element clickable property private property_ready" data-toggle="collapse" data-target=".property_ready .collapse">
+<h2></h2>
+<pre>$ready </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::$$ready</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::$$ready</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::$$ready</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_type"> </a><div class="element clickable property private property_type" data-toggle="collapse" data-target=".property_type .collapse">
+<h2></h2>
+<pre>$type </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Page::$$type</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectGroup::$$type</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Page_selectLecturerGroup::$$type</td>
+</tr>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-03-13T20:52:40Z.<br></footer></div>
+</div>
+</body>
+</html>

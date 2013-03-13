@@ -164,20 +164,30 @@ abstract class Page extends Data {
 		}
 	}
 	/**
-	 * Generates the page and sends it to the browser
+	 * Generates the page
 	 *
-	 * @return void
+	 * @return string
 	 */
-	public function displayPage()
+	public function addNotifications($input)
+	{
+		$html = '';
+		foreach ($this->notifications as $notification) {
+			$html .= '<div class="notification ' . $notification['type'] . '">';
+			$html .= $notification['html'];
+			$html .= '</div>';
+    	}
+    	return str_replace('@@NOTIFICATIONS@@', $html, $input);
+	}
+	/**
+	 * Generates the page
+	 *
+	 * @return string
+	 */
+	public function renderPage()
 	{
 		$this->checkIfReady();
 		$page  = $this->getHeader();
-		$page .= '<div class="content-primary">';
-    	foreach ($this->notifications as $notification) {
-			$page .= '<div class="notification ' . $notification['type'] . '">';
-			$page .= $notification['html'];
-			$page .= '</div>';
-    	}
+		$page .= '<div class="content-primary">@@NOTIFICATIONS@@';
     	$page .= '<h2>' . $this->getHeading() . '</h2>';
 		$page .= $this->html;
 		if ($this->isMobile()
@@ -199,7 +209,7 @@ abstract class Page extends Data {
 		}
 		$page .= $this->getFooter();
 
-		echo TidyHtml::process($page);
+		return TidyHtml::process($page);
 	}
 	/**
 	 * Sends an HTTP Redirect to the browser

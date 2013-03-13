@@ -218,25 +218,6 @@ class Page_grantStudents extends Page_selectDepartment {
 		$stmt->close();
 		return $name;
 	}
-	/**
-	 * Returns the name of a student given its id
-	 *
-	 * @return string
-	 */
-	private function getStudentName($sid)
-	{
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `fname` FROM `student` WHERE `id` = ?;"
-		);
-		$stmt->bind_param('i', $sid);
-		$stmt->execute();
-		$stmt->bind_result($name);
-		$stmt->fetch();
-		$stmt->close();
-		return $name;
-	}
-	
 }
 
 

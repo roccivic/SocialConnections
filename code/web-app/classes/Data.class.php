@@ -170,6 +170,24 @@ class Data {
 		$stmt->close();
 		return $arr;
 	}
+	/**
+	 * Returns the full name of a student given his id
+	 *
+	 * @return string
+	 */
+	protected function getStudentName($sid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `fname`, `lname` FROM `student` WHERE `id` = ?;"
+		);
+		$stmt->bind_param('i', $sid);
+		$stmt->execute();
+		$stmt->bind_result($fname, $lname);
+		$stmt->fetch();
+		$stmt->close();
+		return $fname . ' ' . $lname;
+	}
 }
 
 ?>

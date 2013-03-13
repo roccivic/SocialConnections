@@ -316,24 +316,6 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 	        $this->addHtml($html);
 		}
 		/**
-		 * Returns the full name of a student given his id
-		 *
-		 * @return string
-		 */
-		private function getStudentName($sid)
-		{
-			$db = Db::getLink();
-			$stmt = $db->prepare(
-				"SELECT `fname`, `lname` FROM `student` WHERE `id` = ?;"
-			);
-			$stmt->bind_param('i', $sid);
-			$stmt->execute();
-			$stmt->bind_result($fname, $lname);
-			$stmt->fetch();
-			$stmt->close();
-			return $fname . ' ' . $lname;
-		}
-		/**
 		 * Returns the name of a department given its id
 		 *
 		 * @return string
@@ -552,24 +534,6 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 	        $this->addHtml(
 	        	'</ul>'
 	        );
-		}
-		/**
-		 * Returns the full name of a student given his id
-		 *
-		 * @return string
-		 */
-		private function getStudentName($sid)
-		{
-			$db = Db::getLink();
-			$stmt = $db->prepare(
-				"SELECT `fname`, `lname` FROM `student` WHERE `id` = ?;"
-			);
-			$stmt->bind_param('i', $sid);
-			$stmt->execute();
-			$stmt->bind_result($fname, $lname);
-			$stmt->fetch();
-			$stmt->close();
-			return $fname . ' ' . $lname;
 		}
 		/**
 		 * Retrieves the attendance of a student

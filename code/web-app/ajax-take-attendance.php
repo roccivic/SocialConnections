@@ -17,6 +17,7 @@ session_name('SOCIALCONNECTIONS');
 session_start();
 // Include all other necessary libraries
 require_once 'classes/Db.class.php';
+require_once 'classes/Data.class.php';
 require_once 'classes/User.class.php';
 require_once 'classes/Auth.class.php';
 require_once 'libs/gettext/gettext.inc';
@@ -55,14 +56,14 @@ $date = ! empty($_REQUEST["date"]) ? trim($_REQUEST["date"]) : '';
 $time = ! empty($_REQUEST["time"]) ? trim($_REQUEST["time"]) : '';
 $isLecture = ! empty($_REQUEST["isLecture"]) ? intval($_REQUEST["isLecture"]) : 0;
 
-if (! strlen(getGroupName($gid))) {
+if (! strlen(Data::getGroupNameStatic($gid))) {
 	ajax_response(
 		false,
 		__('Invalid group selected')
 	);
 }
 
-$dbStudents = getStudents($gid);
+$dbStudents = Data::getStudentsInGroupStatic($gid);
 
 $students = array();
 if (! empty($_REQUEST['students']) && is_array($_REQUEST['students'])) {
@@ -172,36 +173,6 @@ function save($gid, $date, $time, $students, $isLecture, $dbStudents)
 		}
 	}
 	return $success;
-}
-
-function getStudents($gid)
-{
-	$arr = array();
-	$db = Db::getLink();
-	$stmt = $db->prepare(
-		"SELECT `id`, `fname`, `lname` FROM `student` INNER JOIN `group_student` ON `sid` = `id` WHERE `gid` = ? ORDER BY `lname`, `fname`"
-	);
-	$stmt->bind_param('i', $gid);
-	$stmt->execute();
-	$stmt->bind_result($id, $fname, $lname);
-	while ($stmt->fetch()) {
-		$arr[$id] = $lname . ' ' . $fname;
-	}
-	return $arr;
-}
-
-function getGroupName($gid)
-{
-	$db = Db::getLink();
-	$stmt = $db->prepare(
-		"SELECT `name` FROM `group` WHERE `id` = ?;"
-	);
-	$stmt->bind_param('i', $gid);
-	$stmt->execute();
-	$stmt->bind_result($name);
-	$stmt->fetch();
-	$stmt->close();
-	return $name;
 }
 
 function forward($gid, $students, $images, $session)

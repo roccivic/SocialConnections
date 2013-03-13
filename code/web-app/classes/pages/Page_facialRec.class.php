@@ -42,32 +42,6 @@ class Page_facialRec extends Page_selectLecturerGroup {
 	}
 
 	/**
-	 * Returns an array of students in a group
-	 *
-	 * @return array
-	 */
-	private function getStudentsInGroup($gid)
-	{
-		$arr = array();
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `id`, `fname`, `lname`
-			FROM `student`
-			WHERE `id` IN (
-				SELECT sid FROM `group_student` WHERE `gid`=?
-			)
-			ORDER BY `fname` ASC, `lname` ASC;"
-		);
-		$stmt->bind_param("i",$gid);
-		$stmt->execute();
-		$stmt->bind_result($id, $fname,$lname);
-		while ($stmt->fetch()) {
-			$arr[$id] = $fname . ' ' . $lname;
-		}
-		return $arr;
-	}
-
-	/**
 	 * Displays the form for taking attendance
 	 *
 	 * @return void

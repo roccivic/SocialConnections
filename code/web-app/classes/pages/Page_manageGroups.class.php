@@ -825,31 +825,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	        	'</ul>'
 	        );
 		}
-	/**
-	 * Returns an array of students
-	 *
-	 * @return array
-	 */
-	private function getStudents($did)
-	{
-		$arr = array();
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `id`, `fname`, `lname`
-			FROM `student`
-			WHERE `cid` IN (
-				SELECT id FROM `class` WHERE `did`=?
-			)
-			ORDER BY `fname` ASC, `lname` ASC;"
-		);
-		$stmt->bind_param("i",$did);
-		$stmt->execute();
-		$stmt->bind_result($id, $fname,$lname);
-		while ($stmt->fetch()) {
-			$arr[$id] = $fname . ' ' . $lname;
-		}
-		return $arr;
-	}
+
 	/**
 	 * Adds a student to a group
 	 *
@@ -911,31 +887,6 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	        );
 		}
 	/**
-	 * Returns an array of students in a group
-	 *
-	 * @return array
-	 */
-	private function getStudentsInGroup($gid)
-	{
-		$arr = array();
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `id`, `fname`, `lname`
-			FROM `student`
-			WHERE `id` IN (
-				SELECT sid FROM `group_student` WHERE `gid`=?
-			)
-			ORDER BY `fname` ASC, `lname` ASC;"
-		);
-		$stmt->bind_param("i",$gid);
-		$stmt->execute();
-		$stmt->bind_result($id, $fname,$lname);
-		while ($stmt->fetch()) {
-			$arr[$id] = $fname . ' ' . $lname;
-		}
-		return $arr;
-	}
-	/**
 	 * Removes a student from a group
 	 *
 	 * @return bool success
@@ -954,41 +905,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$stmt->close();
 		return $success;
 	}
-	/**
-	 * Returns an array of students that are not in the group
-	 *
-	 * @return array
-	 */
-	private function getStudentsNotInGroup($did,$gid)
-	{
-		$sArray = $this->getStudentsInGroup($gid);
-		$success = true;
-		$arr = array();
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `id`, `fname`, `lname`
-			FROM `student`
-			WHERE `cid` IN (
-				SELECT id FROM `class` WHERE `did`=?
-			)
-			ORDER BY `fname` ASC, `lname` ASC;"
-		);
-		$stmt->bind_param("i",$did);
-		$stmt->execute();
-		$stmt->bind_result($id, $fname,$lname);
-		while ($stmt->fetch()) {
-			foreach($sArray as $key => $value) {
-				if($key == $id) {
-					$success = false;
-				}
-			}
-			if($success == true) {
-				$arr[$id] = $fname . ' ' . $lname;
-			}
-			$success = true;
-		}
-		return $arr;
-	}
+
 	/**
 	 * Returns the name of a department given its id
 	 *

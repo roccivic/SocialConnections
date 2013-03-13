@@ -44,38 +44,6 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 			}
 		}
 		/**
-		 * Returns a list of students for a given group id
-		 *
-		 * @return array
-		 */
-		private function getStudents($did) {
-			$arr = array();
-			$db = Db::getLink();
-			$stmt = $db->prepare(
-				"SELECT DISTINCT `student`.`id`, `fname`, `lname`
-				FROM `student`
-				INNER JOIN `group_student`
-				ON `student`.`id` = `group_student`.`sid`
-				INNER JOIN `group`
-				ON `group`.`id` = `group_student`.`gid`
-				INNER JOIN `moduleoffering`
-				ON `group`.`moid` = `moduleoffering`.`id`
-				INNER JOIN `module`
-				ON `module`.`id` = `moduleoffering`.`mid`
-				WHERE `module`.`did` = ?
-				ORDER BY `lname`, `fname`"
-			);
-			$stmt->bind_param('i', $did);
-			$stmt->execute();
-			$stmt->bind_result($id, $fname, $lname);
-			while ($stmt->fetch()) {
-				$arr[$id] = array(
-					$lname . ' ' . $fname,
-				);
-			}
-			return $arr;
-		}
-		/**
 		 * Retrieves the total attendance 
 		 * of a student from the database
 		 *
@@ -256,7 +224,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 				);
 				$this->departmentSelector();
 			} else {
-				$students = $this->getStudents($did);
+				$students = $this->getStudentsInDepartment($did);
 				if (count($students) > 0) {
 					$this->addHtml("<h3>" . __('Select Student') . "</h3>");
 					$html = $this->printStudentListHeader($did);
@@ -523,7 +491,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 				);
 				$this->groupSelector();
 			} else {
-				$students = $this->getStudents($gid);
+				$students = $this->getStudentsInGroup($gid);
 				if (count($students) > 0) {
 					$this->addHtml("<h3>" . __('Select Student') . "</h3>");
 					$html = $this->printStudentListHeader($gid);
@@ -540,25 +508,6 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 					$this->groupSelector();
 				}
 			}
-		}
-		/**
-		 * Returns a list of students for a given group id
-		 *
-		 * @return array
-		 */
-		private function getStudents($gid) {
-			$arr = array();
-			$db = Db::getLink();
-			$stmt = $db->prepare(
-				"SELECT `id`, `fname`, `lname` FROM `student` INNER JOIN `group_student` ON `sid` = `id` WHERE `gid` = ? ORDER BY `lname`, `fname`"
-			);
-			$stmt->bind_param('i', $gid);
-			$stmt->execute();
-			$stmt->bind_result($id, $fname, $lname);
-			while ($stmt->fetch()) {
-				$arr[$id] = $lname . ' ' . $fname;
-			}
-			return $arr;
 		}
 		/**
 		 * Prints the header for the list of students

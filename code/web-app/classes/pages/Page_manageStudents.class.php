@@ -250,35 +250,13 @@ class Page_manageStudents extends Page_selectDepartment {
 
 	private function displayStudents($cid,$did)
 	{
-		$students = $this->getStudents($cid);
+		$students = $this->getStudentsInClass($cid);
 		$html = $this->printStudentsListHeader($cid, $did);
 		foreach($students as $key => $value) {
 			$html .= $this->printStudentsListItem($key,$cid,$did, $value);
 		}
 		$html .= $this->printStudentsListFooter();
 		$this->addHtml($html);
-	}
-
-	/**
-	 * Returns an array of students's details
-	 *
-	 * @return array
-	 */
-	private function getStudents($cid)
-	{
-		$arr = array();
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `id`, `fname`, `lname` FROM `student` where `cid` = ?"
-		);
-		$stmt->bind_param('i', $cid);
-		$stmt->execute();
-		$stmt->bind_result($id, $fname, $lname);
-		while ($stmt->fetch()) {
-			$arr[$id] = $fname . ' ' . $lname;
-		}
-		$stmt->close();
-		return $arr;
 	}
 
 	/**

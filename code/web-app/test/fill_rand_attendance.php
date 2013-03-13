@@ -4,6 +4,7 @@
 define("SOCIALCONNECTIONS", 1);
 // Include configuration file
 require_once '../config.php';
+require_once '../classes/Data.class.php';
 // Error reporting is set in configuration
 if (Config::DISPLAY_ERRORS) {
     error_reporting(E_ALL | E_STRICT);
@@ -15,7 +16,7 @@ require_once '../classes/Db.class.php';
 
 $db = Db::getLink();
 for ($gid=1;$gid<=16;$gid++) {
-    $students = getStudents($gid);
+    $students = Data::getStudentsInGroupStatic($gid);
     $ratios = array();
     foreach ($students as $sid) {
         $ratios[$sid] = mt_rand(50, 90);
@@ -41,23 +42,6 @@ for ($gid=1;$gid<=16;$gid++) {
             );
         }
     }
-}
-
-function getStudents($gid)
-{
-    $db = Db::getLink();
-    $stmt = $db->prepare(
-        'SELECT `sid` FROM `group_student`
-        WHERE `gid` = ?'
-    );
-    $stmt->bind_param('i', $gid);
-    $stmt->execute();
-    $stmt->bind_result($sid);
-    $arr = array();
-    while ($stmt->fetch()) {
-        $arr[] = $sid;
-    }
-    return $arr;
 }
 
 ?>

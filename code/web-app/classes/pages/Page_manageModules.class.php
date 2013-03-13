@@ -343,20 +343,12 @@ class Page_manageModules extends Page_selectDepartment {
 
 	private function updateModule($mid, $name, $crn, $credits) {
 		$db = Db::getLink();
-		$db->query("SET AUTOCOMMIT=0");
-		$db->query("START TRANSACTION");
 		$stmt = $db->prepare(
 			"UPDATE `module` SET `name` = ?, `credits` = ?, `CRN` = ? WHERE `id`=?;"
 		);
 		$stmt->bind_param('siii', $name, $credits, $crn, $mid);
 		$success = $stmt->execute();
 		$stmt->close();
-		
-		if($success) {
-			$db->query("COMMIT");
-		}else {
-			$db->query("ROLLBACK");
-		}
 		return $success;
 	}
 	

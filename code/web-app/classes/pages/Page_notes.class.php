@@ -29,7 +29,7 @@ class Page_notes extends Page_selectStudentGroup {
 		$gName = $this->getGroupName($gid);
 		if(!empty($gName))
 		{
-			if($this->isPartOfGroup($gid))
+			if($this->isStudentInGroup($_SESSION['uid'], $gid))
 			{
 				$this->displayNotes($gid);
 			}
@@ -50,29 +50,6 @@ class Page_notes extends Page_selectStudentGroup {
 					);
 			$this->groupSelector();
 		}
-	}
-	/**
-	 * Checks if student is in Group
-	 *
-	 * @return string
-	 */
-	private function isPartOfGroup($gid)
-	{
-		$uid = $_SESSION['uid'];
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `sid` FROM `group_student` WHERE `gid`= ? AND `sid` = ?"
-		);
-		$stmt->bind_param('ii', $gid, $uid);
-		$stmt->execute();
-		$stmt->bind_result($sid);
-		$stmt->fetch();
-		$stmt->close();
-		if(!empty($sid))
-		{
-			return true;
-		}
-		return false;
 	}
 	/**
 	 * Returns an array of urls

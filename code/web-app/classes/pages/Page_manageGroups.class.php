@@ -1200,22 +1200,5 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		}
 		return $success;
 	}
-
-	private function isStudentIngroup($sid, $gid)
-	{
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT COUNT(*)
-			FROM `group_student`
-			WHERE `gid` = ?
-			AND `sid` = ?;"
-		);
-		$stmt->bind_param('ii', $gid, $sid);
-		$stmt->execute();
-		$stmt->bind_result($result);
-		$stmt->fetch();
-		$stmt->close();
-		return $result;
-	}
 }
 ?>

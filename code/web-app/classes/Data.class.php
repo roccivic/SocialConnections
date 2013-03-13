@@ -19,6 +19,27 @@ class Data {
 		$stmt->close();
 		return $name;
 	}
+	/**
+	 * Checks if a student belongs to a group
+	 *
+	 * @return string
+	 */
+	protected function isStudentIngroup($sid, $gid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT COUNT(*)
+			FROM `group_student`
+			WHERE `gid` = ?
+			AND `sid` = ?;"
+		);
+		$stmt->bind_param('ii', $gid, $sid);
+		$stmt->execute();
+		$stmt->bind_result($result);
+		$stmt->fetch();
+		$stmt->close();
+		return ! empty($result);
+	}
 }
 
 ?>

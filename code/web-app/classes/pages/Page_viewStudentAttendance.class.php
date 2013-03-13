@@ -460,24 +460,6 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 				$this->printStudentSelector($gid);
 			}
 		}
-		private function isStudentIngroup($sid, $gid)
-		{
-
-			$db = Db::getLink();
-			$stmt = $db->prepare(
-				"SELECT COUNT(*)
-				FROM `group_student`
-				WHERE `gid` = ?
-				AND `sid` = ?;"
-			);
-			$stmt->bind_param('ii', $gid, $sid);
-			$stmt->execute();
-			$stmt->bind_result($result);
-			$stmt->fetch();
-			$stmt->close();
-			return $result;
-
-		}
 		/**
 		 * Displays the attendance of a student
 		 *

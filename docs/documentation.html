@@ -1093,7 +1093,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 				<li>The lecturer selects the "Manage Assessments" option from main menu</li>
 				<li>The system shows the lecturer a list of groups that he teaches</li>
 				<li>The lecturer selects a group from the list</li>
-				<li>The lecturer selects the "Create an Assessment" option</li>
+				<li>The lecturer selects the "Create Assessment" option</li>
 				<li>The lecturer is shown a form, by the system, for creating a new assessment</li>
 				<li>The lecturer provides name, date, weight of the assessment</li>
 				<li>The lecturer submits the form</li>
@@ -1154,6 +1154,8 @@ All developers will need a working knowledge so issues can be dealt with immedia
 				<li>The system shows the lecturer a list of groups that he teaches</li>
 				<li>The lecturer selects a group from the list</li>
 				<li>The system shows the lecturer a list of assessments of that group</li>
+				<li>The lecturer selects the assessment he is interested in</li>
+				<li>The system shows the lecturer the details about the selected assessment</li>
 			</ol>
 		</td>
 	</tr>
@@ -1263,7 +1265,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>
 			The lecturer is logged into the system<br />
 			The lecturer is connected to the internet <br/>
-			The assessment to be edited exists on the system
+			The assessment to be deleted exists on the system
 		</td>
 	</tr>
 	<tr>
@@ -1340,7 +1342,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer selects the "Check attendance" option from main menu</li>
+				<li>The lecturer selects the "Check Student Attendance" option from main menu</li>
 				<li>The lecturer is shown a list of groups that he teaches </li>
 				<li>The lecturer selects a group</li>
 				<li>The lecturer is shown a list of students enrolled in the selected group</li>
@@ -1354,7 +1356,73 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>High</td>
 	</tr>
 </table>
+<h1>&nbsp;</h1>
 
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+		<td width="20%">Use case ID:</td>
+		<td width="80%"></td>
+	</tr>
+	<tr >
+		<td>Use Case Name:</td>
+		<td>Update CA results</td>
+	</tr>
+	<tr>
+		<td>Date Created:</td>
+		<td>08/02/2013</td>
+	</tr>
+	<tr>
+		<td>Date Last Updated:</td>
+		<td>08/02/2013</td>
+	</tr>
+	<tr>
+		<td>Actors:</td>
+		<td>Lecturer, System</td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>This use case shows how a lecturer can update the results for an assessment</td>
+	</tr>
+	<tr>
+		<td>Preconditions:</td>
+		<td>
+			The lecturer is logged into the system<br />
+			The lecturer is connected to the internet<br />
+			The lecturer is is teaching a group on the system<br />
+			An assessment already exists on the system <br />
+			The assessment results have not been published yet
+		</td>
+	</tr>
+	<tr>
+		<td>Postconditions:</td>
+		<td>
+			The system has updated the results of an assessment
+		</td>
+	</tr>
+	<tr>
+		<td>Normal Flow:</td>
+		<td>
+			<ol>
+				<li>The lecturer clicks the "Manage Assessments" button</li>
+				<li>The lecturer is shown a list of groups</li>
+				<li>The lecturer selects the group </li>
+				<li>The lecturer is shown a list of assessments by the system</li>
+				<li>The lecturer clicks on an assessment</li>
+				<li>The lecturer is shown the details of the assessment by the system</li>
+				<li>The lecturer clicks on "Manage results" </li>
+				<li>The lecturer is shown a list of students and their results</li>
+				<li>The lecturer edits the reults for the assessment</li>
+				<li>The lecturer clicks "Update"</li>
+				<li>The system updates the results</li>
+				<li>The system shows a confirmation to the lecturer</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>Priority:</td>
+		<td>high</td>
+	</tr>
+</table>
 <h1>&nbsp;</h1>
 
 
@@ -1423,73 +1491,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 </table>
 
-<h1>&nbsp;</h1>
 
-<table border="1" width="100%" cellpadding="4">
-	<tr>
-		<td width="20%">Use case ID:</td>
-		<td width="80%"></td>
-	</tr>
-	<tr >
-		<td>Use Case Name:</td>
-		<td>Update CA results</td>
-	</tr>
-	<tr>
-		<td>Date Created:</td>
-		<td>08/02/2013</td>
-	</tr>
-	<tr>
-		<td>Date Last Updated:</td>
-		<td>08/02/2013</td>
-	</tr>
-	<tr>
-		<td>Actors:</td>
-		<td>Lecturer, System</td>
-	</tr>
-	<tr>
-		<td>Description:</td>
-		<td>This use case shows how a lecturer can update the results for an assessment</td>
-	</tr>
-	<tr>
-		<td>Preconditions:</td>
-		<td>
-			The lecturer is logged into the system<br />
-			The lecturer is connected to the internet<br />
-			The lecturer is is teaching a group on the system<br />
-			An assessment already exists on the system <br />
-			The assessment results have not been published yet
-		</td>
-	</tr>
-	<tr>
-		<td>Postconditions:</td>
-		<td>
-			The system has updated the results of an assessment
-		</td>
-	</tr>
-	<tr>
-		<td>Normal Flow:</td>
-		<td>
-			<ol>
-				<li>The lecturer clicks the "Manage Assessments" button</li>
-				<li>The lecturer is shown a list of groups</li>
-				<li>The lecturer selects the group </li>
-				<li>The lecturer is shown a list of assessments by the system</li>
-				<li>The lecturer clicks on an assessment</li>
-				<li>The lecturer is shown the details of the assessment by the system</li>
-				<li>The lecturer clicks on "Manage results" </li>
-				<li>The lecturer is shown a list of students and their results</li>
-				<li>The lecturer edits the reults for the assessment</li>
-				<li>The lecturer clicks "Update"</li>
-				<li>The system updates the results</li>
-				<li>The system shows a confirmation to the lecturer</li>
-			</ol>
-		</td>
-	</tr>
-	<tr>
-		<td>Priority:</td>
-		<td>high</td>
-	</tr>
-</table>
 <h1>&nbsp;</h1>
 
 <table border="1" width="100%" cellpadding="4">
@@ -1852,7 +1854,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 				<li>The lecturer clicks "Manage group" from the main menu</li>
 				<li>The system shows list of groups</li>
 				<li>The lecturer clicks on the group to view</li>
-				<li>The lecturer sees information about the selected group</li>
+				<li>The system shows the lecturer information about the selected group</li>
 			</ol>
 		</td>
 	</tr>
@@ -2150,11 +2152,11 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer selects the "View Twitter wall" option from main menu</li>
-				<li>The lecturer is shown a list of modules that he is enrolled in by the system</li>
-				<li>The lecturer selects the modules that he is interested in</li>
+				<li>The lecturer selects the "Twitter" option from main menu</li>
+				<li>The lecturer is shown a list of groups that he teaches by the system</li>
+				<li>The lecturer selects the group that he is interested in</li>
 				<li>The system retrieves the relevant messages from Twitter</li>
-				<li>The lecturer is shown a list of Twitter messages relevant to the selected module</li>
+				<li>The lecturer is shown a list of Twitter messages relevant to the selected group</li>
 			</ol>
 		</td>
 	</tr>
@@ -2206,10 +2208,10 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer selects the "View Twitter wall" option from main menu</li>
-				<li>The lecturer is shown a list of modules that he is enrolled in by the system</li>
-				<li>The lecturer selects the modules that he is interested in</li>
-				<li>The lecturer is shown a list of Twitter messages relevant to the selected module</li>
+				<li>The lecturer selects the "Twitter" option from main menu</li>
+				<li>The lecturer is shown a list of gropus that he is enrolled in by the system</li>
+				<li>The lecturer selects the gropus that he is interested in</li>
+				<li>The lecturer is shown a list of Twitter messages relevant to the selected gropu</li>
 				<li>The lecturer selects the "New Message" option</li>
 				<li>The lecturer is shown a "New Message" form by the system</li>
 				<li>The lecturer writes the new message</li>
@@ -2392,9 +2394,9 @@ All developers will need a working knowledge so issues can be dealt with immedia
 		<td>Normal Flow:</td>
 		<td>
 			<ol>
-				<li>The lecturer selects the "Post notes to Dropbox" option from main menu</li>
-				<li>The lecturer is shown a list of modules that he is enrolled in by the system</li>
-				<li>The lecturer selects the modules that he is interested in</li>
+				<li>The lecturer selects the "Dropbox" option from main menu</li>
+				<li>The lecturer is shown a list of groups that he teaches by the system</li>
+				<li>The lecturer selects the groups that he is interested in</li>
 				<li>The lecture chooses the files that they want to upload</li>
 				<li>The lecturer submits the files</li>
 				<li>The lecturer is shown a confirmation message</li>
@@ -3873,12 +3875,43 @@ All developers will need a working knowledge so issues can be dealt with immedia
 </p>
 
 <h2>User interface design</h2>
-<h3>Lecturer-Manage Assessments</h3>
+<h3>Lecturer</h3>
+<h4>Manage Assessments</h4>
 <p><img src="assessments/manageAssessments.png"/><p>Manage Assessments</p></p>
 <p><img src="assessments/viewAssessments.png"/><p>View Assessments</p></p>
 <p><img src="assessments/createAssessment.png"/><p>Create Assessment</p></p>
 <p><img src="assessments/assessmentDetails.png"/><p>Assessment Details</p></p>
 <p><img src="assessments/assessmentResults.png"/><p>Assessment Results</p></p>
+<p><img src="assessments/editAssesment.png"/><p>Edit Assessment</p></p>
+<h4>Take Attendance</h4>
+<p><img src="common/selectGroup.png"/><p>Select Group</p></p>
+<p><img src="takeAttendance/takeAttendance.png"/><p>Take Attendance</p></p>
+<h4>Twitter</h4>
+<p><img src="common/selectGroup.png"/><p>Twitter</p></p>
+<p><img src="lectTwitter/viewAllTweets.png"/><p>View all tweets</p></p>
+<p><img src="lectTwitter/viewTweet.png"/><p>View tweet</p></p>
+<h4>Dropbox</h4>
+<p><img src="lectDropbox/dropbox.png"/><p>Dropbox</p></p>
+<p><img src="lectDropbox/uploadFile.png"/><p>Upload File</p></p>
+<h4>View Attendance</h4>
+<p><img src="common/selectGroup.png"/><p>View Attendance</p></p>
+<p><img src="viewAttendance/selectStudent.png"/><p>Select Student</p></p>
+<p><img src="viewAttendance/viewStudent.png"/><p>View Students Attendance</p></p>
+<p><img src="viewAttendance/viewAggregate.png"/><p>View Aggregate Attendance</p></p>
+<h4>Manage Groups</h4>
+<p><img src="common/selectGroup.png"/><p>Manage Groups</p></p>
+<p><img src="manageGroups/viewGroup.png"/><p>View Group</p></p>
+<p><img src="manageGroups/createGroup.png"/><p>View Group</p></p>
+<p><img src="manageGroups/editGroup.png"/><p>Edit Groups</p></p>
+<p><img src="common/listDepartments.png"/><p>Add Student - List Departments</p></p>
+<p><img src="manageGroups/selectStudent.png"/><p>Select student to add</p></p>
+<p><img src="manageGroups/removeStudent.png"/><p>Select student to remove</p></p>
+<h4>Manage Students</h4>
+<p><img src="common/listDepartments.png"/><p>Manage Students</p></p>
+<p><img src="common/selectGroup.png"/><p>Select Group</p></p>
+<p><img src="manageStudents/viewStudents.png"/><p>Select Student</p></p>
+<p><img src="manageStudents/createStudent.png"/><p>Create Student</p></p>
+<p><img src="manageStudents/editStudent.png"/><p>Edit Student</p></p>
 
 <h3>Admin</h3>
 <h4>Manage Departments</h4>

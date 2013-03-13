@@ -160,7 +160,7 @@ abstract class Page extends Data {
 		$this->checkIfReady();
 		if (! headers_sent()) {
 			// XSS protection, see: http://www.w3.org/TR/CSP/
-			header("Content-Security-Policy: default-src 'self'");
+			header("Content-Security-Policy: default-src 'unsafe-inline' 'self'");
 		}
 	}
 	/**

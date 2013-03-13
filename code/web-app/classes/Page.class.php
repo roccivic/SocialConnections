@@ -6,12 +6,13 @@ if (! defined('SOCIALCONNECTIONS')) {
 
 require_once 'classes/TidyHtml.class.php';
 require_once 'classes/Menu.class.php';
+require_once 'classes/Data.class.php';
 
 /**
  * Base class for creating and displaying HTML pages
  * Must be inherited from to generate concrete pages
  */
-abstract class Page {
+abstract class Page extends Data {
 	/**
 	 * A db link, here just for convenience so that subclasses
 	 * don't have to retrive the link themselves

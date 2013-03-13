@@ -63,7 +63,7 @@ class Page_makeExcuse extends Page_selectStudentGroup {
 				$this->groupSelector();
 			}
 		} else {
-			if (strlen($this->getGroupName($gid))) {
+			if (strlen($this->getModuleName($gid))) {
 				$classes = $this->getMissedClasses($gid);
 				if (count($classes)) {
 					$this->printExcuseListHeader();
@@ -175,7 +175,7 @@ class Page_makeExcuse extends Page_selectStudentGroup {
 		$html  = '<h3>';
 		$html .= sprintf(
 			__('Group `%s`'),
-			$this->getGroupName($gid)
+			$this->getModuleName($gid)
 		);
 		$html .= '</h3>';
 		$html .= '<h4>' . date("l, j F", $this->getAttendanceTime($aid)) . '</h4>';
@@ -209,7 +209,7 @@ class Page_makeExcuse extends Page_selectStudentGroup {
 		return strtotime($timestamp);
 	}
 
-	private function getGroupName($gid)
+	private function getModuleName($gid)
 	{
 		$db = Db::getLink();
 		$stmt = $db->prepare(

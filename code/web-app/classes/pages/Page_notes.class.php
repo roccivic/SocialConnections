@@ -52,24 +52,6 @@ class Page_notes extends Page_selectStudentGroup {
 		}
 	}
 	/**
-	 * Returns group name
-	 *
-	 * @return string
-	 */
-	private function getGroupName($gid)
-	{
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `name` FROM `group` WHERE `id`=?"
-		);
-		$stmt->bind_param('i', $gid);
-		$stmt->execute();
-		$stmt->bind_result($name);
-		$stmt->fetch();
-		$stmt->close();
-		return $name;
-	}
-	/**
 	 * Checks if student is in Group
 	 *
 	 * @return string

@@ -28,9 +28,8 @@ echo "here we are";
 
 $thresholdOverall = getOverallThreshold();
 $thresholdLabs = getOverallThreshold();
-echo $thresholdDetails['overall'];
-
-echo $thresholdDetails['labs'];
+var_dump($thresholdLabs);
+var_dump($thresholdOverall);
 function students(){
 	global $thresholdDetails;
 	$students = getStudents();

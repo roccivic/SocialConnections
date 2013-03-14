@@ -130,7 +130,7 @@ class Page_notes extends Page_selectStudentGroup {
 				$html .= $this->printListItemNotes($value, $fname);
 			}
 			$html .= $this->printListFooterNotes();
-			$this->deleteNotifications($notes);
+			$this->deleteNotesNotifications($notes);
 			$this->addHtml($html);
 		} else {
 			$this->addNotification(
@@ -183,7 +183,7 @@ class Page_notes extends Page_selectStudentGroup {
 	 *
 	 * @return void
 	 */
-	private function deleteNotifications($notes)
+	private function deleteNotesNotifications($notes)
 	{
 		$uid = $_SESSION['uid'];
 		$db = Db::getLink();

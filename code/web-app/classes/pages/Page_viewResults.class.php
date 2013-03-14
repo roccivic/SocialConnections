@@ -108,6 +108,8 @@ class Page_viewResults extends Page_selectStudentGroup
 		        $html .= '</li>';
 	    	}
 		 	$html .= '</ul>';
+		 	$ids = $this->getResultsIDs($gid);
+		 	$this->deleteResultsNotifications($ids);
 		}
 		else {
 			$this->addNotification(
@@ -116,6 +118,56 @@ class Page_viewResults extends Page_selectStudentGroup
 					);
 		}
         $this->addHtml($html);
+	}
+	/**
+	 * Returns an array of results ids
+	 *
+	 * @return array
+	 */
+	private function getResultsIDs($gid)
+	{
+		$arr = array();
+		$sid = $_SESSION['uid'];
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `results`.`id`, `assessment`.`isDraft`
+			FROM `results`
+			LEFT JOIN `assessment` ON `assessment`.`id` = `results`.`aid`
+			WHERE `results`.`sid` = ? AND `assessment`.`moid` IN
+			(SELECT `group`.`moid` FROM `group` WHERE `group`.`id` = ?);"
+		);
+		$stmt->bind_param('ii', $sid, $gid);
+		$stmt->execute();
+		$stmt->bind_result($id, $isDraft);
+		while ($stmt->fetch()) {
+			if($isDraft) {
+				
+			}
+			else {
+				$arr[$id] = $id;
+			}
+		}
+		return $arr;
+	}
+	/**
+	 * Deletes results notifications from db
+	 *
+	 * @return void
+	 */
+	private function deleteResultsNotifications($results)
+	{
+		$uid = $_SESSION['uid'];
+		$db = Db::getLink();
+		foreach($results as $key => $value)
+		{
+			$stmt = $db->prepare(
+				"DELETE FROM `results_notifications` WHERE `rid` = ? AND `sid` = ?"
+			);
+			$stmt->bind_param('ii', $key, $uid);
+			$stmt->execute();
+			$stmt->fetch();
+			$stmt->close();
+		}
 	}
 	
 

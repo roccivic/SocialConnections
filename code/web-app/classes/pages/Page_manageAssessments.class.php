@@ -595,6 +595,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		$stmt->bind_param('i', $aid);
 		$success = $stmt->execute();
 		$stmt->close();
+		$this->saveResultsNotifications($aid);
 		return $success;
 	}
 	/**
@@ -683,6 +684,41 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		$stmt->fetch();
 		$stmt->close();
 		return $name;
+	}
+	/**
+	 * Saves notifications to db
+	 *
+	 * @return success
+	 */
+	private function saveResultsNotifications($aid)
+	{
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `id` , `sid`
+			 FROM `results`
+			 WHERE `aid` = ?;"
+		);
+		$stmt->bind_param('i', $aid);
+		$success = $stmt->execute();
+		$stmt->bind_result($id, $sid);
+		while ($stmt->fetch()) {
+			$arr[$id] = $sid;
+		}
+		$stmt->close();
+		if($success)
+		{
+			foreach($arr as $key => $value)
+			{
+				$stmt = $db->prepare(
+			"INSERT INTO `results_notifications` (`sid` , `rid`) VALUES(?, ?);"
+			);
+			$stmt->bind_param('ii', $value, $key);
+			$success = $stmt->execute();
+			$stmt->fetch();
+			$stmt->close();
+			}
+		}
 	}
 
 

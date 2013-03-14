@@ -1,1 +1,0 @@
-$(document).live("mobileinit", function(){$.mobile.ajaxEnabled = false;});

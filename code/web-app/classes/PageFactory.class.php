@@ -30,7 +30,7 @@ abstract class PageFactory {
 			$reflectionClass = new ReflectionClass('Page_' . $name);
 			$accessLevel = $reflectionClass->getMethod('getAccessLevel')->invoke(null);
 			// Check access level of current user
-			if ($accessLevel > User::ANONYMOUS && User::getAccessLevel() != $accessLevel) {
+			if ($accessLevel > User::ANONYMOUS && User::getAccessLevel() != $accessLevel && $name != 'main') {
 				include_once 'classes/pages/Page_authError.class.php';
 				$retval = new Page_authError();
 			} else {

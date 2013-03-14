@@ -322,13 +322,15 @@ class Page_manageStudents extends Page_selectDepartment {
 			$html .= '<a href="?action=manageStudents&editForm=1&sid='.$sid.'&did='.$did.'&cid='.$cid.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
 
 			$html .= sprintf(
-				'<a onclick="return confirm(\'%s\');" href="?action=manageStudents&delete=1&did=%d&sid=%d&cid=%d" data-role="button" data-theme="b">%s</a>',
-				__('Are you sure you want to delete this student?'),
+				'<a class="delete" href="?action=manageStudents&delete=1&did=%d&sid=%d&cid=%d" data-role="button" data-theme="b">%s</a>',
 				$did,
 				$sid,
 				$cid,
 				__('Delete')
 			);
+			$html .= '<span style="display: none">';
+			$html .= __('Are you sure you want to delete this student?');
+			$html .= '</span>';
 			$this->addHtml($html);
 		} else {
 			$this->addNotification(

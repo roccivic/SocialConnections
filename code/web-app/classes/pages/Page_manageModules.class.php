@@ -229,12 +229,14 @@ class Page_manageModules extends Page_selectDepartment {
     	$html .= ' data-role="button" data-theme="b">';
     	$html .= __('Edit') . '</a>';
     	$html .= sprintf(
-				'<a onclick="return confirm(\'%s\');" href="?action=manageModules&delete=1&did=%d&mid=%d" data-role="button" data-theme="b">%s</a>',
-				__('Are you sure you want to delete this module?'),
+				'<a class="delete" href="?action=manageModules&delete=1&did=%d&mid=%d" data-role="button" data-theme="b">%s</a>',
 				$did,
 				$mid,
 				__('Delete')
 			);
+		$html .= '<span style="display: none">';
+		$html .= __('Are you sure you want to delete this module?');
+		$html .= '</span>';
     	$this->addHtml($html);
 	}
 	/**

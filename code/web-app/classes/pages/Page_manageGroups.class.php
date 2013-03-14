@@ -376,11 +376,13 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$html .= '<a href="?action=manageGroups&addLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Lecturer').'</a>';
 			$html .= '<a href="?action=manageGroups&removeLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Lecturer').'</a>';
 			$html .= sprintf(
-				'<a onclick="return confirm(\'%s\');" href="?action=manageGroups&delete=1&gid=%d" data-role="button" data-theme="b">%s</a>',
-				__('Are you sure you want to delete this group?'),
+				'<a class="delete" href="?action=manageGroups&delete=1&gid=%d" data-role="button" data-theme="b">%s</a>',
 				$gid,
 				__('Delete')
 			);
+			$html .= '<span style="display: none">';
+			$html .= __('Are you sure you want to delete this group?');
+			$html .= '</span>';
 			$this->addHtml($html);
 		} else {
 			$this->addNotification(

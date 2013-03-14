@@ -154,11 +154,13 @@ class Page_manageDepartments extends Page_selectDepartment {
 			$html .= '<a href="?action=manageDepartments&editForm=1&did='.$did.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
 
 			$html .= sprintf(
-				'<a onclick="return confirm(\'%s\');" href="?action=manageDepartments&delete=1&did=%d" data-role="button" data-theme="b">%s</a>',
-				__('Are you sure you want to delete this department?'),
+				'<a class="delete" href="?action=manageDepartments&delete=1&did=%d" data-role="button" data-theme="b">%s</a>',
 				$did,
 				__('Delete')
 			);
+			$html .= '<span style="display: none">';
+			$html .= __('Are you sure you want to delete this department?');
+			$html .= '</span>';
 			$this->addHtml($html);
 		} else {
 			$this->addNotification(

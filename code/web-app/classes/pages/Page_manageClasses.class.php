@@ -234,13 +234,14 @@ class Page_manageClasses extends Page_selectDepartment {
     	$html .= ' data-role="button" data-theme="b">';
     	$html .= __('Edit') . '</a>';
     	$html .= sprintf(
-				'<a onclick="return confirm(\'%s\');" href="?action=manageClasses&delete=1&did=%d&cid=%d" data-role="button" data-theme="b">%s</a>',
-				__('Are you sure you want to delete this class?'),
+				'<a class="delete" href="?action=manageClasses&delete=1&did=%d&cid=%d" data-role="button" data-theme="b">%s</a>',
 				$did,
 				$cid,
 				__('Delete')
 			);
-			
+		$html .= '<span style="display: none">';
+		$html .= __('Are you sure you want to delete this class?');
+		$html .= '</span>';
     	$this->addHtml($html);
     	
 	}

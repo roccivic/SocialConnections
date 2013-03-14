@@ -293,12 +293,14 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 			$html .= '<a href="?action=manageAssessments&editForm=1&aid='.$aid.'&gid='.$gid.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
 			$html .= '<a href="?action=manageAssessments&manageResults=1&aid='.$aid.'&gid='.$gid.'" data-role="button" data-theme="b">'.__('Manage Results').'</a>';
 			$html .= sprintf(
-				'<a onclick="return confirm(\'%s\');" href="?action=manageAssessments&delete=1&gid=%d&aid=%d" data-role="button" data-theme="b">%s</a>',
-				__('Are you sure you want to delete this assessment?'),
+				'<a class="delete" href="?action=manageAssessments&delete=1&gid=%d&aid=%d" data-role="button" data-theme="b">%s</a>',
 				$gid,
 				$aid,
 				__('Delete')
 			);
+			$html .= '<span style="display: none">';
+			$html .= __('Are you sure you want to delete this assessment?');
+			$html .= '</span>';
 			$this->addHtml($html);
 		} else {
 			$this->addNotification(
@@ -549,11 +551,13 @@ class Page_manageAssessments extends Page_selectLecturerGroup
         if($assessment['isDraft']){
         		$html .= '<input name="update" type="submit" data-theme="b"';
 		        $html .= ' value="' . __('Update') . '" />';
-	       		 $html .= sprintf(
-					'<input name="publish" type="submit" onclick="return confirm(\'%s\');" data-theme="b" value="%s" />',
-					__('Are you sure you want to publish these results?'),
+	       		$html .= sprintf(
+					'<input class="delete" name="publish" type="submit" data-theme="b" value="%s" />',
 					__('Publish')
 				);
+			    $html .= '<span style="display: none">';
+				$html .= __('Are you sure you want to publish these results?');
+				$html .= '</span>';
         }
 		$html .= '</form>';
 		$this->addHtml($html);

@@ -243,12 +243,14 @@ class Page_manageLecturers extends Page_selectDepartment {
     	$html .= ' data-role="button" data-theme="b">';
     	$html .= __('Edit') . '</a>';
     	$html .= sprintf(
-				'<a onclick="return confirm(\'%s\');" href="?action=manageClasses&delete=1&did=%d&lid=%d" data-role="button" data-theme="b">%s</a>',
-				__('Are you sure you want to delete this lecturer?'),
+				'<a class="delete" href="?action=manageClasses&delete=1&did=%d&lid=%d" data-role="button" data-theme="b">%s</a>',
 				$did,
 				$lid,
 				__('Delete')
 			);
+		$html .= '<span style="display: none">';
+		$html .= __('Are you sure you want to delete this lecturer?');
+		$html .= '</span>';
     	$this->addHtml($html);
 	}
 		/**

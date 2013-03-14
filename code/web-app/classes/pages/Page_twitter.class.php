@@ -7,18 +7,6 @@ require_once 'classes/pages/abstract/Page_twitterAuth.class.php';
  * This page is used by lecturers to tweet
  */
 class Page_twitter extends Page_twitterAuth {
-	public static function getAccessLevel()
-	{
-		if(USER::isLecturer())
-		{
-			return User::LECTURER;
-		}
-		else if(USER::isStudent())
-		{
-			return User::STUDENT;
-		}
-		
-	}
 	public function __construct()
 	{
 		parent::__construct();

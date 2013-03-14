@@ -130,6 +130,7 @@ class Page_notes extends Page_selectStudentGroup {
 				$html .= $this->printListItemNotes($value, $fname);
 			}
 			$html .= $this->printListFooterNotes();
+			$this->deleteNotifications($notes);
 			$this->addHtml($html);
 		} else {
 			$this->addNotification(
@@ -176,5 +177,25 @@ class Page_notes extends Page_selectStudentGroup {
 	private function printListFooterNotes()
 	{
         $this->addHtml('</ul>');
+	}
+	/**
+	 * Deletes notifications from db
+	 *
+	 * @return void
+	 */
+	private function deleteNotifications($notes)
+	{
+		$uid = $_SESSION['uid'];
+		$db = Db::getLink();
+		foreach($notes as $key => $value)
+		{
+			$stmt = $db->prepare(
+				"DELETE FROM `notes_notifications` WHERE `nid` = ? AND `sid` = ?"
+			);
+			$stmt->bind_param('ii', $key, $uid);
+			$stmt->execute();
+			$stmt->fetch();
+			$stmt->close();
+		}
 	}
 }

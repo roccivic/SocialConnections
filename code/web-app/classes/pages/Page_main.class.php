@@ -109,7 +109,37 @@ class Page_Main extends Page {
 	 */
 	private function addStudentNotifications($sid)
 	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			'SELECT COUNT(*) FROM `notes_notifications`
+			WHERE `sid` = ?'
+		);
+		$stmt->bind_param('i', $sid);
+		$stmt->execute();
+		$stmt->bind_result($count);
+		$stmt->fetch();
+		$stmt->close();
 
+		if ($count > 0) {
+			$notification  = '<a style="float: right;" data-mini="true" ';
+			$notification .= 'data-inline="true" data-role="button" ';
+			$notification .= 'href="?action=notes">';
+			$notification .= __('View');
+			$notification .= '</a>';
+			$notification .= sprintf(
+				_ngettext(
+					'There is %d new set of notes',
+					'There are %d new sets of notes',
+					$count
+				),
+				$count
+			);
+			$notification .= '<div style="clear:both"></div>';
+			$this->addNotification(
+				'notice',
+				$notification
+			);
+		}
 	}
 }
 

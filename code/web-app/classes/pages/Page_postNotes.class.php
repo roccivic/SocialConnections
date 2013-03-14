@@ -168,6 +168,53 @@ class Page_postNotes extends Page_dropboxAuth {
 		$success = $stmt->execute();
 		$stmt->fetch();
 		$stmt->close();
+		$success = $this->saveNotification($gid, $response);
+		return $success;
+	}
+	/**
+	 * Saves notification to db
+	 *
+	 * @return bool success
+	 */
+	private function saveNotification($gid, $response) 
+	{
+		$db = Db::getLink();
+		$arr = array();	
+		$stmt = $db->prepare(
+		"SELECT `id` FROM `notes` WHERE `gid` = ? AND`url` = ?"
+		);
+		$stmt->bind_param('is', $gid, $response['body']['url']);
+		$success = $stmt->execute();
+		$stmt->bind_result($nid);
+		$stmt->fetch();
+		$stmt->close();
+		if($success)
+		{
+			$stmt = $db->prepare(
+			"SELECT `sid` FROM `group_student` WHERE `gid` = ?"
+			);
+			$stmt->bind_param('s', $gid);
+			$success = $stmt->execute();
+			$stmt->bind_result($sid);
+			while ($stmt->fetch()) 
+			{
+				$arr['id'] = $sid;
+			}
+			$stmt->close();
+		}
+		if($success)
+		{
+			foreach($arr as $key => $value)
+			{
+				$stmt = $db->prepare(
+			"INSERT INTO `notes_notifications` (`sid`,`nid`) VALUES (?, ?);"
+			);
+			$stmt->bind_param('ii', $value, $nid);
+			$success = $stmt->execute();
+			$stmt->fetch();
+			$stmt->close();
+			}
+		}
 		return $success;
 	}
 

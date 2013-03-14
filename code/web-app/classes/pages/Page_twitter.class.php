@@ -167,7 +167,7 @@ class Page_twitter extends Page_twitterAuth {
 	 */
 	private function tweet($gid, $connection, $tweet)
 	{
-		$hashtag = ' #aStrInGthAtNoOneIsSupPosEdtOuSe' . $gid;
+		$hashtag = ' #' . Config::TWITTER_HASHTAG . $gid;
 		$tweet .= $hashtag;
 		$success = $connection->post('statuses/update', array('status' => $tweet));
 		return $success;
@@ -185,7 +185,7 @@ class Page_twitter extends Page_twitterAuth {
 		foreach($tweets as $key)
 		{
 			$username = $connection->get('users/show', array('id' => $key->user->id));
-			if (strpos($key->text,' #aStrInGthAtNoOneIsSupPosEdtOuSe'.$gid) !== false) 
+			if (strpos($key->text,' #' . Config::TWITTER_HASHTAG . $gid) !== false) 
 			{
 				$count++;
 				$this->printListItemTweets($gid, $key->id, $key->text, $key->user->name, $username->screen_name);
@@ -239,7 +239,7 @@ class Page_twitter extends Page_twitterAuth {
 	        	$gid,
 	        	$id,
 	        	$username, 
-	        	$text,
+	        	preg_replace('@ #' . Config::TWITTER_HASHTAG . '\d*\s*$@', '', $text),
 	        	$author
 	        )
         );

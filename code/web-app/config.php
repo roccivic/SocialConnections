@@ -35,6 +35,7 @@ abstract class Config {
 	const TWITTER_CONSUMER_KEY = 'oBYtTlMTy6ChzMBz7WFVA';
 	const TWITTER_CONSUMER_SECRET = 'EF442Jzj2sn8EZe0tjZBD4lsHuL8ucxtt6IaQKyAiw';
 	const TWITTER_CALLBACK = '?action=twitter&callback=1';
+	const TWITTER_HASHTAG = 'aStrInGthAtNoOneIsSupPosEdtOuSe';
 
 	//Dropbox access parameters
 	const DROPBOX_APP_KEY = 'htitu3nxdpjvl00';

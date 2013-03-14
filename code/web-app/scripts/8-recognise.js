@@ -14,17 +14,29 @@ $(document).bind('pageinit', function () {
 });
 
 function recognise(gid, session) {
-	$.post(
-		'recognise.php',
-		{
+	$.ajax({
+		dataType: 'json',
+		url: 'recognise.php',
+		data: {
 			'gid': gid,
 			'session': session
 		},
-		function (data) {
+		type: 'POST',
+		success: function (data, textStatus, jqXHR) {
 			$.mobile.hidePageLoadingMsg();
 			finish(data);
+		},
+		error: function (data, textStatus, jqXHR) {
+			$.mobile.hidePageLoadingMsg();
+			$('div.content-primary').prepend(
+				$('<div />')
+					.addClass('notification')
+					.addClass('warning')
+					.text('The facial recognition has failed')
+			);
+			finish({});
 		}
-	);
+	});
 }
 
 

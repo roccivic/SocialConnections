@@ -464,7 +464,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		}
 		if($success)
 		{
-			$students = $this->getStudents($gid);
+			$students = $this->getStudentsInGroup($gid);
 			foreach($students as $key => $value) {
 				$stmt = $db->prepare(
 					"INSERT INTO `results` (`aid`, `sid`, `grade`) VALUES(?, ?, 0);"
@@ -519,7 +519,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	 */
 	private function manageResults($aid, $gid)
 	{
-		$students = $this->getStudents($gid);
+		$students = $this->getStudentsInGroup($gid);
 		$results = $this->getResults($gid);
 		$html  = '<h3>' . __('Assessment `FIXME`') . '<h3><br />';
 		$html .= '<form method="post" action="">';
@@ -557,29 +557,6 @@ class Page_manageAssessments extends Page_selectLecturerGroup
         }
 		$html .= '</form>';
 		$this->addHtml($html);
-	}
-	/**
-	 * Returns an array of students's details
-	 *
-	 * @return array
-	 */
-	private function getStudents($gid)
-	{
-		$arr = array();
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `id`, `fname`, `lname` FROM `student` WHERE `id` IN
-			(SELECT `sid` FROM `group_student` WHERE `gid` = ?)
-			ORDER BY `fname` ASC, `lname` ASC"
-		);
-		$stmt->bind_param('i', $gid);
-		$stmt->execute();
-		$stmt->bind_result($id, $fname, $lname);
-		while ($stmt->fetch()) {
-			$arr[$id] = $fname . ' ' . $lname;
-		}
-		$stmt->close();
-		return $arr;
 	}
 	/**
 	 * Publish Results
@@ -720,7 +697,6 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 			}
 		}
 	}
-
 
 }
 ?>

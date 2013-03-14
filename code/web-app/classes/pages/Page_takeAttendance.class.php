@@ -20,7 +20,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	 */
 	public function display($gid) 
 	{
-		$dbStudents = $this->getStudents($gid);
+		$dbStudents = $this->getStudentsInGroup($gid);
 		$isLecture = ! empty($_REQUEST['isLecture']) ? 1 : 0;
 		$date = ! empty($_REQUEST['date']) ? $_REQUEST['date'] : date("Y-m-d");
 		$time = ! empty($_REQUEST['time']) ? $_REQUEST['time'] : date("H:i");
@@ -54,25 +54,6 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 		} else {
 			$this->printForm($gid, $date, $time, $students, $dbStudents);
 		}
-	}
-	/**
-	 * Returns a list of students for a given group id
-	 *
-	 * @return array
-	 */
-	private function getStudents($gid) {
-		$arr = array();
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `id`, `fname`, `lname` FROM `student` INNER JOIN `group_student` ON `sid` = `id` WHERE `gid` = ? ORDER BY `lname`, `fname`"
-		);
-		$stmt->bind_param('i', $gid);
-		$stmt->execute();
-		$stmt->bind_result($id, $fname, $lname);
-		while ($stmt->fetch()) {
-			$arr[$id] = $lname . ' ' . $fname;
-		}
-		return $arr;
 	}
 	/**
 	 * Displays the form for taking attendance
@@ -229,24 +210,6 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 			}
 		}
 		return $success;
-	}
-	/**
-	 * Returns the name of a group given its id
-	 *
-	 * @return string
-	 */
-	private function getGroupName($gid)
-	{
-		$db = Db::getLink();
-		$stmt = $db->prepare(
-			"SELECT `name` FROM `group` WHERE `id` = ?;"
-		);
-		$stmt->bind_param('i', $gid);
-		$stmt->execute();
-		$stmt->bind_result($name);
-		$stmt->fetch();
-		$stmt->close();
-		return $name;
 	}
 }
 

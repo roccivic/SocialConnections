@@ -1,5 +1,7 @@
 <?php
 
+// Start output buffering
+ob_start();
 // Prevents unplanned execution paths
 define("SOCIALCONNECTIONS", 1);
 // Include configuration file
@@ -31,7 +33,23 @@ Lang::setLang();
 // Serve the appropriate page
 $action = ! empty($_REQUEST['action']) ? $_REQUEST['action'] : '';
 $page = PageFactory::getInstance($action);
+$pageHtml = $page->renderPage();
+
+if (Config::DISPLAY_ERRORS) {
+	$php_output = trim(ob_get_contents());
+	if (! empty($php_output)) {
+		$page->addNotification(
+			'warning',
+			'<p>' . __('PHP output:') . '</p>'
+			. $php_output
+		);
+	}
+}
+
+ob_end_clean();
+
 $page->sendHttpHeaders();
-$page->displayPage();
+$pageHtml = $page->addNotifications($pageHtml);
+echo $pageHtml;
 
 ?>

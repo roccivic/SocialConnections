@@ -93,7 +93,7 @@ class Page_twitter extends Page_twitterAuth {
 				{
 					$this->addNotification(
 						'notice',
-						__('You have replied successfully!')
+						__('You have replied successfully! Please refresh the page now.')
 					);	
 				}
 				else

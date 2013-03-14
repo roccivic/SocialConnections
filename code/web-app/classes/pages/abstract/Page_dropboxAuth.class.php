@@ -32,7 +32,7 @@ abstract class Page_dropboxAuth extends Page_selectLecturerGroup {
 			$config["dropbox"]["app_key"] = CONFIG::DROPBOX_APP_KEY;
 			$config["dropbox"]["app_secret"] = CONFIG::DROPBOX_APP_SECRET;
 			$config["dropbox"]["access_type"] = CONFIG::DROPBOX_ACCESS_TYPE;
-			$config["app"]["root"] = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . "/socialconnections/?action=postNotes";
+			$config["app"]["root"] = CONFIG::URL . "?action=postNotes";
 			$config["app"]["datadir"] = "dropbox_files/";
 			$session = new DropboxSession(
 		    $config["dropbox"]["app_key"],

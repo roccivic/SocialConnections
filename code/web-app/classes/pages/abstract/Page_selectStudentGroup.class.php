@@ -20,9 +20,9 @@ abstract class Page_selectStudentGroup extends Page_selectGroup {
         return User::STUDENT;
     }
 
-	public function __construct()
+	public function __construct($disableAjax = null)
 	{
-		parent::__construct();
+		parent::__construct(null, $disableAjax);
 	}
     /**
      * This function must be implemented in a subclass

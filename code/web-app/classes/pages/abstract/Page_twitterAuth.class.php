@@ -93,7 +93,7 @@ else if(USER::isStudent())
 	abstract class Page_twitterAuth extends Page_selectStudentGroup {
 		public function __construct()
 		{
-			parent::__construct(null, true);
+			parent::__construct(true);
 		}
 		public function display($gid) 
 		{	

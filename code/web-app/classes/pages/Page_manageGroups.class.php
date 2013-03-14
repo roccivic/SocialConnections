@@ -805,7 +805,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		{
 	        $this->addHtml(
 		        sprintf(
-		        	'<li><a href="?action=manageGroups&addingStudent=1&gid=%d&sid=%d&did=%d">%s</a></li>',
+		        	'<li><a data-ajax="false" href="?action=manageGroups&addingStudent=1&gid=%d&sid=%d&did=%d">%s</a></li>',
 		        	$gid,
 		        	$sid,
 		        	$did,
@@ -877,7 +877,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		{
 	        $this->addHtml(
 		        sprintf(
-		        	'<li><a href="?action=manageGroups&removingStudentFromGroup=1&gid=%d&sid=%d&did=%d">%s</a></li>',
+		        	'<li><a data-ajax="false" href="?action=manageGroups&removingStudentFromGroup=1&gid=%d&sid=%d&did=%d">%s</a></li>',
 		        	$gid,
 		        	$sid,
 		        	$did,
@@ -949,7 +949,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		{
 	        $this->addHtml(
 		        sprintf(
-		        	'<li><a href="?action=manageGroups&addingLecturer=1&gid=%d&lid=%d&did=%d">%s</a></li>',
+		        	'<li><a data-ajax="false" href="?action=manageGroups&addingLecturer=1&gid=%d&lid=%d&did=%d">%s</a></li>',
 		        	$gid,
 		        	$lid,
 		        	$did,
@@ -1075,7 +1075,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	{
         $this->addHtml(
 	        sprintf(
-	        	'<li><a href="?action=manageGroups&removingLecturerFromGroup=1&gid=%d&lid=%d">%s</a></li>',
+	        	'<li><a data-ajax="false" href="?action=manageGroups&removingLecturerFromGroup=1&gid=%d&lid=%d">%s</a></li>',
 	        	$gid,
 	        	$lid,
 	        	$name

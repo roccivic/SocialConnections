@@ -85,7 +85,7 @@ class Page_facialRec extends Page_selectLecturerGroup {
 			$html .= '</div>';
 
 			// Actual form
-			$html .= '<form action="" method="post">';
+			$html .= '<form data-ajax="false" action="" method="post">';
 			$html .= '<input type="hidden" name="process" value="1" />';
 			$html .= '<div data-role="fieldcontain">';
 			$html .= '<label for="date">' . __('Date:') . '</label>';

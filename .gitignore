@@ -5,3 +5,6 @@
 /code/face-rec-server/face_cache/*
 /code/face-rec-server/models/*
 /code/web-app/face_cache/*
+/code/web-app/.buildpath
+/code/web-app/.project
+/code/web-app/.settings/org.eclipse.php.core.prefs

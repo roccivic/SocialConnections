@@ -229,7 +229,7 @@ if (isset($_REQUEST['other']) || isset($_REQUEST['did'])) {
 					$this->addHtml("<h3>" . __('Select Student') . "</h3>");
 					$html = $this->printStudentListHeader($did);
 					foreach ($students as $key => $value) {
-						$html .= $this->printStudentListItem($did, $key, $value[0]);
+						$html .= $this->printStudentListItem($did, $key, $value);
 					}
 					$html .= $this->printStudentListFooter();
 					$this->addHtml($html);

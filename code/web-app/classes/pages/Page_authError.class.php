@@ -12,7 +12,6 @@ class Page_authError extends Page {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setType('nomenu');
 		$this->addNotification(
 			'error',
 			__('You don\'t have the permissions to view this page.')

@@ -54,7 +54,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 						'notice',
 						__('The assessment results were published.')
 					);
-					$this->manageResults($aid, $gid);
+					$this->manageResults($aid, $gid, $details);
 				}
 				else {
 					$this->addNotification(
@@ -70,7 +70,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 						'notice',
 						__('The assessment results were updated successfully.')
 					);
-					$this->manageResults($aid, $gid);
+					$this->manageResults($aid, $gid, $details);
 				}else {
 					$this->addNotification(
 						'warning',
@@ -152,7 +152,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 				}
 			}else if(!empty($_REQUEST['manageResults'])){
 				if(!empty($details['name'])) {
-					$this->manageResults($aid, $gid);
+					$this->manageResults($aid, $gid, $details);
 				}
 				else {
 					$this->addNotification(
@@ -519,14 +519,19 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	 *
 	 * @return void
 	 */
-	private function manageResults($aid, $gid)
+	private function manageResults($aid, $gid, $details)
 	{
 		$students = $this->getStudentsInGroup($gid);
 		$results = $this->getResults($gid);
-		$html  = '<h3>' . __('Assessment `FIXME`') . '<h3><br />';
 		$html .= '<form method="post" action="">';
 		$html .= '<input name="aid" value="'.$aid.'" type="hidden" />';
 		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
+		$html  = '<h3>';
+		$html .= sprintf(
+			__('Assessment `%s`'),
+			$details['name']
+		);
+		$html .= '<h3><br />';
 		$html .= '<ul data-role="listview">';
 		$html .= '<li data-role="list-divider">';
 		$html .= sprintf(

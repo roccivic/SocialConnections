@@ -18,18 +18,21 @@ $db = Db::getLink();
 for ($gid=1;$gid<=16;$gid++) {
     $students = Data::getStudentsInGroupStatic($gid);
     $ratios = array();
-    foreach ($students as $sid) {
+    foreach ($students as $sid => $name) {
         $ratios[$sid] = mt_rand(50, 90);
     }
-    for ($i=0;$i<=1000;$i++) {
+    for ($i=0;$i<=1;$i++) {
         $lecture = mt_rand(0, 1);
-        $timestamp = time() - mt_rand(0, 3600 * 24 * 365 * 3); // 3 years
+        $timestamp = date(
+            '\'Y-m-d H:i:s\'',
+            time() - mt_rand(0, 3600 * 24 * 365 * 3) // 3 years
+        );
         $db->query(
             "INSERT INTO `attendance` (`gid`, `isLecture`, `timestamp`)
             VALUES ($gid, $lecture, $timestamp)"
         );
         $aid = $db->insert_id;
-        foreach ($students as $sid) {
+        foreach ($students as $sid => $name) {
             $try = mt_rand(0, 100);
             if ($try < $ratios[$sid]) {
                 $present = 1;

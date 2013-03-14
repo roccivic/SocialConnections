@@ -197,13 +197,6 @@ abstract class Auth {
 			$stmt->fetch();
 			$stmt->close();
 			if ($uid > 0) {
-				// Successful remote login
-				$stmt = $db->prepare(
-					"DELETE FROM token WHERE token = ?;"
-				);
-				$stmt->bind_param('s', $_REQUEST['token']);
-				$stmt->execute();
-				$stmt->close();
 				$_SESSION['uid'] = $uid;
 				$_SESSION['accesslevel'] = $accesslevel;
 			}

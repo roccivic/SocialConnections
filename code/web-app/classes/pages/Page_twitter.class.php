@@ -150,8 +150,7 @@ class Page_twitter extends Page_twitterAuth {
 	 */
 	private function tweetForm($gid)
 	{
-		$html = '<form method="post" action="">';
-		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
+		$html = '<form method="post" action="?action=twitter&gid=' . $gid . '">';
 		$html .= '<input name="tweeting" value="1" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="userTweet">' . __('Enter Text') . ': </label>';
@@ -289,9 +288,7 @@ class Page_twitter extends Page_twitterAuth {
 		{
 			$this->addNotification('notice',__('No tweets to display'));
 		}
-		$html = '<form method="post" action="">';
-		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
-		$html .= '<input name="id" value="'.$id.'" type="hidden" />';
+		$html = '<form method="post" action="?action=twitter&gid=' . $gid . '&id=' . $id . '&viewReplies=1">';
 		$html .= '<input name="replyTweet" value="1" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="userTweet">' . __('Enter Text') . ': </label>';

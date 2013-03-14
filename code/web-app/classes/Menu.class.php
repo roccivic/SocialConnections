@@ -100,7 +100,11 @@ class Menu {
 			} else {
 				$retval .= '<li>';
 			}
-			$retval .= '<a href="?action=' . $link . '">';
+			$retval .= '<a ';
+			if ($link === 'postNotes' || $link === 'twitter') {
+				$retval .= 'data-ajax="false" ';
+			}
+			$retval .= 'href="?action=' . $link . '">';
 			$retval .= htmlspecialchars($label);
 			$retval .= '</a>';
 			$retval .= '</li>';

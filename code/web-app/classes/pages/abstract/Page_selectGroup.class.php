@@ -10,7 +10,7 @@ if (! defined('SOCIALCONNECTIONS')) {
  * to retrieve the list of groups from the db.
  */
 abstract class Page_selectGroup extends Page {
-	public function __construct($haveCreateBtn = null)
+	public function __construct($haveCreateBtn = null, $disableAjax = null)
 	{
 		parent::__construct();
 		$gid = 0;
@@ -24,7 +24,7 @@ abstract class Page_selectGroup extends Page {
 		if ($gid > 0 || ! empty($_REQUEST['editForm'])) {
 			$this->display($gid);
 		} else {
-			$this->groupSelector($haveCreateBtn);
+			$this->groupSelector($haveCreateBtn, $disableAjax);
 		}
 	}
 	/**
@@ -46,7 +46,7 @@ abstract class Page_selectGroup extends Page {
 	 *
 	 * @return void
 	 */
-	protected function groupSelector($haveCreateBtn = null)
+	protected function groupSelector($haveCreateBtn = null, $disableAjax = null)
 	{
 		$val = 0;
 		$db = Db::getLink();
@@ -73,7 +73,11 @@ abstract class Page_selectGroup extends Page {
 					}
 					$stmt->bind_result($gid, $name);
 					while ($stmt->fetch()) {
-				        $this->printListItem($gid, $name);
+				        $this->printListItem(
+				        	$gid,
+				        	$name,
+				        	(isset($disableAjax) ? ' data-ajax="false"' : '')
+				        );
 				    }
 				    $this->printListFooter();
 				}
@@ -126,12 +130,13 @@ abstract class Page_selectGroup extends Page {
 	 *
 	 * @return void
 	 */
-	private function printListItem($gid, $name)
+	private function printListItem($gid, $name, $ajax)
 	{
 		$args = $this->getArgs();
         $this->addHtml(
 	        sprintf(
-	        	'<li><a href="?action=%s&gid=%d' . $args . '">%s</a></li>',
+	        	'<li><a%s href="?action=%s&gid=%d' . $args . '">%s</a></li>',
+	        	$ajax,
 	        	urlencode(htmlspecialchars($_REQUEST['action'])),
 	        	$gid,
 	        	$name

@@ -58,9 +58,7 @@ class Page_postNotes extends Page_dropboxAuth {
 	 */
 	private function uploadForm($gid)
 	{
-		$html = '';
-		$html .= '<form method="POST" enctype="multipart/form-data" action="">';
-		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
+		$html  = '<form data-ajax="false" method="POST" enctype="multipart/form-data" action="?action=postNotes&gid=' . $gid . '">';
 		$html .= '<label for="file">File</label>';
 		$html .= '<input type="file" data-clear-btn="false" name="dropboxFile" id="dropboxFile" value="" />';
 		$html .= '<input data-theme="b" type="submit" value="' . __('Upload') . '" />';

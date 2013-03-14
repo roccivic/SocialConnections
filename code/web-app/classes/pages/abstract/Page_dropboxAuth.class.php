@@ -15,7 +15,7 @@ require_once "libs/dropbox/client.php";
 abstract class Page_dropboxAuth extends Page_selectLecturerGroup {
 	public function __construct()
 	{
-		parent::__construct();
+		parent::__construct(null, true);
 	}
 	/**
 	 * Called from the Page_selectLecturer_Group superclass

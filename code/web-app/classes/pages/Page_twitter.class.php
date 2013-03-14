@@ -9,7 +9,15 @@ require_once 'classes/pages/abstract/Page_twitterAuth.class.php';
 class Page_twitter extends Page_twitterAuth {
 	public static function getAccessLevel()
 	{
-		return User::LECTURER;
+		if(USER::isLecturer())
+		{
+			return User::LECTURER;
+		}
+		else if(USER::isStudent())
+		{
+			return User::STUDENT;
+		}
+		
 	}
 	public function __construct()
 	{
@@ -81,6 +89,7 @@ class Page_twitter extends Page_twitterAuth {
 						__('An error occured while processing your request.')
 					);
 				}
+				$this->displayTweetReplies($gid, $connection, $id);
 			}
 			else if(!empty($_REQUEST['viewReplies']))
 			{	

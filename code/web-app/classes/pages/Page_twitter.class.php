@@ -62,6 +62,20 @@ class Page_twitter extends Page_twitterAuth {
 						'notice',
 						__('You have tweeted successfully!')
 					);
+					if(USER::isLecturer())
+					{
+						$students = $this->getStudentsInGroup(false, $gid);
+						$lecturers = $this->getLecturersInGroup(true, $gid);
+						$this->saveStudentNotifications($students);
+						$this->saveLecturerNotifications($lecturers);
+					}
+					else
+					{
+						$students = $this->getStudentsInGroup(true, $gid);
+						$lecturers = $this->getLecturersInGroup(false, $gid);
+						$this->saveStudentNotifications($students);
+						$this->saveLecturerNotifications($lecturers);
+					}
 					$this->displayMenu($gid);
 				}
 				else
@@ -304,6 +318,123 @@ class Page_twitter extends Page_twitterAuth {
 		$html .= '<input data-theme="b" type="submit" value="' . __('Reply') . '" />';
 		$html .= '</form>';
 		$this->addHtml($html);
+	}
+	/**
+	 * Get All students from a given group
+	 *
+	 * @return array
+	 */
+	private function getStudentsInGroup($isUserStudent, $gid)
+	{
+		$uid = $_SESSION['uid'];
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `id`
+			FROM `student`
+			WHERE `id` IN (
+				SELECT sid FROM `group_student` WHERE `gid`=?
+			)"
+		);
+		$stmt->bind_param("i",$gid);
+		$stmt->execute();
+		$stmt->bind_result($id);
+		while ($stmt->fetch()) {
+			if($isUserStudent)
+			{
+				if($uid == $id)
+				{
+
+				}
+				else
+				{
+					$arr[$id] = $id;
+				}
+			}
+			else {
+				$arr[$id] = $id;
+			}
+			
+		}
+		return $arr;
+	}
+	/**
+	 * Get All lecturers from a given group
+	 *
+	 * @return array
+	 */
+	private function getLecturersInGroup($isUserLecturer, $gid)
+	{
+		$uid = $_SESSION['uid'];
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `lecturer`.`id`
+			FROM `lecturer`
+			WHERE `lecturer`.`id` IN (
+			SELECT `moduleoffering_lecturer`.`lid` FROM `moduleoffering_lecturer` WHERE `moduleoffering_lecturer`.`moid`IN (
+            SELECT `group`.`moid` FROM `group` WHERE `group`.`id` = ?
+            ));"
+		);
+		$stmt->bind_param("i",$gid);
+		$stmt->execute();
+		$stmt->bind_result($id);
+		while ($stmt->fetch()) {
+			if($isUserLecturer)
+			{
+				if($uid == $id)
+				{
+
+				}
+				else
+				{
+					$arr[$id] = $id;
+				}
+			}
+			else {
+				$arr[$id] = $id;
+			}
+			
+		}
+		return $arr;
+	}
+	/**
+	 * save notifications for lecturer in db
+	 *
+	 * @return array
+	 */
+	private function saveLecturerNotifications($lecturers)
+	{
+		$db = Db::getLink();
+		foreach($lecturers as $key => $value)
+		{
+			$stmt = $db->prepare(
+				"INSERT INTO `twitter_lecturer_notifications` (`lid`) VALUES (?)"
+			);
+			$stmt->bind_param("i",$key);
+			$stmt->execute();
+			$stmt->fetch();
+			$stmt->close();
+		}
+	}
+	/**
+	 * save notifications for student in db
+	 *
+	 * @return array
+	 */
+	private function saveStudentNotifications($students)
+	{
+		$db = Db::getLink();
+		foreach($students as $key => $value)
+		{
+			$stmt = $db->prepare(
+				"INSERT INTO `twitter_student_notifications` (`sid`) VALUES (?)"
+			);
+			$stmt->bind_param("i",$key);
+			$stmt->execute();
+			$stmt->fetch();
+			$stmt->close();
+		}
 	}
 }
 ?>

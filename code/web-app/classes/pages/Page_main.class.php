@@ -103,6 +103,37 @@ class Page_Main extends Page {
 				$notification
 			);
 		}
+		$stmt = $db->prepare(
+			'SELECT COUNT(*) FROM `twitter_lecturer_notifications`
+			WHERE `lid` = ?'
+		);
+		$stmt->bind_param('i', $lid);
+		$stmt->execute();
+		$stmt->bind_result($count);
+		$stmt->fetch();
+		$stmt->close();
+
+		if ($count > 0) {
+			$notification  = '<a style="float: right;" data-mini="true" ';
+			$notification .= 'data-inline="true" data-role="button" ';
+			$notification .= 'href="?action=twitter">';
+			$notification .= __('View');
+			$notification .= '</a>';
+			$notification .= sprintf(
+				_ngettext(
+					'There is %d new tweet',
+					'There are %d new tweets',
+					$count
+				),
+				$count
+			);
+			$notification .= '<div style="clear:both"></div>';
+			$this->addNotification(
+				'notice',
+				$notification
+			);
+			$this->deleteLecturerNotifications($lid);
+		}
 	}
 	/**
 	 * Add any student notifications to the page
@@ -141,6 +172,37 @@ class Page_Main extends Page {
 			);
 		}
 		$stmt = $db->prepare(
+			'SELECT COUNT(*) FROM `twitter_student_notifications`
+			WHERE `sid` = ?'
+		);
+		$stmt->bind_param('i', $sid);
+		$stmt->execute();
+		$stmt->bind_result($count);
+		$stmt->fetch();
+		$stmt->close();
+
+		if ($count > 0) {
+			$notification  = '<a style="float: right;" data-mini="true" ';
+			$notification .= 'data-inline="true" data-role="button" ';
+			$notification .= 'href="?action=twitter">';
+			$notification .= __('View');
+			$notification .= '</a>';
+			$notification .= sprintf(
+				_ngettext(
+					'There is %d new tweet',
+					'There are %d new tweets',
+					$count
+				),
+				$count
+			);
+			$notification .= '<div style="clear:both"></div>';
+			$this->addNotification(
+				'notice',
+				$notification
+			);
+			$this->deleteStudentNotifications($sid);
+		}
+		$stmt = $db->prepare(
 			'SELECT COUNT(*) FROM `results_notifications`
 			WHERE `sid` = ?'
 		);
@@ -170,6 +232,40 @@ class Page_Main extends Page {
 				$notification
 			);
 		}
+	}
+	/**
+	 * delete twitter notification Student
+	 *
+	 * @return void
+	 */
+	private function deleteStudentNotifications($sid)
+	{
+		$db = Db::getLink();
+		
+			$stmt = $db->prepare(
+				"DELETE FROM `twitter_student_notifications` WHERE `sid` = ?"
+			);
+			$stmt->bind_param("i",$sid);
+			$stmt->execute();
+			$stmt->fetch();
+			$stmt->close();	
+	}
+	/**
+	 * delete twitter notification Lecturer
+	 *
+	 * @return void
+	 */
+	private function deleteLecturerNotifications($lid)
+	{
+		$db = Db::getLink();
+		
+			$stmt = $db->prepare(
+				"DELETE FROM `twitter_lecturer_notifications` WHERE `lid` = ?"
+			);
+			$stmt->bind_param("i",$lid);
+			$stmt->execute();
+			$stmt->fetch();
+			$stmt->close();
 	}
 }
 

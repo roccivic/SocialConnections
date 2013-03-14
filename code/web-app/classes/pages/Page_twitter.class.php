@@ -52,14 +52,14 @@ class Page_twitter extends Page_twitterAuth {
 					);
 					if(USER::isLecturer())
 					{
-						$students = $this->getStudentsInGroup(false, $gid);
+						$students = $this->customGetStudentsInGroup(false, $gid);
 						$lecturers = $this->getLecturersInGroup(true, $gid);
 						$this->saveStudentNotifications($students);
 						$this->saveLecturerNotifications($lecturers);
 					}
 					else
 					{
-						$students = $this->getStudentsInGroup(true, $gid);
+						$students = $this->customGetStudentsInGroup(true, $gid);
 						$lecturers = $this->getLecturersInGroup(false, $gid);
 						$this->saveStudentNotifications($students);
 						$this->saveLecturerNotifications($lecturers);
@@ -291,7 +291,7 @@ class Page_twitter extends Page_twitterAuth {
 	 *
 	 * @return array
 	 */
-	private function getStudentsInGroup($isUserStudent, $gid)
+	private function customGetStudentsInGroup($isUserStudent, $gid)
 	{
 		$uid = $_SESSION['uid'];
 		$arr = array();

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2013 at 08:41 PM
+-- Generation Time: Mar 14, 2013 at 03:54 PM
 -- Server version: 5.5.29-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.5
 
@@ -328,15 +328,25 @@ CREATE TABLE IF NOT EXISTS `token` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `twitter_notifications`
+-- Table structure for table `twitter_lecturer_notifications`
 --
 
-CREATE TABLE IF NOT EXISTS `twitter_notifications` (
-  `sid` mediumint(11) NOT NULL,
-  `gid` mediumint(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  UNIQUE KEY `composite` (`sid`,`gid`),
-  KEY `gid` (`gid`)
+CREATE TABLE IF NOT EXISTS `twitter_lecturer_notifications` (
+  `lid` mediumint(9) NOT NULL,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY `composite` (`lid`,`time_stamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `twitter_student_notifications`
+--
+
+CREATE TABLE IF NOT EXISTS `twitter_student_notifications` (
+  `sid` mediumint(9) NOT NULL,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY `composite` (`sid`,`time_stamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -440,11 +450,16 @@ ALTER TABLE `student_attendance`
   ADD CONSTRAINT `student_attendance_ibfk_1` FOREIGN KEY (`aid`) REFERENCES `attendance` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `twitter_notifications`
+-- Constraints for table `twitter_lecturer_notifications`
 --
-ALTER TABLE `twitter_notifications`
-  ADD CONSTRAINT `twitter_notifications_ibfk_2` FOREIGN KEY (`gid`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `twitter_notifications_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `twitter_lecturer_notifications`
+  ADD CONSTRAINT `twitter_lecturer_notifications_ibfk_1` FOREIGN KEY (`lid`) REFERENCES `lecturer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `twitter_student_notifications`
+--
+ALTER TABLE `twitter_student_notifications`
+  ADD CONSTRAINT `twitter_student_notifications_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

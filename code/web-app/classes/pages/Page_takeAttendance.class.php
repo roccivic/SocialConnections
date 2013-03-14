@@ -72,6 +72,7 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 			);
 			if (count($dbStudents)) {
 				$html  = '<form action="?action=takeAttendance" method="post">';
+				$html .= '<input type="hidden" name="gid" value="' . $gid . '" />';
 				$html .= '<input type="hidden" name="process" value="1" />';
 				$html .= '<div data-role="fieldcontain">';
 				$html .= '<label for="date">' . __('Date:') . '</label>';

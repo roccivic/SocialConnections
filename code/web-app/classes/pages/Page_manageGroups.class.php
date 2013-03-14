@@ -451,15 +451,16 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	
 	private function editGroupForm($gid, $name)
 	{
-		$html = '<form method="post" action="">';
 		if($gid == 0) {
+			$html  = '<form method="post" action="?action=manageGroups">';
 			$html .= '<h3>' . __('Create Group') . '</h3>';
 			$html .= '<input name="create" value="1" type="hidden" />';
 		} else {
+			$html  = '<form method="post" action="?action=manageGroups&gid=' . $gid . '">';
 			$html .= '<h3>' . __('Edit Group') . '</h3>';
 			$html .= '<input name="edit" value="1" type="hidden" />';
 		}
-		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
+		$html .= '<input name="editForm" value="1" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="name">' . __('Name') . ': </label>';
 		$html .= '<input type="text" name="name" id="name" ';

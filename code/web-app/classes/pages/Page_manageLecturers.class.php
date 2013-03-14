@@ -365,16 +365,15 @@ class Page_manageLecturers extends Page_selectDepartment {
 	private function editLecturerForm($lid, $did)
 	{
 		$details = $this->getLecturersDetails($did,$lid);
-		$html = '<form method="post" action="">';
 		if($lid == 0) {
+			$html = '<form method="post" action="?action=manageLecturers&did=' . $did . '">';
 			$html .= '<h3>' . __('Create Lecturer') . '</h3>';
 			$html .= '<input name="create" value="1" type="hidden" />';
 		} else {
+			$html = '<form method="post" action="?action=manageLecturers&did=' . $did . '&lid=' . $lid . '">';
 			$html .= '<h3>' . __('Edit Lecturer') . '</h3>';
 			$html .= '<input name="edit" value="1" type="hidden" />';
 		}
-		$html .= '<input name="lid" value="'.$lid.'" type="hidden" />';
-		$html .= '<input name="did" value="'.$did.'" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="fname">' . __('First name') . ': </label>';
 		$html .= '<input type="text" name="fname" id="fname" ';

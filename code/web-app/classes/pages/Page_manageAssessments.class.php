@@ -78,18 +78,7 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 					);
 					$this->groupSelector();
 				}
-			} else if (!empty($_REQUEST['AssessmentDetails'])){
-				if(empty($details['name'])) {
-					$this->addNotification(
-						'error',
-						__('No such assessment.')
-					);
-					$this->displayAssessments($gid);
-				}
-				else {
-					$this->displayAssessmentDetails($aid, $gid);
-				}
-			}else if(!empty($_REQUEST['create'])){
+			} else if(!empty($_REQUEST['create'])){
 				if($this->validateForm(true,$aid, $gid, $name, $weight, $details) &&
 					$this->createAssessment($gid, $name, $weight)){
 					$this->addNotification(
@@ -161,7 +150,18 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 					);
 					$this->displayAssessments($gid);
 				}
-			}else {
+			} else if (!empty($_REQUEST['AssessmentDetails'])){
+				if(empty($details['name'])) {
+					$this->addNotification(
+						'error',
+						__('No such assessment.')
+					);
+					$this->displayAssessments($gid);
+				}
+				else {
+					$this->displayAssessmentDetails($aid, $gid);
+				}
+			} else {
 				$this->displayAssessments($gid);
 			}
 		}
@@ -343,13 +343,12 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	{
 		$details = $this->getAssessmentDetails($aid);
 		$max = 100 - $this->findOverallWeight($gid);
-		$html = '<form method="post" action="">';
-		$html .= '<input name="aid" value="'.$aid.'" type="hidden" />';
-		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
 		if($aid == 0) {
+			$html = '<form method="post" action="?action=manageAssessments&gid=' . $gid . '">';
 			$html .= '<h3>' . __('Create Assessment') . '</h3>';
 			$html .= '<input name="create" value="1" type="hidden" />';
 		} else {
+			$html = '<form method="post" action="?action=manageAssessments&gid=' . $gid . '&aid=' . $aid . '&AssessmentDetails=1">';
 			$html .= '<h3>' . __('Edit Assessment') . '</h3>';
 			$html .= '<input name="edit" value="1" type="hidden" />';
 			$max += $details['weight'];
@@ -523,15 +522,13 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	{
 		$students = $this->getStudentsInGroup($gid);
 		$results = $this->getResults($gid);
-		$html .= '<form method="post" action="">';
-		$html .= '<input name="aid" value="'.$aid.'" type="hidden" />';
-		$html .= '<input name="gid" value="'.$gid.'" type="hidden" />';
 		$html  = '<h3>';
 		$html .= sprintf(
 			__('Assessment `%s`'),
 			$details['name']
 		);
 		$html .= '<h3><br />';
+		$html .= '<form method="post" action="?action=manageAssessments&manageResults=1&gid=' . $gid . '&aid=' . $aid . '">';
 		$html .= '<ul data-role="listview">';
 		$html .= '<li data-role="list-divider">';
 		$html .= sprintf(

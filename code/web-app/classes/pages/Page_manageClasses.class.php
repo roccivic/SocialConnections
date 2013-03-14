@@ -314,14 +314,14 @@ class Page_manageClasses extends Page_selectDepartment {
 	private function editClassForm($did, $cid)
 	{
 		$cname = $this->getClassName($cid);
-		$html = '<form method="post" action="">';
 		if($cid == 0) {
+			$html = '<form method="post" action="?action=manageClasses&did=' . $did . '">';
 			$html .= '<h3>' . __('Create Class') . '</h3>';
 			$html .= '<input name="create" value="1" type="hidden" />';
 		} else {
+			$html = '<form method="post" action="?action=manageClasses&did=' . $did . '&cid=' . $cid . '">';
 			$html .= '<h3>' . __('Edit Class') . '</h3>';
 			$html .= '<input name="edit" value="1" type="hidden" />';
-			$html .= '<input name="cid" value="'.$cid.'" type="hidden" />';
 		}
 		
 		$html .= '<div data-role="fieldcontain">';

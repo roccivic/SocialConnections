@@ -115,7 +115,7 @@ class Page_manageStudents extends Page_selectDepartment {
 						'error',
 						__('An error occured while processing your request.')
 					);
-					$this->departmentSelector();
+					$this->editForm($sid, $cid, $did);
 				}
 			}else if(!empty($_REQUEST['edit'])) { 
 				if($this->validateForm(false, $sid, $fname, $lname, $username, $email, $pass, $varpass, $hasGrant, $grantOwed)
@@ -408,17 +408,16 @@ class Page_manageStudents extends Page_selectDepartment {
 	private function editForm($sid, $cid, $did)
 	{
 		$details = $this->getStudentDetails($sid);
-		$html = '<form method="post" action="">';
 		if($sid == 0) {
+			$html = '<form method="post" action="?action=manageStudents&listStudents=1&did=' . $did . '&cid=' . $cid . '">';
 			$html .= '<h3>' . __('Create Student') . '</h3>';
 			$html .= '<input name="create" value="1" type="hidden" />';
 		} else {
+			$html = '<form method="post" action="?action=manageStudents&studentDetails=1&did=' . $did . '&cid=' . $cid . '&sid=' . $sid . '">';
 			$html .= '<h3>' . __('Edit Student') . '</h3>';
 			$html .= '<input name="edit" value="1" type="hidden" />';
 		}
-		$html .= '<input name="sid" value="'.$sid.'" type="hidden" />';
-		$html .= '<input name="cid" value="'.$cid.'" type="hidden" />';
-		$html .= '<input name="did" value="'.$did.'" type="hidden" />';
+		$html .= '<input name="editForm" value="1" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="fname">' . __('First name') . ': </label>';
 		$html .= '<input type="text" name="fname" id="fname" ';

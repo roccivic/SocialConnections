@@ -177,15 +177,16 @@ class Page_manageDepartments extends Page_selectDepartment {
 	 */
 	private function editDepartmentForm($did, $name)
 	{
-		$html = '<form method="post" action="">';
 		if($did == 0) {
+			$html  = '<form method="post" action="?action=manageDepartments">';
 			$html .= '<h3>' . __('Create Department') . '</h3>';
 			$html .= '<input name="create" value="1" type="hidden" />';
 		} else {
+			$html  = '<form method="post" action="?action=manageDepartments&did=' . $did . '">';
 			$html .= '<h3>' . __('Edit Department') . '</h3>';
 			$html .= '<input name="edit" value="1" type="hidden" />';
 		}
-		$html .= '<input name="did" value="'.$did.'" type="hidden" />';
+		$html .= '<input name="editForm" value="1" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="name">' . __('Name') . ': </label>';
 		$html .= '<input type="text" name="name" id="name" ';

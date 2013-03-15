@@ -72,18 +72,7 @@ class Page_manageStudents extends Page_selectDepartment {
 		$cName = $this->getClassName($cid);
 		$details = $this->getStudentDetails($sid);
 		if(!empty($dName)) {
-			if(!empty($_REQUEST['listStudents'])) {
-				if(!empty($cName)){
-				$this->displayStudents($cid,$did);	
-				}
-				else {
-					$this->addNotification(
-						'error',
-						__('Invalid class selected')
-					);
-					$this->displayClasses($did);
-				}
-			}else if(!empty($_REQUEST['delete'])){
+			if(!empty($_REQUEST['delete'])){
 				if($this->deleteStudent($sid)){
 					$this->addNotification(
 						'notice',
@@ -154,6 +143,17 @@ class Page_manageStudents extends Page_selectDepartment {
 						$this->editForm($sid,$cid,$did);
 					}
 					
+				}
+			}else if(!empty($_REQUEST['listStudents'])) {
+				if(!empty($cName)){
+				$this->displayStudents($cid,$did);	
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('Invalid class selected')
+					);
+					$this->displayClasses($did);
 				}
 			}else {
 				$this->displayClasses($did);

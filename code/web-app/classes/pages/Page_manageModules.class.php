@@ -50,19 +50,7 @@ class Page_manageModules extends Page_selectDepartment {
 			
 		{	
 
-			if(!empty($_REQUEST['view'])) {
-					$mname = $this->getModuleName($mid);
-					if(empty($mname)){
-					$this->addNotification(
-							'error',
-							__('Invalid module selected')
-						);
-						$this->displayModules($did);
-					}else{
-							
-							$this->viewModule($did,$mid);
-					}
-			}else if(!empty($_REQUEST['create'])){
+			if(!empty($_REQUEST['create'])){
 					if($this->validateForm(true, $mid, $name, $crn, $credits)
 				 && $this->createModule($name, $crn, $credits, $did))
 					{
@@ -117,6 +105,18 @@ class Page_manageModules extends Page_selectDepartment {
 					$this->viewModule($did, $mid);
 				}
 				
+			} else if(!empty($_REQUEST['view'])) {
+				$mname = $this->getModuleName($mid);
+				if(empty($mname)){
+				$this->addNotification(
+						'error',
+						__('Invalid module selected')
+					);
+					$this->displayModules($did);
+				}else{
+						
+						$this->viewModule($did,$mid);
+				}
 			} else {
 				$this->displayModules($did);
 			}

@@ -365,6 +365,11 @@ class Page_manageLecturers extends Page_selectDepartment {
 	private function editLecturerForm($lid, $did)
 	{
 		$details = $this->getLecturersDetails($did,$lid);
+		$fname = ! empty($_REQUEST['fname']) ? $_REQUEST['fname'] : $details['fname'];
+		$lname = ! empty($_REQUEST['lname']) ? $_REQUEST['lname'] : $details['lname'];
+		$username = ! empty($_REQUEST['username']) ? $_REQUEST['username'] : $details['username'];
+		$email = ! empty($_REQUEST['email']) ? $_REQUEST['email'] : $details['email'];
+
 		if($lid == 0) {
 			$html = '<form method="post" action="?action=manageLecturers&did=' . $did . '">';
 			$html .= '<h3>' . __('Create Lecturer') . '</h3>';
@@ -377,24 +382,24 @@ class Page_manageLecturers extends Page_selectDepartment {
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="fname">' . __('First name') . ': </label>';
 		$html .= '<input type="text" name="fname" id="fname" ';
-		$html .= 'value="' . htmlspecialchars($details['fname']) . '" />';
+		$html .= 'value="' . htmlspecialchars($fname) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="lname">' . __('Last name') . ': </label>';
 		$html .= '<input type="text" name="lname" id="lname" ';
-		$html .= 'value="' . htmlspecialchars($details['lname']) . '" />';
+		$html .= 'value="' . htmlspecialchars($lname) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="username">' . __('Username') . ': </label>';
 		$html .= '<input type="text" name="username" id="username" ';
-		$html .= 'value="' . htmlspecialchars($details['username']) . '" />';
+		$html .= 'value="' . htmlspecialchars($username) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="email">' . __('E-mail') . ': </label>';
 		$html .= '<input type="text" name="email" id="email" ';
-		$html .= 'value="' . htmlspecialchars($details['email']) . '" />';
+		$html .= 'value="' . htmlspecialchars($email) . '" />';
 		$html .= '</div>';
-		if($lid < 1){
+		if($lid == 0){
 			$html .= '<div data-role="fieldcontain">';
 			$html .= '<label for="pass1">' . __('Password') . ': </label>';
 			$html .= '<input type="password" name="password" id="pass1" />';

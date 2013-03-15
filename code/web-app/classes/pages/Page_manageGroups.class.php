@@ -82,7 +82,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 					);
 					$details = $this->getGroupDetails($gid);
 					$name = $details['gname'];
-					$this->editGroupForm($gid, $name);
+					$this->editGroupForm($gid);
 				}
 			}else if (! empty($_REQUEST['create'])) 
 				{
@@ -99,7 +99,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 						'error',
 						__('An error occured while processing your request.')
 					);
-					$this->editGroupForm($gid, $name);
+					$this->editGroupForm($gid);
 				}
 			}else if (! empty($_REQUEST['editForm'])) {
 				$details = $this->getGroupDetails($gid);
@@ -111,7 +111,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 					);
 					$this->groupSelector(true);
 				} else {
-					$this->editGroupForm($gid, $name);
+					$this->editGroupForm($gid);
 				}
 			}else if(! empty($_REQUEST['addingStudent'])){
 				if($this->addStudentToGroup($gid, $sid)){
@@ -449,8 +449,14 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 */
 
 	
-	private function editGroupForm($gid, $name)
+	private function editGroupForm($gid)
 	{
+		$details = $this->getGroupDetails($gid);
+		$module = ! empty($_REQUEST['module']) ? $_REQUEST['module'] : $details['mid'];
+		$name = ! empty($_REQUEST['name']) ? $_REQUEST['name'] : $details['gname'];
+		$year = ! empty($_REQUEST['year']) ? $_REQUEST['year'] : $details['year'];
+		$term = isset($_REQUEST['term']) ? $_REQUEST['term'] : $details['term'];
+
 		if($gid == 0) {
 			$html  = '<form method="post" action="?action=manageGroups">';
 			$html .= '<h3>' . __('Create Group') . '</h3>';
@@ -469,8 +475,6 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="module">' . __('Module') . ': </label>';
 		$html .= '<select id="module" name="module">';
-		$details = $this->getGroupDetails($gid);
-		$module = $details['mid'];
 		foreach($this->getModules() as $key => $value) {
 			$html .= '<option value="' . $key . '"';
 			if ($key == $module) {
@@ -481,12 +485,6 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '</select>';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
-		if(empty($details['year'])){
-			$year = date("Y");
-		}
-		else {
-			$year = $details['year'];
-		}
 		$html .= '<label for="year">' . __('Year') . ': </label>';
 		$html .= '<input type="text" name="year" id="year" ';
 		$html .= 'value="' . htmlspecialchars($year) . '" />';
@@ -495,13 +493,13 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
 		$html .= '<legend>'. __('Semester').':</legend>';
 		$html .= '<input name="term" id="first" value="1" type="radio"';
-		if($details['term'] == 1 || empty($details['term'])) {
+		if($term <= 1) {
 			$html .= 'checked="checked"';
 		}
 		$html .= '>';
 		$html .= '<label for="first">1</label>';
 		$html .= '<input name="term" id="second" value="2" type="radio"';
-		if($details['term'] == 2) {
+		if($term > 1) {
 			$html .= 'checked="checked"';
 		}
 		$html .= '>';

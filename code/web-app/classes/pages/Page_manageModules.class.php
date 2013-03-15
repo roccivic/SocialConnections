@@ -308,6 +308,11 @@ class Page_manageModules extends Page_selectDepartment {
 	private function editModuleForm($did, $mid)
 	{
 		$mdetails = $this->getModuleDetails($did, $mid);
+
+		$name = ! empty($_REQUEST['name']) ? $_REQUEST['name'] : $mdetails['name'];
+		$credits = ! empty($_REQUEST['credits']) ? $_REQUEST['credits'] : $mdetails['credits'];
+		$crn = ! empty($_REQUEST['crn']) ? $_REQUEST['crn'] : $mdetails['crn'];
+
 		if($mid == 0) {
 			$html = '<form method="post" action="?action=manageModules&did=' . $did . '">';
 			$html .= '<h3>' . __('Create Module') . '</h3>';
@@ -320,17 +325,17 @@ class Page_manageModules extends Page_selectDepartment {
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="name">' . __('Name') . ': </label>';
 		$html .= '<input type="text" name="name" id="name" ';
-		$html .= 'value="' . htmlspecialchars($mdetails['name']) . '" />';
+		$html .= 'value="' . htmlspecialchars($name) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="crn">' . __('CRN') . ': </label>';
 		$html .= '<input type="text" name="crn" id="crn" ';
-		$html .= 'value="' . htmlspecialchars($mdetails['crn']) . '" />';
+		$html .= 'value="' . htmlspecialchars($crn) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="credits">' . __('Credits') . ': </label>';
 		$html .= '<input type="text" name="credits" id="credits" ';
-		$html .= 'value="' . htmlspecialchars($mdetails['credits']) . '" />';
+		$html .= 'value="' . htmlspecialchars($credits) . '" />';
 		$html .= '</div>';	
 		$html .= '<input data-theme="b" type="submit" value="' . __('Save') . '" />';
 		$html .= '</form>';

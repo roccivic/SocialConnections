@@ -342,6 +342,10 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 	private function editForm($aid, $gid)
 	{
 		$details = $this->getAssessmentDetails($aid);
+
+		$name = ! empty($_REQUEST['name']) ? $_REQUEST['name'] : $details['name'];
+		$weight = ! empty($_REQUEST['weight']) ? $_REQUEST['weight'] : $details['weight'];
+
 		$max = 100 - $this->findOverallWeight($gid);
 		if($aid == 0) {
 			$html = '<form method="post" action="?action=manageAssessments&gid=' . $gid . '">';
@@ -356,12 +360,12 @@ class Page_manageAssessments extends Page_selectLecturerGroup
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="name">' . __('Name') . ': </label>';
 		$html .= '<input type="text" name="name" id="name" ';
-		$html .= 'value="' . htmlspecialchars($details['name']) . '" />';
+		$html .= 'value="' . htmlspecialchars($name) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="weight">' . __('Weight') . ': </label>';
 		$html .= '<input name="weight" id="weight" data-highlight="true" min="0" max="'.$max.'"';
-		$html .= 'value="' . htmlspecialchars($details['weight']) . '"type="range" />';
+		$html .= 'value="' . htmlspecialchars($weight) . '"type="range" />';
 		$html .= '</div>';
 		$html .= '<input data-theme="b" type="submit" value="' . __('Save') . '" />';
 		$html .= '</form>';

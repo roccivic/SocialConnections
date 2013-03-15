@@ -370,11 +370,12 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$html .= __('Semester: ');
 			$html .= $details['term'];
 			$html .= '<br/><br/>';
+			$html .= '<div class="ui-grid-a my-breakpoint">';
+
+			$html .= '<div class="ui-block-a">';
 			$html .= '<a href="?action=manageGroups&editForm=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
-			$html .= '<a href="?action=manageGroups&addStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Student').'</a>';
-			$html .= '<a href="?action=manageGroups&removeStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Student').'</a>';
-			$html .= '<a href="?action=manageGroups&addLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Lecturer').'</a>';
-			$html .= '<a href="?action=manageGroups&removeLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Lecturer').'</a>';
+			$html .= '</div>';
+			$html .= '<div class="ui-block-b">';
 			$html .= sprintf(
 				'<a class="delete" href="?action=manageGroups&delete=1&gid=%d" data-role="button" data-theme="b">%s</a>',
 				$gid,
@@ -383,6 +384,22 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$html .= '<span style="display: none">';
 			$html .= __('Are you sure you want to delete this group?');
 			$html .= '</span>';
+			$html .= '</div>';
+
+			$html .= '<div class="ui-block-a">';
+			$html .= '<a href="?action=manageGroups&addStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Student').'</a>';
+			$html .= '</div>';
+			$html .= '<div class="ui-block-b">';
+			$html .= '<a href="?action=manageGroups&removeStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Student').'</a>';
+			$html .= '</div>';
+
+			$html .= '<div class="ui-block-a">';
+			$html .= '<a href="?action=manageGroups&addLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Lecturer').'</a>';
+			$html .= '</div>';
+			$html .= '<div class="ui-block-b">';
+			$html .= '<a href="?action=manageGroups&removeLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Lecturer').'</a>';
+			$html .= '</div>';
+			$html .= '</div>';
 			$this->addHtml($html);
 		} else {
 			$this->addNotification(

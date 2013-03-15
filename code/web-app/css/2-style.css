@@ -280,3 +280,14 @@ p.intro strong {
     background-color: hsl(220, 50%, 90%);
     background-image: url('images/notice.png');
 }
+
+@media all and (max-width: 750px) {
+    .my-breakpoint .ui-block-a,
+    .my-breakpoint .ui-block-b,
+    .my-breakpoint .ui-block-c,
+    .my-breakpoint .ui-block-d,
+    .my-breakpoint .ui-block-e {
+        width: 100%;
+        float: none;
+    }
+}

@@ -874,6 +874,44 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$stmt->bind_param("ii", $gid, $sid);
 		$success = $stmt->execute();
 		$stmt->close();
+		if($success)
+		{
+			$array = array();
+			$assessments = $this->getAssessments($gid);
+			$stmt = $db->prepare(
+			"SELECT `isDraft` FROM `assessment` WHERE `id`=?"
+			);
+			foreach($assessments as $key => $value) 
+			{
+				if($success) 
+				{
+					$stmt->bind_param('i',$key);
+					$success = $stmt->execute();
+					$stmt->bind_result($result);
+					$stmt->fetch();
+					if($result)
+					{
+						$array[$sid] = $key;
+					}
+				}
+			}
+			$stmt->close();
+			if($success)
+			{
+				$stmt = $db->prepare(
+				"INSERT INTO `results` (`grade`, `sid`, `aid`) VALUES (0, ?, ?)"
+				);
+				foreach($array as $key => $value)
+				{
+					if($success)
+					{
+					$stmt->bind_param('ii',$key, $value);
+					$success = $stmt->execute();
+					}
+				}
+			}
+		}
+	
 		return $success;
 	}
 	/**

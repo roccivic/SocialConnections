@@ -209,6 +209,27 @@ class Data {
 		$stmt->close();
 		return ! empty($result);
 	}
+	/**
+	 * Returns an array of assessments
+	 *
+	 * @return array
+	 */
+	protected function getAssessments($gid)
+	{
+		$arr = array();
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT `id`, `name` FROM `assessment` where `moid` IN
+			(SELECT `moid` FROM `group` WHERE `id` = ?);"
+		);
+		$stmt->bind_param('i', $gid);
+		$stmt->execute();
+		$stmt->bind_result($id, $name);
+		while ($stmt->fetch()) {
+			$arr[$id] = $name;
+		}
+		return $arr;
+	}
 }
 
 ?>

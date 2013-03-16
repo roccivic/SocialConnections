@@ -61,290 +61,302 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		}
 		$gname = $this->getGroupName($gid);
 		$dname = $this->getDepartmentName($did);
+		$uid = $_SESSION['uid'];
 		if(!empty($gname) || !empty($_REQUEST['editForm'])) {
-			if (! empty($_REQUEST['delete'])) 
+			if($this->isLecturerInGroup($uid, $gid) || !empty($_REQUEST['editForm']) && $gid < 1)
 			{
-				$this->deleteGroup($gid);
-				$this->groupSelector(true);
-			} else if (! empty($_REQUEST['edit'])) {
-				if ($this->validateForm(false, $gid, $name, $module, $year, $term)
-					&& $this->updateGroup($gid, $name, $module, $year, $term)
-				) {
-					$this->addNotification(
-						'notice',
-						__('The group details were successfully updated.')
-					);
-					$this->displayGroupDetails($gid);
-				} else {
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
+				if (! empty($_REQUEST['delete'])) 
+				{
+					$this->deleteGroup($gid);
+					$this->groupSelector(true);
+				} else if (! empty($_REQUEST['edit'])) {
+					if ($this->validateForm(false, $gid, $name, $module, $year, $term)
+						&& $this->updateGroup($gid, $name, $module, $year, $term)
+					) {
+						$this->addNotification(
+							'notice',
+							__('The group details were successfully updated.')
+						);
+						$this->displayGroupDetails($gid);
+					} else {
+						$this->addNotification(
+							'error',
+							__('An error occured while processing your request.')
+						);
+						$details = $this->getGroupDetails($gid);
+						$name = $details['gname'];
+						$this->editGroupForm($gid, $name);
+					}
+				}else if (! empty($_REQUEST['create'])) 
+					{
+					if ($this->validateForm(true, $gid, $name, $module, $year, $term)
+						&& $this->createGroup($name, $module, $year, $term)) 
+					{
+						$this->addNotification(
+							'notice',
+							__('The Group was successfully created.')
+						);
+						$this->groupSelector(true);
+					} else {
+						$this->addNotification(
+							'error',
+							__('An error occured while processing your request.')
+						);
+						$this->editGroupForm($gid, $name);
+					}
+				}else if (! empty($_REQUEST['editForm'])) {
 					$details = $this->getGroupDetails($gid);
 					$name = $details['gname'];
-					$this->editGroupForm($gid, $name);
-				}
-			}else if (! empty($_REQUEST['create'])) 
-				{
-				if ($this->validateForm(true, $gid, $name, $module, $year, $term)
-					&& $this->createGroup($name, $module, $year, $term)) 
-				{
-					$this->addNotification(
-						'notice',
-						__('The Group was successfully created.')
-					);
-					$this->groupSelector(true);
-				} else {
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
-					$this->editGroupForm($gid, $name);
-				}
-			}else if (! empty($_REQUEST['editForm'])) {
-				$details = $this->getGroupDetails($gid);
-				$name = $details['gname'];
-				if ($gid > 0 && empty($name)) {
-					$this->addNotification(
-						'error',
-						__('The selected group does not exist')
-					);
-					$this->groupSelector(true);
-				} else {
-					$this->editGroupForm($gid, $name);
-				}
-			}else if(! empty($_REQUEST['addingStudent'])){
-				if($this->addStudentToGroup($gid, $sid)){
-					$message = __('The student was successfully added to the group.');
-					if (! empty($_REQUEST['ajax'])) {
-						header("Content-Type: application/json; charset=UTF-8");
-						exit(
-							json_encode(
-								array(
-									'success' => true,
-									'message' => $message
-								)
-							)
-						);
-					} else {
-						$this->addNotification(
-							'notice',
-							$message
-						);
-					}
-				} else {
-					$message = __('An error occured while processing your request.');
-					if (! empty($_REQUEST['ajax'])) {
-						header("Content-Type: application/json; charset=UTF-8");
-						exit(
-							json_encode(
-								array(
-									'success' => false,
-									'message' => $message
-								)
-							)
-						);
-					} else {
+					if ($gid > 0 && empty($name)) {
 						$this->addNotification(
 							'error',
-							$message
+							__('The selected group does not exist')
 						);
-					}
-				}
-				$this->addStudentForm($gid, $did);
-			}else if(!empty($_REQUEST['addStudent'])){
-				$this->departmentSelector(true, $gid);
-			}else if(!empty($_REQUEST['addStudentForm'])){
-				if(!empty($dname)){
-					$this->addStudentForm($gid,$did);
-				}
-				else {
-					$this->addNotification(
-						'error',
-						__('The selected department does not exist')
-					);
-					$this->groupSelector(true);
-				}
-			} else if(!empty($_REQUEST['removingStudentFromGroup'])){
-				if ($this->removeStudentFromGroup($gid, $sid)){
-					$message = __('The student was successfully removed from the group.');
-					if (! empty($_REQUEST['ajax'])) {
-						header("Content-Type: application/json; charset=UTF-8");
-						exit(
-							json_encode(
-								array(
-									'success' => true,
-									'message' => $message
-								)
-							)
-						);
+						$this->groupSelector(true);
 					} else {
-						$this->addNotification(
-							'notice',
-							$message
-						);
+						$this->editGroupForm($gid, $name);
 					}
-				} else {
-					$message = __('An error occured while processing your request.');
-					if (! empty($_REQUEST['ajax'])) {
-						header("Content-Type: application/json; charset=UTF-8");
-						exit(
-							json_encode(
-								array(
-									'success' => false,
-									'message' => $message
+				}else if(! empty($_REQUEST['addingStudent'])){
+					if($this->addStudentToGroup($gid, $sid)){
+						$message = __('The student was successfully added to the group.');
+						if (! empty($_REQUEST['ajax'])) {
+							header("Content-Type: application/json; charset=UTF-8");
+							exit(
+								json_encode(
+									array(
+										'success' => true,
+										'message' => $message
+									)
 								)
-							)
-						);
+							);
+						} else {
+							$this->addNotification(
+								'notice',
+								$message
+							);
+						}
 					} else {
+						$message = __('An error occured while processing your request.');
+						if (! empty($_REQUEST['ajax'])) {
+							header("Content-Type: application/json; charset=UTF-8");
+							exit(
+								json_encode(
+									array(
+										'success' => false,
+										'message' => $message
+									)
+								)
+							);
+						} else {
+							$this->addNotification(
+								'error',
+								$message
+							);
+						}
+					}
+					$this->addStudentForm($gid, $did);
+				}else if(!empty($_REQUEST['addStudent'])){
+					$this->departmentSelector(true, $gid);
+				}else if(!empty($_REQUEST['addStudentForm'])){
+					if(!empty($dname)){
+						$this->addStudentForm($gid,$did);
+					}
+					else {
 						$this->addNotification(
 							'error',
-							$message
+							__('The selected department does not exist')
 						);
+						$this->groupSelector(true);
 					}
-				}
-				$this->removeStudentForm($gid, $did);
-			}
-			else if(!empty($_REQUEST['removeStudent']))
-			{
-				if(!empty($gname)) {
+				} else if(!empty($_REQUEST['removingStudentFromGroup'])){
+					if ($this->removeStudentFromGroup($gid, $sid)){
+						$message = __('The student was successfully removed from the group.');
+						if (! empty($_REQUEST['ajax'])) {
+							header("Content-Type: application/json; charset=UTF-8");
+							exit(
+								json_encode(
+									array(
+										'success' => true,
+										'message' => $message
+									)
+								)
+							);
+						} else {
+							$this->addNotification(
+								'notice',
+								$message
+							);
+						}
+					} else {
+						$message = __('An error occured while processing your request.');
+						if (! empty($_REQUEST['ajax'])) {
+							header("Content-Type: application/json; charset=UTF-8");
+							exit(
+								json_encode(
+									array(
+										'success' => false,
+										'message' => $message
+									)
+								)
+							);
+						} else {
+							$this->addNotification(
+								'error',
+								$message
+							);
+						}
+					}
 					$this->removeStudentForm($gid, $did);
 				}
-				else {
-					$this->addNotification(
-						'error',
-						__('The selected group does not exist.')
-					);
-				}
-			}
-			else if(!empty($_REQUEST['addLecturer'])) 
-			{
-				$this->departmentSelector(false, $gid);
-			}
-			else if(! empty($_REQUEST['addingLecturer']))
-			{
-				if($this->addLecturerToGroup($gid, $lid))
+				else if(!empty($_REQUEST['removeStudent']))
 				{
-					$message = __('The Lecturer was successfully added to teach group.');
-					if (! empty($_REQUEST['ajax'])) {
-						header("Content-Type: application/json; charset=UTF-8");
-						exit(
-							json_encode(
-								array(
-									'success' => true,
-									'message' => $message
-								)
-							)
-						);
-					} else {
-						$this->addNotification(
-							'notice',
-							$message
-						);
-
+					if(!empty($gname)) {
+						$this->removeStudentForm($gid, $did);
 					}
-				} else {
-					$message = __('An error occured while processing your request.');
-					if (! empty($_REQUEST['ajax'])) {
-						header("Content-Type: application/json; charset=UTF-8");
-						exit(
-							json_encode(
-								array(
-									'success' => false,
-									'message' => $message
-								)
-							)
-						);
-					} else {
+					else {
 						$this->addNotification(
 							'error',
-							$message
+							__('The selected group does not exist.')
 						);
-
 					}
 				}
-				$this->addLecturerForm($gid, $did);
-			}
-			else if(!empty($_REQUEST['removingLecturerFromGroup']))
-			{
-				if($this->removeLecturerFromGroup($gid, $lid)) {	
-					$message = __('The Lecturer was successfully removed from the group.');
-					if (! empty($_REQUEST['ajax'])) {
-						header("Content-Type: application/json; charset=UTF-8");
-						exit(
-							json_encode(
-								array(
-									'success' => true,
-									'message' => $message
-								)
-							)
-						);
-					} else {
-						$this->addNotification(
-							'notice',
-							$message
-						);
-
-					}
-				} else {
-					$message = __('An error occured while processing your request.');
-					if (! empty($_REQUEST['ajax'])) {
-						header("Content-Type: application/json; charset=UTF-8");
-						exit(
-							json_encode(
-								array(
-									'success' => false,
-									'message' => $message
-								)
-							)
-						);
-					} else {
-						$this->addNotification(
-							'error',
-							$message
-						);
-
-					}
+				else if(!empty($_REQUEST['addLecturer'])) 
+				{
+					$this->departmentSelector(false, $gid);
 				}
-				$this->removeLecturerForm($gid);
-			}
-			else if(!empty($_REQUEST['removeLecturer']))
-			{
-				if(!empty($gname)) {
+				else if(! empty($_REQUEST['addingLecturer']))
+				{
+					if($this->addLecturerToGroup($gid, $lid))
+					{
+						$message = __('The Lecturer was successfully added to teach group.');
+						if (! empty($_REQUEST['ajax'])) {
+							header("Content-Type: application/json; charset=UTF-8");
+							exit(
+								json_encode(
+									array(
+										'success' => true,
+										'message' => $message
+									)
+								)
+							);
+						} else {
+							$this->addNotification(
+								'notice',
+								$message
+							);
+
+						}
+					} else {
+						$message = __('An error occured while processing your request.');
+						if (! empty($_REQUEST['ajax'])) {
+							header("Content-Type: application/json; charset=UTF-8");
+							exit(
+								json_encode(
+									array(
+										'success' => false,
+										'message' => $message
+									)
+								)
+							);
+						} else {
+							$this->addNotification(
+								'error',
+								$message
+							);
+
+						}
+					}
+					$this->addLecturerForm($gid, $did);
+				}
+				else if(!empty($_REQUEST['removingLecturerFromGroup']))
+				{
+					if($this->removeLecturerFromGroup($gid, $lid)) {	
+						$message = __('The Lecturer was successfully removed from the group.');
+						if (! empty($_REQUEST['ajax'])) {
+							header("Content-Type: application/json; charset=UTF-8");
+							exit(
+								json_encode(
+									array(
+										'success' => true,
+										'message' => $message
+									)
+								)
+							);
+						} else {
+							$this->addNotification(
+								'notice',
+								$message
+							);
+
+						}
+					} else {
+						$message = __('An error occured while processing your request.');
+						if (! empty($_REQUEST['ajax'])) {
+							header("Content-Type: application/json; charset=UTF-8");
+							exit(
+								json_encode(
+									array(
+										'success' => false,
+										'message' => $message
+									)
+								)
+							);
+						} else {
+							$this->addNotification(
+								'error',
+								$message
+							);
+
+						}
+					}
 					$this->removeLecturerForm($gid);
 				}
-				else {
-					$this->addNotification(
-						'error',
-						__('The selected group does not exist.')
-					);
-				}
-			}
-			else if(!empty($_REQUEST['addLecturerForm'])) 
-			{
-				if(!empty($dname))
+				else if(!empty($_REQUEST['removeLecturer']))
 				{
-					$this->addLecturerForm($gid, $did);
+					if(!empty($gname)) {
+						$this->removeLecturerForm($gid);
+					}
+					else {
+						$this->addNotification(
+							'error',
+							__('The selected group does not exist.')
+						);
+					}
+				}
+				else if(!empty($_REQUEST['addLecturerForm'])) 
+				{
+					if(!empty($dname))
+					{
+						$this->addLecturerForm($gid, $did);
+					}
+					else 
+					{
+						$this->addNotification(
+							'error',
+							__('The selected department does not exist.')
+						);
+						$this->departmentSelector(false, $gid);
+					}
 				}
 				else 
 				{
-					$this->addNotification(
-						'error',
-						__('The selected department does not exist.')
-					);
-					$this->departmentSelector(false, $gid);
+					$this->displayGroupDetails($gid);
 				}
 			}
-			else 
+			else
 			{
-				$this->displayGroupDetails($gid);
+				$this->addNotification(
+						'error',
+						__('You are not a part of this group.')
+					);
+			$this->groupSelector(true);
 			}
 		}
 		else 
 		{
 			$this->addNotification(
 						'error',
-						__('The selected group does not exist!.')
+						__('Invalid group selected.')
 					);
 			$this->groupSelector(true);
 		}

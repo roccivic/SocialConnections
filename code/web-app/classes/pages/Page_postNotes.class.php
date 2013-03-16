@@ -24,31 +24,42 @@ class Page_postNotes extends Page_dropboxAuth {
 	public function display2($access_token, $gid, $config) 
 	{	
 		$_SESSION['gid'] = NULL;
-
-		if(isset($_FILES['dropboxFile']))
-		{ 
-			$tmp_name = $_FILES['dropboxFile']['tmp_name'];
-			$name = $_FILES['dropboxFile']['name'];
-			if($this->upload($tmp_name, $name, $config) && $this->uploadDropbox($gid, $name, $config, $access_token) && $this->rmvFile($config, $name) && $this->getLink($gid, $config, $access_token, $name))
-			{
-				$this->addNotification(
-							'notice',
-							__('The file was uploaded successfully.')
-						);
-			}
-			else
-			{
-				$this->addNotification(
-							'error',
-							__('An error occured while processing your request.')
-						);
-			}
-			$this->uploadForm($gid);
-			
-		}
-		else 
+		$uid = $_SESSION['uid'];
+		if($this->isLecturerInGroup($uid, $gid))
 		{
-			$this->uploadForm($gid);
+			if(isset($_FILES['dropboxFile']))
+			{ 
+				$tmp_name = $_FILES['dropboxFile']['tmp_name'];
+				$name = $_FILES['dropboxFile']['name'];
+				if($this->upload($tmp_name, $name, $config) && $this->uploadDropbox($gid, $name, $config, $access_token) && $this->rmvFile($config, $name) && $this->getLink($gid, $config, $access_token, $name))
+				{
+					$this->addNotification(
+								'notice',
+								__('The file was uploaded successfully.')
+							);
+				}
+				else
+				{
+					$this->addNotification(
+								'error',
+								__('An error occured while processing your request.')
+							);
+				}
+				$this->uploadForm($gid);
+				
+			}
+			else 
+			{
+				$this->uploadForm($gid);
+			}
+		}
+		else
+		{
+			$this->addNotification(
+								'error',
+								__('You are not a part of this group.')
+							);
+			$this->groupSelector();
 		}
 	}
 	/**

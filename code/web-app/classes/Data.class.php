@@ -188,6 +188,27 @@ class Data {
 		$stmt->close();
 		return $fname . ' ' . $lname;
 	}
+	/**
+	 * Checks if a lecturer belongs to a group
+	 *
+	 * @return string
+	 */
+	protected function isLecturerIngroup($lid, $gid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT COUNT(*)
+			FROM `moduleoffering_lecturer`
+			WHERE `moduleoffering_lecturer`.`lid` = ? AND `moduleoffering_lecturer`.`moid` IN
+			(SELECT `group`.`moid` FROM `group` WHERE `group`.`id`=?);"
+		);
+		$stmt->bind_param('ii', $lid, $gid);
+		$stmt->execute();
+		$stmt->bind_result($result);
+		$stmt->fetch();
+		$stmt->close();
+		return ! empty($result);
+	}
 }
 
 ?>

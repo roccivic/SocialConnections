@@ -20,39 +20,51 @@ class Page_takeAttendance extends Page_selectLecturerGroup {
 	 */
 	public function display($gid) 
 	{
-		$dbStudents = $this->getStudentsInGroup($gid);
-		$isLecture = ! empty($_REQUEST['isLecture']) ? 1 : 0;
-		$date = ! empty($_REQUEST['date']) ? $_REQUEST['date'] : date("Y-m-d");
-		$time = ! empty($_REQUEST['time']) ? $_REQUEST['time'] : date("H:i");
-		$students = array();
-		if (! empty($_REQUEST['students']) && is_array($_REQUEST['students'])) {
-			$students = $_REQUEST['students'];
-		}
+		$uid = $_SESSION['uid'];
+		if($this->isLecturerInGroup($uid, $gid))
+		{
+			$dbStudents = $this->getStudentsInGroup($gid);
+			$isLecture = ! empty($_REQUEST['isLecture']) ? 1 : 0;
+			$date = ! empty($_REQUEST['date']) ? $_REQUEST['date'] : date("Y-m-d");
+			$time = ! empty($_REQUEST['time']) ? $_REQUEST['time'] : date("H:i");
+			$students = array();
+			if (! empty($_REQUEST['students']) && is_array($_REQUEST['students'])) {
+				$students = $_REQUEST['students'];
+			}
 
-		if (! empty($_REQUEST['process'])) {
-			if ($this->validate($date, $time)) {
-				if ($this->save($gid, $date, $time, $students, $isLecture, $dbStudents)) {
-					$this->addNotification(
-						'notice',
-						__('Successfully saved the attendance data.')
-					);
-					$this->groupSelector();
+			if (! empty($_REQUEST['process'])) {
+				if ($this->validate($date, $time)) {
+					if ($this->save($gid, $date, $time, $students, $isLecture, $dbStudents)) {
+						$this->addNotification(
+							'notice',
+							__('Successfully saved the attendance data.')
+						);
+						$this->groupSelector();
+					} else {
+						$this->addNotification(
+							'error',
+							__('Database error: Could not save the data.')
+						);
+						$this->printForm($gid, $date, $time, $students, $dbStudents);
+					}
 				} else {
 					$this->addNotification(
 						'error',
-						__('Database error: Could not save the data.')
+						__('The values in the form were invalid. Please try again.')
 					);
 					$this->printForm($gid, $date, $time, $students, $dbStudents);
 				}
 			} else {
-				$this->addNotification(
-					'error',
-					__('The values in the form were invalid. Please try again.')
-				);
 				$this->printForm($gid, $date, $time, $students, $dbStudents);
 			}
-		} else {
-			$this->printForm($gid, $date, $time, $students, $dbStudents);
+		}
+		else
+		{
+			$this->addNotification(
+						'error',
+						__('You are not a part of this group.')
+					);
+			$this->groupSelector();
 		}
 	}
 	/**

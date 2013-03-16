@@ -1121,32 +1121,61 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 */
 	private function removeLecturerFromGroup($gid, $lid) 
 	{
-		$db = Db::getLink();
-		$db->query("SET AUTOCOMMIT=0");
-		$db->query("START TRANSACTION");
-		$stmt = $db->prepare(
-			"SELECT `moid` FROM `group` WHERE `id` = ?;"
-		);
-		$stmt->bind_param("i", $gid);
-		$success = $stmt->execute();
-		$stmt->bind_result($moid);
-		$stmt->fetch();
-		$stmt->close();
-		if($success){
+		$count = $this->LecturersCountIngroup($gid);
+		if($count > 1)
+		{
+			$db = Db::getLink();
+			$db->query("SET AUTOCOMMIT=0");
+			$db->query("START TRANSACTION");
 			$stmt = $db->prepare(
-			"DELETE FROM `moduleoffering_lecturer` WHERE `moid` = ? AND `lid` = ?;"
+				"SELECT `moid` FROM `group` WHERE `id` = ?;"
 			);
-			$stmt->bind_param('ii', $moid, $lid);
+			$stmt->bind_param("i", $gid);
 			$success = $stmt->execute();
+			$stmt->bind_result($moid);
 			$stmt->fetch();
 			$stmt->close();
+			if($success){
+				$stmt = $db->prepare(
+				"DELETE FROM `moduleoffering_lecturer` WHERE `moid` = ? AND `lid` = ?;"
+				);
+				$stmt->bind_param('ii', $moid, $lid);
+				$success = $stmt->execute();
+				$stmt->fetch();
+				$stmt->close();
+			}
+			if($success) {
+				$db->query("COMMIT");
+			}else {
+				$db->query("ROLLBACK");
+			}
 		}
-		if($success) {
-			$db->query("COMMIT");
-		}else {
-			$db->query("ROLLBACK");
+		else
+		{
+			$success = false;
 		}
 		return $success;
+	}
+	/**
+	 * Checks how many lecturers teach a group
+	 *
+	 * @return int
+	 */
+	protected function LecturersCountIngroup($gid)
+	{
+		$db = Db::getLink();
+		$stmt = $db->prepare(
+			"SELECT COUNT(*)
+			FROM `moduleoffering_lecturer`
+			WHERE `moduleoffering_lecturer`.`moid` IN
+			(SELECT `group`.`moid` FROM `group` WHERE `group`.`id`=?);"
+		);
+		$stmt->bind_param('i', $gid);
+		$stmt->execute();
+		$stmt->bind_result($result);
+		$stmt->fetch();
+		$stmt->close();
+		return intval($result);
 	}
 }
 ?>

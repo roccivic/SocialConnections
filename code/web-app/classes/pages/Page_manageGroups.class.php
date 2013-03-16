@@ -65,6 +65,7 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		if(!empty($gname) || !empty($_REQUEST['editForm'])) {
 			if($this->isLecturerInGroup($uid, $gid) || !empty($_REQUEST['editForm']) && $gid < 1)
 			{
+
 				if (! empty($_REQUEST['delete'])) 
 				{
 					$this->deleteGroup($gid);
@@ -382,11 +383,12 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$html .= __('Semester: ');
 			$html .= $details['term'];
 			$html .= '<br/><br/>';
+			$html .= '<div class="ui-grid-a my-breakpoint">';
+
+			$html .= '<div class="ui-block-a">';
 			$html .= '<a href="?action=manageGroups&editForm=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Edit').'</a>';
-			$html .= '<a href="?action=manageGroups&addStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Student').'</a>';
-			$html .= '<a href="?action=manageGroups&removeStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Student').'</a>';
-			$html .= '<a href="?action=manageGroups&addLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Lecturer').'</a>';
-			$html .= '<a href="?action=manageGroups&removeLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Lecturer').'</a>';
+			$html .= '</div>';
+			$html .= '<div class="ui-block-b">';
 			$html .= sprintf(
 				'<a class="delete" href="?action=manageGroups&delete=1&gid=%d" data-role="button" data-theme="b">%s</a>',
 				$gid,
@@ -395,6 +397,22 @@ class Page_manageGroups extends Page_selectLecturerGroup
 			$html .= '<span style="display: none">';
 			$html .= __('Are you sure you want to delete this group?');
 			$html .= '</span>';
+			$html .= '</div>';
+
+			$html .= '<div class="ui-block-a">';
+			$html .= '<a href="?action=manageGroups&addStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Student').'</a>';
+			$html .= '</div>';
+			$html .= '<div class="ui-block-b">';
+			$html .= '<a href="?action=manageGroups&removeStudent=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Student').'</a>';
+			$html .= '</div>';
+
+			$html .= '<div class="ui-block-a">';
+			$html .= '<a href="?action=manageGroups&addLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Add Lecturer').'</a>';
+			$html .= '</div>';
+			$html .= '<div class="ui-block-b">';
+			$html .= '<a href="?action=manageGroups&removeLecturer=1&gid='.$gid.'" data-role="button" data-theme="b">'.__('Remove Lecturer').'</a>';
+			$html .= '</div>';
+			$html .= '</div>';
 			$this->addHtml($html);
 		} else {
 			$this->addNotification(
@@ -461,8 +479,14 @@ class Page_manageGroups extends Page_selectLecturerGroup
 	 */
 
 	
-	private function editGroupForm($gid, $name)
+	private function editGroupForm($gid)
 	{
+		$details = $this->getGroupDetails($gid);
+		$module = ! empty($_REQUEST['module']) ? $_REQUEST['module'] : $details['mid'];
+		$name = ! empty($_REQUEST['name']) ? $_REQUEST['name'] : $details['gname'];
+		$year = ! empty($_REQUEST['year']) ? $_REQUEST['year'] : $details['year'];
+		$term = isset($_REQUEST['term']) ? $_REQUEST['term'] : $details['term'];
+
 		if($gid == 0) {
 			$html  = '<form method="post" action="?action=manageGroups">';
 			$html .= '<h3>' . __('Create Group') . '</h3>';
@@ -481,8 +505,6 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="module">' . __('Module') . ': </label>';
 		$html .= '<select id="module" name="module">';
-		$details = $this->getGroupDetails($gid);
-		$module = $details['mid'];
 		foreach($this->getModules() as $key => $value) {
 			$html .= '<option value="' . $key . '"';
 			if ($key == $module) {
@@ -493,12 +515,6 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '</select>';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
-		if(empty($details['year'])){
-			$year = date("Y");
-		}
-		else {
-			$year = $details['year'];
-		}
 		$html .= '<label for="year">' . __('Year') . ': </label>';
 		$html .= '<input type="text" name="year" id="year" ';
 		$html .= 'value="' . htmlspecialchars($year) . '" />';
@@ -507,13 +523,13 @@ class Page_manageGroups extends Page_selectLecturerGroup
 		$html .= '<fieldset data-role="controlgroup" data-type="horizontal">';
 		$html .= '<legend>'. __('Semester').':</legend>';
 		$html .= '<input name="term" id="first" value="1" type="radio"';
-		if($details['term'] == 1 || empty($details['term'])) {
+		if($term <= 1) {
 			$html .= 'checked="checked"';
 		}
 		$html .= '>';
 		$html .= '<label for="first">1</label>';
 		$html .= '<input name="term" id="second" value="2" type="radio"';
-		if($details['term'] == 2) {
+		if($term > 1) {
 			$html .= 'checked="checked"';
 		}
 		$html .= '>';

@@ -72,18 +72,7 @@ class Page_manageStudents extends Page_selectDepartment {
 		$cName = $this->getClassName($cid);
 		$details = $this->getStudentDetails($sid);
 		if(!empty($dName)) {
-			if(!empty($_REQUEST['listStudents'])) {
-				if(!empty($cName)){
-				$this->displayStudents($cid,$did);	
-				}
-				else {
-					$this->addNotification(
-						'error',
-						__('Invalid class selected')
-					);
-					$this->displayClasses($did);
-				}
-			}else if(!empty($_REQUEST['delete'])){
+			if(!empty($_REQUEST['delete'])){
 				if($this->deleteStudent($sid)){
 					$this->addNotification(
 						'notice',
@@ -154,6 +143,17 @@ class Page_manageStudents extends Page_selectDepartment {
 						$this->editForm($sid,$cid,$did);
 					}
 					
+				}
+			}else if(!empty($_REQUEST['listStudents'])) {
+				if(!empty($cName)){
+				$this->displayStudents($cid,$did);	
+				}
+				else {
+					$this->addNotification(
+						'error',
+						__('Invalid class selected')
+					);
+					$this->displayClasses($did);
 				}
 			}else {
 				$this->displayClasses($did);
@@ -408,6 +408,14 @@ class Page_manageStudents extends Page_selectDepartment {
 	private function editForm($sid, $cid, $did)
 	{
 		$details = $this->getStudentDetails($sid);
+
+		$fname = ! empty($_REQUEST['fname']) ? $_REQUEST['fname'] : $details['fname'];
+		$lname = ! empty($_REQUEST['lname']) ? $_REQUEST['lname'] : $details['lname'];
+		$username = ! empty($_REQUEST['username']) ? $_REQUEST['username'] : $details['username'];
+		$email = ! empty($_REQUEST['email']) ? $_REQUEST['email'] : $details['email'];
+		$hasGrant = ! empty($_REQUEST['hasGrant']) ? $_REQUEST['hasGrant'] : $details['hasGrant'];
+		$grantOwed = ! empty($_REQUEST['grantOwed']) ? $_REQUEST['grantOwed'] : $details['grantOwed'];
+
 		if($sid == 0) {
 			$html = '<form method="post" action="?action=manageStudents&listStudents=1&did=' . $did . '&cid=' . $cid . '">';
 			$html .= '<h3>' . __('Create Student') . '</h3>';
@@ -421,22 +429,22 @@ class Page_manageStudents extends Page_selectDepartment {
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="fname">' . __('First name') . ': </label>';
 		$html .= '<input type="text" name="fname" id="fname" ';
-		$html .= 'value="' . htmlspecialchars($details['fname']) . '" />';
+		$html .= 'value="' . htmlspecialchars($fname) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="lname">' . __('Last name') . ': </label>';
 		$html .= '<input type="text" name="lname" id="lname" ';
-		$html .= 'value="' . htmlspecialchars($details['lname']) . '" />';
+		$html .= 'value="' . htmlspecialchars($lname) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="username">' . __('Username') . ': </label>';
 		$html .= '<input type="text" name="username" id="username" ';
-		$html .= 'value="' . htmlspecialchars($details['username']) . '" />';
+		$html .= 'value="' . htmlspecialchars($username) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="email">' . __('E-mail') . ': </label>';
 		$html .= '<input type="text" name="email" id="email" ';
-		$html .= 'value="' . htmlspecialchars($details['email']) . '" />';
+		$html .= 'value="' . htmlspecialchars($email) . '" />';
 		$html .= '</div>';
 		if($sid < 1){
 			$html .= '<div data-role="fieldcontain">';
@@ -453,13 +461,13 @@ class Page_manageStudents extends Page_selectDepartment {
 		$html .= '<legend>' . __('Grant aided') . ': </legend>';
 		$html .= '<label for="hasGrant1">' . __('Yes') . '</label>';
 		$html .= '<input id="hasGrant1" type="radio" name="hasGrant" value="1" ';
-		if($details['hasGrant']) {
+		if($hasGrant) {
 			$html .= 'checked="checked"';
 		}
 		$html .= '/>';
 		$html .= '<label for="hasGrant0">' . __('No') . '</label>';
 		$html .= '<input id="hasGrant0" type="radio" name="hasGrant" value="0" ';
-		if(!$details['hasGrant'] || empty($details['hasGrant'])) {
+		if(! $hasGrant) {
 			$html .= 'checked="checked"';
 		}
 		$html .= '/>';
@@ -467,7 +475,7 @@ class Page_manageStudents extends Page_selectDepartment {
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="grantOwed">' . __('Grant amount') . ': </label>';
-		$html .= '<input type="text" name="grantOwed" id="grantOwed" value="'.$details['grantOwed'].'"" ';
+		$html .= '<input type="text" name="grantOwed" id="grantOwed" value="'.$grantOwed.'"" ';
 		$html .= '</div>';
 		$html .= '<input data-theme="b" type="submit" value="' . __('Save') . '" />';
 		$html .= '</form>';

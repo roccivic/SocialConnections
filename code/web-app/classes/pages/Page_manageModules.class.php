@@ -50,19 +50,7 @@ class Page_manageModules extends Page_selectDepartment {
 			
 		{	
 
-			if(!empty($_REQUEST['view'])) {
-					$mname = $this->getModuleName($mid);
-					if(empty($mname)){
-					$this->addNotification(
-							'error',
-							__('Invalid module selected')
-						);
-						$this->displayModules($did);
-					}else{
-							
-							$this->viewModule($did,$mid);
-					}
-			}else if(!empty($_REQUEST['create'])){
+			if(!empty($_REQUEST['create'])){
 					if($this->validateForm(true, $mid, $name, $crn, $credits)
 				 && $this->createModule($name, $crn, $credits, $did))
 					{
@@ -117,6 +105,18 @@ class Page_manageModules extends Page_selectDepartment {
 					$this->viewModule($did, $mid);
 				}
 				
+			} else if(!empty($_REQUEST['view'])) {
+				$mname = $this->getModuleName($mid);
+				if(empty($mname)){
+				$this->addNotification(
+						'error',
+						__('Invalid module selected')
+					);
+					$this->displayModules($did);
+				}else{
+						
+						$this->viewModule($did,$mid);
+				}
 			} else {
 				$this->displayModules($did);
 			}
@@ -308,6 +308,11 @@ class Page_manageModules extends Page_selectDepartment {
 	private function editModuleForm($did, $mid)
 	{
 		$mdetails = $this->getModuleDetails($did, $mid);
+
+		$name = ! empty($_REQUEST['name']) ? $_REQUEST['name'] : $mdetails['name'];
+		$credits = ! empty($_REQUEST['credits']) ? $_REQUEST['credits'] : $mdetails['credits'];
+		$crn = ! empty($_REQUEST['crn']) ? $_REQUEST['crn'] : $mdetails['crn'];
+
 		if($mid == 0) {
 			$html = '<form method="post" action="?action=manageModules&did=' . $did . '">';
 			$html .= '<h3>' . __('Create Module') . '</h3>';
@@ -320,17 +325,17 @@ class Page_manageModules extends Page_selectDepartment {
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="name">' . __('Name') . ': </label>';
 		$html .= '<input type="text" name="name" id="name" ';
-		$html .= 'value="' . htmlspecialchars($mdetails['name']) . '" />';
+		$html .= 'value="' . htmlspecialchars($name) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="crn">' . __('CRN') . ': </label>';
 		$html .= '<input type="text" name="crn" id="crn" ';
-		$html .= 'value="' . htmlspecialchars($mdetails['crn']) . '" />';
+		$html .= 'value="' . htmlspecialchars($crn) . '" />';
 		$html .= '</div>';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="credits">' . __('Credits') . ': </label>';
 		$html .= '<input type="text" name="credits" id="credits" ';
-		$html .= 'value="' . htmlspecialchars($mdetails['credits']) . '" />';
+		$html .= 'value="' . htmlspecialchars($credits) . '" />';
 		$html .= '</div>';	
 		$html .= '<input data-theme="b" type="submit" value="' . __('Save') . '" />';
 		$html .= '</form>';

@@ -207,7 +207,7 @@ class Page_postNotes extends Page_dropboxAuth {
 			$stmt->bind_result($sid);
 			while ($stmt->fetch()) 
 			{
-				$arr['id'] = $sid;
+				$arr[$sid] = $sid;
 			}
 			$stmt->close();
 		}

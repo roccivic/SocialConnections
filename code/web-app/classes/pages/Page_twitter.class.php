@@ -40,73 +40,85 @@ class Page_twitter extends Page_twitterAuth {
 		{
 			$username = $_REQUEST['username'];
 		}
+		$uid = $_SESSION['uid'];
 		if(!empty($gName))
 		{
-			if(!empty($_REQUEST['tweeting']))
+			if($this->isLecturerInGroup($uid, $gid))
 			{
-				if(strlen($tweet) > 0 && $this->tweet($gid, $connection, $tweet))
+				if(!empty($_REQUEST['tweeting']))
 				{
-					$this->addNotification(
-						'notice',
-						__('You have tweeted successfully!')
-					);
-					if(USER::isLecturer())
+					if(strlen($tweet) > 0 && $this->tweet($gid, $connection, $tweet))
 					{
-						$students = $this->customGetStudentsInGroup(false, $gid);
-						$lecturers = $this->getLecturersInGroup(true, $gid);
-						$this->saveStudentNotifications($students);
-						$this->saveLecturerNotifications($lecturers);
+						$this->addNotification(
+							'notice',
+							__('You have tweeted successfully!')
+						);
+						if(USER::isLecturer())
+						{
+							$students = $this->customGetStudentsInGroup(false, $gid);
+							$lecturers = $this->getLecturersInGroup(true, $gid);
+							$this->saveStudentNotifications($students);
+							$this->saveLecturerNotifications($lecturers);
+						}
+						else
+						{
+							$students = $this->customGetStudentsInGroup(true, $gid);
+							$lecturers = $this->getLecturersInGroup(false, $gid);
+							$this->saveStudentNotifications($students);
+							$this->saveLecturerNotifications($lecturers);
+						}
+						$this->displayMenu($gid);
 					}
 					else
 					{
-						$students = $this->customGetStudentsInGroup(true, $gid);
-						$lecturers = $this->getLecturersInGroup(false, $gid);
-						$this->saveStudentNotifications($students);
-						$this->saveLecturerNotifications($lecturers);
+						$this->addNotification(
+							'error',
+							__('An error occured while processing your request.')
+						);
+						$this->tweetForm($gid);
 					}
-					$this->displayMenu($gid);
 				}
-				else
+				else if(!empty($_REQUEST['replyTweet']))
 				{
-					$this->addNotification(
-						'error',
-						__('An error occured while processing your request.')
-					);
+					if(strlen($tweet) > 0 && $this->retweet($gid, $connection, $id, $tweet,$username))
+					{
+						$this->addNotification(
+							'notice',
+							__('You have replied successfully! Please refresh the page now.')
+						);	
+					}
+					else
+					{
+						$this->addNotification(
+							'error',
+							__('An error occured while processing your request.')
+						);
+					}
+					$this->displayTweetReplies($gid, $connection, $id);
+				}
+				else if(!empty($_REQUEST['viewReplies']))
+				{	
+					$this->displayTweetReplies($gid, $connection, $id);
+				}
+				else if(!empty($_REQUEST['viewTweets']))
+				{
+					$this->displayTweets($gid, $connection);
+				}
+				else if(!empty($_REQUEST['tweetForm']))
+				{
 					$this->tweetForm($gid);
 				}
-			}
-			else if(!empty($_REQUEST['replyTweet']))
-			{
-				if(strlen($tweet) > 0 && $this->retweet($gid, $connection, $id, $tweet,$username))
-				{
-					$this->addNotification(
-						'notice',
-						__('You have replied successfully! Please refresh the page now.')
-					);	
+				else{
+					$this->displayMenu($gid);
 				}
-				else
-				{
-					$this->addNotification(
+			}
+			else
+			{
+				$this->addNotification(
 						'error',
-						__('An error occured while processing your request.')
+						__('You are not a part of this group.')
 					);
-				}
-				$this->displayTweetReplies($gid, $connection, $id);
-			}
-			else if(!empty($_REQUEST['viewReplies']))
-			{	
-				$this->displayTweetReplies($gid, $connection, $id);
-			}
-			else if(!empty($_REQUEST['viewTweets']))
-			{
-				$this->displayTweets($gid, $connection);
-			}
-			else if(!empty($_REQUEST['tweetForm']))
-			{
-				$this->tweetForm($gid);
-			}
-			else{
-				$this->displayMenu($gid);
+			$this->groupSelector();
 			}
 		}
 		else

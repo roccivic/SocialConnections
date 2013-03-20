@@ -130,7 +130,7 @@ public class Activity_TakeAttendance extends CallbackActivity {
 		    		TextView status = (TextView) findViewById(R.id.status);
 		    		status.setText(R.string.take_attendance_hint2);
 					final LinearLayout rl = (LinearLayout) findViewById(R.id.faces);
-					for (int i = detectedFaces - numFaces; i<detectedFaces; i++) {
+					for (int i = detectedFaces; i<(detectedFaces + numFaces); i++) {
 						LinearLayout l = new LinearLayout(self);
 				        l.setOrientation(LinearLayout.HORIZONTAL);
 						l.setLayoutParams(
@@ -167,10 +167,11 @@ public class Activity_TakeAttendance extends CallbackActivity {
 						
 						rl.addView(l);
 					}
+					pictures++;
+					detectedFaces += numFaces;
 				}
 			});
-			pictures++;
-			detectedFaces += numFaces;
+			
     	}
     }
 	/**

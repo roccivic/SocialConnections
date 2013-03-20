@@ -32,6 +32,8 @@ var_dump($thresholdLabs);
 var_dump($thresholdOverall);
 function students(){
 	global $thresholdDetails;
+	global $thresholdOverall;
+		global $thresholdLabs;
 	$students = getStudents();
 	
 	foreach ($students as $value) {
@@ -46,7 +48,7 @@ function students(){
 				
 		$body .= __('Dear ').$value['fname'].__(' '). $value['lname']. __(', \n') ;
 		$body .= __('This is an automated e-mail regarding attendance \n');
-		$body .= __('The current threshold for overall attendance is : '). $thresholdDetails['overall'] .__('%\n');
+		$body .= __('The current threshold for overall attendance is : '). $thresholdOverall .__('%\n');
 		$body .=__('Your current overall attendance: ');
 		$body .= ($value['overall']*100). __('% \n \n');		
 		
@@ -61,6 +63,8 @@ function students(){
 }
 function headOfDepartments(){
 		global $thresholdDetails;
+		global $thresholdOverall;
+		global $thresholdLabs;
 
 	$attendance = deptOverallAttendance();
 	//var_dump($attendance);
@@ -73,10 +77,10 @@ function headOfDepartments(){
 			
 			$to = $deptDetails['email'];
 			$headers = __('From: postmaster@localhost');
-			if(($value['deptOverall']*100)<$thresholdDetails['overall']){
+			if(($value['deptOverall']*100)<$thresholdOverall){
 				
 				
-				if ((deptLabAttendance($value['did'])*100)>$thresholdDetails['labs']) {
+				if ((deptLabAttendance($value['did'])*100)>$thresholdLabs) {
 					$labsBelow = true;
 					//set to true if poor lab attendance in teh module
 				}
@@ -84,12 +88,12 @@ function headOfDepartments(){
 				$body .= __('Dear ').$deptDetails['fname'].' '. $deptDetails['lname']. __(', \n') ;
 				$body .= __('This is an automated e-mail regarding poor attendance in the ');
 				$body .= $deptDetails['name'].__(' department\n');
-				$body .= __('The current threshold for overall attendance is : '). $thresholdDetails['overall'] .__('%\n');
+				$body .= __('The current threshold for overall attendance is : '). $thresholdOverall .__('%\n');
 				$body .= __('The current overall attendance for your department is ');
 				$body .= ($value['overall']*100). __('% \n \n');
 				$subject .=__('Low overall attendance '); 
 				if($labsBelow){
-					$body .=__('The current threshold for labs is : '). $thresholdDetails['labs'] .__('%\n');
+					$body .=__('The current threshold for labs is : '). $thresholdLabs .__('%\n');
 					$body .=__('The current attendance for labs for your department is ');
 					$body .= (deptLabAttendance($value['did'])*100). __('% \n\n');
 					$subject .=__('and low lab attendance ');
@@ -101,11 +105,11 @@ function headOfDepartments(){
 	  			} else {
 	   				echo("<p>Message delivery failed for overall...</p>");
 	  			}
-			}elseif ((deptLabAttendance($value['did'])*100)<$thresholdDetails['labs']) {
+			}elseif ((deptLabAttendance($value['did'])*100)<$thresholdLabs) {
 				$body .= __('Dear ').$deptDetails['fname'].__(' '). $deptDetails['lname']. __(', \n') ;
 				$body .= __('This is an automated e-mail regarding poor attendance in the ');
 				$body .= $deptDetails['name'].__(' department\n');
-				$body .=__('The current threshold for labs is : '). $thresholdDetails['labs'] .__('%\n');
+				$body .=__('The current threshold for labs is : '). $$thresholdLabs .__('%\n');
 				$body .=__('The current attendance for labs for your department is ');
 				$body .= (deptLabAttendance($value['did'])*100). __('% \n\n');
 				 
@@ -178,7 +182,7 @@ function getStudentsDetails(){
 		$arr = array();
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT `overall` FROM `threshold` WHERE `id` = 0;"
+			"SELECT `overall` FROM `threshold`;"
 		);
 		$stmt->execute();
 		$stmt->bind_result($overall);
@@ -198,7 +202,7 @@ function getStudentsDetails(){
 		$arr = array();
 		$db = Db::getLink();
 		$stmt = $db->prepare(
-			"SELECT `labs` FROM `threshold` WHERE `id` = 0;"
+			"SELECT `labs` FROM `threshold`;"
 		);
 		$stmt->execute();
 		$stmt->bind_result($labs);

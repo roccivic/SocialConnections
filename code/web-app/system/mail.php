@@ -24,7 +24,7 @@ $debug = true;
 
 students();
 headOfDepartments();
-echo "here we are";
+
 
 $thresholdOverall = getOverallThreshold();
 $thresholdLabs = getOverallThreshold();
@@ -33,7 +33,7 @@ var_dump($thresholdOverall);
 function students(){
 	global $thresholdDetails;
 	global $thresholdOverall;
-		global $thresholdLabs;
+	global $thresholdLabs;
 	$students = getStudents();
 	
 	foreach ($students as $value) {
@@ -43,7 +43,7 @@ function students(){
 		$subject ='';
 		
 		$to = $value['email'];
-		$headers = __('From: postmaster@localhost');
+		$headers = __('From: noreply@socialconnections.com');
 
 				
 		$body .= __('Dear ').$value['fname'].__(' '). $value['lname']. __(', \n') ;
@@ -54,12 +54,8 @@ function students(){
 		
 		
 		$subject .=__('Weekly attendance notification');
-		 if (mymail($to,$subject,$body,$headers)) {
-				echo("<p>Message successfully sent about overall!</p>");
-			} else {
-				echo("<p>Message delivery failed for overall...</p>");
-			}
-	}
+		mymail($to,$subject,$body,$headers);
+	}	
 }
 function headOfDepartments(){
 		global $thresholdDetails;
@@ -100,11 +96,7 @@ function headOfDepartments(){
 				}
 				
 				$subject .=__(' in the ').$deptDetails['name'].__(' department\n');
-				 if (mymail($to,$subject,$body,$headers)) {
-	   				echo("<p>Message successfully sent about overall!</p>");
-	  			} else {
-	   				echo("<p>Message delivery failed for overall...</p>");
-	  			}
+				 mymail($to,$subject,$body,$headers);
 			}elseif ((deptLabAttendance($value['did'])*100)<$thresholdLabs) {
 				$body .= __('Dear ').$deptDetails['fname'].__(' '). $deptDetails['lname']. __(', \n') ;
 				$body .= __('This is an automated e-mail regarding poor attendance in the ');
@@ -114,11 +106,7 @@ function headOfDepartments(){
 				$body .= (deptLabAttendance($value['did'])*100). __('% \n\n');
 				 
 				$subject .=__('Low attendance for labs in the ').$deptDetails['name'].__(' department\n');
-				 if (mymail($to,$subject,$body,$headers)) {
-	   				echo("<p>Message successfully sent about labs!</p>");
-	  			} else {
-	   				echo("<p>Message delivery failed...labs</p>");
-	  			}
+				 mymail($to,$subject,$body,$headers);
 			}
 		
 		}

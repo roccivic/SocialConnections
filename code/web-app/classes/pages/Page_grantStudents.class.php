@@ -166,13 +166,26 @@ class Page_grantStudents extends Page_selectDepartment {
 		$grantDetails = $this->getGrantsStudent($sid);
 		$percent = $this->getAttendance($sid);
 		$payable = $percent*$grantDetails['grantOwed'];
+
+		$formattedAmount = number_format($payable, 2);
 		$html = '';
-		$html .= '<h3>' . $grantDetails['name']. '</h3>';
-		$html .=  __('Total grant: ') ;
-		$html .= $grantDetails['grantOwed'];
-		$html .= '<br/>';
+		$html  = '<ul data-role="listview" data-divider-theme="b" data-inset="true">';
+        $html .= '<li data-role="list-divider" role="heading">';
+		$html .=  $grantDetails['name'];
+		$html .= '</li>';
+
+		$html .= '<li>';
+        $html .= __('Total grant: ') ;
+        $html .= '<span class="ui-li-count">';
+        $html .= $grantDetails['grantOwed'];
+        $html .= '</span>';
+        $html .= '</li>';
+        $html .= '<li>';
 		$html .= __('Grant payable: ') ;
-		$html .= $payable ;
+		$html .= '<span class="ui-li-count">';
+		$html .= $formattedAmount;
+		$html .= '</span>';
+        $html .= '</li>';
 		
     	$this->addHtml($html);
 	}

@@ -9,7 +9,6 @@ if (empty($argv) || empty($argv[1])) {
 $path = $argv[1] . '/';
 
 // maintainance
-shell_exec("find {$path}face_cache -depth -empty -delete -type d");
 shell_exec("find {$path}face_cache -depth -mtime +1 -delete -type d");
 
 $ch = curl_init();

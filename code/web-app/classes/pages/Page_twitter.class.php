@@ -43,7 +43,29 @@ class Page_twitter extends Page_twitterAuth {
 		$uid = $_SESSION['uid'];
 		if(!empty($gName))
 		{
-			if($this->isLecturerInGroup($uid, $gid))
+			if(USER::isLecturer())
+			{
+				if($this->isLecturerInGroup($uid, $gid))
+				{
+					$success = true;
+				}
+				else
+				{
+					$success = false;
+				}
+			}
+			else if(USER::isStudent())
+			{
+				if($this->isStudentInGroup($uid, $gid))
+				{
+					$success = true;
+				}
+				else
+				{
+					$success = false;
+				}
+			}
+			if($success)
 			{
 				if(!empty($_REQUEST['tweeting']))
 				{

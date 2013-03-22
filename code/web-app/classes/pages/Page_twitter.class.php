@@ -116,11 +116,11 @@ class Page_twitter extends Page_twitterAuth {
 							__('An error occured while processing your request.')
 						);
 					}
-					$this->displayTweetReplies($gid, $connection, $id);
+					$this->displayTweetReplies($gid, $connection, $id, $username);
 				}
 				else if(!empty($_REQUEST['viewReplies']))
 				{	
-					$this->displayTweetReplies($gid, $connection, $id);
+					$this->displayTweetReplies($gid, $connection, $id, $username);
 				}
 				else if(!empty($_REQUEST['viewTweets']))
 				{
@@ -291,7 +291,7 @@ class Page_twitter extends Page_twitterAuth {
 	 *
 	 * @return void
 	 */
-	private function displayTweetReplies($gid, $connection, $id)
+	private function displayTweetReplies($gid, $connection, $id, $user)
 	{
 		$this->printListHeaderTweets();
 		$tweets = $this->getTweets($gid, $connection);
@@ -310,7 +310,7 @@ class Page_twitter extends Page_twitterAuth {
 		{
 			$this->addNotification('notice',__('No tweets to display'));
 		}
-		$html = '<form method="post" action="?action=twitter&gid=' . $gid . '&id=' . $id . '&viewReplies=1">';
+		$html = '<form method="post" action="?action=twitter&gid=' . $gid . '&id=' . $id . '&username='.$user.'&viewReplies=1">';
 		$html .= '<input name="replyTweet" value="1" type="hidden" />';
 		$html .= '<div data-role="fieldcontain">';
 		$html .= '<label for="userTweet">' . __('Enter Text') . ': </label>';

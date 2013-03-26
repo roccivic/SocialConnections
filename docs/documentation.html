@@ -4503,7 +4503,7 @@ All developers will need a working knowledge so issues can be dealt with immedia
 	</tr>
 	<tr>
     	<td colspan="1"><b>Purpose</b></td>
-    	<td colspan="3">View/edit poor attendance threshold</td>
+    	<td colspan="3">View grant students</td>
 	</tr>
 	<tr>
 		<td colspan="1"><b>Use Case</b></td>
@@ -5112,8 +5112,8 @@ All developers will need a working knowledge so issues can be dealt with immedia
     	<td></td>
 	</tr>
 	<tr>
-    	<td>User clicks "Delete" to delete the department</td>
-    	<td>A confirmation message is show where the user can confirm the deletion of a department/td>
+    	<td>User clicks "Delete" to delete the lecturer</td>
+    	<td>A confirmation message is show where the user can confirm the deletion of a lecturer/td>
     	<td>Pass</td>
     	<td></td>
 	</tr>
@@ -5618,10 +5618,736 @@ All developers will need a working knowledge so issues can be dealt with immedia
 
 <h1>&nbsp;</h1>
 
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">5</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">Post content from dropbox for a selected module</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">8</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>19/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	<tr>
+    	<td>Select "Dropbox" without an existing account on Dropbox</td>
+    	<td>Brought to Dropbox to create an account and requested to authorise an the app and returned to the app to choose a file</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Select "Dropbox" with an existing account that has not authorised the app</td>
+    	<td>User brought to Dropbox to authorise the app and returned to the app to choose a file </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Choose a file to upload for a selected module</td>
+    	<td>Success notification is shown to the user</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">6</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">Viewing/Posting to Twitter</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">9-10</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>19/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	</tr>
+	<tr>
+    	<td>Click on module that the user wants to view relevent tweets about</td>
+    	<td>All tweets relating to the selected module are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Post a tweet about a module</td>
+    	<td>A confirmation of the tweet being posted succesfully and all other relevant tweets are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Leave Twitter text field empty</td>
+    	<td>An error shown to the user</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">6</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">Viewing/replying to tweets on Twitter</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">9-10</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>19/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	</tr>
+	<tr>
+    	<td>Click on a tweet to view replies</td>
+    	<td>All reply tweets are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Post a reply tweet</td>
+    	<td>A confirmation of the tweet being posted succesfully and all reply tweets are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Leave Twitter reply text field empty</td>
+    	<td>An error shown to the user</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+</table>
+<h1>&nbsp;</h1>
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">6</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">View students excuses for missing a class</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">9-10</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>19/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	</tr>
+	<tr>
+    	<td>Click "View Student excuses"</td>
+    	<td>All excuses from any students enrolled in that module are shown from the last week</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+</table>
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">6</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">View attendance of any student</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">9-10</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>19/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	</tr>
+	<tr>
+    	<td>Select "View attendance of Other Student" for the "View Student attendance" menu</td>
+    	<td>A list of departments is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User selects a department</td>
+    	<td>A list of all students in that department is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User selects a student</td>
+    	<td>All attendance information is shown for that student</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">6</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">View attendance of a student the user is teaching</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">9-10</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>19/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	</tr>
+	<tr>
+    	<td>User selects a group from the "View Student attendance" menu</td>
+    	<td>A list of all students in that group is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User selects a student</td>
+    	<td>All attendance information is shown for that student</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">9</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">Create student</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">35</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>20/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	
+	<tr>
+    	<td>User selects "Manage students"</td>
+    	<td>A list of departments are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User selects "Create student" </td>
+    	<td>The user is shown a form to fill in</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters valid information in all the text fields </td>
+    	<td>A success notification and a view of all the lecturers are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters either a first or last name only  </td>
+    	<td>An error notification is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters either a first or last name over 32 characters  </td>
+    	<td>An error notification is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User does not enter a valid email address </td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters a password less than 6 characters </td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Users passwords do not match</td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Grant aided is selected but no amount given</td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Grant aided is not selected but an amount of money givengiven</td>
+    	<td>An error notification is shown </td>
+    	<td>Fail</td>
+    	<td>This input is accepted by the server and there is no value in the grant field. This error does not affect anything on the database but the user is not aware of this error</td>
+	</tr>
+		
+</table>
+<h1>&nbsp;</h1>
 
 
 
 
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">9</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">View student</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">34</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>20/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	
+	<tr>
+    	<td>User selects "Manage student"</td>
+    	<td>A list of departments are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User selects a student in that department</td>
+    	<td>Information about the selected student is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+		
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">10</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">Edit/Delete student</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">36-37</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>20/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	</tr>
+	<tr>
+    	<td>User selects "Edit" from the "View Student" screen</td>
+    	<td>An edit form is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters valid information in all the text fields </td>
+    	<td>A success notification and a view of all the students are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters either a first or last name only  </td>
+    	<td>An error notification is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters either a first or last name over 32 characters  </td>
+    	<td>An error notification is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User does not enter a valid email address </td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Grant aided is selected but no amount given</td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>Grant aided is not selected but an amount of money givengiven</td>
+    	<td>An error notification is shown </td>
+    	<td>Fail</td>
+    	<td>This input is accepted by the server and there is no value in the grant field. This error does not affect anything on the database but the user is not aware of this error</td>
+	</tr>
+	<tr>
+    	<td>User clicks "Delete" to delete the student</td>
+    	<td>A confirmation message is show where the user can confirm the deletion of a student/td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+	
+</table>
+<h1>&nbsp;</h1>
+
+
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">9</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">Create group</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">35</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>20/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	
+	<tr>
+    	<td>User selects "Manage Groups"</td>
+    	<td>A list of groups the user teaches are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User selects "Create Group" </td>
+    	<td>The user is shown a form to fill in</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters a valid information in all fields </td>
+    	<td>A success notification and a view of all the classes in that department are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+	<tr>
+    	<td>User does not enter a group name  </td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters a group name over 64 characters long </td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User does not enter anything in the "Year" text field</td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters letters in the "Year" text field</td>
+    	<td>An error notification is shown </td>
+    	<td>Fail</td>
+    	<td>An error notification should be displayed. None of the data will be stored on the database</td>
+	</tr>
+	
+		
+</table>
+<h1>&nbsp;</h1>
+
+
+
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">9</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">View group</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">42</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>20/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	</tr>
+	<tr>
+    	<td>User selects "Manage Group"</td>
+    	<td>A list of groups are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+	<tr>
+    	<td>User selects a group</td>
+    	<td>Information about the group is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+</table>
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">10</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">Edit/Delete groups</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">45</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>20/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	<tr>
+    	<td>User enters a valid information in all fields </td>
+    	<td>A success notification and a view of all the classes in that department are shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+	<tr>
+    	<td>User does not enter a group name  </td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters a group name over 64 characters long </td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User does not enter anything in the "Year" text field</td>
+    	<td>An error notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	<tr>
+    	<td>User enters letters in the "Year" text field</td>
+    	<td>An error notification is shown </td>
+    	<td>Fail</td>
+    	<td>An error notification should be displayed. None of the data will be stored on the database</td>
+	</tr>
+	<tr>
+    	<td>User clicks "Delete" to delete the group</td>
+    	<td>A confirmation message is show where the user can confirm the deletion of a group/td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+	
+</table>
+
+
+<h1>&nbsp;</h1>
+
+<table border="1" width="100%" cellpadding="4">
+	<tr>
+    	<td colspan="1"><b>Test</b></td>
+    	<td colspan="3">10</td>
+	</tr>
+	<tr>
+    	<td colspan="1"><b>Purpose</b></td>
+    	<td colspan="3">Take manual student attendance</td>
+	</tr>
+	<tr>
+		<td colspan="1"><b>Use Case</b></td>
+    	<td colspan="3">45</td>
+	</tr>
+	<tr>
+    	<td><b>Run Number</b></td>
+    	<td>1</td>
+    	<td><b>Date</b></td>
+    	<td>20/3/2013</td>
+	</tr>
+	
+	<tr>
+    	<td><b>Action Taken</b></td>
+    	<td><b>Expected Output</b></td>
+    	<td><b>Pass/Fail</b></td>
+    	<td><b>Fail Description</b></td>
+	</tr>
+	<tr>
+    	<td>User selects a group to take attendance for from the "Take student attendance" menu </td>
+    	<td>A form for the user to complete is shown</td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+	
+	<tr>
+    	<td>User completes the form  </td>
+    	<td>An success notification is shown </td>
+    	<td>Pass</td>
+    	<td></td>
+	</tr>
+		
+</table>
+
+
+<h1>&nbsp;</h1>
 
 <h1>Documentation</h1>
 <p>blah blah blah</p>
